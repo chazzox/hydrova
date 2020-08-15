@@ -65,5 +65,38 @@ body {
 				}
 			}
 		}
+		#signedOut {
+			height: calc(80vh - 200px);
+			width: calc(80vw - 20px);
+			max-width: 900px;
+			box-shadow: 27px 43px 92px -6px rgba(0, 0, 0, 0.75);
+			overflow: hidden;
+			box-sizing: border-box;
+			border-radius: 55px;
+			margin: auto;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			#signUp {
+				background-color: #3275e0;
+				padding: 15px;
+				height: 100%;
+				width: 30%;
+			}
+			#login {
+				background-color: #f7eaea;
+				padding: 15px;
+				height: 100%;
+				width: 70%;
+			}
+			#signUp,
+			#login {
+				p {
+					margin: 0;
+				}
+				display: inline-block;
+			}
+		}
 	}
 }

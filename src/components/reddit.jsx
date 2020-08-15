@@ -9,9 +9,11 @@ export default class Reddit extends React.Component {
 	}
 
 	componentDidMount() {
+		// once the component is rendered we will fetch the timeline (this means if we switch views then the feed will be auto refreshed)
 		this.getRedditFeed(this.props.userAuth);
 	}
 
+	// fetching the best timeline feed
 	getRedditFeed(oauthAccessToken) {
 		fetch('https://oauth.reddit.com/best', {
 			method: 'GET',
@@ -40,6 +42,7 @@ export default class Reddit extends React.Component {
 
 class RedditPost extends React.Component {
 	renderPost(postType) {
+		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
 		switch (postType) {
 			case 'image':
 				return <img src={this.props.post.url} alt="" />;
@@ -58,6 +61,7 @@ class RedditPost extends React.Component {
 
 	render() {
 		return (
+			// rendering a post
 			<div className="post">
 				<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 				<p className="postTitle">{this.props.post.title}</p>
