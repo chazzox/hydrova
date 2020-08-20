@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import App from './components/app';
+import App from './App';
+import store from './redux/store';
 import './index.scss';
 
 // connecting the .env files to the system
@@ -9,8 +11,10 @@ require('dotenv').config();
 
 // this is where everything is rendered from, don't put any dom elements here, only use it to wrap the site in navigation/store HOC's
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+	<Provider store={store}>
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	</Provider>,
 	document.getElementById('root')
 );

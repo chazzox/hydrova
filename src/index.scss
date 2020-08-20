@@ -8,95 +8,80 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #27282a;
-	#root {
-		#container {
-			width: 65%;
-			margin-left: auto;
-			margin-right: auto;
-			#navbar {
-				#navTitle {
-					color: #d20909;
-				}
-				#searchBar {
-					color: white;
-					background-color: #3d3e40;
-					padding: 5px 10px;
-					margin: auto 55px;
-					width: 30%;
-					border-radius: 15px;
-					border: none;
-					&:focus {
-						outline: none;
-					}
-				}
-				.navButton {
-					margin-left: 55px;
-					border: none;
-					background: none;
-					cursor: pointer;
-					padding: 0;
-					color: white;
-				}
-				#navTitle,
-				#navRight,
-				#searchBar {
-					display: inline-block;
+}
+
+.MODAL_OPEN_CLASS {
+	filter: blur(5px);
+}
+
+#root {
+	#container {
+		width: 65%;
+		margin-left: auto;
+		margin-right: auto;
+		#navbar {
+			#navTitle {
+				color: #d20909;
+			}
+			#searchBar {
+				color: white;
+				background-color: #3d3e40;
+				padding: 5px 10px;
+				margin: auto 55px;
+				width: 30%;
+				border-radius: 15px;
+				border: none;
+				&:focus {
+					outline: none;
 				}
 			}
-			#timeline {
-				.post {
-					color: white;
-					margin: 15px auto;
-					padding: 10px;
-					background-color: #363636;
-					border-radius: 7px;
-					.postContent {
-						white-space: pre-wrap;
-					}
-					.postInfo {
-						opacity: 0.5;
-					}
-					img {
-						width: 500px;
-					}
-					&:hover {
-						border: 1px solid white;
-					}
+			.navButton {
+				margin-left: 55px;
+				border: none;
+				background: none;
+				cursor: pointer;
+				padding: 0;
+				color: white;
+			}
+			#navTitle,
+			#navRight,
+			#searchBar {
+				display: inline-block;
+			}
+		}
+		#timeline {
+			.post {
+				color: white;
+				margin: 15px auto;
+				padding: 10px;
+				background-color: #363636;
+				border-radius: 7px;
+				.postContent {
+					white-space: pre-wrap;
+				}
+				.postInfo {
+					opacity: 0.5;
+				}
+				img {
+					width: 500px;
+				}
+				&:hover {
+					border: 1px solid white;
 				}
 			}
 		}
-		#signedOut {
-			height: calc(80vh - 200px);
-			width: calc(80vw - 20px);
-			max-width: 900px;
-			box-shadow: 27px 43px 92px -6px rgba(0, 0, 0, 0.75);
-			overflow: hidden;
-			box-sizing: border-box;
-			border-radius: 55px;
-			margin: auto;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			#signUp {
-				background-color: #3275e0;
-				padding: 15px;
-				height: 100%;
-				width: 30%;
-			}
-			#login {
-				background-color: #f7eaea;
-				padding: 15px;
-				height: 100%;
-				width: 70%;
-			}
-			#signUp,
-			#login {
-				p {
-					margin: 0;
-				}
-				display: inline-block;
-			}
+	}
+}
+
+#postModal {
+	#modalContainer {
+		height: 100%;
+		width: 100%;
+		position: fixed;
+		top: 0;
+		right: 0;
+		#postContent {
+			background-color: #ffffff;
 		}
 	}
 }

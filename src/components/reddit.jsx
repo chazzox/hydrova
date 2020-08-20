@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default class Reddit extends React.Component {
+import Post from './post';
+
+class Reddit extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,7 +17,7 @@ export default class Reddit extends React.Component {
 
 	// fetching the best timeline feed
 	getRedditFeed(oauthAccessToken) {
-		fetch('https://oauth.reddit.com/best', {
+		fetch('https://oauth.reddit.com/best?limit=100', {
 			method: 'GET',
 			headers: { Authorization: 'Bearer ' + oauthAccessToken },
 			redirect: 'manual'
@@ -33,7 +35,9 @@ export default class Reddit extends React.Component {
 				<div id="timeline">
 					{this.state.redditTimeline === []
 						? null
-						: this.state.redditTimeline.map((item, index) => <RedditPost post={item.data} key={index} />)}
+						: this.state.redditTimeline.map((item, index) => (
+								<RedditPost Bearer={this.props.userAuth} post={item.data} key={index} />
+						  ))}
 				</div>
 			</>
 		);
@@ -41,6 +45,12 @@ export default class Reddit extends React.Component {
 }
 
 class RedditPost extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { postOpened: false };
+	}
+
+	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
 	renderPost(postType) {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
 		switch (postType) {
@@ -51,7 +61,7 @@ class RedditPost extends React.Component {
 			case 'link':
 				return <p>this is a link, support will be added soon</p>;
 			case 'hosted:video':
-				return <p>this is a video, support will be added soon</p>;
+				return <>video</>;
 			case undefined:
 				return <p>uhhhhhhhhhhhhhhhhhh</p>;
 			default:
@@ -61,15 +71,21 @@ class RedditPost extends React.Component {
 
 	render() {
 		return (
-			// rendering a post
-			<div className="post">
-				<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
-				<p className="postTitle">{this.props.post.title}</p>
-				{this.renderPost(this.props.post.post_hint)}
-				<p className="postInfo">
-					{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
-				</p>
-			</div>
+			<>
+				<div className="post" onClick={() => this.setState({ postOpened: true })}>
+					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
+					<p className="postTitle">{this.props.post.title}</p>
+					{this.renderPost(this.props.post.post_hint)}
+					<p className="postInfo">
+						{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
+					</p>
+				</div>
+				{this.state.postOpened ? (
+					<Post close={() => this.setState({ postOpened: false })} postUrl={this.props.post.permalink} />
+				) : null}
+			</>
 		);
 	}
 }
+
+export default Reddit;
