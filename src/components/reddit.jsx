@@ -17,7 +17,7 @@ class Reddit extends React.Component {
 
 	// fetching the best timeline feed
 	getRedditFeed(oauthAccessToken) {
-		fetch('https://oauth.reddit.com/best?limit=100', {
+		fetch('https://oauth.reddit.com/best?limit=40', {
 			method: 'GET',
 			headers: { Authorization: 'Bearer ' + oauthAccessToken },
 			redirect: 'manual'
