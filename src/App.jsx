@@ -13,10 +13,8 @@ const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 class App extends React.Component {
 	componentDidMount() {
 		if (Cookies.getJSON('redditOauth') !== undefined) {
-			console.log('undefined ');
 			this.props.dispatch(refreshToken());
 		} else if (callbackRegex.test(document.location.href.split('?')[1])) {
-			console.log('i run this');
 			this.props.dispatch(generateToken());
 		} else {
 			console.log(Cookies.getJSON('redditOauth'));
@@ -30,7 +28,7 @@ class App extends React.Component {
 					this.props.isLoggedIn ? (
 						<div id="container">
 							<Navbar />
-							<Reddit userAuth={this.props.auth.access_token} />
+							<Reddit />
 						</div>
 					) : (
 						<Login />

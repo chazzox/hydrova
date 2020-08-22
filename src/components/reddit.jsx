@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Post from './post';
 
@@ -12,7 +13,7 @@ class Reddit extends React.Component {
 
 	componentDidMount() {
 		// once the component is rendered we will fetch the timeline (this means if we switch views then the feed will be auto refreshed)
-		this.getRedditFeed(this.props.userAuth);
+		this.getRedditFeed(this.props.auth.access_token);
 	}
 
 	// fetching the best timeline feed
@@ -63,7 +64,7 @@ class RedditPost extends React.Component {
 			case 'hosted:video':
 				return <>video</>;
 			case undefined:
-				return <p>uhhhhhhhhhhhhhhhhhh</p>;
+				return <p>this post type is currently confused</p>;
 			default:
 				break;
 		}
@@ -81,11 +82,17 @@ class RedditPost extends React.Component {
 					</p>
 				</div>
 				{this.state.postOpened ? (
-					<Post close={() => this.setState({ postOpened: false })} postUrl={this.props.post.permalink} />
+					<Post close={() => this.setState({ postOpened: false })} post={this.props.post} />
 				) : null}
 			</>
 		);
 	}
 }
 
-export default Reddit;
+const mapStateToProps = (state) => {
+	return {
+		auth: state.auth.auth
+	};
+};
+
+export default connect(mapStateToProps, null)(Reddit);
