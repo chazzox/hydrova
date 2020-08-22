@@ -9,7 +9,7 @@ export default class Modal extends React.Component {
 		this.el = document.createElement('span');
 		this.state = {
 			// this is where we're are putting the modal
-			popupRoute: document.getElementById(this.props.modalId),
+			popupRoute: document.getElementById('modal'),
 			// this element behind the thing we're wrapping it in
 			appRoute: document.getElementById('root')
 		};
@@ -19,6 +19,7 @@ export default class Modal extends React.Component {
 		this.state.appRoute.classList.add('MODAL_OPEN_CLASS');
 		this.state.popupRoute.appendChild(this.el);
 		this.el.classList.add('modalWrapper');
+		this.el.id = this.props.modalId;
 	}
 
 	componentWillUnmount() {

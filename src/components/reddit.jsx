@@ -52,22 +52,34 @@ class RedditPost extends React.Component {
 	}
 
 	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
-	renderPost(postType) {
+	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		switch (postType) {
-			case 'image':
-				return <img src={this.props.post.url} alt="" />;
-			case 'self':
-				return <p className="postContent">{this.props.post.selftext}</p>;
-			case 'link':
-				return <p>this is a link, support will be added soon</p>;
-			case 'hosted:video':
-				return <>video</>;
-			case undefined:
-				return <p>this post type is currently confused</p>;
-			default:
-				break;
+
+		if (this.props.post.is_self) return <p className="postContent">{this.props.post.selftext}</p>;
+		else if (this.props.post.is_video) return <>video</>;
+		else {
+			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
+			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
+			else {
+				console.log(this.props.post.gallery_data);
+				return <p>this is a reddit collage</p>;
+			}
 		}
+		// switch (postType) {
+		// 	case 'image':
+		// 		return <img src={this.props.post.url} alt="" />;
+		// 	case this.props.post.is_self:
+		// 		return <p className="postContent">{this.props.post.selftext}</p>;
+		// 	case 'link':
+		// 		return <p>this is a link, support will be added soon</p>;
+		// 	case 'hosted:video':
+		// 		return <>video</>;
+		// 	case undefined :
+		// 		console.log(this.props.post);
+		// 		return <p>this post type is currently confused</p>;
+		// 	default:
+		// 		break;
+		// }
 	}
 
 	render() {
@@ -76,7 +88,7 @@ class RedditPost extends React.Component {
 				<div className="post" onClick={() => this.setState({ postOpened: true })}>
 					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 					<p className="postTitle">{this.props.post.title}</p>
-					{this.renderPost(this.props.post.post_hint)}
+					{this.renderPost()}
 					<p className="postInfo">
 						{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
 					</p>

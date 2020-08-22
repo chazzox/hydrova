@@ -6,7 +6,7 @@ import Modal from '../utils/modal';
 class Post extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { commentData: [] };
+		this.state = { commentData: [], postData: {} };
 		this.wrapperRef = React.createRef();
 		this.setWrapperRef = this.setWrapperRef.bind(this);
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -32,11 +32,18 @@ class Post extends React.Component {
 	}
 
 	getComments(oauthAccessToken) {
-		fetch('https://oauth.reddit.com/' + this.props.post.subreddit_name_prefixed + '/comments/' + this.props.post.id, {
-			method: 'GET',
-			headers: { Authorization: 'Bearer ' + oauthAccessToken },
-			redirect: 'manual'
-		})
+		fetch(
+			'https://oauth.reddit.com/' +
+				this.props.post.subreddit_name_prefixed +
+				'/comments/' +
+				this.props.post.id +
+				'?limit=1',
+			{
+				method: 'GET',
+				headers: { Authorization: 'Bearer ' + oauthAccessToken },
+				redirect: 'manual'
+			}
+		)
 			.then((response) => response.text())
 			.then((text) => JSON.parse(text))
 			.then((json) => this.setState({ commentData: json[1].data.children, postData: json[0].data.children[0].data }))
@@ -45,17 +52,15 @@ class Post extends React.Component {
 	}
 
 	render() {
+		console.log(this.state.postData);
 		return (
 			<Modal modalId="postModal">
-				<div id="modalContainer">
-					<div id="post" ref={this.wrapperRef}>
-						<div className="postDetails">{console.log(this.state.postData)}</div>
-						<p>{this.props.post.permalink}</p>
-						<div className="commentContainer">
-							{this.state.commentData.map((parentComment, index) => (
-								<Comment comment={parentComment} key={index} />
-							))}
-						</div>
+				<div id="post" ref={this.wrapperRef}>
+					<p>{this.props.post.permalink}</p>
+					<div className="commentContainer">
+						{this.state.commentData.map((parentComment, index) => (
+							<Comment comment={parentComment} key={index} />
+						))}
 					</div>
 				</div>
 			</Modal>
