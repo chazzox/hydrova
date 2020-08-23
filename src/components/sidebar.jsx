@@ -42,7 +42,6 @@ class Sidebar extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.userInfo);
 		return (
 			<>
 				<div id="sidebar">

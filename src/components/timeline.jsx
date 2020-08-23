@@ -19,15 +19,17 @@ class Reddit extends React.Component {
 	}
 
 	// fetching the best timeline feed
-	getRedditFeed(oauthAccessToken) {
-		fetch('https://oauth.reddit.com/best?limit=40', {
+	getRedditFeed(oauthAccessToken, fullname) {
+		fetch('https://oauth.reddit.com/best?limit=5&after=' + fullname, {
 			method: 'GET',
 			headers: { Authorization: 'Bearer ' + oauthAccessToken },
 			redirect: 'manual'
 		})
 			.then((response) => response.text())
+			.then((text) => JSON.parse(text))
 			.then((json) => {
-				this.setState({ redditTimeline: JSON.parse(json).data.children });
+				this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
+				if (this.state.redditTimeline.length < 50) this.getRedditFeed(this.props.auth.access_token, json.data.after);
 			})
 			.catch((error) => console.log('error', error));
 	}
