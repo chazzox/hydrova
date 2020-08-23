@@ -23,7 +23,7 @@ class Login extends React.Component {
 							// these values will change based on the build currently used
 							// we do this because the api secret is callback dependent, meaning that we need two different web app secrets to work with dev and production builds
 							process.env.REACT_APP_CALLBACK_URL +
-							'&duration=permanent&scope=read,identity'
+							'&duration=permanent&scope=read,identity,save'
 						}
 					>
 						login to reddit

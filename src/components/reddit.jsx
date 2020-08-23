@@ -54,32 +54,17 @@ class RedditPost extends React.Component {
 	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-
 		if (this.props.post.is_self) return <p className="postContent">{this.props.post.selftext}</p>;
 		else if (this.props.post.is_video) return <>video</>;
 		else {
 			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
 			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
 			else {
+				console.log(this.props.post);
 				console.log(this.props.post.gallery_data);
 				return <p>this is a reddit collage</p>;
 			}
 		}
-		// switch (postType) {
-		// 	case 'image':
-		// 		return <img src={this.props.post.url} alt="" />;
-		// 	case this.props.post.is_self:
-		// 		return <p className="postContent">{this.props.post.selftext}</p>;
-		// 	case 'link':
-		// 		return <p>this is a link, support will be added soon</p>;
-		// 	case 'hosted:video':
-		// 		return <>video</>;
-		// 	case undefined :
-		// 		console.log(this.props.post);
-		// 		return <p>this post type is currently confused</p>;
-		// 	default:
-		// 		break;
-		// }
 	}
 
 	render() {
