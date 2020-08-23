@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../styles/signedOut.scss';
+import '../styles/login.scss';
 
 class Login extends React.Component {
 	render() {

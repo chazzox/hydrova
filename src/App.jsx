@@ -6,7 +6,7 @@ import { refreshToken, generateToken, loggedOut } from './redux/store';
 
 import Navbar from './components/navbar';
 import Login from './components/login';
-import Reddit from './components/reddit';
+import Reddit from './components/timeline';
 
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 

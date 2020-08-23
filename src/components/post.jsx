@@ -4,6 +4,8 @@ import copy from 'copy-to-clipboard';
 
 import Modal from '../utils/modal';
 
+import '../styles/post.scss';
+
 class Post extends React.Component {
 	constructor(props) {
 		super(props);

@@ -10,10 +10,6 @@ body {
 	background-color: #27282a;
 }
 
-.MODAL_OPEN_CLASS {
-	filter: blur(5px);
-}
-
 #root {
 	#container {
 		width: 65%;
@@ -68,30 +64,6 @@ body {
 				&:hover {
 					border: 1px solid white;
 				}
-			}
-		}
-	}
-}
-
-#modal {
-	#postModalContainer {
-		height: 100vh;
-		width: 100vw;
-		position: fixed;
-		top: 0;
-		right: 0;
-		z-index: 1;
-		#postModal {
-			P {
-				overflow-wrap: anywhere;
-			}
-			background-color: #ffffff;
-			width: 50%;
-			margin: auto;
-			margin-top: 30%;
-			#commentContainer {
-				max-height: 200px;
-				overflow: overlay;
 			}
 		}
 	}
