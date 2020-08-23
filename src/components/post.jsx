@@ -90,13 +90,16 @@ class Post extends React.Component {
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
 		if (this.props.post.is_self) return <p className="postContent">{this.props.post.selftext}</p>;
-		else if (this.props.post.is_video) return <>video</>;
-		else {
+		else if (this.props.post.is_video) {
+			return (
+				<video controls={true}>
+					<source src={this.props.post.media.reddit_video.fallback_url} type="video/mp4" />
+				</video>
+			);
+		} else {
 			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
 			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
 			else {
-				// console.log(this.props.post);
-				// console.log(this.props.post.gallery_data);
 				return <p>this is a reddit collage</p>;
 			}
 		}
