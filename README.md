@@ -1,2 +1,2 @@
-# betterReddit
-reddit but it good
+# Hydrova
+High Performance Reddit Client

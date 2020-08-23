@@ -4,14 +4,15 @@ import Cookies from 'js-cookie';
 
 import { refreshToken, generateToken, loggedOut } from './redux/store';
 
-import Navbar from './components/navbar';
+import Sidebar from './components/sidebar';
 import Login from './components/login';
-import Reddit from './components/timeline';
+import Timeline from './components/timeline';
 
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 
 class App extends React.Component {
 	componentDidMount() {
+		document.getElementById('html').classList = 'lightMode'
 		if (Cookies.getJSON('redditOauth') !== undefined) {
 			this.props.dispatch(refreshToken());
 		} else if (callbackRegex.test(document.location.href.split('?')[1])) {
@@ -26,10 +27,12 @@ class App extends React.Component {
 			<>
 				{this.props.isLoaded ? (
 					this.props.isLoggedIn ? (
-						<div id="container">
-							<Navbar />
-							<Reddit />
-						</div>
+						<>
+							<Sidebar />
+							<div id='contentContainer'>
+								<Timeline />
+							</div>
+						</>
 					) : (
 						<Login />
 					)
