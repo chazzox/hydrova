@@ -1,32 +1,32 @@
 html {
-    --small-border-radius: 10px;
-    --big-border-radius: 24px;
+	--small-border-radius: 10px;
+	--big-border-radius: 24px;
 
-    --accent-color: rgb(88, 94, 254);
+	--accent-color: rgb(88, 94, 254);
 
-    --dark-txt-col: white;
-    --dark-txt-col-secondary: rgba(255,255,255,.66);
-    --light-txt-col: black;
-    --light-txt-col-secondary: rgba(0,0,0,.66);
+	--dark-txt-col: white;
+	--dark-txt-col-secondary: rgba(255, 255, 255, 0.66);
+	--light-txt-col: black;
+	--light-txt-col-secondary: rgba(0, 0, 0, 0.66);
 
-    &.lightMode {
-        --page-color: rgb(225, 225, 230);
-        --background-color: rgb(34, 34, 40);
-        --border-color: rgba(0,0,0,0);
-        --accent-background-color: rgb(57, 57, 62);
+	&.lightMode {
+		--page-color: rgb(225, 225, 230);
+		--background-color: rgb(34, 34, 40);
+		--border-color: rgba(0, 0, 0, 0);
+		--accent-background-color: rgb(57, 57, 62);
 
-        --text-color-primary: black;
-        --text-color-secondary: rgba(0,0,0,.66);
-        --text-color-button: white;
-    }
-    &.darkMode {
-        --page-color: rgb(51, 54, 64);
-        --background-color: rgb(34, 34, 40);
-        --border-color: rgba(58, 58, 58,1);
-        --accent-background-color: rgb(57, 57, 62);
+		--text-color-primary: black;
+		--text-color-secondary: rgba(0, 0, 0, 0.66);
+		--text-color-button: white;
+	}
+	&.darkMode {
+		--page-color: rgb(51, 54, 64);
+		--background-color: rgb(34, 34, 40);
+		--border-color: rgba(58, 58, 58, 1);
+		--accent-background-color: rgb(57, 57, 62);
 
-        --text-color-primary: white;
-        --text-color-secondary: rgba(255, 255, 255, 0.66);
-        --text-color-button: white;
-    }
+		--text-color-primary: white;
+		--text-color-secondary: rgba(255, 255, 255, 0.66);
+		--text-color-button: white;
+	}
 }
