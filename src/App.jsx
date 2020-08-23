@@ -11,6 +11,7 @@ import Timeline from './components/timeline';
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 
 class App extends React.Component {
+	// detecting if user is logged in
 	componentDidMount() {
 		document.getElementById('html').classList = 'darkMode';
 		if (Cookies.getJSON('redditOauth') !== undefined) {
@@ -42,6 +43,7 @@ class App extends React.Component {
 	}
 }
 
+// function to connect the component to the global data store (you'll see this a lot)
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
@@ -50,4 +52,5 @@ const mapStateToProps = (state) => {
 	};
 };
 
+// actually connect the component using the function
 export default connect(mapStateToProps, null)(App);

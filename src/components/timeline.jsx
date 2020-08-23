@@ -62,10 +62,12 @@ class Reddit extends React.Component {
 	}
 
 	calcScroll() {
+		// calculating scroll percentage
 		const rootScroll = document.getElementById('root').scrollTop;
 		const rootHeight = document.getElementById('root').clientHeight;
 		const heightThing = document.getElementById('timeline').clientHeight;
 		const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
+		// loading new posts if bottom of page is reached
 		if (scrollPercent === 100 && this.state.initialLoad && !this.state.scrollReached) {
 			this.setState({ scrollReached: true });
 			this.getBatches(this.props.auth.access_token, this.state.afterId, 15);
@@ -83,6 +85,7 @@ class Reddit extends React.Component {
 						: this.state.redditTimeline.map((item, index) => (
 								<RedditPost Bearer={this.props.userAuth} post={item.data} key={index} />
 						  ))}
+					{/* you can maybe put a spacer div here and have some sort of loading element to tell the user that more posts are coming */}
 				</div>
 			</>
 		);
@@ -109,8 +112,6 @@ class RedditPost extends React.Component {
 			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
 			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
 			else {
-				// console.log(this.props.post);
-				// console.log(this.props.post.gallery_data);
 				return <p>this is a reddit collage</p>;
 			}
 		}

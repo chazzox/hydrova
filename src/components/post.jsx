@@ -16,15 +16,16 @@ class Post extends React.Component {
 		this.handleClickOutside = this.handleClickOutside.bind(this);
 	}
 
+	// not sure what this function does, its a classic stack overflow copy paste
 	setWrapperRef(node) {
 		this.wrapperRef = node;
 	}
 
+	// adding/removing the event listener needed for modal functionality, also loading the comments when the post is clicked
 	componentDidMount() {
 		document.addEventListener('mousedown', this.handleClickOutside);
 		this.getComments(this.props.auth.access_token);
 	}
-
 	componentWillUnmount() {
 		document.removeEventListener('mousedown', this.handleClickOutside);
 	}
@@ -50,6 +51,7 @@ class Post extends React.Component {
 		)
 			.then((response) => response.text())
 			.then((text) => JSON.parse(text))
+			// settings the comment data to the component state
 			.then((json) => this.setState({ commentData: json[1].data.children }))
 
 			.catch((error) => console.log('error', error));
@@ -60,7 +62,6 @@ class Post extends React.Component {
 	}
 
 	// the fetch function for save/unsave will be merged into a singular one
-
 	savePost(oauthAccessToken) {
 		fetch('https://oauth.reddit.com/api/save?id=t3_' + this.props.post.id, {
 			method: 'POST',
@@ -73,7 +74,6 @@ class Post extends React.Component {
 			})
 			.catch((error) => console.log('error', error));
 	}
-
 	unSavePost(oauthAccessToken) {
 		fetch('https://oauth.reddit.com/api/unsave?id=t3_' + this.props.post.id, {
 			method: 'POST',
@@ -103,7 +103,6 @@ class Post extends React.Component {
 	}
 
 	render() {
-		// probably not them best way to organize the dom elements, feel free to change
 		return (
 			<Modal modalId="postModalContainer">
 				<div id="postModal" ref={this.wrapperRef}>
