@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Logo from '../assets/logo.svg';
+
+import searchIcon from '../assets/sidebar/search.svg';
+import homeIcon from '../assets/sidebar/home.svg';
+import allIcon from '../assets/sidebar/award.svg';
+import newIcon from '../assets/sidebar/new.svg';
+import mailIcon from '../assets/sidebar/mail.svg';
+import settingsIcon from '../assets/sidebar/settings.svg';
+
 import '../styles/sidebar.scss';
 
 class Sidebar extends React.Component {
@@ -50,15 +58,18 @@ class Sidebar extends React.Component {
 					<h1 href="" id="navTitle">
 						Hydrova
 					</h1>
-					<input type="text" id="searchBar" placeholder="search" />
-					<div id="navRight">
-						<button className="navButton">New Post</button>
-						<button className="navButton">Mail</button>
-						<div id="userDetails">
+					<input className="navButton" type="text" id="searchBar" placeholder="Search.." style={{ backgroundImage: `url(${searchIcon})` }}/>
+					<button className="navButton selected" style={{ backgroundImage: `url(${homeIcon})` }}>Timeline</button>
+					<button className="navButton" style={{ backgroundImage: `url(${allIcon})` }}>All</button>
+					<button className="navButton" style={{ backgroundImage: `url(${newIcon})` }}>New Post</button>
+					<button className="navButton" style={{ backgroundImage: `url(${mailIcon})` }}>Mail</button>
+					<button className="navButton" style={{ backgroundImage: `url(${settingsIcon})` }}>Settings</button>
+					<div id="userDetails">
+						<div id="userText">
 							<p id="userName">{this.state.userInfo.name}</p>
 							<p id="userKarma">{this.state.userInfo.total_karma}</p>
-							<div id="profileImage" style={{ backgroundImage: `url(${this.getProfileImageUrl()})` }} />
 						</div>
+						<div id="profileImage" style={{ backgroundImage: `url(${this.getProfileImageUrl()})` }} />
 					</div>
 				</div>
 			</>
