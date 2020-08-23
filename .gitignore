@@ -12,8 +12,11 @@
 /build
 .env.production
 
-# misc
+# code editor configs
+.prettierrc
 /.vscode
+
+# misc
 .DS_Store
 .env.local
 .env.development.local
