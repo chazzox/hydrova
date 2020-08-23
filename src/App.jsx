@@ -12,7 +12,7 @@ const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 
 class App extends React.Component {
 	componentDidMount() {
-		document.getElementById('html').classList = 'lightMode';
+		document.getElementById('html').classList = 'darkMode';
 		if (Cookies.getJSON('redditOauth') !== undefined) {
 			this.props.dispatch(refreshToken());
 		} else if (callbackRegex.test(document.location.href.split('?')[1])) {

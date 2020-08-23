@@ -103,8 +103,8 @@ class Post extends React.Component {
 	}
 
 	render() {
+		// probably not them best way to organize the dom elements, feel free to change
 		return (
-			// probably not them best way to organize the dom elements, feel free to change
 			<Modal modalId="postModalContainer">
 				<div id="postModal" ref={this.wrapperRef}>
 					<div className="post" onClick={() => this.setState({ postOpened: true })}>
