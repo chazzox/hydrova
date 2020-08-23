@@ -1,0 +1,26 @@
+#contentContainer {
+        position: relative;
+        width: calc(100vw - 360px);
+        height: 100vh;
+        margin-left: 360px;
+        
+        #timeline {
+            width: calc(100% - 20px);
+            max-width: 1400px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            .post {
+                color: white;
+                margin: 15px 0;
+                padding: 10px;
+                background-color: #363636;
+                .postContent {
+                    white-space: pre-wrap;
+                }
+                img {
+                    width: 500px;
+                }
+            }
+        }
+}
