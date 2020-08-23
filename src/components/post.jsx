@@ -41,7 +41,7 @@ class Post extends React.Component {
 				this.props.post.subreddit_name_prefixed +
 				'/comments/' +
 				this.props.post.id +
-				'?limit=1',
+				'?limit=5',
 			{
 				method: 'GET',
 				headers: { Authorization: 'Bearer ' + oauthAccessToken },
@@ -87,12 +87,34 @@ class Post extends React.Component {
 			.catch((error) => console.log('error', error));
 	}
 
+	renderPost() {
+		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
+		if (this.props.post.is_self) return <p className="postContent">{this.props.post.selftext}</p>;
+		else if (this.props.post.is_video) return <>video</>;
+		else {
+			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
+			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
+			else {
+				// console.log(this.props.post);
+				// console.log(this.props.post.gallery_data);
+				return <p>this is a reddit collage</p>;
+			}
+		}
+	}
+
 	render() {
 		return (
 			// probably not them best way to organize the dom elements, feel free to change
 			<Modal modalId="postModalContainer">
 				<div id="postModal" ref={this.wrapperRef}>
-					<p>{this.props.post.permalink}</p>
+					<div className="post" onClick={() => this.setState({ postOpened: true })}>
+						<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
+						<p className="postTitle">{this.props.post.title}</p>
+						{this.renderPost()}
+						<p className="postInfo">
+							{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
+						</p>
+					</div>
 
 					<div id="commentContainer">
 						{this.state.commentData.map((parentComment, index) => (

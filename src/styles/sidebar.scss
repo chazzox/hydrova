@@ -3,8 +3,8 @@
     border-radius: var(--big-border-radius);
     color: var(--dark-txt-col);
     
-    padding: 25px;
     margin: auto;
+    padding: var(--sidebar-padding);
     
 	position: fixed;
 	top: 10px;
@@ -20,13 +20,100 @@
     
     box-shadow: 0 12px 30px 4px rgba(0, 0, 0, 0.26);
 
+    #logo {
+        width: 45px;
+        vertical-align: middle;
+    }
+    #navTitle {
+        padding-left: 8px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin: 0;
+        font-size: 16pt;
+        display: inline-block;
+    }
+    .navButton {
+
+        &:first-of-type {
+            margin-top: 30px;
+        }
+
+        &.selected {
+            background: var(--accent-color);
+        }
+
+        &#searchBar {
+            background: var(--accent-background-color);
+            &::placeholder {
+                color: var(--dark-txt-col-secondary);
+            }
+        }
+
+        background-repeat: no-repeat !important;
+        background-size: 24px !important;
+        background-position-y: center !important;
+        background-position-x: 20px !important;
+
+        outline: none !important;
+        background: none;
+        border: none;
+
+        color: var(--dark-txt-col);
+        font-size: 12pt;
+        text-align: left;
+
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        padding-left: 60px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        border-radius: var(--small-border-radius);
+
+        display: block;
+        width: 100%;
+    }
+
     #userDetails {
         position: absolute;
-        bottom: 10px;
+        bottom: 60px;
+        left: calc(var(--sidebar-padding) + 8px);
+        width: 100%;
+
+        #userText {
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+            left: 75px;
+
+            width: calc(100% - 180px);
+            overflow: hidden;
+            * {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #userName {
+                font-weight: 600;
+            }
+            #userKarma {
+                color: var(--dark-txt-col-secondary);
+                &::after {
+                    content: " Karma"
+                }
+            }
+        }
 
         #profileImage {
-            width: 80px;
-            height: 80px;
+            border: 2px solid var(--dark-txt-col-secondary);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            width: 60px;
+            height: 60px;
             border-radius: var(--small-border-radius);
             background-size: cover;
             background-position: center;
