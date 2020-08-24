@@ -1,15 +1,20 @@
-#postModal {
-	background-color: #ffffff;
-	width: calc(100% - 20px);
-	max-width: 1400px;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	#commentContainer {
-		max-height: 200px;
-		overflow: overlay;
+.post {
+	color: white;
+	margin: 15px 0;
+	padding: 10px;
+	background-color: #363636;
+	.postContent {
+		white-space: pre-wrap;
 	}
-	P {
-		overflow-wrap: anywhere;
+	img {
+		height: 300px;
 	}
+}
+
+.commentContainer {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	width: 100%;
+	background-color: #363636;
+	color: white;
 }

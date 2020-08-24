@@ -80,7 +80,7 @@ class Reddit extends React.Component {
 	render() {
 		return (
 			<>
-				<div id="timeline">
+				<div className="contentInnerContainer" id="timeline">
 					{this.state.redditTimeline === []
 						? null
 						: this.state.redditTimeline.map((item, index) => (

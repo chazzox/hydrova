@@ -1,11 +1,12 @@
 #contentContainer {
+	overflow-x: hidden;
 	position: relative;
 	width: calc(100vw - 320px);
+	max-width: calc(100vw - 320px);
 	height: 100vh;
 	margin-left: 320px;
 
 	#timeline {
-		width: calc(100% - 20px);
 		max-width: 1400px;
 		position: absolute;
 		left: 50%;

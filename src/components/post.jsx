@@ -9,10 +9,12 @@ import { Link } from 'react-router-dom';
 class Post extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log(props.likes);
 		this.state = {
 			commentData: [],
 			postSaved: false,
-			postData: this.props.location.state !== undefined ? { ...this.props.location.state.post } : {}
+			postData: this.props.location.state !== undefined ? { ...this.props.location.state.post } : {},
+			voteDirection: 0
 		};
 		this.saveButtonPress = this.saveButtonPress.bind(this);
 	}
@@ -92,29 +94,29 @@ class Post extends React.Component {
 
 	render() {
 		return (
-			<>
-				<Link to="/">back</Link>
+			<div className="contentInnerContainer">
 				<div className="post" onClick={() => this.setState({ postOpened: true })}>
+					<Link to="/">back</Link>
 					<p>updoots: {this.state.postData.ups + this.state.postData.downs}</p>
 					<p className="postTitle">{this.state.postData.title}</p>
 					{this.renderPost()}
 					<p className="postInfo">
 						{this.state.postData['subreddit_name_prefixed']} | u/{this.state.postData.author}
 					</p>
+					<div id="data">
+						<button onClick={() => copy('https://www.reddit.com' + this.state.postData.permalink)}>
+							share (copy to clip board)
+						</button>
+						<button onClick={this.saveButtonPress}>{this.state.postSaved ? 'unsave' : 'save'}</button>
+						<p>comments: {this.state.postData.num_comments}</p>
+					</div>
 				</div>
-				<div id="data">
-					<button onClick={() => copy('https://www.reddit.com' + this.state.postData.permalink)}>
-						share (copy to clip board)
-					</button>
-					<button onClick={this.saveButtonPress}>{this.state.postSaved ? 'unsave' : 'save'}</button>
-					<p>comments: {this.state.postData.num_comments}</p>
-				</div>
-				<div id="commentContainer">
+				<div className="commentContainer">
 					{this.state.commentData.map((parentComment, index) => (
 						<Comment comment={parentComment} key={index} />
 					))}
 				</div>
-			</>
+			</div>
 		);
 	}
 }
