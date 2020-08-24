@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import '../styles/post.scss';
+import { Link } from 'react-router-dom';
 
 class Post extends React.Component {
 	constructor(props) {
@@ -91,7 +92,8 @@ class Post extends React.Component {
 
 	render() {
 		return (
-			<div id="postModal" ref={this.wrapperRef}>
+			<>
+				<Link to="/">back</Link>
 				<div className="post" onClick={() => this.setState({ postOpened: true })}>
 					<p>updoots: {this.state.postData.ups + this.state.postData.downs}</p>
 					<p className="postTitle">{this.state.postData.title}</p>
@@ -112,7 +114,7 @@ class Post extends React.Component {
 						<Comment comment={parentComment} key={index} />
 					))}
 				</div>
-			</div>
+			</>
 		);
 	}
 }

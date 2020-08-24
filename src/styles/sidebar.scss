@@ -4,70 +4,94 @@
     color: var(--dark-txt-col);
     
     margin: auto;
-    padding: var(--sidebar-padding);
+    padding: 16px var(--sidebar-padding);
     
 	position: fixed;
-	top: 10px;
-    left: 10px;
+	top: 20px;
+    left: 20px;
 
     box-sizing: border-box;
-    height: calc(100vh - 20px);
-    width: 350px;
+    height: calc(100vh - 40px);
+    width: 300px;
 
 	border-width: 1px;
 	border-color: var(--border-color);
     border-style: solid;
     
-    box-shadow: 0 12px 30px 4px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 12px 20px 4px rgba(0, 0, 0, 0.26);
+
+    a {
+        margin: 0;
+        text-decoration: none;
+    }
 
     #logo {
-        width: 45px;
+        margin-left: 5px;
+        width: 38px;
         vertical-align: middle;
     }
     #navTitle {
-        padding-left: 8px;
-        font-weight: 500;
+        padding-left: 16px;
+        font-weight: 600;
         vertical-align: middle;
         margin: 0;
-        font-size: 16pt;
+        font-size: 13pt;
         display: inline-block;
     }
     .navButton {
 
-        &:first-of-type {
-            margin-top: 30px;
-        }
-
         &.selected {
             background: var(--accent-color);
+
+            &:hover {
+                background: white;
+                color: var(--light-txt-col);
+            }
+        }
+
+        &:hover {
+            background: var(--accent-background-color);
         }
 
         &#searchBar {
+            font-weight: 400;
+            margin-top: 20px;
+            margin-bottom: 52px;
             background: var(--accent-background-color);
             &::placeholder {
                 color: var(--dark-txt-col-secondary);
             }
         }
 
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
         background-repeat: no-repeat !important;
-        background-size: 24px !important;
+        background-size: 17px !important;
         background-position-y: center !important;
-        background-position-x: 20px !important;
+        background-position-x: 15px !important;
 
         outline: none !important;
         background: none;
         border: none;
 
         color: var(--dark-txt-col);
-        font-size: 12pt;
+        font-size: 11pt;
+        font-weight: 600;
         text-align: left;
 
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 6px;
+        margin-bottom: 6px;
 
-        padding-left: 60px;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 13px;
+        padding-bottom: 13px;
+        padding-right: 15px;
+        padding-left: 15px;
+        
+        &.hasIcon {
+            padding-left: 46px;
+        }
 
         border-radius: var(--small-border-radius);
 
@@ -75,7 +99,18 @@
         width: 100%;
     }
 
+    h3 {
+        margin-left: 5px;
+        margin-top: 40px;
+        text-transform: uppercase;
+        color: var(--dark-txt-col-secondary);
+        font-size: 10pt;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
     #userDetails {
+        font-size: 11pt;
         position: absolute;
         bottom: 60px;
         left: calc(var(--sidebar-padding) + 8px);
@@ -85,9 +120,10 @@
             position: absolute;
             transform: translateY(-50%);
             top: 50%;
-            left: 75px;
+            left: 65px;
+            line-height: 11pt;
 
-            width: calc(100% - 180px);
+            width: calc(100% - 175px);
             overflow: hidden;
             * {
                 overflow: hidden;
@@ -111,9 +147,9 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 0;
-            width: 60px;
-            height: 60px;
+            left: -5px;
+            width: 52px;
+            height: 52px;
             border-radius: var(--small-border-radius);
             background-size: cover;
             background-position: center;

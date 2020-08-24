@@ -22,7 +22,7 @@ class Reddit extends React.Component {
 		document.getElementById('root').addEventListener('scroll', this.calcScroll, false);
 	}
 
-	componentDidUnMount() {
+	componentWillUnmount() {
 		document.getElementById('root').removeEventListener('scroll', this.calcScroll, false);
 	}
 
@@ -115,7 +115,7 @@ class RedditPost extends React.Component {
 
 	render() {
 		return (
-			<Link to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
+			<Link id={this.props.post.id} to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
 				<div className="post">
 					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 					<p className="postTitle">{this.props.post.title}</p>
