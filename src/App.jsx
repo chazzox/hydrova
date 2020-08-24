@@ -10,7 +10,7 @@ import Login from './components/login';
 import Timeline from './components/timeline';
 import Post from './components/post';
 
-const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
+const callbackRegex = /^state=([\w-]*)&code=([\w-]*)#\/$/;
 
 class App extends React.Component {
 	// detecting if user is logged in

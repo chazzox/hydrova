@@ -1,14 +1,14 @@
 import React from 'react';
 
 import '../styles/login.scss';
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/logo.svg';
 
 class Login extends React.Component {
 	render() {
 		return (
 			<div id="loginBox">
-				<img src={Logo} id='logo' alt=""/>
-			
+				<img src={Logo} id="logo" alt="" />
+
 				<div id="loginInfo">
 					<h1>Hydrova</h1>
 					<h2>High Performance Reddit Client</h2>
@@ -28,10 +28,8 @@ class Login extends React.Component {
 				>
 					<div id="signIn">Sign In</div>
 				</a>
-				<a href='https://www.reddit.com/register'>
-					<div id="signUp">
-						Sign Up
-					</div>
+				<a href="https://www.reddit.com/register">
+					<div id="signUp">Sign Up</div>
 				</a>
 			</div>
 		);
