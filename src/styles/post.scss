@@ -1,27 +1,15 @@
-.MODAL_OPEN_CLASS {
-	filter: blur(5px);
-}
-
-#modal {
-	#postModalContainer {
-		height: 100vh;
-		width: 100vw;
-		position: fixed;
-		top: 0;
-		right: 0;
-		z-index: 1;
-		#postModal {
-			P {
-				overflow-wrap: anywhere;
-			}
-			background-color: #ffffff;
-			width: 50%;
-			margin: auto;
-			margin-top: 30%;
-			#commentContainer {
-				max-height: 200px;
-				overflow: overlay;
-			}
-		}
+#postModal {
+	background-color: #ffffff;
+	width: calc(100% - 20px);
+	max-width: 1400px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	#commentContainer {
+		max-height: 200px;
+		overflow: overlay;
+	}
+	P {
+		overflow-wrap: anywhere;
 	}
 }

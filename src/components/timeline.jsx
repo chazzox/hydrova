@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import Post from './post';
+import { Link } from 'react-router-dom';
 
 import '../styles/timeline.scss';
 
@@ -20,11 +19,11 @@ class Reddit extends React.Component {
 	componentDidMount() {
 		// once the component is rendered we will fetch the timeline (this means if we switch views then the feed will be auto refreshed)
 		this.getInitialFeed(this.props.auth.access_token);
-		document.getElementById('root').addEventListener('scroll', this.calcScroll);
+		document.getElementById('root').addEventListener('scroll', this.calcScroll, false);
 	}
 
 	componentDidUnMount() {
-		document.getElementById('root').removeEventListener('scroll', this.calcScroll);
+		document.getElementById('root').removeEventListener('scroll', this.calcScroll, false);
 	}
 
 	getInitialFeed(oauthAccessToken, afterId) {
@@ -62,24 +61,26 @@ class Reddit extends React.Component {
 	}
 
 	calcScroll() {
-		// calculating scroll percentage
-		const rootScroll = document.getElementById('root').scrollTop;
-		const rootHeight = document.getElementById('root').clientHeight;
-		const heightThing = document.getElementById('timeline').clientHeight;
-		const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
-		// loading new posts if bottom of page is reached
-		if (scrollPercent === 100 && this.state.initialLoad && !this.state.scrollReached) {
-			this.setState({ scrollReached: true });
-			this.getBatches(this.props.auth.access_token, this.state.afterId, 15);
-		} else if (this.state.initialLoad && scrollPercent < 100) {
-			this.setState({ scrollReached: false });
+		// jank solution, but fixed bug, this function needs to be rewritten at some point and more research is needed
+		if (document.getElementById('timeline') !== null) {
+			const rootScroll = document.getElementById('root').scrollTop;
+			const rootHeight = document.getElementById('root').clientHeight;
+			const heightThing = document.getElementById('timeline').clientHeight;
+			const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
+			// loading new posts if bottom of page is reached
+			if (scrollPercent === 100 && this.state.initialLoad && !this.state.scrollReached) {
+				this.setState({ scrollReached: true });
+				this.getBatches(this.props.auth.access_token, this.state.afterId, 15);
+			} else if (this.state.initialLoad && scrollPercent < 100) {
+				this.setState({ scrollReached: false });
+			}
 		}
 	}
 
 	render() {
 		return (
 			<>
-				<div id="timeline" onWheel={this.calcScroll}>
+				<div id="timeline">
 					{this.state.redditTimeline === []
 						? null
 						: this.state.redditTimeline.map((item, index) => (
@@ -93,11 +94,6 @@ class Reddit extends React.Component {
 }
 
 class RedditPost extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { postOpened: false };
-	}
-
 	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
@@ -119,19 +115,18 @@ class RedditPost extends React.Component {
 
 	render() {
 		return (
-			<>
-				<div className="post" onClick={() => this.setState({ postOpened: true })}>
+			<Link to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
+				<div className="post">
 					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 					<p className="postTitle">{this.props.post.title}</p>
 					{this.renderPost()}
 					<p className="postInfo">
 						{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
+						<br />
+						comments: {this.props.post.num_comments}
 					</p>
 				</div>
-				{this.state.postOpened ? (
-					<Post close={() => this.setState({ postOpened: false })} post={this.props.post} />
-				) : null}
-			</>
+			</Link>
 		);
 	}
 }

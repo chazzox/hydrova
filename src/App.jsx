@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import { refreshToken, generateToken, loggedOut } from './redux/store';
@@ -7,6 +8,7 @@ import { refreshToken, generateToken, loggedOut } from './redux/store';
 import Sidebar from './components/sidebar';
 import Login from './components/login';
 import Timeline from './components/timeline';
+import Post from './components/post';
 
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)$/;
 
@@ -31,7 +33,10 @@ class App extends React.Component {
 						<>
 							<Sidebar />
 							<div id="contentContainer">
-								<Timeline />
+								<Switch>
+									<Route path="/post/:permalink" render={(props) => <Post {...props} />} />
+									<Route path="/" render={() => <Timeline />} />
+								</Switch>
 							</div>
 						</>
 					) : (
