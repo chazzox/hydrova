@@ -5,15 +5,15 @@ import Cookies from 'js-cookie';
 
 import { refreshToken, generateToken, loggedOut } from './redux/store';
 
-import Timeline from './views/components/timeline';
+import Timeline from './components/timeline';
 import Subreddit from './components/subreddit';
 import Settings from './components/settings';
-import Sidebar from './views/components/sidebar';
+import Sidebar from './components/sidebar';
 import Submit from './components/submit';
 import Login from './components/login';
 import User from './components/user';
 import Post from './components/post';
-import Mail from './views/mail';
+import Mail from './components/mail';
 
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)#\/$/;
 
