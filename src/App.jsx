@@ -5,15 +5,15 @@ import Cookies from 'js-cookie';
 
 import { refreshToken, generateToken, loggedOut } from './redux/store';
 
-import Timeline from './components/timeline';
-import Subreddit from './components/subreddit';
-import Settings from './components/settings';
 import Sidebar from './components/sidebar';
-import Submit from './components/submit';
-import Login from './components/login';
-import User from './components/user';
-import Post from './components/post';
-import Mail from './components/mail';
+import Subreddit from './views/subreddit';
+import Settings from './views/settings';
+import Submit from './views/submit';
+import Login from './views/login';
+import Home from './views/home';
+import User from './views/user';
+import Post from './views/post';
+import Mail from './views/mail';
 
 const callbackRegex = /^state=([\w-]*)&code=([\w-]*)#\/$/;
 
@@ -39,13 +39,13 @@ class App extends React.Component {
 							<Sidebar />
 							<div id="contentContainer">
 								<Switch>
-									<Route path="/post/:permalink" render={(props) => <Post {...props} />} />
 									<Route path="/r/:subreddit" render={(props) => <Subreddit {...props} />} />
+									<Route path="/post/:permalink" render={(props) => <Post {...props} />} />
 									<Route path="/u/:user" render={(props) => <User {...props} />} />
-									<Route path="/settings" render={(props) => <Settings {...props} />} />
-									<Route path="/submit" render={(props) => <Submit {...props} />} />
-									<Route path="/mail" render={(props) => <Mail {...props} />} />
-									<Route path="/" render={(props) => <Timeline {...props} sort="best" />} />
+									<Route path="/settings" render={() => <Settings />} />
+									<Route path="/submit" render={() => <Submit />} />
+									<Route path="/mail" render={() => <Mail />} />
+									<Route path="/" render={() => <Home />} />
 								</Switch>
 							</div>
 						</>

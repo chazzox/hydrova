@@ -85,8 +85,8 @@ export const generateToken = () => async (dispatch) => {
 		.then((text) => JSON.parse(text))
 		.then((json) => {
 			if (json.error === undefined) {
-                Cookies.set('redditOauth', json, { sameSite: 'Lax', expires: 365 });
-                window.location.replace(document.location.pathname);
+				Cookies.set('redditOauth', json, { sameSite: 'Lax', expires: 365 });
+				window.location.replace(document.location.pathname);
 				dispatch(loginSuccess(json));
 			} else {
 				dispatch(loginFailure());

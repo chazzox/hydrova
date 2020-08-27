@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import '../styles/timeline.scss';
 
-class Reddit extends React.Component {
+class Listing extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,62 +16,50 @@ class Reddit extends React.Component {
 		this.calcScroll = this.calcScroll.bind(this);
 	}
 
+	test(json) {
+		this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
+		if (this.state.redditTimeline.length < 50)
+			this.getBatches(this.props.auth.access_token, json.data.after, 15, (json) => this.test(json));
+		else this.setState({ afterId: json.data.after, initialLoad: true });
+	}
+
 	componentDidMount() {
-		// once the component is rendered we will fetch the timeline (this means if we switch views then the feed will be auto refreshed)
-		this.getInitialFeed(this.props.auth.access_token);
-		document.getElementById('root').addEventListener('scroll', this.calcScroll, false);
+		this.getBatches(this.props.auth.access_token, '', 5, (json) => this.test(json));
+		document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
 	}
 
 	componentWillUnmount() {
-		document.getElementById('root').removeEventListener('scroll', this.calcScroll, false);
+		document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
 	}
 
-	getInitialFeed(oauthAccessToken, afterId) {
-		fetch('https://oauth.reddit.com/best?limit=5&after=' + afterId, {
+	getBatches(oauthAccessToken, afterId, batchCount, updateFunction) {
+		fetch('https://oauth.reddit.com/' + this.props.path + '/?limit=' + batchCount + '&after=' + afterId, {
 			method: 'GET',
 			headers: { Authorization: 'Bearer ' + oauthAccessToken },
 			redirect: 'manual'
 		})
 			.then((response) => response.text())
 			.then((text) => JSON.parse(text))
-			.then((json) => {
-				this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
-				if (this.state.redditTimeline.length < 50)
-					this.getInitialFeed(this.props.auth.access_token, json.data.after);
-				else this.setState({ afterId: json.data.after, initialLoad: true });
-			})
-			.catch((error) => console.log('error', error));
-	}
-
-	getBatches(oauthAccessToken, afterId, batchCount) {
-		fetch('https://oauth.reddit.com/best?limit=' + batchCount + '&after=' + afterId, {
-			method: 'GET',
-			headers: { Authorization: 'Bearer ' + oauthAccessToken },
-			redirect: 'manual'
-		})
-			.then((response) => response.text())
-			.then((text) => JSON.parse(text))
-			.then((json) => {
-				this.setState({
-					redditTimeline: this.state.redditTimeline.concat(json.data.children),
-					afterId: json.data.after
-				});
-			})
+			.then(updateFunction)
 			.catch((error) => console.log('error', error));
 	}
 
 	calcScroll() {
-		// jank solution, but fixed bug, this function needs to be rewritten at some point and more research is needed
-		if (document.getElementById('timeline') !== null) {
-			const rootScroll = document.getElementById('root').scrollTop;
-			const rootHeight = document.getElementById('root').clientHeight;
+		if (document.getElementById('contentContainer') !== null) {
+			const rootScroll = document.getElementById('contentContainer').scrollTop;
+			const rootHeight = document.getElementById('contentContainer').clientHeight;
 			const heightThing = document.getElementById('timeline').clientHeight;
 			const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
 			// loading new posts if bottom of page is reached
-			if (scrollPercent === 100 && this.state.initialLoad && !this.state.scrollReached) {
+			if (scrollPercent === 85 && this.state.initialLoad && !this.state.scrollReached) {
 				this.setState({ scrollReached: true });
-				this.getBatches(this.props.auth.access_token, this.state.afterId, 15);
-			} else if (this.state.initialLoad && scrollPercent < 100) {
+				this.getBatches(this.props.auth.access_token, this.state.afterId, 15, (json) => {
+					this.setState({
+						redditTimeline: this.state.redditTimeline.concat(json.data.children),
+						afterId: json.data.after
+					});
+				});
+			} else if (this.state.initialLoad && scrollPercent < 85) {
 				this.setState({ scrollReached: false });
 			}
 		}
@@ -86,7 +74,6 @@ class Reddit extends React.Component {
 						: this.state.redditTimeline.map((item, index) => (
 								<RedditPost Bearer={this.props.userAuth} post={item.data} key={index} />
 						  ))}
-					{/* you can maybe put a spacer div here and have some sort of loading element to tell the user that more posts are coming */}
 				</div>
 			</>
 		);
@@ -137,4 +124,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null)(Reddit);
+export default connect(mapStateToProps, null)(Listing);

@@ -1,57 +1,70 @@
 import React from 'react';
-import copy from 'copy-to-clipboard';
+import ReactCommonmark from 'react-commonmark';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import copy from 'copy-to-clipboard';
 import _ from 'lodash';
 
 import '../styles/post.scss';
-import { Link } from 'react-router-dom';
 
 class Post extends React.Component {
 	constructor(props) {
 		super(props);
-		console.log(props.likes);
 		this.state = {
 			commentData: [],
 			postSaved: false,
-			postData: this.props.location.state !== undefined ? { ...this.props.location.state.post } : {},
-			voteDirection: 0
+			...(this.props.location.state !== undefined
+				? {
+						postData: { ...this.props.location.state.post },
+						voteDirection: this.props.state.post.likes
+				  }
+				: { postData: {}, voteDirection: null })
 		};
 		this.saveButtonPress = this.saveButtonPress.bind(this);
 	}
 
-	// adding/removing the event listener needed for modal functionality, also loading the comments when the post is clicked
 	componentDidMount() {
-		console.log(this.state.postData);
+		document.getElementById('navPost').classList.add('selected');
 		if (_.isEmpty(this.state.postData)) {
-			this.getPost(
-				'https://oauth.reddit.com/comments/' + this.props.match.params.permalink,
-				this.props.auth.access_token,
-				(json) => {
-					console.log(json);
-					this.setState({
-						postData: json[0].data.children[0].data,
-						commentData: this.state.commentData.concat(json[1].data.children)
-					});
-				}
-			);
+			this.getPost('https://oauth.reddit.com/comments/' + this.props.match.params.permalink, (json) => {
+				this.setState({
+					commentData: this.state.commentData.concat(json[1].data.children),
+					postData: json[0].data.children[0].data,
+					voteDirection: json[0].data.children[0].data.likes
+				});
+			});
 		} else {
-			this.getPost(
-				'https://oauth.reddit.com/comments/' + this.props.match.params.permalink,
-				this.props.auth.access_token,
-				(json) => {
-					console.log(json);
-					this.setState({
-						commentData: this.state.commentData.concat(json[1].data.children)
-					});
-				}
-			);
+			this.getPost('https://oauth.reddit.com/comments/' + this.props.match.params.permalink, (json) => {
+				this.setState({
+					commentData: this.state.commentData.concat(json[1].data.children)
+				});
+			});
 		}
 	}
 
-	getPost(apiPath, oauthAccessToken, handleResult) {
+	vote(postId, voteDirection) {
+		const directions = [false, null, true];
+		fetch('https://oauth.reddit.com/api/vote?id=' + postId + '&dir=' + voteDirection, {
+			method: 'POST',
+			headers: { Authorization: 'Bearer ' + this.props.auth.access_token },
+			redirect: 'manual'
+		})
+			.then((response) => response.text())
+			.then((text) => JSON.parse(text))
+			.then((json) => {
+				if (_.isEmpty(json)) this.setState({ voteDirection: directions[voteDirection + 1] });
+			})
+			.catch((error) => console.log('error', error));
+	}
+
+	componentWillUnmount() {
+		document.getElementById('navPost').classList.remove('selected');
+	}
+
+	getPost(apiPath, handleResult) {
 		fetch(apiPath, {
 			method: 'GET',
-			headers: { Authorization: 'Bearer ' + oauthAccessToken },
+			headers: { Authorization: 'Bearer ' + this.props.auth.access_token },
 			redirect: 'manual'
 		})
 			.then((response) => response.text())
@@ -76,7 +89,7 @@ class Post extends React.Component {
 
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.state.postData.is_self) return <p className="postContent">{this.state.postData.selftext}</p>;
+		if (this.state.postData.is_self) return <ReactCommonmark source={this.state.postData.selftext} />;
 		else if (this.state.postData.is_video) {
 			return (
 				<video controls={true}>
@@ -96,12 +109,26 @@ class Post extends React.Component {
 		return (
 			<div className="contentInnerContainer">
 				<div className="post" onClick={() => this.setState({ postOpened: true })}>
-					<Link to="/">back</Link>
+					<button onClick={() => this.props.history.goBack()}>back</button>
+					<button
+						className="button"
+						style={this.state.voteDirection === true ? { backgroundColor: 'white' } : null}
+						onClick={() => this.vote(this.state.postData.name, this.state.voteDirection === true ? 0 : 1)}
+					>
+						updoot
+					</button>
+					<button
+						className="button"
+						style={this.state.voteDirection === false ? { backgroundColor: 'red' } : null}
+						onClick={() => this.vote(this.state.postData.name, this.state.voteDirection === false ? 0 : -1)}
+					>
+						downdoot
+					</button>
 					<p>updoots: {this.state.postData.ups + this.state.postData.downs}</p>
 					<p className="postTitle">{this.state.postData.title}</p>
 					{this.renderPost()}
 					<p className="postInfo">
-						{this.state.postData['subreddit_name_prefixed']} | u/{this.state.postData.author}
+						{this.state.postData.subreddit_name_prefixed} | u/{this.state.postData.author}
 					</p>
 					<div id="data">
 						<button onClick={() => copy('https://www.reddit.com' + this.state.postData.permalink)}>
@@ -112,9 +139,9 @@ class Post extends React.Component {
 					</div>
 				</div>
 				<div className="commentContainer">
-					{this.state.commentData.map((parentComment, index) => (
-						<Comment comment={parentComment} key={index} />
-					))}
+					{this.state.commentData.map((parentComment, index) => {
+						if (parentComment.kind === 't1') return <Comment comment={parentComment} key={index} />;
+					})}
 				</div>
 			</div>
 		);
@@ -123,7 +150,7 @@ class Post extends React.Component {
 
 class Comment extends React.Component {
 	render() {
-		return <p>{this.props.comment.data.body}</p>;
+		return <ReactCommonmark source={this.props.comment.data.body} />;
 	}
 }
 
