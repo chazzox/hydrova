@@ -34,7 +34,19 @@
 	overflow-x: hidden;
 	overflow-y: scroll;
 	width: 100%;
-	background-color: #363636;
 	color: white;
 	max-height: 700px;
+	
+    .comment {
+		padding: 1px;
+		background-color: black;
+		margin-top: 8px;
+		margin-bottom: 8px;
+
+		.comment {
+			margin-left: 20px;
+			border-left: 2px solid rgba(255,255,255,.1)
+		}
+	}
+	
 }

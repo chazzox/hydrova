@@ -37,17 +37,15 @@ class App extends React.Component {
 					this.props.isLoggedIn ? (
 						<>
 							<Sidebar />
-							<div id="contentContainer">
-								<Switch>
-									<Route path="/r/:subreddit" render={(props) => <Subreddit {...props} />} />
-									<Route path="/post/:permalink" render={(props) => <Post {...props} />} />
-									<Route path="/u/:user" render={(props) => <User {...props} />} />
-									<Route path="/settings" render={() => <Settings />} />
-									<Route path="/submit" render={() => <Submit />} />
-									<Route path="/mail" render={() => <Mail />} />
-									<Route path="/" render={() => <Home />} />
-								</Switch>
-							</div>
+							<Switch>
+								<Route path="/r/:subreddit" render={(props) => <Subreddit {...props} />} />
+								<Route path="/post/:permalink" render={(props) => <Post {...props} />} />
+								<Route path="/u/:user" render={(props) => <User {...props} />} />
+								<Route path="/settings" render={() => <Settings />} />
+								<Route path="/submit" render={() => <Submit />} />
+								<Route path="/mail" render={() => <Mail />} />
+								<Route path="/" render={() => <Home />} />
+							</Switch>
 						</>
 					) : (
 						<Login />

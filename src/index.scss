@@ -16,6 +16,10 @@ body {
 	overflow-x: hidden;
 }
 
+a {
+	color: var(--accent-color);
+}
+
 .contentInnerContainer {
 	width: calc(100% - 20px);
 	max-width: 1400px;
@@ -23,11 +27,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+    width: 5px;
+    height: 5px;
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.25);
+    background: var(--text-color-secondary);
     border-radius: 10px;
 }

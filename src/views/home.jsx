@@ -14,8 +14,10 @@ class Main extends React.Component {
 	render() {
 		return (
 			<>
-				<div>sortBy</div>
-				<Listing path="best" />
+				<div id="contentContainer">
+					<div>sortBy</div>
+					<Listing path="best" />
+				</div>
 			</>
 		);
 	}

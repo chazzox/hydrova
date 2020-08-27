@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactCommonmark from 'react-commonmark';
-import { Link } from 'react-router-dom';
+import ReactCommonmark from 'react-markdown';
 import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 import _ from 'lodash';
 
 import '../styles/post.scss';
+import '../styles/postButtonMenu.scss';
 
 class Post extends React.Component {
 	constructor(props) {
@@ -16,7 +16,7 @@ class Post extends React.Component {
 			...(this.props.location.state !== undefined
 				? {
 						postData: { ...this.props.location.state.post },
-						voteDirection: this.props.state.post.likes
+						voteDirection: this.props.location.state.post.likes
 				  }
 				: { postData: {}, voteDirection: null })
 		};
@@ -24,9 +24,9 @@ class Post extends React.Component {
 	}
 
 	componentDidMount() {
-		document.getElementById('navPost').classList.add('selected');
 		if (_.isEmpty(this.state.postData)) {
 			this.getPost('https://oauth.reddit.com/comments/' + this.props.match.params.permalink, (json) => {
+				console.log(json[1].data.children);
 				this.setState({
 					commentData: this.state.commentData.concat(json[1].data.children),
 					postData: json[0].data.children[0].data,
@@ -55,10 +55,6 @@ class Post extends React.Component {
 				if (_.isEmpty(json)) this.setState({ voteDirection: directions[voteDirection + 1] });
 			})
 			.catch((error) => console.log('error', error));
-	}
-
-	componentWillUnmount() {
-		document.getElementById('navPost').classList.remove('selected');
 	}
 
 	getPost(apiPath, handleResult) {
@@ -107,50 +103,67 @@ class Post extends React.Component {
 
 	render() {
 		return (
-			<div className="contentInnerContainer">
-				<div className="post" onClick={() => this.setState({ postOpened: true })}>
-					<button onClick={() => this.props.history.goBack()}>back</button>
+			<>
+				<div id="postButtonMenu">
+					<button onClick={() => this.props.history.goBack()}>Back</button>
 					<button
 						className="button"
 						style={this.state.voteDirection === true ? { backgroundColor: 'white' } : null}
 						onClick={() => this.vote(this.state.postData.name, this.state.voteDirection === true ? 0 : 1)}
 					>
-						updoot
+						Upvote
 					</button>
 					<button
 						className="button"
 						style={this.state.voteDirection === false ? { backgroundColor: 'red' } : null}
 						onClick={() => this.vote(this.state.postData.name, this.state.voteDirection === false ? 0 : -1)}
 					>
-						downdoot
+						Downvote
 					</button>
-					<p>updoots: {this.state.postData.ups + this.state.postData.downs}</p>
-					<p className="postTitle">{this.state.postData.title}</p>
-					{this.renderPost()}
-					<p className="postInfo">
-						{this.state.postData.subreddit_name_prefixed} | u/{this.state.postData.author}
-					</p>
-					<div id="data">
-						<button onClick={() => copy('https://www.reddit.com' + this.state.postData.permalink)}>
-							share (copy to clip board)
-						</button>
-						<button onClick={this.saveButtonPress}>{this.state.postSaved ? 'unsave' : 'save'}</button>
-						<p>comments: {this.state.postData.num_comments}</p>
+					<button onClick={() => copy('https://www.reddit.com' + this.state.postData.permalink)}>Share</button>
+					<button onClick={this.saveButtonPress}>{this.state.postSaved ? 'Unsave' : 'Save'}</button>
+					<button>{this.state.postData.num_comments}</button>
+					<button>{this.state.postData.ups}</button>
+				</div>
+				<div id="contentContainer">
+					<div className="contentInnerContainer">
+						<div className="post" onClick={() => this.setState({ postOpened: true })}>
+							<p className="postTitle">{this.state.postData.title}</p>
+							{this.renderPost()}
+							<p className="postInfo">
+								{this.state.postData.subreddit_name_prefixed} | u/{this.state.postData.author}
+							</p>
+						</div>
+						<div className="commentContainer">
+							{this.state.commentData.map((parentComment, index) => {
+								if (parentComment.kind === 't1') return <Comment comment={parentComment} key={index} />;
+							})}
+						</div>
 					</div>
 				</div>
-				<div className="commentContainer">
-					{this.state.commentData.map((parentComment, index) => {
-						if (parentComment.kind === 't1') return <Comment comment={parentComment} key={index} />;
-					})}
-				</div>
-			</div>
+			</>
 		);
 	}
 }
 
 class Comment extends React.Component {
 	render() {
-		return <ReactCommonmark source={this.props.comment.data.body} />;
+		return (
+			<div className="comment">
+				<div
+					className="commentBody"
+					dangerouslySetInnerHTML={{
+						__html: new DOMParser().parseFromString(this.props.comment.data.body_html, 'text/html')
+							.documentElement.textContent
+					}}
+				/>
+				{this.props.comment.data.replies
+					? this.props.comment.data.replies.data.children.map((childComments, index) => {
+							if (childComments.kind === 't1') return <Comment comment={childComments} key={index} />;
+					  })
+					: null}
+			</div>
+		);
 	}
 }
 

@@ -20,7 +20,25 @@ class Sidebar extends React.Component {
 			userInfo: {},
 			multiredditInfo: [],
 			subscribed: [],
-			subredditsLoaded: false
+			subredditsLoaded: false,
+			compact: true,
+			colorArray: [
+				'40a8c4',
+				'81b214',
+				'206a5d',
+				'ea5455',
+				'2d4059',
+				'e11d74',
+				'776d8a',
+				'519872',
+				'318fb5',
+				'00bcd4',
+				'848ccf',
+				'93b5e1',
+				'cf1b1b',
+				'0f4c75',
+				'6f4a8e'
+			]
 		};
 	}
 
@@ -65,7 +83,7 @@ class Sidebar extends React.Component {
 	}
 
 	getSubreddits(afterId) {
-		fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=15&after=' + afterId, {
+		fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=100&after=' + afterId, {
 			method: 'GET',
 			headers: { Authorization: 'Bearer ' + this.props.auth.access_token },
 			redirect: 'manual'
@@ -97,17 +115,14 @@ class Sidebar extends React.Component {
 	render() {
 		return (
 			<>
-				<div id="sidebar" className="compact">
-					<img src={Logo} id="logo" alt="" />
-					<h1 href="" id="navTitle">
-						Hydrova
-					</h1>
-					<button
-						id="shrinkSidebarBtn"
-						onClick={() => document.getElementById("sidebar").classList.toggle("compact")}
-					>
-					</button>
+				<div id="sidebar" className={this.state.compact ? 'compact' : ''}>
+					<Link to="/">
+						<img src={Logo} id="logo" alt="" />
+					</Link>
+					<h1 id="navTitle">Hydrova</h1>
+					<button id="shrinkSidebarBtn" onClick={() => this.setState({ compact: !this.state.compact })}></button>
 					<input
+						onClick={() => this.setState({ compact: false })}
 						className="navButton hasIcon"
 						type="text"
 						id="searchBar"
@@ -129,7 +144,28 @@ class Sidebar extends React.Component {
 								key={index}
 								pathname={'/m/' + multiReddit.data.display_name}
 								displayName={multiReddit.data.display_name}
-							/>
+							>
+								<div
+									className="icon"
+									style={
+										_.isEmpty(multiReddit.data.icon_img)
+											? {
+													backgroundColor:
+														'#' +
+														this.state.colorArray[
+															Math.floor(
+																Math.random() * Math.floor(this.state.colorArray.length)
+															)
+														]
+											  }
+											: { backgroundImage: `url(${multiReddit.data.icon_img})` }
+									}
+								>
+									{_.isEmpty(multiReddit.data.icon_img)
+										? multiReddit.data.display_name[0].toUpperCase()
+										: ''}
+								</div>
+							</SidebarLink>
 						))}
 						{this.state.subredditsLoaded ? (
 							<>
@@ -147,10 +183,23 @@ class Sidebar extends React.Component {
 													className="icon"
 													style={
 														_.isEmpty(subreddit.data.icon_img)
-															? { backgroundColor: `rgb(234,64,12)` }
+															? {
+																	backgroundColor:
+																		'#' +
+																		this.state.colorArray[
+																			Math.floor(
+																				Math.random() *
+																					Math.floor(this.state.colorArray.length)
+																			)
+																		]
+															  }
 															: { backgroundImage: `url(${subreddit.data.icon_img})` }
 													}
-												></div>
+												>
+													{_.isEmpty(subreddit.data.icon_img)
+														? subreddit.data.display_name[0].toUpperCase()
+														: ''}
+												</div>
 											</SidebarLink>
 										);
 								})}

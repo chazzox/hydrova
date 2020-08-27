@@ -25,11 +25,11 @@ class Listing extends React.Component {
 
 	componentDidMount() {
 		this.getBatches(this.props.auth.access_token, '', 5, (json) => this.test(json));
-		document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
+		// document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
 	}
 
 	componentWillUnmount() {
-		document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
+		// document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
 	}
 
 	getBatches(oauthAccessToken, afterId, batchCount, updateFunction) {
@@ -81,10 +81,25 @@ class Listing extends React.Component {
 }
 
 class RedditPost extends React.Component {
+	htmlToElements(html) {
+		var template = document.createElement('template');
+		template.innerHTML = html;
+		return template.content.childNodes;
+	}
+
 	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.props.post.is_self) return <p className="postContent">{this.props.post.selftext}</p>;
+		if (this.props.post.is_self)
+			return (
+				<div
+					className="postContent"
+					dangerouslySetInnerHTML={{
+						__html: new DOMParser().parseFromString(this.props.post.selftext_html, 'text/html').documentElement
+							.textContent
+					}}
+				/>
+			);
 		else if (this.props.post.is_video) {
 			return (
 				<video controls={true}>
