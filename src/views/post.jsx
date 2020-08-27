@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCommonmark from 'react-markdown';
 import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 import _ from 'lodash';
@@ -85,7 +84,16 @@ class Post extends React.Component {
 
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.state.postData.is_self) return <ReactCommonmark source={this.state.postData.selftext} />;
+		if (this.state.postData.is_self)
+			return (
+				<div
+					className="postContent"
+					dangerouslySetInnerHTML={{
+						__html: new DOMParser().parseFromString(this.props.post.selftext_html, 'text/html').documentElement
+							.textContent
+					}}
+				/>
+			);
 		else if (this.state.postData.is_video) {
 			return (
 				<video controls={true}>
