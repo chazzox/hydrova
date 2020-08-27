@@ -28,6 +28,14 @@ class Listing extends React.Component {
 		// document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.path !== prevProps.path)
+			this.setState(
+				{ redditTimeline: [] },
+				this.getBatches(this.props.auth.access_token, '', 5, (json) => this.test(json))
+			);
+	}
+
 	componentWillUnmount() {
 		// document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
 	}

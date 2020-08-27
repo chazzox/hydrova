@@ -16,6 +16,10 @@ class Subreddit extends React.Component {
 		};
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props.location.pathname !== prevProps.location.pathname) this.getSubredditInfo();
+	}
+
 	componentDidMount() {
 		this.getSubredditInfo();
 	}
