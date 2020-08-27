@@ -97,11 +97,16 @@ class Sidebar extends React.Component {
 	render() {
 		return (
 			<>
-				<div id="sidebar">
+				<div id="sidebar" className="compact">
 					<img src={Logo} id="logo" alt="" />
 					<h1 href="" id="navTitle">
 						Hydrova
 					</h1>
+					<button
+						id="shrinkSidebarBtn"
+						onClick={() => document.getElementById("sidebar").classList.toggle("compact")}
+					>
+					</button>
 					<input
 						className="navButton hasIcon"
 						type="text"
