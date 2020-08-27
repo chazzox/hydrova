@@ -36,15 +36,6 @@ class Subreddit extends React.Component {
 				this.setState({ subInfo: json.data });
 			})
 			.catch((error) => console.log('error', error));
-		fetch('https://www.reddit.com' + this.props.location.pathname + '/about/sidebar', {
-			method: 'GET',
-			mode: 'omit',
-			headers: { Authorization: 'Bearer ' + this.props.auth.access_token }
-		})
-			.then((response) => response.text())
-			.then((text) => console.log(text))
-			.then((json) => console.log(json))
-			.catch((error) => console.log('error', error));
 	}
 
 	getBannerUrl(url) {
@@ -66,6 +57,13 @@ class Subreddit extends React.Component {
 						<div id="subredditIcon" style={{ backgroundImage: `url(${this.state.subInfo.icon_img})` }}></div>
 						<h1>{this.state.subInfo.display_name}</h1>
 						<p>{this.state.subInfo.public_description}</p>
+						<div
+							style={{ overflow: 'auto' }}
+							dangerouslySetInnerHTML={{
+								__html: new DOMParser().parseFromString(this.state.subInfo.description_html, 'text/html')
+									.documentElement.textContent
+							}}
+						/>
 						<p>
 							accounts online: {this.state.subInfo.accounts_active} | total members:{' '}
 							{this.state.subInfo.subscribers}

@@ -25,7 +25,6 @@ class Post extends React.Component {
 	componentDidMount() {
 		if (_.isEmpty(this.state.postData)) {
 			this.getPost('https://oauth.reddit.com/comments/' + this.props.match.params.permalink, (json) => {
-				console.log(json[1].data.children);
 				this.setState({
 					commentData: this.state.commentData.concat(json[1].data.children),
 					postData: json[0].data.children[0].data,
@@ -84,17 +83,18 @@ class Post extends React.Component {
 
 	renderPost() {
 		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.state.postData.is_self)
+		if (this.state.postData.is_self) {
+			console.log(this.state.postData);
 			return (
 				<div
 					className="postContent"
 					dangerouslySetInnerHTML={{
-						__html: new DOMParser().parseFromString(this.props.post.selftext_html, 'text/html').documentElement
-							.textContent
+						__html: new DOMParser().parseFromString(this.state.postData.selftext_html, 'text/html')
+							.documentElement.textContent
 					}}
 				/>
 			);
-		else if (this.state.postData.is_video) {
+		} else if (this.state.postData.is_video) {
 			return (
 				<video controls={true}>
 					<source src={this.state.postData.media.reddit_video.fallback_url} type="video/mp4" />
