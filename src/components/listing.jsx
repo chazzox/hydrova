@@ -17,28 +17,28 @@ class Listing extends React.Component {
 		this.calcScroll = this.calcScroll.bind(this);
 	}
 
-	test(json) {
-		this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
-		if (this.state.redditTimeline.length < 50)
-			this.getBatches(this.props.auth.access_token, json.data.after, 15, (json) => this.test(json));
-		else this.setState({ afterId: json.data.after, initialLoad: true });
+	componentDidMount() {
+		this.getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json));
+		document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
 	}
 
-	componentDidMount() {
-		this.getBatches(this.props.auth.access_token, '', 5, (json) => this.test(json));
-		// document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
+	componentWillUnmount() {
+		document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.path !== prevProps.path)
 			this.setState(
 				{ redditTimeline: [] },
-				this.getBatches(this.props.auth.access_token, '', 5, (json) => this.test(json))
+				this.getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json))
 			);
 	}
 
-	componentWillUnmount() {
-		// document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
+	callbackFromFetch(json) {
+		this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
+		if (this.state.redditTimeline.length < 50)
+			this.getBatches(this.props.auth.access_token, json.data.after, 15, (json) => this.callbackFromFetch(json));
+		else this.setState({ afterId: json.data.after, initialLoad: true });
 	}
 
 	getBatches(oauthAccessToken, afterId, batchCount, updateFunction) {
@@ -59,7 +59,6 @@ class Listing extends React.Component {
 			const rootHeight = document.getElementById('contentContainer').clientHeight;
 			const heightThing = document.getElementById('timeline').clientHeight;
 			const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
-			// loading new posts if bottom of page is reached
 			if (scrollPercent === 85 && this.state.initialLoad && !this.state.scrollReached) {
 				this.setState({ scrollReached: true });
 				this.getBatches(this.props.auth.access_token, this.state.afterId, 15, (json) => {
