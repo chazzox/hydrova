@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 import _ from 'lodash';
 
+import renderPost from '../utils/renderPost';
 import '../styles/post.scss';
 import '../styles/postButtonMenu.scss';
 
@@ -81,34 +82,6 @@ class Post extends React.Component {
 			.catch((error) => console.log('error', error));
 	}
 
-	renderPost() {
-		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.state.postData.is_self) {
-			console.log(this.state.postData);
-			return (
-				<div
-					className="postContent"
-					dangerouslySetInnerHTML={{
-						__html: new DOMParser().parseFromString(this.state.postData.selftext_html, 'text/html')
-							.documentElement.textContent
-					}}
-				/>
-			);
-		} else if (this.state.postData.is_video) {
-			return (
-				<video controls={true}>
-					<source src={this.state.postData.media.reddit_video.fallback_url} type="video/mp4" />
-				</video>
-			);
-		} else {
-			if (this.state.postData.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
-			else if (this.state.postData.post_hint === 'image') return <img src={this.state.postData.url} alt="" />;
-			else {
-				return <p>this is a reddit collage</p>;
-			}
-		}
-	}
-
 	render() {
 		return (
 			<>
@@ -137,7 +110,7 @@ class Post extends React.Component {
 					<div className="contentInnerContainer">
 						<div className="post" onClick={() => this.setState({ postOpened: true })}>
 							<p className="postTitle">{this.state.postData.title}</p>
-							{this.renderPost()}
+							{renderPost(this.state.postData)}
 							<p className="postInfo">
 								{this.state.postData.subreddit_name_prefixed} | u/{this.state.postData.author}
 							</p>

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import renderPost from '../utils/renderPost';
 import '../styles/timeline.scss';
 
 class Listing extends React.Component {
@@ -95,41 +96,13 @@ class RedditPost extends React.Component {
 		return template.content.childNodes;
 	}
 
-	// needs to be refactors as it turns out that is_self and is_reddit_video are options to test the type
-	renderPost() {
-		// switching through different posts types, support for mp4, cross posts, edits and collages coming soon
-		if (this.props.post.is_self)
-			return (
-				<div
-					className="postContent"
-					dangerouslySetInnerHTML={{
-						__html: new DOMParser().parseFromString(this.props.post.selftext_html, 'text/html').documentElement
-							.textContent
-					}}
-				/>
-			);
-		else if (this.props.post.is_video) {
-			return (
-				<video controls={true}>
-					<source src={this.props.post.media.reddit_video.fallback_url} type="video/mp4" />
-				</video>
-			);
-		} else {
-			if (this.props.post.post_hint === 'link') return <p>this is a link, support will be added soon</p>;
-			else if (this.props.post.post_hint === 'image') return <img src={this.props.post.url} alt="" />;
-			else {
-				return <p>this is a reddit collage</p>;
-			}
-		}
-	}
-
 	render() {
 		return (
 			<Link id={this.props.post.id} to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
 				<div className="post">
 					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 					<p className="postTitle">{this.props.post.title}</p>
-					{this.renderPost()}
+					{renderPost(this.props.post)}
 					<p className="postInfo">
 						{this.props.post['subreddit_name_prefixed']} | u/{this.props.post.author}
 						<br />
