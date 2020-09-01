@@ -16,10 +16,10 @@
 	}
 
 	transition: width 0.4s ease, padding 0.4s ease;
-		-webkit-transition: width 0.4s ease, padding 0.4s ease;
-		-moz-transition: width 0.4s ease, padding 0.4s ease;
-		-o-transition: width 0.4s ease, padding 0.4s ease;
-		-ms-transition: width 0.4s ease, padding 0.4s ease;
+	-webkit-transition: width 0.4s ease, padding 0.4s ease;
+	-moz-transition: width 0.4s ease, padding 0.4s ease;
+	-o-transition: width 0.4s ease, padding 0.4s ease;
+	-ms-transition: width 0.4s ease, padding 0.4s ease;
 
 	.scrollSection {
 		max-height: 50%;
@@ -28,16 +28,17 @@
 		margin-top: 20px;
 	}
 
-	.navButton, h3 {
+	.navButton,
+	h3 {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 
 		transition: color 0.2s ease, padding 0.5s ease;
-			-webkit-transition: color 0.2s ease, padding 0.5s ease;
-			-moz-transition: color 0.2s ease, padding 0.5 ease;
-			-o-transition: color 0.2s ease, padding 0.5s ease;
-			-ms-transition: color 0.2s ease, padding 0.5s ease;
+		-webkit-transition: color 0.2s ease, padding 0.5s ease;
+		-moz-transition: color 0.2s ease, padding 0.5 ease;
+		-o-transition: color 0.2s ease, padding 0.5s ease;
+		-ms-transition: color 0.2s ease, padding 0.5s ease;
 	}
 
 	a {
@@ -57,7 +58,7 @@
 	#navTitle {
 		color: var(--text-color-primary);
 		font-weight: 600;
-		
+
 		position: absolute;
 		left: calc(59px + 24px);
 		top: 26px;
@@ -72,7 +73,7 @@
 		-o-transition: font-size 0.4s ease, padding 0.4s ease;
 		-ms-transition: font-size 0.4s ease, padding 0.4s ease;
 	}
-	
+
 	.navButton {
 		&.selected {
 			background: var(--accent-color);
@@ -243,10 +244,10 @@
 		outline: none;
 
 		transition: opacity 0.25s ease, transform 0.25s ease;
-			-webkit-transition: opacity 0.25s ease, transform 0.25s ease;
-			-moz-transition: opacity 0.25s ease, transform 0.25s ease;
-			-o-transition: opacity 0.25s ease, transform 0.25s ease;
-			-ms-transition: opacity 0.25s ease, transform 0.25s ease;
+		-webkit-transition: opacity 0.25s ease, transform 0.25s ease;
+		-moz-transition: opacity 0.25s ease, transform 0.25s ease;
+		-o-transition: opacity 0.25s ease, transform 0.25s ease;
+		-ms-transition: opacity 0.25s ease, transform 0.25s ease;
 	}
 	&:hover {
 		#shrinkSidebarBtn {
@@ -259,8 +260,9 @@
 		width: 74px;
 		padding: 16px 12px;
 
-		*,#navTitle {
-			color: rgba(0,0,0,0);
+		*,
+		#navTitle {
+			color: rgba(0, 0, 0, 0);
 			max-width: 100%;
 		}
 
@@ -284,8 +286,9 @@
 			max-width: 100%;
 			padding-left: 0;
 
-			&:hover,&.selected {
-				color: rgba(0,0,0,0);
+			&:hover,
+			&.selected {
+				color: rgba(0, 0, 0, 0);
 			}
 
 			.icon {
@@ -295,7 +298,7 @@
 			&#searchBar {
 				background: none;
 				&::placeholder {
-					color: rgba(0,0,0,0);
+					color: rgba(0, 0, 0, 0);
 				}
 				&:hover {
 					background: var(--accent-background-color);

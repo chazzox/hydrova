@@ -3,57 +3,54 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import renderPost from '../utils/renderPost';
+import getBatches from '../utils/getTimeline';
 import '../styles/timeline.scss';
 
 class Listing extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			redditTimeline: [],
+			listingArray: [],
 			afterId: '',
 			initialLoad: false,
 			scrollReached: false
 		};
-		this.calcScroll = this.calcScroll.bind(this);
+		this.hasReachedScroll = this.hasReachedScroll.bind(this);
 	}
 
 	componentDidMount() {
-		this.getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json));
-		document.getElementById('contentContainer').addEventListener('scroll', this.calcScroll);
+		getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json), this.props.path);
+		document.getElementById('contentContainer').addEventListener('scroll', this.hasReachedScroll);
+		document.getElementById('contentContainer').addEventListener('resize', this.hasReachedScroll);
 	}
 
 	componentWillUnmount() {
-		document.getElementById('contentContainer').removeEventListener('scroll', this.calcScroll);
+		document.getElementById('contentContainer').addEventListener('scroll', this.hasReachedScroll);
+		document.getElementById('contentContainer').addEventListener('resize', this.hasReachedScroll);
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.path !== prevProps.path)
 			this.setState(
-				{ redditTimeline: [] },
-				this.getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json))
+				{ listingArray: [] },
+				getBatches(this.props.auth.access_token, '', 5, (json) => this.callbackFromFetch(json), this.props.path)
 			);
 	}
 
 	callbackFromFetch(json) {
-		this.setState({ redditTimeline: this.state.redditTimeline.concat(json.data.children) });
-		if (this.state.redditTimeline.length < 50)
-			this.getBatches(this.props.auth.access_token, json.data.after, 15, (json) => this.callbackFromFetch(json));
-		else this.setState({ afterId: json.data.after, initialLoad: true });
+		this.setState({ listingArray: this.state.listingArray.concat(json.data.children) });
+		this.state.listingArray.length < 50
+			? getBatches(
+					this.props.auth.access_token,
+					json.data.after,
+					15,
+					(json) => this.callbackFromFetch(json),
+					this.props.path
+			  )
+			: this.setState({ afterId: json.data.after, initialLoad: true });
 	}
 
-	getBatches(oauthAccessToken, afterId, batchCount, updateFunction) {
-		fetch('https://oauth.reddit.com/' + this.props.path + '/?limit=' + batchCount + '&after=' + afterId, {
-			method: 'GET',
-			headers: { Authorization: 'Bearer ' + oauthAccessToken },
-			redirect: 'manual'
-		})
-			.then((response) => response.text())
-			.then((text) => JSON.parse(text))
-			.then(updateFunction)
-			.catch((error) => console.log('error', error));
-	}
-
-	calcScroll() {
+	hasReachedScroll() {
 		if (document.getElementById('contentContainer') !== null) {
 			const rootScroll = document.getElementById('contentContainer').scrollTop;
 			const rootHeight = document.getElementById('contentContainer').clientHeight;
@@ -61,15 +58,19 @@ class Listing extends React.Component {
 			const scrollPercent = Math.round((rootScroll / (heightThing - rootHeight)) * 100);
 			if (scrollPercent === 85 && this.state.initialLoad && !this.state.scrollReached) {
 				this.setState({ scrollReached: true });
-				this.getBatches(this.props.auth.access_token, this.state.afterId, 15, (json) => {
-					this.setState({
-						redditTimeline: this.state.redditTimeline.concat(json.data.children),
-						afterId: json.data.after
-					});
-				});
-			} else if (this.state.initialLoad && scrollPercent < 85) {
-				this.setState({ scrollReached: false });
-			}
+				getBatches(
+					this.props.auth.access_token,
+					this.state.afterId,
+					15,
+					(json) => {
+						this.setState({
+							listingArray: this.state.listingArray.concat(json.data.children),
+							afterId: json.data.after
+						});
+					},
+					this.props.path
+				);
+			} else if (this.state.initialLoad && scrollPercent < 85) this.setState({ scrollReached: false });
 		}
 	}
 
@@ -77,9 +78,9 @@ class Listing extends React.Component {
 		return (
 			<>
 				<div className="contentInnerContainer" id="timeline">
-					{this.state.redditTimeline === []
+					{this.state.listingArray === []
 						? null
-						: this.state.redditTimeline.map((item, index) => (
+						: this.state.listingArray.map((item, index) => (
 								<RedditPost Bearer={this.props.userAuth} post={item.data} key={index} />
 						  ))}
 				</div>
@@ -97,8 +98,8 @@ class RedditPost extends React.Component {
 
 	render() {
 		return (
-			<Link id={this.props.post.id} to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
-				<div className="post">
+			<Link to={{ pathname: '/post/' + this.props.post.id, state: { post: this.props.post } }}>
+				<div id={this.props.post.id} className="post">
 					<p>updoots: {this.props.post.ups + this.props.post.downs}</p>
 					<p className="postTitle">{this.props.post.title}</p>
 					{renderPost(this.props.post)}

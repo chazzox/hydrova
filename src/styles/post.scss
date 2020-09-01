@@ -4,7 +4,6 @@
 	padding: 10px;
 	background-color: #363636;
 	.postContent {
-		white-space: pre-wrap;
 		max-height: 250px;
 		overflow: auto;
 	}
@@ -35,9 +34,9 @@
 	overflow-y: scroll;
 	width: 100%;
 	color: white;
-	max-height: 700px;
-	
-    .comment {
+	max-height: 500px;
+
+	.comment {
 		padding: 1px;
 		background-color: black;
 		margin-top: 8px;
@@ -45,8 +44,7 @@
 
 		.comment {
 			margin-left: 20px;
-			border-left: 2px solid rgba(255,255,255,.1)
+			border-left: 2px solid rgba(255, 255, 255, 0.1);
 		}
 	}
-	
 }

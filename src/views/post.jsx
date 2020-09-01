@@ -115,6 +115,7 @@ class Post extends React.Component {
 								{this.state.postData.subreddit_name_prefixed} | u/{this.state.postData.author}
 							</p>
 						</div>
+						<ReplyBox />
 						<div className="commentContainer">
 							{this.state.commentData.map((parentComment, index) => {
 								if (parentComment.kind === 't1') return <Comment comment={parentComment} key={index} />;
@@ -128,22 +129,52 @@ class Post extends React.Component {
 }
 
 class Comment extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { isReplying: false };
+	}
 	render() {
 		return (
 			<div className="comment">
-				<div
-					className="commentBody"
-					dangerouslySetInnerHTML={{
-						__html: new DOMParser().parseFromString(this.props.comment.data.body_html, 'text/html')
-							.documentElement.textContent
-					}}
-				/>
+				<div className="commentContent">
+					<div
+						className="commentBody"
+						dangerouslySetInnerHTML={{
+							__html: new DOMParser().parseFromString(this.props.comment.data.body_html, 'text/html')
+								.documentElement.textContent
+						}}
+					/>
+					<div className="commentButtonMenu">
+						<button>updoot</button>
+						<button>downdoot</button>
+						<button onClick={() => this.setState({ isReplying: !this.state.isReplying })}>reply</button>
+					</div>
+				</div>
+				{this.state.isReplying ? <ReplyBox /> : null}
 				{this.props.comment.data.replies
 					? this.props.comment.data.replies.data.children.map((childComments, index) => {
 							if (childComments.kind === 't1') return <Comment comment={childComments} key={index} />;
 					  })
 					: null}
 			</div>
+		);
+	}
+}
+
+class ReplyBox extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { replyString: '', isMarkdownMode: false, viewPreview: false };
+	}
+	render() {
+		return (
+			<>
+				<textarea
+					onChange={(event) => this.setState({ replyString: event.target.value })}
+					placeholder="enter message here"
+					value={this.state.replyString}
+				/>
+			</>
 		);
 	}
 }

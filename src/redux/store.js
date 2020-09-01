@@ -1,10 +1,11 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
+import timeline from './timelineStore';
 import queryStringToJSON from '../utils/querySpit';
 
 const auth = createSlice({
-	name: 'editMode',
+    name:'authSlice',
 	initialState: {
 		isLoaded: false,
 		isLoggedIn: false,
@@ -22,12 +23,12 @@ const auth = createSlice({
 			state.isLoggedIn = false;
 			state.auth = {};
 		},
-		logoutSuccess: (state, action) => {
+		logoutSuccess: (state) => {
 			state.isLoaded = true;
 			state.isLoggedIn = false;
 			Cookies.remove('redditOauth');
 		},
-		loggedOut: (state, action) => {
+		loggedOut: (state) => {
 			state.isLoaded = true;
 			state.isLoggedIn = false;
 		}
@@ -99,6 +100,7 @@ export const { loginSuccess, loginFailure, logoutSuccess, loggedOut } = auth.act
 
 export default configureStore({
 	reducer: {
-		auth: auth.reducer
+		auth: auth.reducer,
+		timeline: timeline.reducer
 	}
 });

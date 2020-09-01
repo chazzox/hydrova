@@ -1,11 +1,10 @@
 #contentContainer {
 	overflow-x: hidden;
 	position: relative;
-	width: calc(100vw - 414px);
-	max-width: calc(100vw - 414px);
+	width: calc(100vw - 200px);
+	max-width: calc(100vw - 200px);
 	height: 100vh;
-	margin-left: 414px;
-
+	margin-left: 200px;
 	#timeline {
 		max-width: 1400px;
 		position: absolute;
@@ -18,9 +17,6 @@
 				margin: 15px 0;
 				padding: 10px;
 				background-color: #363636;
-				.postContent {
-					white-space: pre-wrap;
-				}
 				img {
 					width: 500px;
 				}

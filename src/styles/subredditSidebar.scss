@@ -1,66 +1,64 @@
 #subredditSidebar {
-    background: var(--alt-background-color);
+	background: var(--alt-background-color);
 
-    overflow: hidden;
+	overflow: hidden;
 
-    position: fixed;
-    top: 0;
-    left: 74px;
+	position: fixed;
+	top: 0;
+	left: 74px;
 
-    padding: 16px 24px;
+	padding: 16px 24px;
 
-    height: 100vh;
-    width: 340px;
+	height: 100vh;
+	width: 340px;
 
-    #headerImage {
+	#headerImage {
+		background-color: var(--accent-color);
 
-        background-color: var(--accent-color);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
 
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+		width: calc(100% + 48px);
+		height: 25vh;
+		max-height: 100px;
 
-        width: calc(100% + 48px);
-        height: 25vh;
-        max-height: 100px;
+		margin-left: -24px;
+		margin-top: -16px;
+	}
+	#subredditIcon {
+		margin: 30px auto 0 auto;
 
-        margin-left: -24px;
-        margin-top: -16px;
-    }
+		border-radius: var(--big-border-radius);
 
-    #subredditIcon {
-        margin: 30px auto 0 auto;
+		overflow: hidden;
 
-        border-radius: var(--big-border-radius);
+		width: 100px;
+		height: 100px;
 
-        overflow: hidden;
+		background-color: var(--accent-background-color);
 
-        width: 100px;
-        height: 100px;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
 
-        background-color: var(--accent-background-color);
+	h1 {
+		text-align: center;
+		text-transform: capitalize;
+		color: var(--text-color-primary);
 
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
+		font-size: 18pt;
 
-    h1 {
-        text-align: center;
-        text-transform: capitalize;
-        color: var(--text-color-primary);
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 
-        font-size: 18pt;
-
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        margin-top: 10px;
-        margin-bottom: 50px;
-    }
-    p {
-        color: var(--text-color-secondary);
-    }
+		margin-top: 10px;
+		margin-bottom: 50px;
+	}
+	p {
+		color: var(--text-color-secondary);
+	}
 }
