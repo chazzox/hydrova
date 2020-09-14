@@ -39,10 +39,10 @@ a {
 #contentContainer {
 	overflow-x: hidden;
 	position: relative;
-	width: calc(99vw - 414px);
-	max-width: calc(99vw - 414px);
+	width: calc(100vw - 300px);
+	max-width: calc(100vw - 300px);
 	height: 100vh;
-	margin-left: 414px;
+	margin-left: 300px;
 	#timeline {
 		max-width: 1400px;
 		position: absolute;

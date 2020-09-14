@@ -45,6 +45,7 @@ const Sidebar = () => {
 	const multiReddits = useSelector((state: RootState) => state.sidebar.multiReddits);
 
 	const subReddits = useSelector((state: RootState) => state.sidebar.subReddits);
+	const subAfter = useSelector((state: RootState) => state.sidebar.subAfter);
 
 	useEffect(() => {
 		dispatch(GET_USER_INFO({ access_token: access_token }));

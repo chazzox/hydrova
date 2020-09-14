@@ -8,7 +8,7 @@ type ComposedProps = Props &
 	}>;
 
 const Home: React.FC<ComposedProps> = props => {
-	return <>lmao</>;
+	return <div id="contentContainer">sub</div>;
 };
 
 export default Home;

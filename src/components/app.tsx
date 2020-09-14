@@ -9,7 +9,7 @@ import Sidebar from './sidebar/sidebar';
 const App: React.FC = () => {
 	return (
 		<HashRouter>
-			<Sidebar />;
+			<Sidebar />
 			<Switch>
 				<Route path="/r/:subreddit" render={props => <Subreddit {...props} />} />
 				<Route path="/post/:permalink" render={props => <Post {...props} />} />

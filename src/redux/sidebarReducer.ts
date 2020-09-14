@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import getProfileURL from '../utils/imgQuerySplit';
 
 interface userInfoSuccess {
@@ -50,14 +49,17 @@ export const GET_MULTIREDDITS = createAsyncThunk<userMultiSuccess, { access_toke
 	}
 );
 
+interface sub {
+	display_name: string;
+	icon_img: string;
+	subreddit_type: string;
+}
+
 interface userSub {
 	kind: string;
-	data: {
-		display_name: string;
-		icon_img: string;
-		subreddit_type: string;
-	};
+	data: sub;
 }
+
 type userSubSuccess = {
 	kind: string;
 	data: {
@@ -68,17 +70,24 @@ type userSubSuccess = {
 	};
 };
 
-export const GET_SUBREDDITS = createAsyncThunk<userSubSuccess, { access_token: string }, { rejectValue: failure }>(
+export const GET_SUBREDDITS = createAsyncThunk<userSubSuccess[], { access_token: string }, { rejectValue: failure }>(
 	'sidebar/getSubreddits',
 	async ({ access_token }, thunkApi) => {
-		const response = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber', {
-			method: 'GET',
-			headers: { Authorization: `Bearer ${access_token}` },
-			redirect: 'manual'
-		});
-		const responseJSON = await response.json();
-		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
-		return responseJSON as userSubSuccess;
+		const responses: userSubSuccess[] = [];
+		let afterId: string | null = '';
+		while (afterId !== null) {
+			const response = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=50&after=' + afterId, {
+				method: 'GET',
+				headers: { Authorization: `Bearer ${access_token}` },
+				redirect: 'manual'
+			});
+			const responseJSON = await response.json();
+			if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
+			const responseJSONSuccess: userSubSuccess = responseJSON;
+			responses.push(responseJSONSuccess);
+			afterId = responseJSONSuccess.data.after;
+		}
+		return responses;
 	}
 );
 
@@ -90,6 +99,7 @@ const sidebarReducer = createSlice({
 		multiReddits: [] as { icon_img: string; display_name: string }[],
 
 		subReddits: [] as { icon_img: string; display_name: string; subreddit_type: string }[],
+		subAfter: '',
 
 		userInfo: {
 			name: '',
@@ -116,13 +126,19 @@ const sidebarReducer = createSlice({
 		});
 
 		builder.addCase(GET_SUBREDDITS.fulfilled, (state, action) => {
-			action.payload.data.children.map(sub =>
-				state.subReddits.push({
-					display_name: sub.data.display_name,
-					icon_img: sub.data.icon_img,
-					subreddit_type: sub.data.subreddit_type
-				})
-			);
+			// ideally this would happen asynchronously, that way each chunk could be rendered as it loads in
+			// i would like to implement this eventually
+			state.subReddits = state.subReddits
+				.concat(
+					...action.payload.map(subChunk =>
+						subChunk.data.children.map(sub => ({
+							icon_img: sub.data.icon_img,
+							display_name: sub.data.display_name,
+							subreddit_type: sub.data.subreddit_type
+						}))
+					)
+				)
+				.sort((a, b) => a.display_name.localeCompare(b.display_name));
 		});
 	}
 });
