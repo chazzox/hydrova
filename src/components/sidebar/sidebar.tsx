@@ -15,6 +15,7 @@ import mailIcon from './assets/mail.svg';
 import settingsIcon from './assets/settings.svg';
 
 import './sidebar.scss';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -45,12 +46,20 @@ const Sidebar = () => {
 	const multiReddits = useSelector((state: RootState) => state.sidebar.multiReddits);
 
 	const subReddits = useSelector((state: RootState) => state.sidebar.subReddits);
-	const subAfter = useSelector((state: RootState) => state.sidebar.subAfter);
+
+	const getSubs = (afterId: string | undefined = '') => {
+		dispatch(GET_SUBREDDITS({ access_token: access_token, afterId: afterId }))
+			.then(unwrapResult)
+			.then(originalPromiseResult => {
+				if (originalPromiseResult.data.after) getSubs(originalPromiseResult.data.after);
+			});
+		// }
+	};
 
 	useEffect(() => {
 		dispatch(GET_USER_INFO({ access_token: access_token }));
 		dispatch(GET_MULTIREDDITS({ access_token: access_token }));
-		dispatch(GET_SUBREDDITS({ access_token: access_token }));
+		getSubs();
 	}, []);
 
 	return (

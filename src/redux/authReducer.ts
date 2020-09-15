@@ -1,19 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-interface responseSuccess {
-	access_token: string;
-	expires_in: number;
-	scope: string;
-	token_type: string;
-}
-
-interface responseFailure {
-	error: number;
-	message: string;
-}
-
-export const refreshToken = createAsyncThunk<responseSuccess, { refresh_token: string }, { rejectValue: responseFailure }>(
+export const refreshToken = createAsyncThunk<responseSuccess, { refresh_token: string }, { rejectValue: failure }>(
 	'users/refreshToken',
 	async ({ refresh_token }, thunkApi) => {
 		const urlencoded = new URLSearchParams();
@@ -29,7 +17,7 @@ export const refreshToken = createAsyncThunk<responseSuccess, { refresh_token: s
 			redirect: 'manual'
 		});
 		const responseJSON = await response.json();
-		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as responseFailure);
+		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
 		return responseJSON as responseSuccess;
 	}
 );
