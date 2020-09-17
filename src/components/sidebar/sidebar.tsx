@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 import CSS from 'csstype';
 import _ from 'lodash';
 
-import { RootState, AppDispatch } from '../../redux/reduxWrapper';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
+import { RootState, AppDispatch } from '../../redux/reduxWrapper';
 
 import Logo from '../../assets/logo.svg';
 import searchIcon from './assets/search.svg';
@@ -15,7 +16,6 @@ import mailIcon from './assets/mail.svg';
 import settingsIcon from './assets/settings.svg';
 
 import './sidebar.scss';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,7 +53,6 @@ const Sidebar = () => {
 			.then(originalPromiseResult => {
 				if (originalPromiseResult.data.after) getSubs(originalPromiseResult.data.after);
 			});
-		// }
 	};
 
 	useEffect(() => {
