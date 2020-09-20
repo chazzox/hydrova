@@ -16,6 +16,11 @@ interface auth {
 
 const Redirect: React.FC = () => {
 	useEffect(() => {
+		if (!window.opener && process.env.REACT_APP_CALLBACK_URL)
+			window.location.href = process.env.REACT_APP_CALLBACK_URL.slice(
+				0,
+				process.env.REACT_APP_CALLBACK_URL.length - 9
+			);
 		if (/^state=([\w-]*)&code=([\w-]*)$/.test(document.location.href.split('?')[1])) {
 			const urlencoded = new URLSearchParams();
 			// constructing the query string

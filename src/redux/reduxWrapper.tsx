@@ -6,17 +6,45 @@ import settingsReducer from './settingsReducer';
 import sidebarReducer from './sidebarReducer';
 import authReducer from './authReducer';
 
+let sideBar: null | string = null;
+let sideBarJSON: null | any = null;
+if (typeof window !== `undefined`) {
+	sideBar = localStorage.getItem('sidebar');
+	sideBarJSON = sideBar ? JSON.parse(sideBar) : null;
+}
+
 const store = configureStore({
 	reducer: {
 		style: settingsReducer.reducer,
 		sidebar: sidebarReducer.reducer,
 		auth: authReducer.reducer
+	},
+	preloadedState: {
+		// ...(sideBarSave
+		// 	? {
+		// 			sidebar: {
+		// 				subReddits: JSON.parse(sideBarSave) as sub[],
+		// 				isCollapsed: false,
+
+		// 				multiReddits: [] as { icon_img: string; display_name: string }[],
+		// 				userInfo: {
+		// 					name: '',
+		// 					total_karma: 0,
+		// 					icon_img: ''
+		// 				}
+		// 			}
+		// 	  }
+		// 	: null)
+
+		...{ sidebar: sideBarJSON }
 	}
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export default ({ element }: any) => {
+const wrapper = ({ element }: any) => {
 	return <Provider store={store}>{element}</Provider>;
 };
+
+export default wrapper;

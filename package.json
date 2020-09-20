@@ -6,7 +6,7 @@
 	"version": "2.0.0",
 	"scripts": {
 		"build": "gatsby build",
-		"develop": "gatsby develop -p 3000",
+		"develop": "gatsby develop",
 		"start": "npm run develop",
 		"serve": "gatsby serve",
 		"clean": "gatsby clean",

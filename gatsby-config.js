@@ -11,7 +11,8 @@ module.exports = {
 				short_name: 'Hydrova | High performance reddit client',
 				start_url: '/',
 				display: 'standalone',
-				crossOrigin: `use-credentials`
+				crossOrigin: `use-credentials`,
+				icon: 'static/icon-144x144.png'
 			}
 		}
 	]

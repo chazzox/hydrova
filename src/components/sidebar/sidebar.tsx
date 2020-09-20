@@ -80,7 +80,6 @@ const Sidebar = () => {
 			<SidebarLink pathname="/submit" icon={newIcon} displayName="Post" />
 			<SidebarLink pathname="/mail" icon={mailIcon} displayName="Mail" />
 			<SidebarLink pathname="/settings" icon={settingsIcon} displayName="Settings" />
-			{multiReddits ? null : null}
 
 			<div className="scrollSection">
 				<h3>Feeds</h3>

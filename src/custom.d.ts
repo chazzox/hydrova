@@ -30,24 +30,31 @@ interface sub {
 	subreddit_type: string;
 }
 
-interface userSub {
-	kind: string;
-	data: sub;
+interface multi {
+	icon_img: string;
+	display_name: string;
 }
 
-type userSubSuccess = {
+interface userSubSuccess {
 	kind: string;
 	data: {
 		after: string | null | undefined;
 		before: string | null;
 		dist: number;
-		children: userSub[];
+		children: {
+			kind: string;
+			data: sub;
+		}[];
 	};
-};
+}
 
 interface responseSuccess {
 	access_token: string;
 	expires_in: number;
 	scope: string;
 	token_type: string;
+}
+
+interface indexType {
+	[state: string]: any;
 }
