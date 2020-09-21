@@ -20,23 +20,7 @@ const store = configureStore({
 		auth: authReducer.reducer
 	},
 	preloadedState: {
-		// ...(sideBarSave
-		// 	? {
-		// 			sidebar: {
-		// 				subReddits: JSON.parse(sideBarSave) as sub[],
-		// 				isCollapsed: false,
-
-		// 				multiReddits: [] as { icon_img: string; display_name: string }[],
-		// 				userInfo: {
-		// 					name: '',
-		// 					total_karma: 0,
-		// 					icon_img: ''
-		// 				}
-		// 			}
-		// 	  }
-		// 	: null)
-
-		...{ sidebar: sideBarJSON }
+		...(sideBarJSON ? { sidebar: sideBarJSON } : null)
 	}
 });
 
