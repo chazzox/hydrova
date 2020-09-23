@@ -13,8 +13,7 @@ export const refreshToken = createAsyncThunk<responseSuccess, { refresh_token: s
 				Authorization: 'Basic ' + btoa(process.env.REACT_APP_REDDIT_ID + ':' + process.env.REACT_APP_REDDIT_SECRET),
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			body: urlencoded,
-			redirect: 'manual'
+			body: urlencoded
 		});
 		const responseJSON = await response.json();
 		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);

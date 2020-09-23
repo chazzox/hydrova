@@ -26,13 +26,22 @@ type userMultiSuccess = userMulti[];
 
 interface sub {
 	display_name: string;
+	community_icon: string;
 	icon_img: string;
 	subreddit_type: string;
+	primary_color: string;
+}
+interface storedSub {
+	display_name: string;
+	icon_img: string;
+	subreddit_type: string;
+	icon_color: string;
 }
 
 interface multi {
 	icon_img: string;
 	display_name: string;
+	icon_color: string;
 }
 
 interface userSubSuccess {

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import getColor from '../utils/randomColor';
 import _ from 'lodash';
 
 import getProfileURL from '../utils/imgQuerySplit';
@@ -54,7 +55,7 @@ const sidebarReducer = createSlice({
 
 		multiReddits: [] as multi[],
 
-		subReddits: [] as sub[],
+		subReddits: [] as storedSub[],
 
 		userInfo: {
 			name: '',
@@ -79,7 +80,8 @@ const sidebarReducer = createSlice({
 				state.multiReddits.concat(
 					...action.payload.map(multi => ({
 						display_name: multi.data.display_name,
-						icon_img: multi.data.icon_url
+						icon_img: multi.data.icon_url,
+						icon_color: getColor(multi.data.display_name)
 					}))
 				),
 				(multi: multi) => multi.display_name
@@ -94,8 +96,9 @@ const sidebarReducer = createSlice({
 						// filtering out the unneeded data from the subreddit info
 						...action.payload.data.children.map(sub => ({
 							display_name: sub.data.display_name,
-							icon_img: sub.data.icon_img,
-							subreddit_type: sub.data.subreddit_type
+							icon_img: getProfileURL(sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon),
+							subreddit_type: sub.data.subreddit_type,
+							icon_color: getColor(sub.data.display_name)
 						}))
 					)
 					.sort((a, b) => a.display_name.localeCompare(b.display_name)),
@@ -103,7 +106,6 @@ const sidebarReducer = createSlice({
 			);
 			// if we are in initial load mode
 			state.subReddits = newSubArr;
-
 			// once the fetching of all the subreddit list is complete, we want to save the entire list to local storage
 			if (_.isEmpty(action.payload.data.after)) localStorage.setItem('sidebar', JSON.stringify(state));
 		});
@@ -115,5 +117,6 @@ export const { SET_SIZE_MODE } = sidebarReducer.actions;
 export default sidebarReducer;
 
 function unique<T>(data: T[], key: any): T[] {
-	return [...new Map(data.map(x => [key(x), x])).values()];
+	const arr = [...new Map(data.map(x => [key(x), x])).values()];
+	return arr;
 }

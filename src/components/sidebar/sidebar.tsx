@@ -20,24 +20,6 @@ import './sidebar.scss';
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
 
-	const [colorArray] = useState([
-		'40a8c4',
-		'81b214',
-		'206a5d',
-		'ea5455',
-		'2d4059',
-		'e11d74',
-		'776d8a',
-		'519872',
-		'318fb5',
-		'00bcd4',
-		'848ccf',
-		'93b5e1',
-		'cf1b1b',
-		'0f4c75',
-		'6f4a8e'
-	]);
-
 	const isCollapsed = useSelector((state: RootState) => state.sidebar.isCollapsed);
 	const access_token = useSelector((state: RootState) => state.auth.access_token);
 
@@ -96,10 +78,7 @@ const Sidebar = () => {
 							className="icon"
 							style={
 								_.isEmpty(multiReddit.icon_img)
-									? {
-											backgroundColor:
-												'#' + colorArray[Math.floor(Math.random() * Math.floor(colorArray.length))]
-									  }
+									? { backgroundColor: multiReddit.icon_color }
 									: { backgroundImage: `url(${multiReddit.icon_img})` }
 							}
 						>
@@ -109,7 +88,6 @@ const Sidebar = () => {
 				))}
 				<h3>My Subreddits</h3>
 				{subReddits.map((subreddit, index) => {
-					console.log();
 					if (subreddit.subreddit_type !== 'user')
 						return (
 							<SidebarLink
@@ -121,11 +99,7 @@ const Sidebar = () => {
 									className="icon"
 									style={
 										_.isEmpty(subreddit.icon_img)
-											? {
-													backgroundColor:
-														'#' +
-														colorArray[Math.floor(Math.random() * Math.floor(colorArray.length))]
-											  }
+											? { backgroundColor: subreddit.icon_color }
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>

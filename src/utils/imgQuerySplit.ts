@@ -1,6 +1,6 @@
-function getProfileImageUrl(url: string) {
+function getProfileURL(url: string) {
 	if (url === undefined) return '';
 	else return url.split('?')[0];
 }
 
-export default getProfileImageUrl;
+export default getProfileURL;
