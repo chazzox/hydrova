@@ -1,11 +1,10 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/reduxWrapper';
-import { GET_TIMELINE, setLastPost } from '../../redux/timelineReducer';
-import genPost from '../../utils/renderPost';
+import { unwrapResult } from '@reduxjs/toolkit';
 
-// import timeline from './timeline';
+import { GET_TIMELINE, setLastPost } from '../../redux/timelineReducer';
+import { AppDispatch, RootState } from '../../redux/reduxWrapper';
+import genPost from '../../utils/renderPost';
 import './home.scss';
 
 export default function Home() {
