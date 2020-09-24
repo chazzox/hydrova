@@ -3,6 +3,7 @@ import getColor from '../utils/randomColor';
 import _ from 'lodash';
 
 import getProfileURL from '../utils/imgQuerySplit';
+import unique from '../utils/unique';
 
 export const GET_USER_INFO = createAsyncThunk<userInfoSuccess, { access_token: string }, { rejectValue: failure }>(
 	'sidebar/getUserInfo',
@@ -66,6 +67,7 @@ const sidebarReducer = createSlice({
 	reducers: {
 		SET_SIZE_MODE: (state, action: PayloadAction<boolean>) => {
 			state.isCollapsed = action.payload;
+			localStorage.setItem('sidebar', JSON.stringify(state));
 		}
 	},
 	extraReducers: builder => {
@@ -115,8 +117,3 @@ const sidebarReducer = createSlice({
 export const { SET_SIZE_MODE } = sidebarReducer.actions;
 
 export default sidebarReducer;
-
-function unique<T>(data: T[], key: any): T[] {
-	const arr = [...new Map(data.map(x => [key(x), x])).values()];
-	return arr;
-}

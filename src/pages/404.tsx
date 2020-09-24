@@ -8,7 +8,7 @@ type ComposedProps = Props &
 	}>;
 
 const Home: React.FC<ComposedProps> = props => {
-	return <p>fug balls</p>;
+	return <p>does not exist</p>;
 };
 
 export default Home;

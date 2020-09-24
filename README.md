@@ -8,5 +8,5 @@ High Performance Reddit Client
 -   refactor use of types (still need to actually learn good practice of typescript)
 -   add in timeline loading and caching
 -   add subreddit support
--   add comment support
+-   add comment supportD
 -   add add post addition and

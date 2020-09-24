@@ -1,75 +1,25 @@
-// fixes error when trying to import SVGs using the gatsby-svg plugin
-declare module '*.svg' {
-	const content: any;
-	export default content;
-}
-
-interface userInfoSuccess {
-	name: string;
-	total_karma: number;
-	icon_img: string;
-}
-
-interface failure {
-	message: string;
-	error: number;
-}
-
-interface userMulti {
+interface TimelineResponse {
 	kind: string;
-	data: {
-		display_name: string;
-		icon_url: string;
-	};
-}
-type userMultiSuccess = userMulti[];
-
-interface sub {
-	display_name: string;
-	community_icon: string;
-	icon_img: string;
-	subreddit_type: string;
-	primary_color: string;
-}
-interface storedSub {
-	display_name: string;
-	icon_img: string;
-	subreddit_type: string;
-	icon_color: string;
+	data: TimelineData;
 }
 
-interface multi {
-	icon_img: string;
-	display_name: string;
-	icon_color: string;
+interface TimelineData {
+	modhash: string;
+	dist: number;
+	children: Child[];
+	after: string;
+	before: string | null;
 }
 
-interface userSubSuccess {
-	kind: string;
-	data: {
-		after: string | null | undefined;
-		before: string | null;
-		dist: number;
-		children: {
-			kind: string;
-			data: sub;
-		}[];
-	};
+interface Child {
+	kind: Kind;
+	data: ChildData;
 }
 
-interface responseSuccess {
-	access_token: string;
-	expires_in: number;
-	scope: string;
-	token_type: string;
-}
-
-interface indexType {
-	[state: string]: any;
-}
-
-interface post {
+interface ChildData {
+	title: string;
 	subreddit: string;
+	subreddit_name_prefixed: string;
 	selftext: string;
 	name: string;
 	author_flair_background_color: null | string;
@@ -113,4 +63,48 @@ interface post {
 	num_crossposts: number;
 	media: Media | null;
 	is_video: boolean;
+}
+
+interface ResizedIcon {
+	url: string;
+	width: number;
+	height: number;
+}
+
+interface Media {
+	reddit_video: RedditVideo;
+}
+
+interface RedditVideo {
+	fallback_url: string;
+	height: number;
+	width: number;
+	scrubber_media_url: string;
+	dash_url: string;
+	duration: number;
+	hls_url: string;
+	is_gif: boolean;
+	transcoding_status: string;
+}
+
+enum PostHint {
+	HostedVideo = 'hosted:video',
+	Image = 'image',
+	Link = 'link',
+	Self = 'self'
+}
+
+interface Image {
+	source: ResizedIcon;
+	resolutions: ResizedIcon[];
+	variants: MediaEmbed;
+	id: string;
+}
+
+enum SubredditType {
+	Public = 'public'
+}
+
+enum Kind {
+	T3 = 't3'
 }
