@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 export const GET_TIMELINE = createAsyncThunk<
 	TimelineResponse,
@@ -17,8 +17,12 @@ export const GET_TIMELINE = createAsyncThunk<
 
 const timelineReducer = createSlice({
 	name: 'timelineReducer',
-	initialState: { timelineArr: [] as ChildData[] },
-	reducers: {},
+	initialState: { timelineArr: [] as ChildData[], lastPostID: '' },
+	reducers: {
+		setLastPost: (state, action: PayloadAction<string>) => {
+			state.lastPostID = action.payload;
+		}
+	},
 	extraReducers: builder => {
 		builder.addCase(GET_TIMELINE.fulfilled, (state, action) => {
 			state.timelineArr = state.timelineArr.concat(
@@ -27,5 +31,7 @@ const timelineReducer = createSlice({
 		});
 	}
 });
+
+export const { setLastPost } = timelineReducer.actions;
 
 export default timelineReducer;
