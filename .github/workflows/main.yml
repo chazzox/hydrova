@@ -19,11 +19,7 @@ jobs:
     - name: Install dependencies
       run: yarn
     - name: Build
-      run: yarn run gatsby build --prefix-paths  
-      env:
-          REACT_APP_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
-          REACT_APP_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
-          REACT_APP_CALLBACK_URL: ${{ secrets.REACT_APP_CALLBACK_URL }}
+      run: REACT_APP_REDDIT_ID=${{ secrets.REACT_APP_REDDIT_ID }} REACT_APP_REDDIT_SECRET=${{ secrets.REACT_APP_REDDIT_SECRET }} REACT_APP_CALLBACK_URL= ${{ secrets.REACT_APP_CALLBACK_URL }} yarn run gatsby build --prefix-paths  
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
