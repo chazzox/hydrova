@@ -1,21 +1,31 @@
-name: Gatsby Publish
 
+#   access-token: ${{ secrets.ACCESS_TOKEN }}
+
+name: Gatsby Publish
 on:
   push:
     branches:
       - master
-
 jobs:
   build:
+    name: Build Gatsby Site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: enriikke/gatsby-gh-pages-action@v2
-        with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          deploy-branch: gh-pages
-          gatsby-args: --prefix-paths
-        env:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install dependencies
+      run: yarn
+    - name: Build
+      run: yarn run gatsby build --prefix-paths  
+      env:
           REACT_APP_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
           REACT_APP_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
           REACT_APP_CALLBACK_URL: ${{ secrets.REACT_APP_CALLBACK_URL }}
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.ACCESS_TOKEN }}
+        publish_dir: ./public
