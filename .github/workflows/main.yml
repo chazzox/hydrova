@@ -21,9 +21,9 @@ jobs:
     - name: Build
       run: yarn run build
       env:
-        REACT_APP_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
-        REACT_APP_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
-        REACT_APP_CALLBACK_URL:  ${{ secrets.REACT_APP_CALLBACK_URL }} 
+        GATSBY_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
+        GATSBY_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
+        GATSBY_CALLBACK_URL:  ${{ secrets.REACT_APP_CALLBACK_URL }} 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
