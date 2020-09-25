@@ -15,3 +15,7 @@ jobs:
           access-token: ${{ secrets.ACCESS_TOKEN }}
           deploy-branch: gh-pages
           gatsby-args: --prefix-paths
+        env:
+          REACT_APP_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
+          REACT_APP_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
+          REACT_APP_CALLBACK_URL: ${{ secrets.REACT_APP_CALLBACK_URL }}
