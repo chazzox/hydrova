@@ -67,11 +67,8 @@ export default function Home() {
 	};
 
 	return (
-		<>
-			<h1>test bruh bruh</h1>
-			<div ref={postContainerRef} id="contentContainer">
-				{timeline.map((listingPost, index) => genPost(listingPost, index))}
-			</div>
-		</>
+		<div ref={postContainerRef} id="contentContainer">
+			{timeline.map((listingPost, index) => genPost(listingPost, index))}
+		</div>
 	);
 }
