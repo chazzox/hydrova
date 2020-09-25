@@ -5,7 +5,7 @@
 	"homepage": "https://chazzox.github.io/Hydrova/",
 	"version": "2.0.0",
 	"scripts": {
-		"build": "gatsby build",
+		"build": "gatsby build --prefix-paths",
 		"develop": "gatsby develop",
 		"start": "npm run develop",
 		"serve": "gatsby serve",
@@ -19,7 +19,6 @@
 		"@types/react-redux": "^7.1.9",
 		"@types/react-router-dom": "^5.1.5",
 		"csstype": "^3.0.3",
-		"dotenv": "^8.2.0",
 		"gatsby": "^2.24.50",
 		"gatsby-plugin-manifest": "^2.4.30",
 		"gatsby-plugin-react-helmet": "^3.3.10",

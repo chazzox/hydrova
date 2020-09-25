@@ -12,8 +12,6 @@ import { AppDispatch, RootState } from '../redux/reduxWrapper';
 import './style/index.scss';
 import './style/variables.scss';
 
-require('dotenv').config();
-
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
