@@ -5,7 +5,7 @@ export const GET_TIMELINE = createAsyncThunk<
 	{ access_token: string; afterId: string },
 	{ rejectValue: failure }
 >('sidebar/getTimeline', async ({ access_token, afterId }, thunkApi) => {
-	const response = await fetch('https://oauth.reddit.com/best/?limit=15&after=' + afterId, {
+	const response = await fetch('https://oauth.reddit.com/best/?limit=25&after=' + afterId, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${access_token}` },
 		redirect: 'manual'
