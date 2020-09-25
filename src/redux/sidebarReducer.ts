@@ -15,7 +15,7 @@ export const GET_USER_INFO = createAsyncThunk<userInfoSuccess, { access_token: s
 		});
 		const responseJSON = await response.json();
 		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
-		return responseJSON as userInfoSuccess;
+		return responseJSON as userInfoSuccess
 	}
 );
 
