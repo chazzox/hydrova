@@ -1,7 +1,4 @@
-
-#   access-token: ${{ secrets.ACCESS_TOKEN }}
-
-name: Gatsby Publish
+name: Deploy Master Branch
 on:
   push:
     branches:
