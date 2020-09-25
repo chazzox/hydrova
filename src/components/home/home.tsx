@@ -68,7 +68,7 @@ export default function Home() {
 
 	return (
 		<>
-			<h1>test</h1>
+			<h1>test bruh bruh</h1>
 			<div ref={postContainerRef} id="contentContainer">
 				{timeline.map((listingPost, index) => genPost(listingPost, index))}
 			</div>
