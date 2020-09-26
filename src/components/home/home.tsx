@@ -41,6 +41,7 @@ export default function Home() {
 		getSubs(lastPostID, timeline.length);
 		document.getElementById('contentContainer')?.addEventListener('scroll', calcNewClasses);
 		window.addEventListener('scroll', calcNewClasses);
+		document.getElementsByTagName('body')[0].addEventListener('scroll', calcNewClasses);
 		// the returned function is ran when the component is un-mounted
 		return () => {
 			document.getElementById('navTimeline')?.classList.toggle('selected');
