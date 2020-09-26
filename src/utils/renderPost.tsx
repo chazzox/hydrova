@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const RedditPostComponent = (props: ChildData, index: number) => {
+const RedditPostComponent = (props: sub, index: number) => {
 	const PostContent = () => {
 		if (props.is_self && props.selftext_html) {
 			const innerHTML = new DOMParser().parseFromString(props.selftext_html, 'text/html').documentElement.textContent;
@@ -28,7 +28,7 @@ const RedditPostComponent = (props: ChildData, index: number) => {
 		}
 	};
 	return (
-		<Link key={index} to={{ pathname: '/post/' + props.id, state: { post: props } }}>
+		<span key={index}>
 			<div id={props.id} className="post">
 				<p>updoots: {props.ups}</p>
 				<p className="postTitle">{props.title}</p>
@@ -38,7 +38,7 @@ const RedditPostComponent = (props: ChildData, index: number) => {
 					/comments: {props.num_comments}
 				</p>
 			</div>
-		</Link>
+		</span>
 	);
 };
 

@@ -17,7 +17,7 @@ export const GET_TIMELINE = createAsyncThunk<
 
 const timelineReducer = createSlice({
 	name: 'timelineReducer',
-	initialState: { timelineArr: [] as ChildData[], lastPostID: '' },
+	initialState: { timelineArr: [] as sub[], lastPostID: '' },
 	reducers: {
 		setLastPost: (state, action: PayloadAction<string>) => {
 			state.lastPostID = action.payload;
@@ -26,7 +26,20 @@ const timelineReducer = createSlice({
 	extraReducers: builder => {
 		builder.addCase(GET_TIMELINE.fulfilled, (state, action) => {
 			state.timelineArr = state.timelineArr.concat(
-				...action.payload.data.children.map(({ data }) => data as ChildData)
+				...action.payload.data.children.map(({ data }) => ({
+					is_self: data.is_self,
+					selftext_html: data.selftext_html,
+					is_video: data.is_video,
+					media: data.media,
+					post_hint: data.post_hint,
+					url: data.url,
+					id: data.id,
+					ups: data.ups,
+					title: data.title,
+					subreddit_name_prefixed: data.subreddit_name_prefixed,
+					author: data.author,
+					num_comments: data.num_comments
+				}))
 			);
 		});
 	}

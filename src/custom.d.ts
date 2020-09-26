@@ -25,12 +25,32 @@ interface userMulti {
 type userMultiSuccess = userMulti[];
 
 interface sub {
-	display_name: string;
-	community_icon: string;
-	icon_img: string;
-	subreddit_type: string;
-	primary_color: string;
+	is_self: boolean;
+	selftext_html: string | null;
+	is_video: boolean;
+	media: {
+		reddit_video: {
+			fallback_url: string;
+			height: number;
+			width: number;
+			scrubber_media_url: string;
+			dash_url: string;
+			duration: number;
+			hls_url: string;
+			is_gif: boolean;
+			transcoding_status: string;
+		};
+	} | null;
+	post_hint?: PostHint;
+	url: string;
+	id: string;
+	ups: number;
+	title: string;
+	subreddit_name_prefixed: string;
+	author: string;
+	num_comments: number;
 }
+
 interface storedSub {
 	display_name: string;
 	icon_img: string;
