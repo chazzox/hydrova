@@ -23,7 +23,6 @@ export default function Home() {
 		dispatch(GET_TIMELINE({ access_token: access_token, afterId: afterId }))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
-				console.log(total);
 				if (total < 25) {
 					getSubs(originalPromiseResult.data.after, (total += originalPromiseResult.data.children.length));
 				} else {
