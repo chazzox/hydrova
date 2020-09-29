@@ -38,9 +38,7 @@ export default function Home() {
 		postDomArray = Array.from(postContainerRef.current?.children || []);
 		document.getElementById('navTimeline')?.classList.toggle('selected');
 		getSubs(lastPostID, timeline.length);
-		document.getElementById('contentContainer')?.addEventListener('scroll', calcNewClasses);
-		window.addEventListener('scroll', calcNewClasses);
-		document.getElementsByTagName('body')[0].addEventListener('scroll', calcNewClasses);
+		window.addEventListener('scroll', calcNewClasses, false);
 		// the returned function is ran when the component is un-mounted
 		return () => {
 			document.getElementById('navTimeline')?.classList.toggle('selected');

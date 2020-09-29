@@ -1,28 +1,28 @@
 name: Deploy Master Branch
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 jobs:
-  build:
-    name: Build Gatsby Site
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - name: Install dependencies
-      run: yarn
-    - name: Build
-      run: yarn build
-      env:
-        GATSBY_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
-        GATSBY_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
-        GATSBY_CALLBACK_URL:  ${{ secrets.REACT_APP_CALLBACK_URL }} 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.ACCESS_TOKEN }}
-        publish_dir: ./public
+    build:
+        name: Build Gatsby Site
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '12.x'
+            - name: Install dependencies
+              run: yarn
+            - name: Build
+              run: yarn build
+              env:
+                  GATSBY_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
+                  GATSBY_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
+                  GATSBY_CALLBACK_URL: ${{ secrets.REACT_APP_CALLBACK_URL }}
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.ACCESS_TOKEN }}
+                  publish_dir: ./public
