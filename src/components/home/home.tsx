@@ -35,10 +35,10 @@ export default function Home() {
 
 	// function is run on first mount
 	useEffect(() => {
+		window.addEventListener('scroll', calcNewClasses, false);
 		postDomArray = Array.from(postContainerRef.current?.children || []);
 		document.getElementById('navTimeline')?.classList.toggle('selected');
 		getSubs(lastPostID, timeline.length);
-		window.addEventListener('scroll', calcNewClasses, false);
 		// the returned function is ran when the component is un-mounted
 		return () => {
 			document.getElementById('navTimeline')?.classList.toggle('selected');
@@ -75,7 +75,7 @@ export default function Home() {
 	};
 
 	return (
-		<div ref={postContainerRef} id="contentContainer">
+		<div ref={postContainerRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => genPost(listingPost, index))}
 		</div>
 	);
