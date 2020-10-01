@@ -6,7 +6,6 @@ import { GET_TIMELINE, setLastPost } from '../../redux/timelineReducer';
 import { AppDispatch, RootState } from '../../redux/reduxWrapper';
 import genPost from '../../utils/renderPost';
 import './home.scss';
-import _ from 'lodash';
 
 export default function Home() {
 	const dispatch: AppDispatch = useDispatch();
@@ -53,7 +52,7 @@ export default function Home() {
 
 	// to be improved
 	const calcNewClasses = () => {
-		if (!_.isEmpty(postDomArray)) {
+		if (postDomArray.length > 0) {
 			const closestToNum: number = 0;
 			// defo can be done in 1 line, just need to do more research
 			// creating an array of the bounding rect for each element in the post container div
