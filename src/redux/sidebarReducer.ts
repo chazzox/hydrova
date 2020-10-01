@@ -15,7 +15,7 @@ export const GET_USER_INFO = createAsyncThunk<userInfoSuccess, { access_token: s
 		});
 		const responseJSON = await response.json();
 		if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
-		return responseJSON as userInfoSuccess
+		return responseJSON as userInfoSuccess;
 	}
 );
 
@@ -56,7 +56,7 @@ const sidebarReducer = createSlice({
 
 		multiReddits: [] as multi[],
 
-		subReddits: [] as storedSub[],
+		subReddits: [] as SidebarStoredSub[],
 
 		userInfo: {
 			name: '',
@@ -96,15 +96,15 @@ const sidebarReducer = createSlice({
 				state.subReddits
 					.concat(
 						// filtering out the unneeded data from the subreddit info
-						...action.payload.data.children.map(sub => ({
-							display_name: sub.data.display_name,
-							icon_img: getProfileURL(sub.data.icon_img ? sub.data.icon_img : sub.data.community_icon),
-							subreddit_type: sub.data.subreddit_type,
-							icon_color: getColor(sub.data.display_name)
+						...action.payload.data.children.map(({ data }) => ({
+							display_name: data.display_name,
+							icon_img: getProfileURL(data.icon_img ? data.icon_img : data.community_icon || ''),
+							subreddit_type: data.subreddit_type,
+							icon_color: getColor(data.display_name)
 						}))
 					)
 					.sort((a, b) => a.display_name.localeCompare(b.display_name)),
-				(sub: sub) => sub.display_name
+				(sub: SidebarStoredSub) => sub.display_name
 			);
 			// if we are in initial load mode
 			state.subReddits = newSubArr;
