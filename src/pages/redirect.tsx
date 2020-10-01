@@ -12,6 +12,7 @@ interface auth {
 	access_token: string;
 	expires_in: number;
 	refresh_token: string;
+	error: string | undefined | null;
 }
 
 const Redirect: React.FC = () => {
@@ -37,7 +38,7 @@ const Redirect: React.FC = () => {
 			})
 				// parsing the promise information
 				.then(response => response.text())
-				.then(text => JSON.parse(text))
+				.then(text => JSON.parse(text) as auth)
 				.then(json => {
 					if (json.error === undefined) {
 						const refresh_token: string = json.refresh_token;

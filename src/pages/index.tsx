@@ -42,6 +42,11 @@ const Home = () => {
 				<meta charSet="utf-8" />
 				<title>Hydrova | Reddit Client</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta
+					name="description"
+					http-equiv="description"
+					content="Hydrova is a free to use, high performance, reddit client"
+				></meta>
 			</Helmet>
 			{authenticationResultReturned ? isLoggedIn ? <App /> : <Login /> : null}
 		</>
