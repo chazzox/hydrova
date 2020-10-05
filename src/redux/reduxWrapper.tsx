@@ -6,6 +6,7 @@ import settingsReducer from './settingsReducer';
 import sidebarReducer from './sidebarReducer';
 import authReducer from './authReducer';
 import timelineReducer from './timelineReducer';
+import postReducer from './postReducer';
 
 let sideBar: null | string = null;
 let sideBarJSON: null | any = null;
@@ -19,7 +20,8 @@ const store = configureStore({
 		style: settingsReducer.reducer,
 		sidebar: sidebarReducer.reducer,
 		auth: authReducer.reducer,
-		timeline: timelineReducer.reducer
+		timeline: timelineReducer.reducer,
+		post: postReducer.reducer
 	},
 	preloadedState: {
 		...(sideBarJSON ? { sidebar: sideBarJSON } : null)

@@ -46,7 +46,7 @@ const Home = () => {
 					name="description"
 					http-equiv="description"
 					content="Hydrova is a free to use, high performance, reddit client"
-				></meta>
+				/>
 			</Helmet>
 			{authenticationResultReturned ? isLoggedIn ? <App /> : <Login /> : null}
 		</>

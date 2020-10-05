@@ -65,7 +65,7 @@ const Sidebar = () => {
 
 			<div className="scrollSection">
 				<h3>Feeds</h3>
-				<Link to="r/all">
+				<Link to="/r/all">
 					<button className="navButton">All</button>
 				</Link>
 				{multiReddits.map((multiReddit, index) => (

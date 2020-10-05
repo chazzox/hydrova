@@ -4,7 +4,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 import { GET_TIMELINE, setLastPost } from '../../redux/timelineReducer';
 import { AppDispatch, RootState } from '../../redux/reduxWrapper';
-import genPost from '../../utils/renderPost';
+import GenPost from '../../utils/renderPost';
+import { Link } from 'react-router-dom';
+
 import './home.scss';
 
 export default function Home() {
@@ -22,8 +24,9 @@ export default function Home() {
 		dispatch(GET_TIMELINE({ access_token: access_token, afterId: afterId }))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
-				if (total < 25) {
-					getSubs(originalPromiseResult.data.after, (total += originalPromiseResult.data.children.length));
+				total += originalPromiseResult.data.dist;
+				if (total <= 50) {
+					getSubs(originalPromiseResult.data.after, total);
 				} else {
 					dispatch(setLastPost(originalPromiseResult.data.after));
 					calcNewClasses();
@@ -75,7 +78,11 @@ export default function Home() {
 
 	return (
 		<div ref={postContainerRef} id="contentContainer" onScroll={calcNewClasses}>
-			{timeline.map((listingPost, index) => genPost(listingPost, index))}
+			{timeline.map((listingPost, index) => (
+				<Link key={index} to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}>
+					<GenPost post={listingPost} />
+				</Link>
+			))}
 		</div>
 	);
 }

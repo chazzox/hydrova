@@ -24,7 +24,7 @@ interface userMulti {
 }
 type userMultiSuccess = userMulti[];
 
-interface sub {
+interface post {
 	is_self: boolean;
 	selftext_html: string | null;
 	is_video: boolean;

@@ -17,7 +17,7 @@ export const GET_TIMELINE = createAsyncThunk<
 
 const timelineReducer = createSlice({
 	name: 'timelineReducer',
-	initialState: { timelineArr: [] as sub[], lastPostID: '' },
+	initialState: { timelineArr: [] as post[], lastPostID: '' },
 	reducers: {
 		setLastPost: (state, action: PayloadAction<string>) => {
 			state.lastPostID = action.payload;
