@@ -6,8 +6,6 @@ import { RootState } from '../../redux/reduxWrapper';
 import RenderPost from '../../utils/renderPost';
 
 const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | undefined>> = props => {
-	console.log(props.location.state);
-
 	return (
 		<div id="contentContainer">
 			{props.location.state?.post ? <RenderPost post={props.location.state.post} /> : null}
