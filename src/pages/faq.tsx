@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home: React.FC = () => {
-	return <p>tempororary 404 site</p>;
+	return <p>to be written</p>;
 };
 
 export default Home;

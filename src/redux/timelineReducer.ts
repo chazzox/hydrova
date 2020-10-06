@@ -17,15 +17,18 @@ export const GET_TIMELINE = createAsyncThunk<
 
 const timelineReducer = createSlice({
 	name: 'timelineReducer',
-	initialState: { timelineArr: [] as post[], lastPostID: '' },
+	initialState: { timelineArr: [] as post[], lastPostID: '', beforeNav: null as null | string },
 	reducers: {
 		setLastPost: (state, action: PayloadAction<string>) => {
 			state.lastPostID = action.payload;
+		},
+		setBeforeNav: (state, action: PayloadAction<string>) => {
+			state.beforeNav = action.payload;
 		}
 	},
 	extraReducers: builder => {
 		builder.addCase(GET_TIMELINE.fulfilled, (state, action) => {
-			state.timelineArr = state.timelineArr.concat(
+			state.timelineArr.push(
 				...action.payload.data.children.map(({ data }) => ({
 					is_self: data.is_self,
 					selftext_html: data.selftext_html,
@@ -45,6 +48,6 @@ const timelineReducer = createSlice({
 	}
 });
 
-export const { setLastPost } = timelineReducer.actions;
+export const { setLastPost, setBeforeNav } = timelineReducer.actions;
 
 export default timelineReducer;
