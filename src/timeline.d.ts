@@ -12,7 +12,7 @@ interface TimelineData {
 }
 
 interface Child {
-	kind: Kind;
+	kind: 't3';
 	data: ChildData;
 }
 
@@ -23,7 +23,7 @@ interface ChildData {
 	selftext: string;
 	name: string;
 	author_flair_background_color: null | string;
-	subreddit_type: SubredditType;
+	subreddit_type: string;
 	ups: number;
 	total_awards_received: number;
 	thumbnail_width: number | null;
@@ -38,7 +38,7 @@ interface ChildData {
 	thumbnail: string;
 	edited: boolean | number;
 	author_flair_css_class: null | string;
-	post_hint?: PostHint;
+	post_hint?: string;
 	is_self: boolean;
 	created: number;
 	wls: number | null;
@@ -87,24 +87,9 @@ interface RedditVideo {
 	transcoding_status: string;
 }
 
-enum PostHint {
-	HostedVideo = 'hosted:video',
-	Image = 'image',
-	Link = 'link',
-	Self = 'self'
-}
-
 interface Image {
 	source: ResizedIcon;
 	resolutions: ResizedIcon[];
 	variants: MediaEmbed;
 	id: string;
-}
-
-enum SubredditType {
-	Public = 'public'
-}
-
-enum Kind {
-	T3 = 't3'
 }

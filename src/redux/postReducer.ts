@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-interface GetPostResponse {}
+interface GetPostResponse {
+	[index: string]: any;
+}
 
 export const GET_POST = createAsyncThunk<GetPostResponse, { access_token: string; id: string }, { rejectValue: failure }>(
 	'post/fetchPost',
@@ -26,7 +28,9 @@ const postReducer = createSlice({
 		}
 	},
 	extraReducers: builder => {
-		builder.addCase(GET_POST.fulfilled, (state, action) => {});
+		builder.addCase(GET_POST.fulfilled, (state, action) => {
+			console.log(action.payload);
+		});
 	}
 });
 
