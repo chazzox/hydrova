@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
-import CSS from 'csstype';
 import _ from 'lodash';
 
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
@@ -128,7 +127,7 @@ function SidebarLink(props: { pathname: string; displayName: string; icon?: stri
 			<button
 				id={'nav' + props.displayName}
 				className="navButton hasIcon"
-				style={{ backgroundImage: `url(${props.icon})` } as CSS.Properties}
+				style={{ backgroundImage: `url(${props.icon})` }}
 			>
 				{props.displayName}
 				{props.children}

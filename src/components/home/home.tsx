@@ -26,7 +26,7 @@ export default function Home() {
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
 				total += originalPromiseResult.data.dist;
-				if (total < 25) {
+				if (total < 75) {
 					getSubs(originalPromiseResult.data.after, total);
 				} else {
 					dispatch(setLastPost(originalPromiseResult.data.after));
