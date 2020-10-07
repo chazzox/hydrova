@@ -2,11 +2,6 @@
 
 High Performance Reddit Client
 
-## Todo
+## this is still in alpha, do not expect your experience to be user friendly or fully functional
 
--   rename all of the types to make easier to use
--   refactor use of types (still need to actually learn good practice of typescript)
--   add in timeline loading and caching
--   add subreddit support
--   add comment supportD
--   add add post addition and
+### there are currently no plans for moderation functionality to be added, this could change in a future build
