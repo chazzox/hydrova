@@ -26,7 +26,7 @@ export default function Home() {
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
 				total += originalPromiseResult.data.dist;
-				if (total <= 50) {
+				if (total < 25) {
 					getSubs(originalPromiseResult.data.after, total);
 				} else {
 					dispatch(setLastPost(originalPromiseResult.data.after));
@@ -38,7 +38,6 @@ export default function Home() {
 
 	// function is run on first mount
 	useEffect(() => {
-		console.log(lastClicked);
 		if (lastClicked) document.getElementById(lastClicked)?.scrollIntoView();
 		window.addEventListener('scroll', calcNewClasses, false);
 		postDomArray = Array.from(postContainerRef.current?.children || []);

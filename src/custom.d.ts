@@ -49,6 +49,12 @@ interface post {
 	subreddit_name_prefixed: string;
 	author: string;
 	num_comments: number;
+	galleryData: {
+		items: {
+			media_id: string;
+			id: number;
+		}[];
+	};
 }
 
 interface SidebarStoredSub {

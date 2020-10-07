@@ -15,25 +15,26 @@
 a {
 	user-select: text;
 	text-decoration: none;
-	.post {
-		border-radius: 10px;
-		color: white;
-		margin: 15px 15px;
-		padding: 10px;
-		background-color: #363636;
-		border: 1px solid rgba(255, 255, 255, 0);
-		.postContent {
-			max-height: 150px;
-			overflow: auto;
-		}
-		img {
-			max-height: 50px;
-		}
-		video {
-			max-height: 50px;
-		}
-		&:hover {
-			border: 1px solid rgba(255, 255, 255, 1);
-		}
+}
+
+.post {
+	border-radius: 10px;
+	color: white;
+	margin: 15px 15px;
+	padding: 10px;
+	background-color: #363636;
+	border: 1px solid rgba(255, 255, 255, 0);
+	.postContent {
+		max-height: 150px;
+		overflow: auto;
+	}
+	img {
+		max-height: 50px;
+	}
+	video {
+		max-height: 50px;
+	}
+	&:hover {
+		border: 1px solid rgba(255, 255, 255, 1);
 	}
 }
