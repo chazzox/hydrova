@@ -57,7 +57,7 @@ const postReducer = createSlice({
 						}))[0]
 					},
 					comments: {
-						commentArray: action.payload[1].data.children.map(({ data }) => data),
+						commentArray: action.payload[1].data.children.map(({ data }: any) => data),
 						latestComment: action.payload[1].data.after
 					}
 				};

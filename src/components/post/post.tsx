@@ -6,10 +6,13 @@ import { AppDispatch, RootState } from '../../redux/reduxWrapper';
 import { setPostContent, GET_POST } from '../../redux/postReducer';
 import RenderPost from '../../utils/renderPost';
 
+import './post.scss';
+
 const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | undefined>> = props => {
 	const dispatch: AppDispatch = useDispatch();
 	const id = props.location.pathname.split('/')[2];
-	const post = useSelector((state: RootState) => state.post.posts[id]);
+	const postContent = useSelector((state: RootState) => state.post.posts[id]?.postContent);
+	const comments = useSelector((state: RootState) => state.post.posts[id]?.comments?.commentArray);
 	const access_token = useSelector((state: RootState) => state.auth.access_token);
 
 	useEffect(() => {
@@ -23,16 +26,38 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 
 	return (
 		<div id="contentContainer">
-			{post && post.postContent ? <RenderPost post={post.postContent} /> : null}
-			{post && post.comments ? <Comments /> : null}
+			{postContent ? <RenderPost post={postContent} /> : null}
+			{comments ? comments.map(comment => <Comments comment={comment} />) : null}
 		</div>
 	);
 };
 
-const Comments: React.FC = () => {
+const Comments = ({ comment }: { comment: any }) => {
 	return (
 		<>
-			<h1>test</h1>
+			<div className="comment post">
+				<div className="commentContent">
+					<div
+						className="commentBody"
+						dangerouslySetInnerHTML={{
+							__html:
+								new DOMParser().parseFromString(comment.body_html, 'text/html').documentElement
+									.textContent || ''
+						}}
+					/>
+					<div className="commentButtonMenu">
+						<button>updoot</button>
+						<button>downdoot</button>
+					</div>
+				</div>
+
+				{comment.replies
+					? comment.replies.data.children.map((childComments: any, index: any) => {
+							console.log(childComments);
+							if (childComments.kind === 't1') return <Comments comment={childComments.data} key={index} />;
+					  })
+					: null}
+			</div>
 		</>
 	);
 };
