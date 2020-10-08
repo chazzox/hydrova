@@ -6,7 +6,7 @@ import Logo from '../assets/logo.svg';
 import queryStringToJSON from '../utils/queryString';
 import './style/redirect.scss';
 
-interface auth {
+interface reAuthenticationResponse {
 	scope: string;
 	token_type: string;
 	access_token: string;
@@ -38,11 +38,11 @@ const Redirect: React.FC = () => {
 			})
 				// parsing the promise information
 				.then(response => response.text())
-				.then(text => JSON.parse(text) as auth)
+				.then(text => JSON.parse(text) as reAuthenticationResponse)
 				.then(json => {
 					if (json.error === undefined) {
 						const refresh_token: string = json.refresh_token;
-						Cookies.set('auth', refresh_token, { sameSite: 'Lax', expires: 365 });
+						Cookies.set('refresh_token', refresh_token, { sameSite: 'Lax', expires: 365 });
 						window.close();
 					} else {
 						// deal with errors from here down
@@ -62,6 +62,7 @@ const Redirect: React.FC = () => {
 				<meta charSet="utf-8" />
 				<title>Hydrova | Redirect from login</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="description" content="this is the hydrova login redirect page" />
 			</Helmet>
 
 			<div id="loginBox">

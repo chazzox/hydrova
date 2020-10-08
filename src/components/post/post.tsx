@@ -33,6 +33,7 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 };
 
 const Comments = ({ comment }: { comment: any }) => {
+	console.log(comment);
 	return (
 		<>
 			<div className="comment post">
@@ -53,7 +54,6 @@ const Comments = ({ comment }: { comment: any }) => {
 
 				{comment.replies
 					? comment.replies.data.children.map((childComments: any, index: any) => {
-							console.log(childComments);
 							if (childComments.kind === 't1') return <Comments comment={childComments.data} key={index} />;
 					  })
 					: null}

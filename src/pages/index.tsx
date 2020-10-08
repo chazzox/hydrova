@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Login from '../components/login/login';
 import App from '../components/app';
 
-import { refreshToken, noCookies } from '../redux/authReducer';
+import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
 import { AppDispatch, RootState } from '../redux/reduxWrapper';
 import './style/index.scss';
 import './style/variables.scss';
@@ -19,10 +19,10 @@ const Home = () => {
 	const styleMode = useSelector((state: RootState) => state.style.styleMode);
 
 	useEffect(() => {
-		const oauthStorage = Cookies.getJSON('auth') as string;
+		const oauthCookieData = Cookies.getJSON('refresh_token') as string;
 
-		if (oauthStorage) dispatch(refreshToken({ refresh_token: oauthStorage }));
-		else dispatch(noCookies());
+		if (oauthCookieData) dispatch(refreshAccessToken({ refresh_token: oauthCookieData }));
+		else dispatch(setNoAuthCookies());
 	});
 
 	return (

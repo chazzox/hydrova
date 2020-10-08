@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
 import { RootState, AppDispatch } from '../../redux/reduxWrapper';
 
-import Logo from '../../assets/logo.svg';
+import hydrovaSVG from '../../assets/logo.svg';
 import searchIcon from './assets/search.svg';
 import homeIcon from './assets/home.svg';
 import newIcon from './assets/new.svg';
@@ -45,7 +45,7 @@ const Sidebar = () => {
 	return (
 		<div id="sidebar" className={isCollapsed ? 'compact' : ''}>
 			<Link to="/">
-				<img src={Logo} id="logo" alt="" />
+				<img src={hydrovaSVG} id="logo" alt="" />
 			</Link>
 			<h1 id="navTitle">Hydrova</h1>
 			<button id="shrinkSidebarBtn" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />

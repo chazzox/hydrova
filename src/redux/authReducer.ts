@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
-export const refreshToken = createAsyncThunk<responseSuccess, { refresh_token: string }, { rejectValue: failure }>(
-	'users/refreshToken',
+export const refreshAccessToken = createAsyncThunk<responseSuccess, { refresh_token: string }, { rejectValue: failure }>(
+	'users/refreshAccessToken',
 	async ({ refresh_token }, thunkApi) => {
 		const urlencoded = new URLSearchParams();
 		urlencoded.append('grant_type', 'refresh_token');
@@ -31,18 +31,18 @@ const authSlice = createSlice({
 		authenticationErrors: [] as string[]
 	},
 	reducers: {
-		noCookies: state => {
+		setNoAuthCookies: state => {
 			state.authenticationResultReturned = true;
 		}
 	},
 	extraReducers: builder => {
-		builder.addCase(refreshToken.fulfilled, (state, action) => {
+		builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
 			state.isLoggedIn = true;
 			state.authenticationResultReturned = true;
 			state.access_token = action.payload.access_token;
 			state.expires_in = action.payload.expires_in;
 		});
-		builder.addCase(refreshToken.rejected, (state, action) => {
+		builder.addCase(refreshAccessToken.rejected, (state, action) => {
 			state.authenticationResultReturned = true;
 			if (action.payload?.message) {
 				state.authenticationErrors.push(action.payload.message);
@@ -51,6 +51,6 @@ const authSlice = createSlice({
 	}
 });
 
-export const { noCookies } = authSlice.actions;
+export const { setNoAuthCookies } = authSlice.actions;
 
 export default authSlice;

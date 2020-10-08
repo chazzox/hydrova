@@ -31,10 +31,9 @@ const postReducer = createSlice({
 	},
 	extraReducers: builder => {
 		builder.addCase(GET_POST.fulfilled, (state, action) => {
-			console.log(action.payload[0].data.children[0].data.id);
 			if (state.posts[action.payload[0].data.children[0].data.id]) {
 				state.posts[action.payload[0].data.children[0].data.id].comments = {
-					commentArray: action.payload[1].data.children,
+					commentArray: action.payload[1].data.children.map(({ data }: any) => data),
 					latestComment: action.payload[1].data.after
 				};
 			} else {

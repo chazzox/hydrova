@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../redux/reduxWrapper';
-import { refreshToken } from '../../redux/authReducer';
-import Logo from '../../assets/logo.svg';
+import { refreshAccessToken } from '../../redux/authReducer';
+import hydrovaSVG from '../../assets/logo.svg';
 import './login.scss';
-import genLink from '../../utils/generateLogin';
+import generateAuthenticationURL from '../../utils/generateLogin';
 import Cookies from 'js-cookie';
 
 const Login = () => {
@@ -13,18 +13,18 @@ const Login = () => {
 
 	return (
 		<div id="loginBox">
-			<img src={Logo} alt="logo" id="logo" />
+			<img src={hydrovaSVG} alt="logo" id="logo" />
 			<div id="loginInfo">
 				<h1>Hydrova</h1>
 				<h2>High Performance Reddit Client</h2>
 			</div>
 			<div
 				onClick={() => {
-					let childWindow = window.open(genLink(), '_blank', 'resizable,scrollbars,status');
-					let checkWindowClose = setInterval(() => {
-						if (childWindow?.closed) {
-							dispatch(refreshToken({ refresh_token: Cookies.getJSON('auth') }));
-							clearInterval(checkWindowClose);
+					let loginModal = window.open(generateAuthenticationURL(), '_blank', 'resizable,scrollbars,status');
+					let checkLoginModalClosed = setInterval(() => {
+						if (loginModal?.closed) {
+							dispatch(refreshAccessToken({ refresh_token: Cookies.getJSON('refresh_token') }));
+							clearInterval(checkLoginModalClosed);
 						}
 					}, 50);
 				}}
