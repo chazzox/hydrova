@@ -33,7 +33,6 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 };
 
 const Comments = ({ comment }: { comment: any }) => {
-	console.log(comment);
 	return (
 		<>
 			<div className="comment post">
