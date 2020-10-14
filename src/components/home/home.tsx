@@ -80,14 +80,16 @@ const Home = () => {
 	return (
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => (
-				<Link
-					id={listingPost.id}
-					key={index}
-					onClick={() => dispatch(setClickedPostID(listingPost.id))}
-					to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
-				>
-					<GenPost post={listingPost} />
-				</Link>
+				<div className="postWrapper">
+					<Link
+						id={listingPost.id}
+						key={index}
+						onClick={() => dispatch(setClickedPostID(listingPost.id))}
+						to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
+					>
+						<GenPost post={listingPost} />
+					</Link>
+				</div>
 			))}
 		</div>
 	);

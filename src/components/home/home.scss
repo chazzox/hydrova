@@ -6,16 +6,10 @@ a {
 .postWrapper {
 	background: var(--alt-background-color);
 	margin: 10px 20px;
-	overflow: hidden;
-
-	&:first-of-type {
-		border-radius: var(--bigger-border-radius) var(--bigger-border-radius) 0 0;
-	}
 
 	.post {
 		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease,
-			max-height 0.3s ease;
+		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
@@ -30,7 +24,6 @@ a {
 
 		display: flex;
 		position: relative;
-		box-shadow: -10px 0px 25px 0px rgba(0, 0, 0, 0.5);
 		color: var(--text-color-primary);
 		padding: 15px;
 		background-color: var(--box-background-color);
@@ -64,14 +57,19 @@ a {
 }
 
 // enlarge post
-.top {
-	.postWrapper {
-		border-radius: 0 var(--bigger-border-radius) var(--bigger-border-radius) var(--bigger-border-radius);
-		margin-bottom: 25px;
-	}
-	.post {
-		max-height: 250px; // img/video height + padding * 2
+.postWrapper.top {
+	//border-radius: 0 var(--bigger-border-radius) var(--bigger-border-radius) var(--bigger-border-radius);
+	margin-bottom: 25px;
+
+	a {
 		margin-left: 76px;
+		height: 100%;
+		display: block;
+	}
+
+	.post {
+		box-shadow: -25px 0px 25px -20px rgba(0, 0, 0, 0.2);
+		max-height: 250px; // img/video height + padding * 2
 		padding-right: 10px; // revert to normal padding (avoids text moving when hovering)
 		img,
 		video {

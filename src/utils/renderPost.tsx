@@ -34,7 +34,7 @@ const RedditPostComponent = ({ post }: { post: post }) => {
 		}
 	};
 	return (
-		<div className="postWrapper">
+		
 			<div id={post.id} className={post.post_hint + ' post'}>
 				<div className="postControls">
 					<p>Votes: {post.ups}</p>
@@ -71,7 +71,6 @@ const RedditPostComponent = ({ post }: { post: post }) => {
 				</div>
 				<PostContent />
 			</div>
-		</div>
 	);
 };
 
