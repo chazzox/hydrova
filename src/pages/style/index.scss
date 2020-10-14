@@ -8,22 +8,11 @@
 body {
 	margin: 0;
 	padding: 0;
-	background-color: var(--page-color);
-}
-
-#root {
-	width: 100vw;
-	overflow-x: hidden;
+	background: var(--page-color);
 }
 
 a {
 	color: var(--accent-color);
-}
-
-.contentInnerContainer {
-	width: calc(100% - 20px);
-	max-width: 1400px;
-	margin: 0 auto;
 }
 
 ::-webkit-scrollbar {
@@ -39,26 +28,8 @@ a {
 #contentContainer {
 	overflow-x: hidden;
 	position: relative;
-	width: calc(100vw - 300px);
-	max-width: calc(100vw - 300px);
-	margin-left: 300px;
+	width: calc(100vw - var(--content-offset));
+	max-width: calc(100vw - var(--content-offset));
+	margin-left: var(--content-offset);
 	height: 100vh;
-	#timeline {
-		max-width: 1400px;
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		a {
-			text-decoration: none;
-			.post {
-				color: white;
-				margin: 15px 0;
-				padding: 10px;
-				background-color: #363636;
-				img {
-					width: 500px;
-				}
-			}
-		}
-	}
 }

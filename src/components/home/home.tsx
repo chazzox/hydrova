@@ -55,24 +55,24 @@ export default function Home() {
 
 	// to be improved
 	const calcNewClasses = () => {
-		// if (postDomArray.length > 0) {
-		// 	const closestToNum: number = -100;
-		// 	// defo can be done in 1 line, just need to do more research
-		// 	// creating an array of the bounding rect for each element in the post container div
-		// 	const rectArray = postDomArray.map(element => {
-		// 		return element.getBoundingClientRect().top+(element.clientHeight/2);
-		// 	});
-		// 	// returning the value of the react array which is closest to 0
-		// 	const closestTo = rectArray.reduce((a, b) => (Math.abs(b + closestToNum) < Math.abs(a + closestToNum) ? b : a));
-		// 	// removing all classed that have top in them
-		// 	postDomArray.forEach(element => element.classList.remove('top'));
-		// 	const closestToTopDom = postDomArray[rectArray.indexOf(closestTo)];
-		// 	// adding the top class to the one that has the closest array
-		// 	closestToTopDom.classList.add('top');
-		// 	Array.from(document.getElementsByClassName('top')).map(el => {
-		// 		if (el !== closestToTopDom) el.classList.remove('top');
-		// 	});
-		// }
+		if (postDomArray.length > 0) {
+			const closestToNum: number = -100;
+			// defo can be done in 1 line, just need to do more research
+			// creating an array of the bounding rect for each element in the post container div
+			const rectArray = postDomArray.map(element => {
+				return element.getBoundingClientRect().top;
+			});
+			// returning the value of the react array which is closest to 0
+			const closestTo = rectArray.reduce((a, b) => (Math.abs(b + closestToNum) < Math.abs(a + closestToNum) ? b : a));
+			// removing all classed that have top in them
+			postDomArray.forEach(element => element.classList.remove('top'));
+			const closestToTopDom = postDomArray[rectArray.indexOf(closestTo)];
+			// adding the top class to the one that has the closest array
+			closestToTopDom.classList.add('top');
+			Array.from(document.getElementsByClassName('top')).map(el => {
+				if (el !== closestToTopDom) el.classList.remove('top');
+			});
+		}
 	};
 
 	return (

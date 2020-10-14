@@ -27,14 +27,18 @@ const RedditPostComponent = ({ post }: { post: post }) => {
 		}
 	};
 	return (
-		<div id={post.id} className="post">
-			<p>updoots: {post.ups}</p>
-			<p className="postTitle">{post.title}</p>
-			<PostContent />
-			<p className="postInfo">
-				{post.subreddit_name_prefixed} | u/{post.author}
-				/comments: {post.num_comments}
-			</p>
+		<div className="postWrapper">
+			<div id={post.id} className={post.post_hint + " post"}>
+				<div className="postControls">
+					<p>Votes: {post.ups}</p>
+					<p>Comments: {post.num_comments}</p>
+				</div>
+				<div className="postInfo">
+					<h1 className="postTitle">{post.title}</h1>
+					<p>{post.subreddit_name_prefixed} | u/{post.author}</p>
+				</div>
+				<PostContent />
+			</div>
 		</div>
 	);
 };

@@ -1,40 +1,84 @@
-.top {
-	.post {
-		img {
-			max-height: 200px !important;
-		}
-		video {
-			max-height: 200px !important;
-		}
-		.postContent {
-			max-height: 300px !important;
-		}
-	}
-}
-
 a {
 	user-select: text;
 	text-decoration: none;
 }
 
-.post {
-	border-radius: 10px;
-	color: white;
-	margin: 15px 15px;
-	padding: 10px;
-	background-color: #363636;
-	border: 1px solid rgba(255, 255, 255, 0);
-	.postContent {
+.postWrapper {
+	background: var(--alt-background-color);
+	margin: 10px 20px;
+	overflow: hidden;
+
+	&:first-of-type {
+		border-radius: var(--bigger-border-radius) var(--bigger-border-radius) 0 0;
+	}
+
+	.postControls {
+		display: none;
+	}
+
+	.post {
+		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+
+		* {
+			transition: height 0.3s ease;
+			-webkit-transition: height 0.3s ease;
+			-moz-transition: height 0.3s ease;
+			-o-transition: height 0.3s ease;
+			-ms-transition: height 0.3s ease;
+		}
+
+		display: flex;
+		position: relative;
+		box-shadow: -10px 0px 25px 0px rgba(0, 0, 0, 0.5);
+		color: var(--text-color-primary);
+		padding: 15px;
+		background-color: var(--box-background-color);
 		max-height: 150px;
-		overflow: auto;
+		min-height: 150px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding-bottom: 86px; // post controls height + normal padding (avoids text moving when hovering)
+
+		.postInfo,
+		.postContent {
+			flex-wrap: wrap;
+		}
+		h1 {
+			font-size: 16pt;
+			flex-wrap: wrap;
+		}
+		.postContent {
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		img,
+		video {
+			order: -1;
+			border-radius: calc(var(--small-border-radius) - (var(--small-border-radius) / 2));
+			float: left;
+			height: 120px;
+			margin-right: 15px;
+		}
 	}
-	img {
-		max-height: 50px;
+}
+
+// enlarge post
+.top {
+	.postWrapper {
+		border-radius: 0 var(--bigger-border-radius) var(--bigger-border-radius) var(--bigger-border-radius);
+		margin-bottom: 25px;
 	}
-	video {
-		max-height: 50px;
-	}
-	&:hover {
-		border: 1px solid rgba(255, 255, 255, 1);
+	.post {
+		max-height: 520px; // img/video height + padding * 2
+		margin-left: 76px;
+		padding-right: 10px; // revert to normal padding (avoids text moving when hovering)
+		img,
+		video {
+			height: 500px;
+		}
 	}
 }
