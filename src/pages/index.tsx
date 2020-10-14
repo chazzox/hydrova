@@ -8,15 +8,15 @@ import Login from '../components/login/login';
 import App from '../components/app';
 
 import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
-import { AppDispatch, RootState } from '../redux/reduxWrapper';
+import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
 import './style/index.scss';
 import './style/variables.scss';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-	const authenticationResultReturned = useSelector((state: RootState) => state.auth.authenticationResultReturned);
-	const styleMode = useSelector((state: RootState) => state.style.styleMode);
+	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
+	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.auth.authenticationResultReturned);
+	const styleMode = useSelector((state: ReduxStateType) => state.style.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;

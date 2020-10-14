@@ -19,10 +19,10 @@ const timelineReducer = createSlice({
 	name: 'timelineReducer',
 	initialState: { timelineArr: [] as post[], lastPostID: '', beforeNav: null as null | string },
 	reducers: {
-		setLastPost: (state, action: PayloadAction<string>) => {
+		setAfterID: (state, action: PayloadAction<string>) => {
 			state.lastPostID = action.payload;
 		},
-		setBeforeNav: (state, action: PayloadAction<string>) => {
+		setClickedPostID: (state, action: PayloadAction<string>) => {
 			state.beforeNav = action.payload;
 		}
 	},
@@ -48,6 +48,6 @@ const timelineReducer = createSlice({
 	}
 });
 
-export const { setLastPost, setBeforeNav } = timelineReducer.actions;
+export const { setAfterID, setClickedPostID } = timelineReducer.actions;
 
 export default timelineReducer;

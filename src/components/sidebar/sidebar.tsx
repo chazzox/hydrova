@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
-import { RootState, AppDispatch } from '../../redux/reduxWrapper';
+import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
 
 import hydrovaSVG from '../../assets/logo.svg';
 import searchIcon from './assets/search.svg';
@@ -19,27 +19,27 @@ import './sidebar.scss';
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
 
-	const isCollapsed = useSelector((state: RootState) => state.sidebar.isCollapsed);
-	const access_token = useSelector((state: RootState) => state.auth.access_token);
+	const isCollapsed = useSelector((state: ReduxStateType) => state.sidebar.isCollapsed);
+	const access_token = useSelector((state: ReduxStateType) => state.auth.access_token);
 
-	const userInfo = useSelector((state: RootState) => state.sidebar.userInfo);
+	const userInfo = useSelector((state: ReduxStateType) => state.sidebar.userInfo);
 
-	const multiReddits = useSelector((state: RootState) => state.sidebar.multiReddits);
+	const multiReddits = useSelector((state: ReduxStateType) => state.sidebar.multiReddits);
 
-	const subReddits = useSelector((state: RootState) => state.sidebar.subReddits);
+	const subReddits = useSelector((state: ReduxStateType) => state.sidebar.subReddits);
 
-	const getSubs = (afterId: string | undefined = '') => {
+	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
 		dispatch(GET_SUBREDDITS({ access_token: access_token, afterId: afterId }))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
-				if (originalPromiseResult.data.after) getSubs(originalPromiseResult.data.after);
+				if (originalPromiseResult.data.after) getUserSubscribedSubreddits(originalPromiseResult.data.after);
 			});
 	};
 
 	useEffect(() => {
 		dispatch(GET_USER_INFO({ access_token: access_token }));
 		dispatch(GET_MULTIREDDITS({ access_token: access_token }));
-		getSubs();
+		getUserSubscribedSubreddits();
 	}, []);
 
 	return (

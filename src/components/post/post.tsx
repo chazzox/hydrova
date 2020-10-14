@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { AppDispatch, RootState } from '../../redux/reduxWrapper';
+import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 import { setPostContent, GET_POST } from '../../redux/postReducer';
 import RenderPost from '../../utils/renderPost';
 
@@ -11,9 +11,9 @@ import './post.scss';
 const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | undefined>> = props => {
 	const dispatch: AppDispatch = useDispatch();
 	const id = props.location.pathname.split('/')[2];
-	const postContent = useSelector((state: RootState) => state.post.posts[id]?.postContent);
-	const comments = useSelector((state: RootState) => state.post.posts[id]?.comments?.commentArray);
-	const access_token = useSelector((state: RootState) => state.auth.access_token);
+	const postContent = useSelector((state: ReduxStateType) => state.post.posts[id]?.postContent);
+	const comments = useSelector((state: ReduxStateType) => state.post.posts[id]?.comments?.commentArray);
+	const access_token = useSelector((state: ReduxStateType) => state.auth.access_token);
 
 	useEffect(() => {
 		if (props.location.state?.post) {
