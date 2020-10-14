@@ -5,7 +5,11 @@ const Submit = () => {
 	return (
 		<div id="contentContainer">
 			<div className="submitInputContainer">
-				<input type="text" value={postContentValue} onChange={event => setPostContentValue(event.target.value)} />
+				<input
+					type="text"
+					value={postContentValue}
+					onChange={event => setPostContentValue(event.target.value)}
+				/>
 			</div>
 			<div className="markDownPreviewContainer"></div>
 		</div>

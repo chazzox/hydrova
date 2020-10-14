@@ -32,7 +32,8 @@ const Sidebar = () => {
 		dispatch(GET_SUBREDDITS({ access_token: access_token, afterId: afterId }))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
-				if (originalPromiseResult.data.after) getUserSubscribedSubreddits(originalPromiseResult.data.after);
+				if (originalPromiseResult.data.after)
+					getUserSubscribedSubreddits(originalPromiseResult.data.after);
 			});
 	};
 
@@ -102,7 +103,9 @@ const Sidebar = () => {
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>
-									{_.isEmpty(subreddit.icon_img) ? subreddit.display_name[0].toUpperCase() : ''}
+									{_.isEmpty(subreddit.icon_img)
+										? subreddit.display_name[0].toUpperCase()
+										: ''}
 								</div>
 							</SidebarLink>
 						);

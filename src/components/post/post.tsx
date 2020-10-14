@@ -41,8 +41,8 @@ const Comments = ({ comment }: { comment: any }) => {
 						className="commentBody"
 						dangerouslySetInnerHTML={{
 							__html:
-								new DOMParser().parseFromString(comment.body_html, 'text/html').documentElement
-									.textContent || ''
+								new DOMParser().parseFromString(comment.body_html, 'text/html')
+									.documentElement.textContent || ''
 						}}
 					/>
 					<div className="commentButtonMenu">
@@ -53,7 +53,8 @@ const Comments = ({ comment }: { comment: any }) => {
 
 				{comment.replies
 					? comment.replies.data.children.map((childComments: any, index: any) => {
-							if (childComments.kind === 't1') return <Comments comment={childComments.data} key={index} />;
+							if (childComments.kind === 't1')
+								return <Comments comment={childComments.data} key={index} />;
 					  })
 					: null}
 			</div>

@@ -20,7 +20,11 @@ const Login = () => {
 			</div>
 			<div
 				onClick={() => {
-					let loginModal = window.open(generateAuthenticationURL(), '_blank', 'resizable,scrollbars,status');
+					let loginModal = window.open(
+						generateAuthenticationURL(),
+						'_blank',
+						'resizable,scrollbars,status'
+					);
 					let checkLoginModalClosed = setInterval(() => {
 						if (loginModal?.closed) {
 							dispatch(refreshAccessToken({ refresh_token: Cookies.getJSON('refresh_token') }));

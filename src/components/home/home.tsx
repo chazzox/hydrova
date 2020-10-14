@@ -63,7 +63,9 @@ export default function Home() {
 				return element.getBoundingClientRect().top;
 			});
 			// returning the value of the react array which is closest to 0
-			const closestTo = rectArray.reduce((a, b) => (Math.abs(b + closestToNum) < Math.abs(a + closestToNum) ? b : a));
+			const closestTo = rectArray.reduce((a, b) =>
+				Math.abs(b + closestToNum) < Math.abs(a + closestToNum) ? b : a
+			);
 			// removing all classed that have top in them
 			postDomArray.forEach(element => element.classList.remove('top'));
 			const closestToTopDom = postDomArray[rectArray.indexOf(closestTo)];

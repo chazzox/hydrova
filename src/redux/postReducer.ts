@@ -12,21 +12,23 @@ interface savePostSuccess {
 	[index: string]: any;
 }
 
-export const GET_POST = createAsyncThunk<GetPostResponse, { access_token: string; id: string }, { rejectValue: failure }>(
-	'post/fetchPost',
-	async ({ access_token, id }, thunkApi) => {
-		const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
-			method: 'GET',
-			headers: { Authorization: `Bearer ${access_token}` },
-			redirect: 'manual'
-		});
-		const responseJSON = await response.json();
-		if (response.status === 400 || response.status === 404) return thunkApi.rejectWithValue(responseJSON as failure);
-		return responseJSON as GetPostResponse;
-	}
-);
+export const GET_POST = createAsyncThunk<
+	GetPostResponse,
+	{ access_token: string; id: string },
+	{ rejectValue: failure }
+>('post/fetchPost', async ({ access_token, id }, thunkApi) => {
+	const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
+		method: 'GET',
+		headers: { Authorization: `Bearer ${access_token}` },
+		redirect: 'manual'
+	});
+	const responseJSON = await response.json();
+	if (response.status === 400 || response.status === 404)
+		return thunkApi.rejectWithValue(responseJSON as failure);
+	return responseJSON as GetPostResponse;
+});
 
-export const UPVOTE = createAsyncThunk<
+export const VOTE = createAsyncThunk<
 	upvoteSuccess,
 	{ access_token: string; id: string; voteDirection: 1 | 0 | -1 },
 	{ rejectValue: failure }
@@ -37,7 +39,8 @@ export const UPVOTE = createAsyncThunk<
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404) return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404)
+		return thunkApi.rejectWithValue(responseJSON as failure);
 	console.log(responseJSON);
 	return responseJSON as upvoteSuccess;
 });
@@ -47,13 +50,17 @@ export const SAVE = createAsyncThunk<
 	{ access_token: string; fullName: string; isSaving: boolean },
 	{ rejectValue: failure }
 >('post/save', async ({ access_token, fullName, isSaving }, thunkApi) => {
-	const response = await fetch(`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`, {
-		method: 'GET',
-		headers: { Authorization: `Bearer ${access_token}` },
-		redirect: 'manual'
-	});
+	const response = await fetch(
+		`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`,
+		{
+			method: 'GET',
+			headers: { Authorization: `Bearer ${access_token}` },
+			redirect: 'manual'
+		}
+	);
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404) return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404)
+		return thunkApi.rejectWithValue(responseJSON as failure);
 	console.log(responseJSON);
 	return responseJSON as upvoteSuccess;
 });
@@ -61,7 +68,9 @@ export const SAVE = createAsyncThunk<
 const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
-		posts: {} as { [state: string]: { comments?: { commentArray: any[]; latestComment: string }; postContent: post } }
+		posts: {} as {
+			[state: string]: { comments?: { commentArray: any[]; latestComment: string }; postContent: post };
+		}
 	},
 	reducers: {
 		setPostContent: (state, action: PayloadAction<{ postId: string; postContent: post }>) => {
@@ -101,7 +110,7 @@ const postReducer = createSlice({
 				};
 			}
 		});
-		builder.addCase(UPVOTE.fulfilled, (state, action) => {});
+		builder.addCase(VOTE.fulfilled, (state, action) => {});
 	}
 });
 

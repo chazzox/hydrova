@@ -15,7 +15,9 @@ import './style/variables.scss';
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
-	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.auth.authenticationResultReturned);
+	const authenticationResultReturned = useSelector(
+		(state: ReduxStateType) => state.auth.authenticationResultReturned
+	);
 	const styleMode = useSelector((state: ReduxStateType) => state.style.styleMode);
 
 	useEffect(() => {

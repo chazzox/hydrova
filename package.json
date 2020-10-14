@@ -10,7 +10,8 @@
 		"start": "npm run develop",
 		"serve": "gatsby serve",
 		"clean": "gatsby clean",
-		"deploy": "gatsby build --prefix-paths && gh-pages -d public"
+		"deploy": "gatsby build --prefix-paths && gh-pages -d public",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
 	},
 	"dependencies": {
 		"react": "^16.12.0",
