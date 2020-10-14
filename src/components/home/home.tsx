@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 
+import RenderPostContent from '../../utils/renderPostContent';
 import { GET_TIMELINE, setAfterID, setClickedPostID } from '../../redux/timelineReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import GenPost from '../../utils/renderPost';
 
 import './home.scss';
+import { SAVE, VOTE } from '../../redux/postReducer';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -81,13 +82,56 @@ const Home = () => {
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => (
 				<div className="postWrapper">
+					<div className="postControls">
+						<p>Votes: {listingPost.ups}</p>
+						<p>Comments: {listingPost.num_comments}</p>
+						<button
+							onClick={() =>
+								dispatch(
+									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 0 })
+								)
+							}
+						>
+							upvote
+						</button>
+						<button
+							onClick={() =>
+								dispatch(
+									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 0 })
+								)
+							}
+						>
+							downvote
+						</button>
+						<button
+							onClick={() =>
+								dispatch(
+									SAVE({
+										access_token: access_token,
+										fullName: listingPost.name,
+										isSaving: true
+									})
+								)
+							}
+						>
+							save
+						</button>
+					</div>
 					<Link
 						id={listingPost.id}
 						key={index}
 						onClick={() => dispatch(setClickedPostID(listingPost.id))}
 						to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
 					>
-						<GenPost post={listingPost} />
+						<div id={listingPost.id} className={listingPost.post_hint + ' post'}>
+							<div className="postInfo">
+								<h1 className="postTitle">{listingPost.title}</h1>
+								<p>
+									{listingPost.subreddit_name_prefixed} | u/{listingPost.author}
+								</p>
+								<RenderPostContent post={listingPost} />
+							</div>
+						</div>
 					</Link>
 				</div>
 			))}

@@ -26,7 +26,7 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 
 	return (
 		<div id="contentContainer">
-			{postContent ? <RenderPost post={postContent} /> : null}
+			{/* {postContent ? <RenderPost post={postContent} /> : null} */}
 			{comments ? comments.map(comment => <Comments comment={comment} />) : null}
 		</div>
 	);
