@@ -49,6 +49,7 @@ interface post {
 	subreddit_name_prefixed: string;
 	author: string;
 	num_comments: number;
+	name: string;
 	// 	galleryData: {
 	// 		items: {
 	// 			media_id: string;
