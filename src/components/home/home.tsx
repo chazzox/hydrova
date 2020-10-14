@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import { GET_TIMELINE, setAfterID, setClickedPostID } from '../../redux/timelineReducer';
@@ -10,7 +9,7 @@ import GenPost from '../../utils/renderPost';
 
 import './home.scss';
 
-const Home = ({ history }: RouteComponentProps) => {
+const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const timeline = useSelector((state: ReduxStateType) => state.timeline.timelineArr);
 	const lastPostID = useSelector((state: ReduxStateType) => state.timeline.lastPostID);
@@ -81,20 +80,17 @@ const Home = ({ history }: RouteComponentProps) => {
 	return (
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => (
-				<span
+				<Link
 					id={listingPost.id}
 					key={index}
-					onClick={() => {
-						dispatch(setClickedPostID(listingPost.id));
-						history.push('/post/' + listingPost.id, { post: listingPost });
-					}}
-					// to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
+					onClick={() => dispatch(setClickedPostID(listingPost.id))}
+					to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
 				>
 					<GenPost post={listingPost} />
-				</span>
+				</Link>
 			))}
 		</div>
 	);
 };
 
-export default withRouter(Home);
+export default Home;
