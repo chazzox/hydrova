@@ -12,13 +12,10 @@ a {
 		border-radius: var(--bigger-border-radius) var(--bigger-border-radius) 0 0;
 	}
 
-	.postControls {
-		display: none;
-	}
-
 	.post {
 		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease,
+			max-height 0.3s ease;
 		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
@@ -73,7 +70,7 @@ a {
 		margin-bottom: 25px;
 	}
 	.post {
-		max-height: 520px; // img/video height + padding * 2
+		max-height: 250px; // img/video height + padding * 2
 		margin-left: 76px;
 		padding-right: 10px; // revert to normal padding (avoids text moving when hovering)
 		img,
