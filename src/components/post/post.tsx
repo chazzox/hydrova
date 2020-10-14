@@ -4,7 +4,6 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 import { setPostContent, GET_POST } from '../../redux/postReducer';
-import RenderPost from '../../utils/renderPost';
 
 import './post.scss';
 

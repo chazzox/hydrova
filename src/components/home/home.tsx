@@ -2,13 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
+import copy from 'copy-to-clipboard'
 
-import RenderPostContent from '../../utils/renderPostContent';
-import { GET_TIMELINE, setAfterID, setClickedPostID } from '../../redux/timelineReducer';
+import { SAVE, VOTE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import { GET_TIMELINE, setAfterID, setClickedPostID } from '../../redux/timelineReducer';
+import RenderPostContent from '../../utils/renderPostContent';
 
 import './home.scss';
-import { SAVE, VOTE } from '../../redux/postReducer';
+import timeSinceCurrent from '../../utils/timeSinceCurrent';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -78,13 +80,13 @@ const Home = () => {
 		}
 	};
 
+	
+
 	return (
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => (
 				<div className="postWrapper">
 					<div className="postControls">
-						<p>Votes: {listingPost.ups}</p>
-						<p>Comments: {listingPost.num_comments}</p>
 						<button
 							onClick={() =>
 								dispatch(
@@ -92,8 +94,9 @@ const Home = () => {
 								)
 							}
 						>
-							upvote
+							⬆️
 						</button>
+						<p>{listingPost.ups}</p>
 						<button
 							onClick={() =>
 								dispatch(
@@ -101,7 +104,7 @@ const Home = () => {
 								)
 							}
 						>
-							downvote
+							⬇️
 						</button>
 						<button
 							onClick={() =>
@@ -116,6 +119,8 @@ const Home = () => {
 						>
 							save
 						</button>
+						<button onClick={()=>copy(`https://www.reddit.com/${listingPost.permalink}`)}>share</button>
+						<p>💬{listingPost.num_comments}</p>
 					</div>
 					<Link
 						id={listingPost.id}
@@ -127,10 +132,10 @@ const Home = () => {
 							<div className="postInfo">
 								<h1 className="postTitle">{listingPost.title}</h1>
 								<p>
-									{listingPost.subreddit_name_prefixed} | u/{listingPost.author}
+									{listingPost.subreddit_name_prefixed} | u/{listingPost.author} | posted {timeSinceCurrent(listingPost.created)}
 								</p>
-								<RenderPostContent post={listingPost} />
 							</div>
+							<RenderPostContent post={listingPost} />
 						</div>
 					</Link>
 				</div>

@@ -6,7 +6,8 @@ a {
 .postWrapper {
 	position: relative;
 	background: var(--alt-background-color);
-	margin: 10px 20px;
+	margin: 2px 20px;
+	border-bottom: var(--border-color);
 
 	.postControls {
 		color: var(--text-color-primary);
@@ -27,6 +28,18 @@ a {
 		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
 
+		// contains post title / poster username / subreddit name
+		.postInfo {
+			// post title
+			h1 {
+				font-size: 16pt;
+			}
+			// username / subreddit
+			p {
+				color: var(--text-color-secondary);
+			}
+		}
+
 		* {
 			transition: height 0.3s ease;
 			-webkit-transition: height 0.3s ease;
@@ -37,40 +50,38 @@ a {
 
 		position: relative;
 		color: var(--text-color-primary);
-		padding: 15px;
+		padding: 10px;
 		background-color: var(--box-background-color);
-		max-height: 150px;
-		min-height: 150px;
+		max-height: 120px;
+		min-height: 120px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		padding-bottom: 86px; // post controls height + normal padding (avoids text moving when hovering)
 
-		.postInfo {
-			display: flex;
-		}
-		h1 {
-			font-size: 16pt;
-			flex-wrap: wrap;
-		}
+		// hide post content
 		.postContent {
-			flex-wrap: wrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+			visibility: hidden;
 		}
-		img,
-		video {
-			order: -1;
-			border-radius: calc(var(--small-border-radius) - (var(--small-border-radius) / 2));
-			height: 120px;
-			margin-right: 15px;
+
+		// image/video posts
+		&.image,
+		&.video {
+			img,
+			video {
+				order: -1;
+				border-radius: calc(var(--small-border-radius) - (var(--small-border-radius) / 2));
+				height: 100px;
+				margin-right: 15px;
+			}
+			display: flex;
 		}
 	}
 }
 
 // enlarge post
 .postWrapper.top {
-	//border-radius: 0 var(--bigger-border-radius) var(--bigger-border-radius) var(--bigger-border-radius);
-	margin-bottom: 25px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 
 	a {
 		margin-left: 76px;
@@ -82,9 +93,14 @@ a {
 		visibility: visible;
 	}
 
+	// show post content (text post) when expanded
+	.postContent {
+		visibility: visible;
+	}
+
 	.post {
 		box-shadow: -25px 0px 25px -20px rgba(0, 0, 0, 0.2);
-		max-height: 530px; // img/video height + padding * 2
+		max-height: 520px; // img/video height + padding * 2
 		padding-right: 10px; // revert to normal padding (avoids text moving when hovering)
 		img,
 		video {

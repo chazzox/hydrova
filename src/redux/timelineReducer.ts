@@ -42,7 +42,9 @@ const timelineReducer = createSlice({
 					subreddit_name_prefixed: data.subreddit_name_prefixed,
 					author: data.author,
 					num_comments: data.num_comments,
-					name: data.name
+					name: data.name,
+					permalink:data.permalink,
+					created:data.created
 				}))
 			);
 		});

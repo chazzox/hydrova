@@ -50,6 +50,8 @@ interface post {
 	author: string;
 	num_comments: number;
 	name: string;
+	permalink:string;
+	created:number
 	// 	galleryData: {
 	// 		items: {
 	// 			media_id: string;
