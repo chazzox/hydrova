@@ -5,6 +5,8 @@ html {
 
 	--accent-color: rgb(88, 94, 254);
 
+	--content-offset: 300px;
+
 	--dark-txt-col: white;
 	--dark-txt-col-secondary: rgba(255, 255, 255, 0.66);
 	--light-txt-col: black;
@@ -16,6 +18,7 @@ html {
 	--alt-background-color: rgb(211, 211, 205);
 	--border-color: rgba(0, 0, 0, 0);
 	--accent-background-color: rgb(198, 198, 193);
+	--box-background-color: rgb(47, 52, 56); //needs to be made light
 
 	--text-color-primary: black;
 	--text-color-secondary: rgba(0, 0, 0, 0.66);
@@ -23,11 +26,12 @@ html {
 
 	// dark mode
 	&.darkMode {
-		--page-color: rgb(51, 54, 64);
+		--page-color: rgb(37, 41, 46);
 		--background-color: rgb(34, 34, 40);
 		--alt-background-color: rgb(20, 20, 26);
 		--border-color: rgba(58, 58, 58, 1);
 		--accent-background-color: rgb(57, 57, 62);
+		--box-background-color: rgb(47, 52, 56);
 
 		--text-color-primary: white;
 		--text-color-secondary: rgba(255, 255, 255, 0.66);

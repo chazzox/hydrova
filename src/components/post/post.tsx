@@ -46,8 +46,8 @@ const Comments = ({ comment }: { comment: any }) => {
 						}}
 					/>
 					<div className="commentButtonMenu">
-						<button>updoot</button>
-						<button>downdoot</button>
+						<button>Upvote</button>
+						<button>Downvote</button>
 					</div>
 				</div>
 
