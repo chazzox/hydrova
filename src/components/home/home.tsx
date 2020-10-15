@@ -62,7 +62,7 @@ const Home = () => {
 	// to be improved
 	const calcNewClasses = () => {
 		if (postDomArray.length > 0) {
-			const closestToNum: number = -100;
+			const closestToNum: number = -150;
 			// defo can be done in 1 line, just need to do more research
 			// creating an array of the bounding rect for each element in the post container div
 			const rectArray = postDomArray.map(element => {
@@ -88,6 +88,7 @@ const Home = () => {
 			{timeline.map((listingPost, index) => (
 				<div className="postWrapper">
 					<div className="postControls">
+						<div className="votesContainer">
 						<button
 							onClick={() => {
 								dispatch(
@@ -100,6 +101,7 @@ const Home = () => {
 						</button>
 						<p>{listingPost.ups}</p>
 						<button
+						
 							onClick={() => {
 								dispatch(
 									VOTE({
@@ -113,6 +115,7 @@ const Home = () => {
 						>
 							⬇️
 						</button>
+						</div>
 						<button
 							onClick={() => {
 								dispatch(
@@ -130,7 +133,7 @@ const Home = () => {
 						<button onClick={() => copy(`https://www.reddit.com/${listingPost.permalink}`)}>
 							share
 						</button>
-						<p>💬{listingPost.num_comments}</p>
+						<button>💬{listingPost.num_comments}</button>
 					</div>
 					<Link
 						id={listingPost.id}

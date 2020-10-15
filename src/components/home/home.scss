@@ -9,12 +9,34 @@ a {
 	margin: 2px 20px;
 	border-bottom: var(--border-color);
 
+	a {
+		transition: margin 0.25s ease;
+		-webkit-transition: margin 0.25s ease;
+		-moz-transition: margin 0.25s ease;
+		-o-transition: margin 0.25s ease;
+		-ms-transition: margin 0.25s ease;
+	}
+
 	.postControls {
 		color: var(--text-color-primary);
 		visibility: hidden;
 		position: absolute;
-		left: 10px;
-		top: 10px;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 76px;
+		text-align: center;
+
+		button {
+			transition: opacity 0.3s ease, transform 0.4s ease, border-radius 0.4s ease;
+			-webkit-transition: opacity 0.3s ease, transform 0.4s ease, border-radius 0.4s ease;
+			-moz-transition: opacity 0.3s ease, transform 0.4s ease, border-radius 0.4s ease;
+			-o-transition: opacity 0.3s ease, transform 0.4s ease, border-radius 0.4s ease;
+			-ms-transition: opacity 0.3s ease, transform 0.4s ease, border-radius 0.4s ease;
+			transform: rotate(90deg) scale(0);
+			opacity: 0;
+			border-radius: 100px;
+		}
 
 		* {
 			display: block;
@@ -22,11 +44,16 @@ a {
 	}
 
 	.post {
-		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
-		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease;
+		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+			min-height 0.3s ease;
+		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+			min-height 0.3s ease;
+		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+			min-height 0.3s ease;
+		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+			min-height 0.3s ease;
+		-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+			min-height 0.3s ease;
 
 		// contains post title / poster username / subreddit name
 		.postInfo {
@@ -91,6 +118,36 @@ a {
 
 	.postControls {
 		visibility: visible;
+
+		button {
+			background: var(--accent-background-color);
+			color: var(--text-color-primary);
+			border: none;
+			border-radius: var(--small-border-radius);
+			height: 52px;
+			width: 52px;
+			margin: 8px auto;
+			opacity: 1;
+			transform: rotate(0) scale(1);
+
+			&.selected {
+				background: var(--accent-color) !important;
+			}
+		}
+
+		.votesContainer {
+			background-color: var(--accent-background-color); //temporary plz fix
+			width: 100%;
+			text-align: center;
+			padding: 4px;
+
+			button {
+				background: var(--background-color);
+			}
+			p {
+				margin: 8px auto;
+			}
+		}
 	}
 
 	// show post content (text post) when expanded
@@ -100,6 +157,7 @@ a {
 
 	.post {
 		box-shadow: -25px 0px 25px -20px rgba(0, 0, 0, 0.2);
+		min-height: 356px;
 		max-height: 520px; // img/video height + padding * 2
 		padding-right: 10px; // revert to normal padding (avoids text moving when hovering)
 		img,
