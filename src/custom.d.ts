@@ -53,6 +53,7 @@ interface post {
 	name: string;
 	permalink: string;
 	created: number;
+	likes: boolean | null;
 	// 	galleryData: {
 	// 		items: {
 	// 			media_id: string;

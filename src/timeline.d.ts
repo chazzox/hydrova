@@ -1,16 +1,3 @@
-interface TimelineResponse {
-	kind: string;
-	data: TimelineData;
-}
-
-interface TimelineData {
-	modhash: string;
-	dist: number;
-	children: Child[];
-	after: string;
-	before: string | null;
-}
-
 interface Child {
 	kind: 't3';
 	data: ChildData;
@@ -64,6 +51,7 @@ interface ChildData {
 	num_crossposts: number;
 	media: Media | null;
 	is_video: boolean;
+	likes: boolean | null;
 }
 
 interface ResizedIcon {

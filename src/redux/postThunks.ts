@@ -14,6 +14,17 @@ interface saveSuccess {
 	isSaving: boolean;
 }
 
+interface TimelineResponse {
+	kind: string;
+	data: {
+		modhash: string;
+		dist: number;
+		children: Child[];
+		after: string;
+		before: string | null;
+	};
+}
+
 export const GET_POST = createAsyncThunk<
 	GetPostResponse,
 	{ access_token: string; id: string },
@@ -32,18 +43,17 @@ export const GET_POST = createAsyncThunk<
 
 export const VOTE = createAsyncThunk<
 	upvoteSuccess,
-	{ access_token: string; id: string; voteDirection: 1 | 0 | -1 },
+	{ access_token: string; fullName: string; voteDirection: 1 | 0 | -1 },
 	{ rejectValue: failure }
->('post/upvote', async ({ access_token, id, voteDirection }, thunkApi) => {
-	const response = await fetch(`https://oauth.reddit.com/api/vote?id=${id}&dir${voteDirection}`, {
-		method: 'GET',
+>('post/upvote', async ({ access_token, fullName, voteDirection }, thunkApi) => {
+	const response = await fetch(`https://oauth.reddit.com/api/vote?id=${fullName}&dir=${voteDirection}`, {
+		method: 'POST',
 		headers: { Authorization: `Bearer ${access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	console.log(responseJSON);
 	return responseJSON as upvoteSuccess;
 });
 

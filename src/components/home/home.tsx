@@ -63,10 +63,11 @@ const Home = () => {
 	// to be improved
 	const calcNewClasses = () => {
 		if (postDomArray.length > 0) {
-			const closestToNum: number = -150;
+			const closestToNum: number = -100;
 			// defo can be done in 1 line, just need to do more research
 			// creating an array of the bounding rect for each element in the post container div
 			const rectArray = postDomArray.map(element => {
+				// @ts-ignore
 				return element.getBoundingClientRect().top;
 			});
 			// returning the value of the react array which is closest to 0
@@ -89,7 +90,7 @@ const Home = () => {
 			{timeline.map((id, index) => {
 				const listingPost = posts[id].postContent;
 				return (
-					<div className="postWrapper">
+					<div key={index} className="postWrapper">
 						<div className="postControls">
 							<div className="votesContainer">
 								<button
@@ -97,12 +98,13 @@ const Home = () => {
 										dispatch(
 											VOTE({
 												access_token: access_token,
-												id: listingPost.id,
+												fullName: listingPost.name,
 												voteDirection: 1
 											})
 										);
-										setVoteDirection(1);
+										setVoteDirection(voteDirection === 1 ? 0 : 1);
 									}}
+									className={voteDirection === 1 ? 'selected' : ''}
 								>
 									⬆️
 								</button>
@@ -112,12 +114,13 @@ const Home = () => {
 										dispatch(
 											VOTE({
 												access_token: access_token,
-												id: listingPost.id,
+												fullName: listingPost.name,
 												voteDirection: -1
 											})
 										);
-										setVoteDirection(-1);
+										setVoteDirection(voteDirection === -1 ? 0 : -1);
 									}}
+									className={voteDirection === -1 ? 'selected' : ''}
 								>
 									⬇️
 								</button>
@@ -133,6 +136,7 @@ const Home = () => {
 									);
 									setIsPostSaved(!isPostSaved);
 								}}
+								className={isPostSaved ? 'selected' : ''}
 							>
 								save
 							</button>

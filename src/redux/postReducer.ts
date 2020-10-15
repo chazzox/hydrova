@@ -39,7 +39,8 @@ const postReducer = createSlice({
 							name: data.name,
 							permalink: data.permalink,
 							created: data.created,
-							saved: data.saved
+							saved: data.saved,
+							likes: data.likes
 						}
 					})
 			);

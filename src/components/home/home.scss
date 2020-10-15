@@ -36,6 +36,7 @@ a {
 			transform: rotate(90deg) scale(0);
 			opacity: 0;
 			border-radius: 100px;
+			outline: none !important;
 		}
 
 		* {
@@ -46,8 +47,8 @@ a {
 	.post {
 		transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
 			min-height 0.3s ease;
-		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
-			min-height 0.3s ease;
+		-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease,
+			max-height 0.3s ease, min-height 0.3s ease;
 		-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
 			min-height 0.3s ease;
 		-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
