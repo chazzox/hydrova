@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GET_POST, GET_TIMELINE, SAVE, VOTE } from './postThunks';
-
 export { GET_POST, SAVE, VOTE, GET_TIMELINE };
 
 const postReducer = createSlice({
@@ -38,7 +37,7 @@ const postReducer = createSlice({
 							num_comments: data.num_comments,
 							name: data.name,
 							permalink: data.permalink,
-							created: data.created,
+							created: data.created_utc,
 							saved: data.saved,
 							likes: data.likes
 						}
@@ -70,7 +69,7 @@ const postReducer = createSlice({
 							num_comments: data.num_comments,
 							name: data.name,
 							permalink: data.permalink,
-							created: data.created,
+							created: data.created_utc,
 							saved: data.saved
 						}))[0]
 					},
@@ -81,7 +80,9 @@ const postReducer = createSlice({
 				};
 			}
 		});
-		builder.addCase(VOTE.fulfilled, (state, action) => {});
+		builder.addCase(VOTE.fulfilled, (state, action) => {
+			state[action.payload];
+		});
 		builder.addCase(SAVE.fulfilled, (state, action) => {
 			if (state.posts[action.payload.fullName.split('_')[1]])
 				state.posts[action.payload.fullName.split('_')[1]].postContent.saved =

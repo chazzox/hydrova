@@ -26,10 +26,11 @@ a {
 }
 
 #contentContainer {
-	overflow-x: hidden;
 	position: relative;
 	width: calc(100vw - var(--content-offset));
 	max-width: calc(100vw - var(--content-offset));
 	margin-left: calc(var(--content-offset));
-	height: 100vh;
+	max-height: 100vh;
+	overflow-y: scroll;
+	scroll-snap-type: y mandatory;
 }

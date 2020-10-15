@@ -4,6 +4,7 @@ a {
 }
 
 .postWrapper {
+	scroll-snap-align: start;
 	position: relative;
 	background: var(--alt-background-color);
 	margin: 2px 20px;

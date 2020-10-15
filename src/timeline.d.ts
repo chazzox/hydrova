@@ -28,7 +28,7 @@ interface ChildData {
 	author_flair_css_class: null | string;
 	post_hint?: string;
 	is_self: boolean;
-	created: number;
+	created_utc: number;
 	wls: number | null;
 	selftext_html: null | string;
 	no_follow: boolean;

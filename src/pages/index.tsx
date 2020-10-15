@@ -25,7 +25,7 @@ const Home = () => {
 
 		if (oauthCookieData) dispatch(refreshAccessToken({ refresh_token: oauthCookieData }));
 		else dispatch(setNoAuthCookies());
-	});
+	}, []);
 
 	return (
 		<>
