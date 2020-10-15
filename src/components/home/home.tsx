@@ -4,9 +4,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 import copy from 'copy-to-clipboard';
 
-import { SAVE, VOTE } from '../../redux/postReducer';
+import { SAVE, VOTE, GET_TIMELINE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { GET_TIMELINE, setAfterID, setClickedPostID } from '../../redux/timelineReducer';
+import { setAfterID, setClickedPostID } from '../../redux/timelineReducer';
 import RenderPostContent from '../../utils/renderPostContent';
 
 import './home.scss';
@@ -14,7 +14,8 @@ import timeSinceCurrent from '../../utils/timeSinceCurrent';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const timeline = useSelector((state: ReduxStateType) => state.timeline.timelineArr);
+	const timeline = useSelector((state: ReduxStateType) => state.post.timelineArr);
+	const posts = useSelector((state: ReduxStateType) => state.post.posts);
 	const lastPostID = useSelector((state: ReduxStateType) => state.timeline.lastPostID);
 	const lastPostRoute = useSelector((state: ReduxStateType) => state.timeline.beforeNav);
 	const access_token = useSelector((state: ReduxStateType) => state.auth.access_token);
@@ -85,75 +86,81 @@ const Home = () => {
 
 	return (
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
-			{timeline.map((listingPost, index) => (
-				<div className="postWrapper">
-					<div className="postControls">
-						<div className="votesContainer">
-						<button
-							onClick={() => {
-								dispatch(
-									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 1 })
-								);
-								setVoteDirection(1);
-							}}
-						>
-							⬆️
-						</button>
-						<p>{listingPost.ups}</p>
-						<button
-						
-							onClick={() => {
-								dispatch(
-									VOTE({
-										access_token: access_token,
-										id: listingPost.id,
-										voteDirection: -1
-									})
-								);
-								setVoteDirection(-1);
-							}}
-						>
-							⬇️
-						</button>
-						</div>
-						<button
-							onClick={() => {
-								dispatch(
-									SAVE({
-										access_token: access_token,
-										fullName: listingPost.name,
-										isSaving: !isPostSaved
-									})
-								);
-								setIsPostSaved(!isPostSaved);
-							}}
-						>
-							save
-						</button>
-						<button onClick={() => copy(`https://www.reddit.com/${listingPost.permalink}`)}>
-							share
-						</button>
-						<button>💬{listingPost.num_comments}</button>
-					</div>
-					<Link
-						id={listingPost.id}
-						key={index}
-						onClick={() => dispatch(setClickedPostID(listingPost.id))}
-						to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
-					>
-						<div id={listingPost.id} className={listingPost.post_hint + ' post'}>
-							<div className="postInfo">
-								<h1 className="postTitle">{listingPost.title}</h1>
-								<p>
-									{listingPost.subreddit_name_prefixed} | u/{listingPost.author} | posted{' '}
-									{timeSinceCurrent(listingPost.created)}
-								</p>
+			{timeline.map((id, index) => {
+				const listingPost = posts[id].postContent;
+				return (
+					<div className="postWrapper">
+						<div className="postControls">
+							<div className="votesContainer">
+								<button
+									onClick={() => {
+										dispatch(
+											VOTE({
+												access_token: access_token,
+												id: listingPost.id,
+												voteDirection: 1
+											})
+										);
+										setVoteDirection(1);
+									}}
+								>
+									⬆️
+								</button>
+								<p>{listingPost.ups + voteDirection}</p>
+								<button
+									onClick={() => {
+										dispatch(
+											VOTE({
+												access_token: access_token,
+												id: listingPost.id,
+												voteDirection: -1
+											})
+										);
+										setVoteDirection(-1);
+									}}
+								>
+									⬇️
+								</button>
 							</div>
-							<RenderPostContent post={listingPost} />
+							<button
+								onClick={() => {
+									dispatch(
+										SAVE({
+											access_token: access_token,
+											fullName: listingPost.name,
+											isSaving: !isPostSaved
+										})
+									);
+									setIsPostSaved(!isPostSaved);
+								}}
+							>
+								save
+							</button>
+							<button onClick={() => copy(`https://www.reddit.com/${listingPost.permalink}`)}>
+								share
+							</button>
+							<button>💬{listingPost.num_comments}</button>
 						</div>
-					</Link>
-				</div>
-			))}
+						<Link
+							id={listingPost.id}
+							key={index}
+							onClick={() => dispatch(setClickedPostID(listingPost.id))}
+							to={{ pathname: '/post/' + listingPost.id, state: { post: listingPost } }}
+						>
+							<div id={listingPost.id} className={listingPost.post_hint + ' post'}>
+								<div className="postInfo">
+									<h1 className="postTitle">{listingPost.title}</h1>
+									<p>
+										{listingPost.subreddit_name_prefixed} | u/{listingPost.author} |
+										posted {timeSinceCurrent(listingPost.created)}
+									</p>
+								</div>
+								<RenderPostContent post={listingPost} />
+							</div>
+						</Link>
+					</div>
+				);
+			})}
 		</div>
 	);
 };
