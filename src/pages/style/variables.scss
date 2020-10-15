@@ -13,16 +13,18 @@ html {
 	--light-txt-col-secondary: rgba(0, 0, 0, 0.66);
 
 	// light mode
-	--page-color: rgb(225, 225, 230);
-	--background-color: rgb(221, 221, 215);
-	--alt-background-color: rgb(211, 211, 205);
-	--border-color: rgba(0, 0, 0, 0);
-	--accent-background-color: rgb(198, 198, 193);
-	--box-background-color: rgb(47, 52, 56); //needs to be made light
+	&.lightMode {	
+		--page-color: rgb(225, 225, 230);
+		--background-color: rgb(221, 221, 215);
+		--alt-background-color: rgb(211, 211, 205);
+		--border-color: rgba(0, 0, 0, 0);
+		--accent-background-color: rgb(198, 198, 193);
+		--box-background-color: rgb(47, 52, 56); //needs to be made light
 
-	--text-color-primary: black;
-	--text-color-secondary: rgba(0, 0, 0, 0.66);
-	--text-color-button: white;
+		--text-color-primary: black;
+		--text-color-secondary: rgba(0, 0, 0, 0.66);
+		--text-color-button: white;
+	}
 
 	// dark mode
 	&.darkMode {

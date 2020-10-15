@@ -7,8 +7,8 @@ type ComposedProps = Props &
 		query: string;
 	}>;
 
-const Home: React.FC<ComposedProps> = props => {
+const SubredditHome: React.FC<ComposedProps> = props => {
 	return <div id="contentContainer">sub</div>;
 };
 
-export default Home;
+export default SubredditHome;

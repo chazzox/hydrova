@@ -4,11 +4,11 @@ import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 import _ from 'lodash';
 
-import Login from '../components/login/login';
-import App from '../components/app';
-
-import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
 import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
+import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
+import Login from '../routes/login/login';
+import App from '../routes/app';
+
 import './style/index.scss';
 import './style/variables.scss';
 
@@ -31,14 +31,7 @@ const Home = () => {
 		<>
 			<Helmet
 				htmlAttributes={{
-					class:
-						styleMode === true
-							? 'darkMode'
-							: styleMode === false
-							? 'lightMode'
-							: styleMode === 'custom'
-							? 'custom'
-							: 'darkMode'
+					class: styleMode === true ? 'darkMode' : 'lightMode'
 				}}
 			>
 				<meta charSet="utf-8" />

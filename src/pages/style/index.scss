@@ -15,16 +15,6 @@ a {
 	color: var(--accent-color);
 }
 
-::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-	background: transparent;
-}
-::-webkit-scrollbar-thumb {
-	background: var(--text-color-secondary);
-	border-radius: 10px;
-}
-
 #contentContainer {
 	position: relative;
 	width: calc(100vw - var(--content-offset));

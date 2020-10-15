@@ -8,11 +8,11 @@ import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
 
 import hydrovaSVG from '../../assets/logo.svg';
-import searchIcon from './assets/search.svg';
-import homeIcon from './assets/home.svg';
-import newIcon from './assets/new.svg';
-import mailIcon from './assets/mail.svg';
-import settingsIcon from './assets/settings.svg';
+import searchIcon from '../../assets/icons/search.svg';
+import homeIcon from '../../assets/icons/home.svg';
+import newIcon from '../../assets/icons/new.svg';
+import mailIcon from '../../assets/icons/mail.svg';
+import settingsIcon from '../../assets/icons/settings.svg';
 
 import './sidebar.scss';
 

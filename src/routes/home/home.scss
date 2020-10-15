@@ -1,24 +1,15 @@
 a {
 	user-select: text;
 	text-decoration: none;
-}
-
-.postWrapper {
-	scroll-snap-align: start;
-	position: relative;
-	background: var(--alt-background-color);
-	margin: 2px 20px;
-	border-bottom: var(--border-color);
-
-	a {
-		transition: margin 0.25s ease;
+	transition: margin 0.25s ease;
 		-webkit-transition: margin 0.25s ease;
 		-moz-transition: margin 0.25s ease;
 		-o-transition: margin 0.25s ease;
 		-ms-transition: margin 0.25s ease;
-	}
+}
 
-	.postControls {
+
+	.voteControls {
 		color: var(--text-color-primary);
 		visibility: hidden;
 		position: absolute;
@@ -105,7 +96,7 @@ a {
 			display: flex;
 		}
 	}
-}
+
 
 // enlarge post
 .postWrapper.top {
@@ -118,7 +109,7 @@ a {
 		display: block;
 	}
 
-	.postControls {
+	.voteControls {
 		visibility: visible;
 
 		button {

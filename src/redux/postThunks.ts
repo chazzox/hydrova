@@ -5,10 +5,8 @@ interface GetPostResponse {
 }
 [];
 
-interface upvoteSuccess {
-	[index: string]: any;
-}
-interface saveSuccess {
+
+interface saveAndVoteSuccess {
 	response: {};
 	fullName: string;
 	isSaving: boolean;
@@ -24,6 +22,21 @@ interface TimelineResponse {
 		before: string | null;
 	};
 }
+
+export const GET_TIMELINE = createAsyncThunk<
+	TimelineResponse,
+	{ access_token: string; afterId: string },
+	{ rejectValue: failure }
+>('sidebar/getTimeline', async ({ access_token, afterId }, thunkApi) => {
+	const response = await fetch('https://oauth.reddit.com/best/?limit=25&after=' + afterId, {
+		method: 'GET',
+		headers: { Authorization: `Bearer ${access_token}` },
+		redirect: 'manual'
+	});
+	const responseJSON = await response.json();
+	if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
+	return responseJSON as TimelineResponse;
+});
 
 export const GET_POST = createAsyncThunk<
 	GetPostResponse,
@@ -42,7 +55,7 @@ export const GET_POST = createAsyncThunk<
 });
 
 export const VOTE = createAsyncThunk<
-	upvoteSuccess,
+	saveAndVoteSuccess,
 	{ access_token: string; fullName: string; voteDirection: 1 | 0 | -1 },
 	{ rejectValue: failure }
 >('post/upvote', async ({ access_token, fullName, voteDirection }, thunkApi) => {
@@ -54,11 +67,11 @@ export const VOTE = createAsyncThunk<
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	return responseJSON as upvoteSuccess;
+	return responseJSON as saveAndVoteSuccess;
 });
 
 export const SAVE = createAsyncThunk<
-	saveSuccess,
+	saveAndVoteSuccess,
 	{ access_token: string; fullName: string; isSaving: boolean },
 	{ rejectValue: failure }
 >('post/save', async ({ access_token, fullName, isSaving }, thunkApi) => {
@@ -72,20 +85,7 @@ export const SAVE = createAsyncThunk<
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveSuccess;
+	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveAndVoteSuccess;
 });
 
-export const GET_TIMELINE = createAsyncThunk<
-	TimelineResponse,
-	{ access_token: string; afterId: string },
-	{ rejectValue: failure }
->('sidebar/getTimeline', async ({ access_token, afterId }, thunkApi) => {
-	const response = await fetch('https://oauth.reddit.com/best/?limit=25&after=' + afterId, {
-		method: 'GET',
-		headers: { Authorization: `Bearer ${access_token}` },
-		redirect: 'manual'
-	});
-	const responseJSON = await response.json();
-	if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
-	return responseJSON as TimelineResponse;
-});
+

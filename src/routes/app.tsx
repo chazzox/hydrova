@@ -1,12 +1,12 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import Home from './home/home';
+import Sidebar from '../components/sidebar/sidebar';
 import Subreddit from './subreddit/subreddit';
-import Post from './post/post';
-import Sidebar from './sidebar/sidebar';
-import Submit from './submit/submit';
 import Settings from './settings/settings';
+import Submit from './submit/submit';
+import Home from './home/home';
+import Post from './post/post';
 
 const App: React.FC = () => {
 	return (
