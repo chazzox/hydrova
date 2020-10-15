@@ -26,6 +26,7 @@ type userMultiSuccess = userMulti[];
 
 interface post {
 	is_self: boolean;
+	saved: boolean;
 	selftext_html: string | null;
 	is_video: boolean;
 	media: {
@@ -50,8 +51,8 @@ interface post {
 	author: string;
 	num_comments: number;
 	name: string;
-	permalink:string;
-	created:number
+	permalink: string;
+	created: number;
 	// 	galleryData: {
 	// 		items: {
 	// 			media_id: string;

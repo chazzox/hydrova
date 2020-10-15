@@ -17,6 +17,7 @@ interface Child {
 }
 
 interface ChildData {
+	saved: boolean;
 	title: string;
 	subreddit: string;
 	subreddit_name_prefixed: string;

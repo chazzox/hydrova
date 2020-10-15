@@ -8,8 +8,10 @@ interface GetPostResponse {
 interface upvoteSuccess {
 	[index: string]: any;
 }
-interface savePostSuccess {
-	[index: string]: any;
+interface saveSuccess {
+	response: {};
+	fullName: string;
+	isSaving: boolean;
 }
 
 export const GET_POST = createAsyncThunk<
@@ -46,23 +48,21 @@ export const VOTE = createAsyncThunk<
 });
 
 export const SAVE = createAsyncThunk<
-	savePostSuccess,
+	saveSuccess,
 	{ access_token: string; fullName: string; isSaving: boolean },
 	{ rejectValue: failure }
 >('post/save', async ({ access_token, fullName, isSaving }, thunkApi) => {
 	const response = await fetch(
 		`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`,
 		{
-			method: 'GET',
-			headers: { Authorization: `Bearer ${access_token}` },
-			redirect: 'manual'
+			method: 'POST',
+			headers: { Authorization: `Bearer ${access_token}` }
 		}
 	);
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	console.log(responseJSON);
-	return responseJSON as upvoteSuccess;
+	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveSuccess;
 });
 
 const postReducer = createSlice({
@@ -111,6 +111,15 @@ const postReducer = createSlice({
 			}
 		});
 		builder.addCase(VOTE.fulfilled, (state, action) => {});
+		builder.addCase(SAVE.fulfilled, (state, action) => {
+			if (state.posts[action.payload.fullName.split('_')[1]])
+				state.posts[action.payload.fullName.split('_')[1]].postContent.saved =
+					action.payload.isSaving;
+			else {
+				console.log(JSON.stringify(state.posts));
+				console.log(state.posts[action.payload.fullName.split('_')[1]]);
+			}
+		});
 	}
 });
 

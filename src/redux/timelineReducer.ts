@@ -43,8 +43,9 @@ const timelineReducer = createSlice({
 					author: data.author,
 					num_comments: data.num_comments,
 					name: data.name,
-					permalink:data.permalink,
-					created:data.created
+					permalink: data.permalink,
+					created: data.created,
+					saved: data.saved
 				}))
 			);
 		});

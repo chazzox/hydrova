@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
-import copy from 'copy-to-clipboard'
+import copy from 'copy-to-clipboard';
 
 import { SAVE, VOTE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
@@ -21,6 +21,9 @@ const Home = () => {
 
 	const timelineContainerDivRef = useRef<HTMLDivElement>(null);
 	let postDomArray = Array.from(timelineContainerDivRef.current?.children || []);
+
+	const [voteDirection, setVoteDirection] = useState<-1 | 0 | 1>(0);
+	const [isPostSaved, setIsPostSaved] = useState(false);
 
 	const getTimeline = (afterId: string, total: number) => {
 		dispatch(GET_TIMELINE({ access_token: access_token, afterId: afterId }))
@@ -80,46 +83,53 @@ const Home = () => {
 		}
 	};
 
-	
-
 	return (
 		<div ref={timelineContainerDivRef} id="contentContainer" onScroll={calcNewClasses}>
 			{timeline.map((listingPost, index) => (
 				<div className="postWrapper">
 					<div className="postControls">
 						<button
-							onClick={() =>
+							onClick={() => {
 								dispatch(
-									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 0 })
-								)
-							}
+									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 1 })
+								);
+								setVoteDirection(1);
+							}}
 						>
 							⬆️
 						</button>
 						<p>{listingPost.ups}</p>
 						<button
-							onClick={() =>
+							onClick={() => {
 								dispatch(
-									VOTE({ access_token: access_token, id: listingPost.id, voteDirection: 0 })
-								)
-							}
+									VOTE({
+										access_token: access_token,
+										id: listingPost.id,
+										voteDirection: -1
+									})
+								);
+								setVoteDirection(-1);
+							}}
 						>
 							⬇️
 						</button>
 						<button
-							onClick={() =>
+							onClick={() => {
 								dispatch(
 									SAVE({
 										access_token: access_token,
 										fullName: listingPost.name,
-										isSaving: true
+										isSaving: !isPostSaved
 									})
-								)
-							}
+								);
+								setIsPostSaved(!isPostSaved);
+							}}
 						>
 							save
 						</button>
-						<button onClick={()=>copy(`https://www.reddit.com/${listingPost.permalink}`)}>share</button>
+						<button onClick={() => copy(`https://www.reddit.com/${listingPost.permalink}`)}>
+							share
+						</button>
 						<p>💬{listingPost.num_comments}</p>
 					</div>
 					<Link
@@ -132,7 +142,8 @@ const Home = () => {
 							<div className="postInfo">
 								<h1 className="postTitle">{listingPost.title}</h1>
 								<p>
-									{listingPost.subreddit_name_prefixed} | u/{listingPost.author} | posted {timeSinceCurrent(listingPost.created)}
+									{listingPost.subreddit_name_prefixed} | u/{listingPost.author} | posted{' '}
+									{timeSinceCurrent(listingPost.created)}
 								</p>
 							</div>
 							<RenderPostContent post={listingPost} />
