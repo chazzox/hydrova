@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import copy from 'copy-to-clipboard';
 
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { setPostContent, GET_POST } from '../../redux/postReducer';
+import { setPostContent, GET_POST, VOTE, SAVE } from '../../redux/postReducer';
+import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
+import RenderPostContent from '../../utils/renderPostContent';
 
 import './post.scss';
 
@@ -25,7 +28,72 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 
 	return (
 		<div id="contentContainer">
-			{/* {postContent ? <RenderPost post={postContent} /> : null} */}
+			{postContent ? (
+				<div className="postWrapper">
+					<div className="postControls">
+						<div className="votesContainer">
+							<button
+								onClick={() => {
+									dispatch(
+										VOTE({
+											access_token: access_token,
+											fullName: postContent.name,
+											voteDirection: 1
+										})
+									);
+								}}
+								className={postContent.likes === true ? 'selected' : ''}
+							>
+								⬆️
+							</button>
+							<p>{postContent.ups}</p>
+							<button
+								onClick={() => {
+									dispatch(
+										VOTE({
+											access_token: access_token,
+											fullName: postContent.name,
+											voteDirection: -1
+										})
+									);
+								}}
+								className={postContent.likes === false ? 'selected' : ''}
+							>
+								⬇️
+							</button>
+						</div>
+						<button
+							onClick={() => {
+								dispatch(
+									SAVE({
+										access_token: access_token,
+										fullName: postContent.name,
+										isSaving: !postContent.saved
+									})
+								);
+							}}
+							className={postContent.saved ? 'selected' : ''}
+						>
+							save
+						</button>
+						<button onClick={() => copy(`https://www.reddit.com/${postContent.permalink}`)}>
+							share
+						</button>
+						<button>💬{postContent.num_comments}</button>
+					</div>
+
+					<div id={postContent.id} className={postContent.post_hint + ' post'}>
+						<div className="postInfo">
+							<h1 className="postTitle">{postContent.title}</h1>
+							<p>
+								{postContent.subreddit_name_prefixed} | u/{postContent.author} | posted{' '}
+								{formatTimeSince(timeSinceCurrent(postContent.created))}
+							</p>
+						</div>
+						<RenderPostContent post={postContent} />
+					</div>
+				</div>
+			) : null}
 			{comments ? comments.map(comment => <Comments comment={comment} />) : null}
 		</div>
 	);
