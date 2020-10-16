@@ -1,0 +1,6 @@
+// indents nested comments
+.comment {
+	.comment {
+		margin-left: 35px;
+	}
+}

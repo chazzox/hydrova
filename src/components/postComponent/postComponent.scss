@@ -1,0 +1,30 @@
+.post {
+	transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+		min-height 0.3s ease;
+	-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+		min-height 0.3s ease;
+	-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+		min-height 0.3s ease;
+	-o-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+		min-height 0.3s ease;
+	-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
+		min-height 0.3s ease;
+
+	.postInfo {
+		// post title
+		h1 {
+			font-size: 16pt;
+		}
+		// username / subreddit / time posted
+		p {
+			color: var(--text-color-secondary);
+		}
+	}
+
+	color: var(--text-color-primary);
+	padding: 10px;
+	background-color: var(--box-background-color);
+	max-height: 120px;
+	min-height: 120px;
+	overflow: hidden;
+}
