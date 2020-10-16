@@ -27,4 +27,10 @@
 	max-height: 120px;
 	min-height: 120px;
 	overflow: hidden;
+	scroll-snap-align: start;
+}
+
+// expanded post
+a.expanded .post {
+	background-color: red;
 }

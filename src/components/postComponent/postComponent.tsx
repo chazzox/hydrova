@@ -31,7 +31,7 @@ const postComponent = ({ postContent }: { postContent: post }) => {
 	};
 
 	return (
-		<div id={postContent.id} className={'post'}>
+		<div id={postContent.id} className="post">
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
 				<p>

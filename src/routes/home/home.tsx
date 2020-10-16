@@ -40,6 +40,7 @@ const Home = () => {
 		if (lastPostRoute) document.getElementById(lastPostRoute)?.scrollIntoView();
 		document.getElementById('navTimeline')?.classList.toggle('selected');
 		getTimeline(lastPostID, timeline.length);
+		selectTopPost();
 		// the returned function is ran when the component is un-mounted
 		return () => {
 			document.getElementById('navTimeline')?.classList.toggle('selected');
@@ -49,34 +50,40 @@ const Home = () => {
 	const [currentTop, setCurrentTop] = useState<Element | null>(null);
 
 	useEffect(() => {
-		if (currentTop) currentTop.classList.add('top');
+		if (currentTop) currentTop.classList.add('expanded');
 	}, [currentTop]);
 
 	// scrolling
 	const selectTopPost = () => {
-		Array.from(postContainerRef.current?.children || []).forEach(postWrapperNode => {
-			if (postWrapperNode.getBoundingClientRect().top == 0) {
-				setCurrentTop(postWrapperNode);
+		if (currentTop?.getBoundingClientRect().top !== 0) {
+			currentTop?.classList.remove('expanded');
+		}
+		Array.from(postContainerRef.current?.children || []).forEach(postNode => {
+			if (postNode.getBoundingClientRect().top == 0) {
+				if (currentTop !== postNode) currentTop?.classList.remove('expanded');
+				setCurrentTop(postNode);
 			}
 		});
 	};
 
 	return (
-		<div id="contentContainer" onScroll={selectTopPost} ref={postContainerRef}>
-			{timeline.map((id, index) => {
-				const postContent = posts[id].postContent;
-				return (
-					<div key={index} id={postContent.id}>
-						<VoteControls postContent={postContent} />
+		<div id="contentContainer" onScroll={selectTopPost}>
+			{currentTop ? <VoteControls postContent={posts[currentTop?.id].postContent} /> : null}
+			<span ref={postContainerRef}>
+				{timeline.map((id, index) => {
+					const postContent = posts[id].postContent;
+					return (
 						<Link
+							key={index}
+							id={id}
 							onClick={() => dispatch(setClickedPostID(postContent.id))}
 							to={{ pathname: '/post/' + postContent.id, state: { post: postContent } }}
 						>
 							<PostComponent postContent={postContent} />
 						</Link>
-					</div>
-				);
-			})}
+					);
+				})}
+			</span>
 		</div>
 	);
 };
