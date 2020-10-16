@@ -9,8 +9,6 @@ import VoteControls from '../../components/voteControls/voteControls';
 import PostComponent from '../../components/postComponent/postComponent';
 import Comment from '../../components/comment/comment';
 
-import './post.scss';
-
 const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | undefined>> = props => {
 	const dispatch: AppDispatch = useDispatch();
 	const id = props.location.pathname.split('/')[2];

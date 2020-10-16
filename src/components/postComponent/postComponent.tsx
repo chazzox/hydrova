@@ -1,6 +1,8 @@
 import React from 'react';
 import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
+import './postComponent.scss';
+
 const postComponent = ({ postContent }: { postContent: post }) => {
 	const PostContent = () => {
 		if (postContent.is_self && postContent.selftext_html) {

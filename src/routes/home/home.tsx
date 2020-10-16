@@ -10,8 +10,6 @@ import { GET_TIMELINE } from '../../redux/postReducer';
 import PostComponent from '../../components/postComponent/postComponent';
 import VoteControls from '../../components/voteControls/voteControls';
 
-import './home.scss';
-
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 

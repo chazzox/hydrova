@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
+import './voteControls.scss';
+
 import { SAVE, VOTE, GET_TIMELINE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 
