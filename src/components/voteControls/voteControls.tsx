@@ -6,6 +6,7 @@ import './voteControls.scss';
 
 import { SAVE, VOTE, GET_TIMELINE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import GenericButton from '../genericButton/genericButton';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -14,8 +15,10 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 	return (
 		<div className="voteControls">
 			<div className="votesContainer">
-				<button
-					onClick={() => {
+				<GenericButton
+					text="⬆️"
+					isSelected={postContent.likes === true}
+					clickEvent={() => {
 						dispatch(
 							VOTE({
 								access_token: access_token,
@@ -24,13 +27,10 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 							})
 						);
 					}}
-					className={postContent.likes === true ? 'selected' : ''}
-				>
-					⬆️
-				</button>
+				/>
 				<p>{postContent.ups}</p>
-				<button
-					onClick={() => {
+				<GenericButton
+					clickEvent={() => {
 						dispatch(
 							VOTE({
 								access_token: access_token,
@@ -39,13 +39,12 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 							})
 						);
 					}}
-					className={postContent.likes === false ? 'selected' : ''}
-				>
-					⬇️
-				</button>
+					text="⬇️"
+					isSelected={postContent.likes === false}
+				/>
 			</div>
-			<button
-				onClick={() => {
+			<GenericButton
+				clickEvent={() => {
 					dispatch(
 						SAVE({
 							access_token: access_token,
@@ -54,10 +53,10 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 						})
 					);
 				}}
-				className={postContent.likes ? 'selected' : ''}
-			>
-				save
-			</button>
+				isSelected={postContent.likes}
+				text="save"
+			/>
+
 			<button onClick={() => copy(`https://www.reddit.com/${postContent.permalink}`)}>share</button>
 			<button>💬{postContent.num_comments}</button>
 		</div>

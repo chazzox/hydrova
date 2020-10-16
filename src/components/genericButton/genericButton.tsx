@@ -10,11 +10,18 @@ interface propTypes {
 	href?: string;
 	clickEvent?: () => void;
 	children?: JSX.Element;
+	isSelected?: boolean | null;
 }
 
-const GenericButton = ({ svgPath, text, id, href, clickEvent, children }: propTypes) => {
+const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelected }: propTypes) => {
+	const genClasses = () => {
+		const classNames: string[] = [];
+		if (svgPath) classNames.push('iconButton');
+		if (isSelected) classNames.push('selected');
+		return classNames.join(' ');
+	};
 	const Content = () => (
-		<button onClick={clickEvent} className={svgPath ? 'iconButton' : ''} id={id || ''}>
+		<button onClick={clickEvent} className={genClasses()} id={id || ''}>
 			{svgPath ? SVGS[svgPath] : null}
 			{text ? text : null}
 			{children}
