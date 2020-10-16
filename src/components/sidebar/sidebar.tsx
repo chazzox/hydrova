@@ -67,9 +67,7 @@ const Sidebar = () => {
 
 			<div className="scrollSection">
 				<h3>Feeds</h3>
-				<Link to="/r/all">
-					<button className="navButton">All</button>
-				</Link>
+				<GenericButton href="/r/all" text="All" />
 				{multiReddits.map((multiReddit, index) => (
 					<GenericButton
 						key={index}
