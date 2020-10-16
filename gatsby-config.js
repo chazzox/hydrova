@@ -14,6 +14,14 @@ module.exports = {
 				crossOrigin: `use-credentials`,
 				icon: 'static/icon-144x144.png'
 			}
+		},
+		{
+			resolve: 'gatsby-plugin-react-svg',
+			options: {
+				rule: {
+					include: /icons/
+				}
+			}
 		}
 	]
 };

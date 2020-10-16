@@ -15,6 +15,7 @@ import mailIcon from '../../assets/icons/mail.svg';
 import settingsIcon from '../../assets/icons/settings.svg';
 
 import './sidebar.scss';
+import GenericButton from '../genericButton/genericButton';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -58,10 +59,11 @@ const Sidebar = () => {
 				placeholder="Search"
 				style={{ backgroundImage: `url(${searchIcon})` }}
 			/>
-			<SidebarLink pathname="/" icon={homeIcon} displayName="Timeline" />
-			<SidebarLink pathname="/submit" icon={newIcon} displayName="Post" />
-			<SidebarLink pathname="/mail" icon={mailIcon} displayName="Mail" />
-			<SidebarLink pathname="/settings" icon={settingsIcon} displayName="Settings" />
+
+			<GenericButton text="Timeline" svgPath="home" href="/" />
+			<GenericButton text="Post" svgPath="new" href="/submit" />
+			<GenericButton text="Mail" svgPath="mail" href="/" />
+			<GenericButton text="Settings" svgPath="settings" href="/" />
 
 			<div className="scrollSection">
 				<h3>Feeds</h3>
@@ -69,10 +71,10 @@ const Sidebar = () => {
 					<button className="navButton">All</button>
 				</Link>
 				{multiReddits.map((multiReddit, index) => (
-					<SidebarLink
+					<GenericButton
 						key={index}
-						pathname={'/m/' + multiReddit.display_name}
-						displayName={multiReddit.display_name}
+						href={'/m/' + multiReddit.display_name}
+						text={multiReddit.display_name}
 					>
 						<div
 							className="icon"
@@ -84,16 +86,16 @@ const Sidebar = () => {
 						>
 							{_.isEmpty(multiReddit.icon_img) ? multiReddit.display_name[0].toUpperCase() : ''}
 						</div>
-					</SidebarLink>
+					</GenericButton>
 				))}
 				<h3>My Subreddits</h3>
 				{subReddits.map((subreddit, index) => {
 					if (subreddit.subreddit_type !== 'user')
 						return (
-							<SidebarLink
+							<GenericButton
 								key={index}
-								pathname={'/r/' + subreddit.display_name}
-								displayName={subreddit.display_name}
+								href={'/r/' + subreddit.display_name}
+								text={subreddit.display_name}
 							>
 								<div
 									className="icon"
@@ -107,7 +109,7 @@ const Sidebar = () => {
 										? subreddit.display_name[0].toUpperCase()
 										: ''}
 								</div>
-							</SidebarLink>
+							</GenericButton>
 						);
 				})}
 			</div>
@@ -123,18 +125,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-function SidebarLink(props: { pathname: string; displayName: string; icon?: string; children?: any }) {
-	return (
-		<Link to={props.pathname}>
-			<button
-				id={'nav' + props.displayName}
-				className="navButton hasIcon"
-				style={{ backgroundImage: `url(${props.icon})` }}
-			>
-				{props.displayName}
-				{props.children}
-			</button>
-		</Link>
-	);
-}
