@@ -67,7 +67,7 @@ const Home = () => {
 	};
 
 	return (
-		<div id="contentContainer" onScrollEnd={selectTopPost}>
+		<div id="contentContainer" onScroll={selectTopPost}>
 			{currentTop ? <VoteControls postContent={posts[currentTop?.id].postContent} /> : null}
 			<span ref={postContainerRef}>
 				{timeline.map((id, index) => {
