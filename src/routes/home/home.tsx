@@ -10,6 +10,8 @@ import { GET_TIMELINE } from '../../redux/postReducer';
 import PostComponent from '../../components/postComponent/postComponent';
 import VoteControls from '../../components/voteControls/voteControls';
 
+import './home.scss';
+
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 
@@ -67,7 +69,7 @@ const Home = () => {
 	};
 
 	return (
-		<div id="contentContainer" onScroll={selectTopPost}>
+		<div id="contentContainer" className="home" onScroll={selectTopPost}>
 			{currentTop ? <VoteControls postContent={posts[currentTop?.id].postContent} /> : null}
 			<span ref={postContainerRef}>
 				{timeline.map((id, index) => {
