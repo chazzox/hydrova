@@ -81,16 +81,14 @@ const postReducer = createSlice({
 			}
 		});
 		builder.addCase(VOTE.fulfilled, (state, action) => {
-			state[action.payload];
+			state.posts[action.payload.fullName.split('_')[1]].postContent.likes = [false, null, true][
+				action.payload.voteDir + 1
+			];
 		});
 		builder.addCase(SAVE.fulfilled, (state, action) => {
 			if (state.posts[action.payload.fullName.split('_')[1]])
 				state.posts[action.payload.fullName.split('_')[1]].postContent.saved =
 					action.payload.isSaving;
-			else {
-				console.log(JSON.stringify(state.posts));
-				console.log(state.posts[action.payload.fullName.split('_')[1]]);
-			}
 		});
 	}
 });

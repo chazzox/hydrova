@@ -5,11 +5,15 @@ interface GetPostResponse {
 }
 [];
 
-
-interface saveAndVoteSuccess {
+interface saveSuccess {
 	response: {};
 	fullName: string;
 	isSaving: boolean;
+}
+interface voteSuccess {
+	response: {};
+	fullName: string;
+	voteDir: -1 | 0 | 1;
 }
 
 interface TimelineResponse {
@@ -55,7 +59,7 @@ export const GET_POST = createAsyncThunk<
 });
 
 export const VOTE = createAsyncThunk<
-	saveAndVoteSuccess,
+	voteSuccess,
 	{ access_token: string; fullName: string; voteDirection: 1 | 0 | -1 },
 	{ rejectValue: failure }
 >('post/upvote', async ({ access_token, fullName, voteDirection }, thunkApi) => {
@@ -67,11 +71,11 @@ export const VOTE = createAsyncThunk<
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	return responseJSON as saveAndVoteSuccess;
+	return { response: responseJSON, fullName: fullName, voteDir: voteDirection } as voteSuccess;
 });
 
 export const SAVE = createAsyncThunk<
-	saveAndVoteSuccess,
+	saveSuccess,
 	{ access_token: string; fullName: string; isSaving: boolean },
 	{ rejectValue: failure }
 >('post/save', async ({ access_token, fullName, isSaving }, thunkApi) => {
@@ -85,7 +89,5 @@ export const SAVE = createAsyncThunk<
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return thunkApi.rejectWithValue(responseJSON as failure);
-	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveAndVoteSuccess;
+	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveSuccess;
 });
-
-

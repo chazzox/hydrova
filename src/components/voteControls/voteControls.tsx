@@ -49,11 +49,11 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 						SAVE({
 							access_token: access_token,
 							fullName: postContent.name,
-							isSaving: !postContent.likes
+							isSaving: !postContent.saved
 						})
 					);
 				}}
-				isSelected={postContent.likes}
+				isSelected={postContent.saved}
 				text="save"
 			/>
 
