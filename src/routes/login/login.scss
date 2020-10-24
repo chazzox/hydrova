@@ -9,13 +9,14 @@
 
 #loginBoxContainer {
 	width: 60%;
+	height: 80%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transform-style: preserve-3d;
 
 	#loginBox {
 		background: var(--background-color);
-		transform-style: preserve-3d;
 		padding: 25px;
 		width: calc(100vw - 20px);
 		max-width: 600px;
@@ -83,4 +84,8 @@
 			}
 		}
 	}
+}
+
+.floating {
+	transform: translateZ(80px) !important;
 }
