@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
 import './postComponent.scss';
@@ -6,13 +7,13 @@ import './postComponent.scss';
 const postComponent = ({ postContent }: { postContent: post }) => {
 	const PostContent = () => {
 		if (postContent.is_self && postContent.selftext_html) {
-			const innerHTML = new DOMParser().parseFromString(postContent.selftext_html, 'text/html')
-				.documentElement.textContent;
 			return (
 				<div
 					className="postContent"
 					dangerouslySetInnerHTML={{
-						__html: innerHTML ? innerHTML : ''
+						__html:
+							new DOMParser().parseFromString(postContent.selftext_html, 'text/html')
+								.documentElement.textContent || ''
 					}}
 				/>
 			);
@@ -34,10 +35,15 @@ const postComponent = ({ postContent }: { postContent: post }) => {
 		<div id={postContent.id} className="post">
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
-				<p>
-					{postContent.subreddit_name_prefixed} | u/{postContent.author} | posted{' '}
-					{formatTimeSince(timeSinceCurrent(postContent.created))}
-				</p>
+				<div>
+					<Link to={'/' + postContent.subreddit_name_prefixed}>
+						{postContent.subreddit_name_prefixed}
+					</Link>{' '}
+					<p>
+						| u/{postContent.author} | posted{' '}
+						{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
+					</p>
+				</div>
 			</div>
 			<PostContent />
 		</div>

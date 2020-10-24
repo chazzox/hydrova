@@ -52,7 +52,7 @@ interface post {
 	num_comments: number;
 	name: string;
 	permalink: string;
-	created: number;
+	created_utc: number;
 	likes: boolean | null;
 	// 	galleryData: {
 	// 		items: {

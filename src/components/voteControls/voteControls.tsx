@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
 import './voteControls.scss';
 
-import { SAVE, VOTE, GET_TIMELINE } from '../../redux/postReducer';
+import { SAVE, VOTE } from '../../redux/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();
-	const access_token = useSelector((state: ReduxStateType) => state.auth.access_token);
 
 	return (
 		<div className="voteControls">
@@ -21,7 +20,6 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 					clickEvent={() => {
 						dispatch(
 							VOTE({
-								access_token: access_token,
 								fullName: postContent.name,
 								voteDirection: 1
 							})
@@ -33,7 +31,6 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 					clickEvent={() => {
 						dispatch(
 							VOTE({
-								access_token: access_token,
 								fullName: postContent.name,
 								voteDirection: -1
 							})
@@ -47,7 +44,6 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 				clickEvent={() => {
 					dispatch(
 						SAVE({
-							access_token: access_token,
 							fullName: postContent.name,
 							isSaving: !postContent.saved
 						})

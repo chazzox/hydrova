@@ -7,6 +7,7 @@ import sidebarReducer from './sidebarReducer';
 import authReducer from './authReducer';
 import timelineReducer from './timelineReducer';
 import postReducer from './postReducer';
+import subredditSlice from './subredditReducer';
 
 let sideBar: null | string = null;
 let sideBarJSON: null | any = null;
@@ -17,10 +18,11 @@ if (typeof window !== `undefined`) {
 
 const store = configureStore({
 	reducer: {
+		auth: authReducer.reducer,
 		style: settingsReducer.reducer,
 		sidebar: sidebarReducer.reducer,
-		auth: authReducer.reducer,
 		timeline: timelineReducer.reducer,
+		subreddits: subredditSlice.reducer,
 		post: postReducer.reducer
 	},
 	preloadedState: {

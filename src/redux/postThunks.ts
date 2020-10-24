@@ -1,93 +1,64 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-interface GetPostResponse {
-	[index: string]: any;
-}
-[];
-
-interface saveSuccess {
-	response: {};
-	fullName: string;
-	isSaving: boolean;
-}
-interface voteSuccess {
-	response: {};
-	fullName: string;
-	voteDir: -1 | 0 | 1;
-}
-
-interface TimelineResponse {
-	kind: string;
-	data: {
-		modhash: string;
-		dist: number;
-		children: Child[];
-		after: string;
-		before: string | null;
-	};
-}
+import { ReduxStateType } from './reduxWrapper';
 
 export const GET_TIMELINE = createAsyncThunk<
 	TimelineResponse,
-	{ access_token: string; afterId: string },
-	{ rejectValue: failure }
->('sidebar/getTimeline', async ({ access_token, afterId }, thunkApi) => {
+	string,
+	{ state: ReduxStateType; rejectValue: failure }
+>('sidebar/getTimeline', async (afterId, { getState, rejectWithValue }) => {
 	const response = await fetch('https://oauth.reddit.com/best/?limit=25&after=' + afterId, {
 		method: 'GET',
-		headers: { Authorization: `Bearer ${access_token}` },
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400) return rejectWithValue(responseJSON as failure);
 	return responseJSON as TimelineResponse;
 });
 
 export const GET_POST = createAsyncThunk<
 	GetPostResponse,
-	{ access_token: string; id: string },
-	{ rejectValue: failure }
->('post/fetchPost', async ({ access_token, id }, thunkApi) => {
+	{ id: string },
+	{ state: ReduxStateType; rejectValue: failure }
+>('post/fetchPost', async ({ id }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
 		method: 'GET',
-		headers: { Authorization: `Bearer ${access_token}` },
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404)
-		return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
 	return responseJSON as GetPostResponse;
 });
 
 export const VOTE = createAsyncThunk<
 	voteSuccess,
-	{ access_token: string; fullName: string; voteDirection: 1 | 0 | -1 },
-	{ rejectValue: failure }
->('post/upvote', async ({ access_token, fullName, voteDirection }, thunkApi) => {
+	{ fullName: string; voteDirection: 1 | 0 | -1 },
+	{ state: ReduxStateType; rejectValue: failure }
+>('post/upvote', async ({ fullName, voteDirection }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/api/vote?id=${fullName}&dir=${voteDirection}`, {
 		method: 'POST',
-		headers: { Authorization: `Bearer ${access_token}` },
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404)
-		return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
 	return { response: responseJSON, fullName: fullName, voteDir: voteDirection } as voteSuccess;
 });
 
 export const SAVE = createAsyncThunk<
 	saveSuccess,
-	{ access_token: string; fullName: string; isSaving: boolean },
-	{ rejectValue: failure }
->('post/save', async ({ access_token, fullName, isSaving }, thunkApi) => {
+	{ fullName: string; isSaving: boolean },
+	{ state: ReduxStateType; rejectValue: failure }
+>('post/save', async ({ fullName, isSaving }, { getState, rejectWithValue }) => {
 	const response = await fetch(
 		`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`,
 		{
 			method: 'POST',
-			headers: { Authorization: `Bearer ${access_token}` }
+			headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 		}
 	);
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404)
-		return thunkApi.rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
 	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveSuccess;
 });

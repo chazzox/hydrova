@@ -6,31 +6,23 @@ import _ from 'lodash';
 
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
+import GenericButton from '../genericButton/genericButton';
 
 import hydrovaSVG from '../../assets/logo.svg';
 import searchIcon from '../../assets/icons/search.svg';
-import homeIcon from '../../assets/icons/home.svg';
-import newIcon from '../../assets/icons/new.svg';
-import mailIcon from '../../assets/icons/mail.svg';
-import settingsIcon from '../../assets/icons/settings.svg';
 
 import './sidebar.scss';
-import GenericButton from '../genericButton/genericButton';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
 
 	const isCollapsed = useSelector((state: ReduxStateType) => state.sidebar.isCollapsed);
-	const access_token = useSelector((state: ReduxStateType) => state.auth.access_token);
-
 	const userInfo = useSelector((state: ReduxStateType) => state.sidebar.userInfo);
-
 	const multiReddits = useSelector((state: ReduxStateType) => state.sidebar.multiReddits);
-
 	const subReddits = useSelector((state: ReduxStateType) => state.sidebar.subReddits);
 
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
-		dispatch(GET_SUBREDDITS({ access_token: access_token, afterId: afterId }))
+		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
 				if (originalPromiseResult.data.after)
@@ -39,8 +31,8 @@ const Sidebar = () => {
 	};
 
 	useEffect(() => {
-		dispatch(GET_USER_INFO({ access_token: access_token }));
-		dispatch(GET_MULTIREDDITS({ access_token: access_token }));
+		dispatch(GET_USER_INFO());
+		dispatch(GET_MULTIREDDITS());
 		getUserSubscribedSubreddits();
 	}, []);
 
