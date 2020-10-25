@@ -49,7 +49,7 @@ yarn-error.log
 .env.production
 # gatsby files
 .cache/
-public
+public/
 # vscode files
 .vscode/
 
