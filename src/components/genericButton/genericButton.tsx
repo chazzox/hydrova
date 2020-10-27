@@ -21,7 +21,7 @@ const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelect
 		return classNames.join(' ');
 	};
 	const Content = () => (
-		<button onClick={clickEvent} className={genClasses()} id={id || ''}>
+		<button onClick={clickEvent} className={genClasses() || 'genericButton'} id={id || ''}>
 			{svgPath ? SVGS[svgPath] : null}
 			{text ? text : null}
 			{children}
