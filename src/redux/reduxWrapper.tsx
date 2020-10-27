@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import subredditReducer from './subreddit/subredditReducer';
+import sidebarReducer from './sidebar/sidebarReducer';
+import postReducer from './postStore/postReducer';
 import timelineReducer from './timelineReducer';
 import settingsReducer from './settingsReducer';
-import sidebarReducer from './sidebar/sidebarReducer';
 import authReducer from './auth/authReducer';
-import postReducer from './postStore/postReducer';
 
 let sideBar: null | string = null;
 let sideBarJSON: null | any = null;
