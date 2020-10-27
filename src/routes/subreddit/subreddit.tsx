@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import Listing from '../../components/listing/listing';
+import { RouteComponentProps } from 'react-router-dom';
 
-import PostComponent from '../../components/postComponent/postComponent';
+import { GET_SUBREDDIT_ABOUT, GET_SUBREDDIT_POSTS } from '../../redux/subreddit/subredditThunks';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { SET_SIZE_MODE } from '../../redux/sidebarReducer';
-import { GET_SUBREDDIT_ABOUT, GET_SUBREDDIT_POSTS } from '../../redux/subredditReducer';
+import { SET_SIZE_MODE } from '../../redux/sidebar/sidebarReducer';
+import Listing from '../../components/listing/listing';
 
 const SubredditHome: React.FC<RouteComponentProps> = props => {
 	const dispatch: AppDispatch = useDispatch();

@@ -4,7 +4,7 @@ import copy from 'copy-to-clipboard';
 
 import './voteControls.scss';
 
-import { SAVE, VOTE } from '../../redux/postReducer';
+import { SAVE, VOTE } from '../../redux/postStore/postReducer';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
 

@@ -4,9 +4,14 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebarReducer';
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
+import {
+	SET_SIZE_MODE,
+	GET_USER_INFO,
+	GET_MULTIREDDITS,
+	GET_SUBREDDITS
+} from '../../redux/sidebar/sidebarReducer';
 
 import hydrovaSVG from '../../assets/logo.svg';
 import searchIcon from '../../assets/icons/search.svg';

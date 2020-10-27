@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { setPostContent, GET_POST } from '../../redux/postReducer';
+import { setPostContent, GET_POST } from '../../redux/postStore/postReducer';
 
 import VoteControls from '../../components/voteControls/voteControls';
 import PostComponent from '../../components/postComponent/postComponent';

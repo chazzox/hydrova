@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
 import { AppDispatch } from '../../redux/reduxWrapper';
-import { refreshAccessToken } from '../../redux/authReducer';
-import hydrovaSVG from '../../assets/logo.svg';
+import { refreshAccessToken } from '../../redux/auth/authReducer';
 import generateAuthenticationURL from '../../utils/generateLogin';
 
+import hydrovaSVG from '../../assets/logo.svg';
 import './login.scss';
 
 const Login = () => {

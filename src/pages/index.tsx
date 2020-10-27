@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import _ from 'lodash';
 
 import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
-import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
+import { refreshAccessToken, setNoAuthCookies } from '../redux/auth/authReducer';
 import Login from '../routes/login/login';
 import App from '../routes/app';
 

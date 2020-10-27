@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import getValues from '../utils/getPostValues';
+import getValues from '../../utils/getPostValues';
 
 import { GET_POST, GET_TIMELINE, SAVE, VOTE } from './postThunks';
-import { GET_SUBREDDIT_POSTS } from './subredditReducer';
+import { GET_SUBREDDIT_POSTS } from '../subreddit/subredditThunks';
 export { GET_POST, SAVE, VOTE, GET_TIMELINE };
 
 const postReducer = createSlice({
@@ -67,14 +67,14 @@ const postReducer = createSlice({
 				state.posts[action.payload.fullName.split('_')[1]].postContent.saved =
 					action.payload.isSaving;
 		});
-		builder.addCase(GET_SUBREDDIT_POSTS.fulfilled, (state, action) => {
-			action.payload.postArray.data.children.forEach(
-				({ data }) =>
-					(state.posts[data.id] = {
-						postContent: getValues(data)
-					})
-			);
-		});
+		// builder.addCase(GET_SUBREDDIT_POSTS.fulfilled, (state, action) => {
+		// 	action.payload.postArray.data.children.forEach(
+		// 		({ data }) =>
+		// 			(state.posts[data.id] = {
+		// 				postContent: getValues(data)
+		// 			})
+		// 	);
+		// });
 	}
 });
 

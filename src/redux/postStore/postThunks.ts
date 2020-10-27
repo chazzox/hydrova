@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ReduxStateType } from './reduxWrapper';
+import { ReduxStateType } from '../reduxWrapper';
 
 export const GET_TIMELINE = createAsyncThunk<
 	TimelineResponse,

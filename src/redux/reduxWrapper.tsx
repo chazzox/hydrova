@@ -2,12 +2,12 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import settingsReducer from './settingsReducer';
-import sidebarReducer from './sidebarReducer';
-import authReducer from './authReducer';
+import subredditReducer from './subreddit/subredditReducer';
 import timelineReducer from './timelineReducer';
-import postReducer from './postReducer';
-import subredditSlice from './subredditReducer';
+import settingsReducer from './settingsReducer';
+import sidebarReducer from './sidebar/sidebarReducer';
+import authReducer from './auth/authReducer';
+import postReducer from './postStore/postReducer';
 
 let sideBar: null | string = null;
 let sideBarJSON: null | any = null;
@@ -22,7 +22,7 @@ const store = configureStore({
 		style: settingsReducer.reducer,
 		sidebar: sidebarReducer.reducer,
 		timeline: timelineReducer.reducer,
-		subreddits: subredditSlice.reducer,
+		subreddits: subredditReducer.reducer,
 		post: postReducer.reducer
 	},
 	preloadedState: {
