@@ -1,8 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
+import GenericButton from '../genericButton/genericButton';
 
 import './comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
+	const [isCollapsed, setIsCollapsed] = useState(false);
 	return (
 		<>
 			<div className="comment">
@@ -17,12 +20,18 @@ const Comment = ({ comment }: { comment: any }) => {
 				<button>Upvote</button>
 				<button>Downvote</button>
 
-				{comment.replies
-					? comment.replies.data.children.map((childComments: any, index: any) => {
-							if (childComments.kind === 't1')
-								return <Comment comment={childComments.data} key={index} />;
-					  })
-					: null}
+				<div className="commentChildContainer">
+					<GenericButton
+						clickEvent={() => setIsCollapsed(!isCollapsed)}
+						text={`${isCollapsed ? 'un' : ''}collapse`}
+					/>
+					{comment.replies && !isCollapsed
+						? comment.replies.data.children.map((childComments: any, index: any) => {
+								if (childComments.kind === 't1')
+									return <Comment comment={childComments.data} key={index} />;
+						  })
+						: null}
+				</div>
 			</div>
 		</>
 	);
