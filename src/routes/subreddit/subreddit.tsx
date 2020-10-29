@@ -25,10 +25,6 @@ const SubredditHome: React.FC<RouteComponentProps> = props => {
 		if (!subredditInfoBar) dispatch(GET_SUBREDDIT_ABOUT(subredditName));
 	}, []);
 
-	useEffect(() => {
-		console.log(subredditInfoBar);
-	}, [subredditInfoBar]);
-
 	return (
 		<>
 			{subredditInfoBar ? <SubredditInfoBar infoBar={subredditInfoBar} /> : null}

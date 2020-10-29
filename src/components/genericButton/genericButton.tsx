@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import SVGS from '../../assets/icons/exportSVG';
 
@@ -18,12 +18,13 @@ interface propTypes {
 const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelected }: propTypes) => {
 	const genClasses = () => {
 		const classNames: string[] = [];
+		classNames.push('genericButton');
 		if (svgPath) classNames.push('iconButton');
 		if (isSelected) classNames.push('selected');
 		return classNames.join(' ');
 	};
 	const Content = () => (
-		<button onClick={clickEvent} className={genClasses() || 'genericButton'} id={id || ''}>
+		<button onClick={clickEvent} className={genClasses()} id={id || ''}>
 			{svgPath ? SVGS[svgPath] : null}
 			{text ? text : null}
 			{children}
@@ -32,9 +33,9 @@ const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelect
 	return (
 		<>
 			{href ? (
-				<Link to={href}>
+				<NavLink to={href} activeClassName="selected">
 					<Content />
-				</Link>
+				</NavLink>
 			) : (
 				<Content />
 			)}

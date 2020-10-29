@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
@@ -56,11 +56,10 @@ const Sidebar = () => {
 				placeholder="Search"
 				style={{ backgroundImage: `url(${searchIcon})` }}
 			/>
-
 			<GenericButton text="Timeline" svgPath="home" href="/" />
 			<GenericButton text="Post" svgPath="new" href="/submit" />
-			<GenericButton text="Mail" svgPath="mail" href="/" />
-			<GenericButton text="Settings" svgPath="settings" href="/" />
+			<GenericButton text="Mail" svgPath="mail" href="/mail" />
+			<GenericButton text="Settings" svgPath="settings" href="/settings" />
 
 			<div className="scrollSection">
 				{/* gradient of scroll section (fades in/out content as user scrolls */}
@@ -68,7 +67,9 @@ const Sidebar = () => {
 				<div className="scrollGradient"></div>
 				{/* main sidebar content */}
 				<h3>Feeds</h3>
-				<GenericButton href="/r/all" text="All" />
+				<NavLink to="/r/all" activeClassName="selected">
+					<GenericButton text="All" />
+				</NavLink>
 				{multiReddits.map((multiReddit, index) => (
 					<GenericButton
 						key={index}

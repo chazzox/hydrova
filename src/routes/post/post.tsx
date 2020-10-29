@@ -9,7 +9,7 @@ import VoteControls from '../../components/voteControls/voteControls';
 import PostComponent from '../../components/postComponent/postComponent';
 import Comment from '../../components/comment/comment';
 
-const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | undefined>> = props => {
+const Home: React.FC<RouteComponentProps<any, any, any>> = props => {
 	const dispatch: AppDispatch = useDispatch();
 	const id = props.location.pathname.split('/')[2];
 	const postContent = useSelector((state: ReduxStateType) => state.post.posts[id]?.postContent);

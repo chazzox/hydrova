@@ -7,6 +7,7 @@ import Settings from './settings/settings';
 import Submit from './submit/submit';
 import Home from './home/home';
 import Post from './post/post';
+import Mail from './mail/mail';
 
 const App: React.FC = () => {
 	return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
 			<Switch>
 				<Route path="/submit" render={() => <Submit />} />
 				<Route path="/settings" render={() => <Settings />} />
+				<Route path="/mail" render={() => <Mail />} />
 				<Route path="/r/:subreddit" render={props => <Subreddit {...props} />} />
 				<Route path="/post/:permalink" render={props => <Post {...props} />} />
 				<Route path="/" render={() => <Home />} />
