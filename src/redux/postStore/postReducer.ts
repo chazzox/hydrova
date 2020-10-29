@@ -37,25 +37,17 @@ const postReducer = createSlice({
 			);
 		});
 		builder.addCase(GET_POST.fulfilled, (state, action) => {
-			if (state.posts[action.payload[0].data.children[0].data.id]) {
-				state.posts[action.payload[0].data.children[0].data.id].comments = {
+			state.posts[action.payload[0].data.children[0].data.id] = {
+				postContent: {
+					...action.payload[0].data.children.map(({ data }: { data: ChildData }) =>
+						getValues(data)
+					)[0]
+				},
+				comments: {
 					commentArray: action.payload[1].data.children.map(({ data }: any) => data),
 					latestComment: action.payload[1].data.after
-				};
-			} else {
-				// this needs to be cleaned up for suuurrreeeeeee
-				state.posts[action.payload[0].data.children[0].data.id] = {
-					postContent: {
-						...action.payload[0].data.children.map(({ data }: { data: ChildData }) =>
-							getValues(data)
-						)[0]
-					},
-					comments: {
-						commentArray: action.payload[1].data.children.map(({ data }: any) => data),
-						latestComment: action.payload[1].data.after
-					}
-				};
-			}
+				}
+			};
 		});
 		builder.addCase(VOTE.fulfilled, (state, action) => {
 			state.posts[action.payload.fullName.split('_')[1]].postContent.likes = [false, null, true][
@@ -67,14 +59,6 @@ const postReducer = createSlice({
 				state.posts[action.payload.fullName.split('_')[1]].postContent.saved =
 					action.payload.isSaving;
 		});
-		// builder.addCase(GET_SUBREDDIT_POSTS.fulfilled, (state, action) => {
-		// 	action.payload.postArray.data.children.forEach(
-		// 		({ data }) =>
-		// 			(state.posts[data.id] = {
-		// 				postContent: getValues(data)
-		// 			})
-		// 	);
-		// });
 	}
 });
 

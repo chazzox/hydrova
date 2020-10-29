@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 import './voteControls.scss';
 
 import { SAVE, VOTE } from '../../redux/postStore/postReducer';
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import { AppDispatch } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
@@ -53,7 +53,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 				text="save"
 			/>
 
-			<button onClick={() => copy(`https://www.reddit.com/${postContent.permalink}`)}>share</button>
+			<button onClick={() => copy(`https://www.reddit.com${postContent.permalink}`)}>share</button>
 			<button>💬{postContent.num_comments}</button>
 		</div>
 	);
