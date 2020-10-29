@@ -11,9 +11,16 @@
 		min-height 0.3s ease;
 
 	.postInfo {
+		* {
+			visibility: visible;
+		}
 		// post title
 		h1 {
 			font-size: 16pt;
+			max-width: calc(100% - 20px);
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 		// username / subreddit / time posted
 		p {
@@ -21,15 +28,28 @@
 		}
 	}
 
+	* {
+		visibility: hidden;
+	}
+
 	color: var(--text-color-primary);
 	padding: 10px;
 	background-color: var(--box-background-color);
-	max-height: 120px;
-	min-height: 120px;
+	max-height: 100px;
+	min-height: 100px;
 	overflow: hidden;
+	margin-bottom: 2px;
 }
 
 // expanded post
 a.expanded .post {
-	background-color: red;
+	max-height: 600px;
+
+	* {
+		visibility: visible;
+	}
+	img,
+	video {
+		height: 480px;
+	}
 }

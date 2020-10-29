@@ -36,10 +36,10 @@ const postComponent = ({ postContent }: { postContent: post }) => {
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
 				<div>
-					<Link to={'/' + postContent.subreddit_name_prefixed}>
-						{postContent.subreddit_name_prefixed}
-					</Link>{' '}
 					<p>
+						<Link to={'/' + postContent.subreddit_name_prefixed}>
+							{postContent.subreddit_name_prefixed}
+						</Link>{' '}
 						| u/{postContent.author} | posted{' '}
 						{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
 					</p>
