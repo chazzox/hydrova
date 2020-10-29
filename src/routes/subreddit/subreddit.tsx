@@ -31,8 +31,8 @@ const SubredditHome: React.FC<RouteComponentProps> = props => {
 
 	return (
 		<>
-			<SubredditInfoBar />
-			subredditPointerArray ? <Listing postData={subredditPointerArray} /> : null
+			{subredditInfoBar ? <SubredditInfoBar infoBar={subredditInfoBar} /> : null}
+			{subredditPointerArray ? <Listing postData={subredditPointerArray} /> : null}
 		</>
 	);
 };
