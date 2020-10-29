@@ -5,15 +5,13 @@ html {
 
 	--accent-color: rgb(88, 94, 254);
 
-	--content-offset: 300px;
-
 	--dark-txt-col: white;
 	--dark-txt-col-secondary: rgba(255, 255, 255, 0.66);
 	--light-txt-col: black;
 	--light-txt-col-secondary: rgba(0, 0, 0, 0.66);
 
 	// light mode
-	&.lightMode {	
+	&.lightMode {
 		--page-color: rgb(225, 225, 230);
 		--background-color: rgb(221, 221, 215);
 		--alt-background-color: rgb(211, 211, 205);

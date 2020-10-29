@@ -24,3 +24,26 @@ a {
 		scroll-snap-type: y mandatory;
 	}
 }
+
+::-webkit-scrollbar {
+	background-color: rgba(0, 0, 0, 0);
+	width: 16px;
+}
+::-webkit-scrollbar-track {
+	background-color: var(--page-color);
+}
+::-webkit-scrollbar-track:hover {
+	background-color: var(--background-color);
+}
+::-webkit-scrollbar-thumb {
+	background-color: #babac0;
+	border-radius: 16px;
+	border: 5px solid var(--page-color);
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: #a0a0a5;
+	border: 3px solid var(--background-color);
+}
+::-webkit-scrollbar-button {
+	display: none;
+}
