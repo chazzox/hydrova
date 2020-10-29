@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import SVGS from '../../assets/icons/exportSVG';
 
+import './genericButton.scss';
+
 interface propTypes {
 	svgPath?: keyof typeof SVGS;
 	text?: string;

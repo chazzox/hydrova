@@ -5,7 +5,7 @@
 	margin: auto;
 	padding: 16px 24px;
 
-	position: fixed;
+	position: relative;
 
 	box-sizing: border-box;
 	height: 100vh;
@@ -16,7 +16,7 @@
 	}
 
 	transition: width 0.4s ease, padding 0.4s ease;
-	-webkit-transition: width 0 .4s ease, padding 0.4s ease;
+	-webkit-transition: width 0 0.4s ease, padding 0.4s ease;
 	-moz-transition: width 0.4s ease, padding 0.4s ease;
 	-o-transition: width 0.4s e ase, padding 0.4s ease;
 	-ms-transition: width 0.4s ease, padding 0.4s ease;

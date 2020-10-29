@@ -31,26 +31,28 @@ const Listing = ({ postData }: { postData: string[] }) => {
 	};
 
 	return (
-		<div id="contentContainer" className="home" onScroll={selectTopPost}>
+		<>
 			{currentTop ? <VoteControls postContent={posts[currentTop?.id].postContent} /> : null}
-			<span ref={postContainerRef}>
-				{postData.map((postId, index) => {
-					const post = posts[postId].postContent;
-					return (
-						<Link
-							key={index}
-							id={post.id}
-							onClick={() => dispatch(setClickedPostID(post.id))}
-							to={{ pathname: '/post/' + post.id, state: { post: post } }}
-						>
-							<object>
-								<PostComponent postContent={post} />
-							</object>
-						</Link>
-					);
-				})}
-			</span>
-		</div>
+			<div id="contentContainer" className="home" onScroll={selectTopPost}>
+				<span ref={postContainerRef}>
+					{postData.map((postId, index) => {
+						const post = posts[postId].postContent;
+						return (
+							<Link
+								key={index}
+								id={post.id}
+								onClick={() => dispatch(setClickedPostID(post.id))}
+								to={{ pathname: '/post/' + post.id, state: { post: post } }}
+							>
+								<object>
+									<PostComponent postContent={post} />
+								</object>
+							</Link>
+						);
+					})}
+				</span>
+			</div>
+		</>
 	);
 };
 

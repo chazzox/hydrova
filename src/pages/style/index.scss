@@ -14,12 +14,13 @@ a {
 	color: var(--accent-color);
 }
 
-#contentContainer {
-	position: relative;
-	width: calc(100vw - var(--content-offset));
-	max-width: calc(100vw - var(--content-offset));
-	margin-left: calc(var(--content-offset));
-	max-height: 100vh;
-	overflow-y: scroll;
-	scroll-snap-type: y mandatory;
+#gatsby-focus-wrapper {
+	display: flex;
+
+	#contentContainer {
+		flex-grow: 1;
+		max-height: 100vh;
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+	}
 }

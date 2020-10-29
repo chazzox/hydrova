@@ -6,6 +6,7 @@ import { GET_SUBREDDIT_ABOUT, GET_SUBREDDIT_POSTS } from '../../redux/subreddit/
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
 import { SET_SIZE_MODE } from '../../redux/sidebar/sidebarReducer';
 import Listing from '../../components/listing/listing';
+import SubredditInfoBar from '../../components/subredditInfoBar/subredditInfoBar';
 
 const SubredditHome: React.FC<RouteComponentProps> = props => {
 	const dispatch: AppDispatch = useDispatch();
@@ -30,18 +31,8 @@ const SubredditHome: React.FC<RouteComponentProps> = props => {
 
 	return (
 		<>
-			<div id="subredditInfoBar">
-				<div
-					dangerouslySetInnerHTML={{
-						__html:
-							new DOMParser().parseFromString(
-								subredditInfoBar?.data.description_html || '',
-								'text/html'
-							).documentElement.textContent || ''
-					}}
-				/>
-			</div>
-			{subredditPointerArray ? <Listing postData={subredditPointerArray} /> : null}
+			<SubredditInfoBar />
+			subredditPointerArray ? <Listing postData={subredditPointerArray} /> : null
 		</>
 	);
 };
