@@ -4,7 +4,12 @@ import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent'
 
 import './postComponent.scss';
 
-const postComponent = ({ postContent }: { postContent: post }) => {
+interface propTypes {
+	postContent: post;
+	isExpanded?: boolean | null;
+}
+
+const postComponent = ({ postContent, isExpanded }: propTypes) => {
 	const PostContent = () => {
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
@@ -32,7 +37,7 @@ const postComponent = ({ postContent }: { postContent: post }) => {
 	};
 
 	return (
-		<div id={postContent.id} className="post">
+		<div id={postContent.id} className={'post' + (isExpanded ? ' expanded' : '')}>
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
 				<div>

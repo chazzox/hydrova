@@ -1,7 +1,12 @@
 // indents nested comments
 .comment {
 	color: var(--text-color-primary);
+	width: 100%;
 	.comment {
 		margin-left: 35px;
+	}
+
+	button {
+		width: 100px;
 	}
 }

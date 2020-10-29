@@ -25,15 +25,17 @@ const Home: React.FC<RouteComponentProps<{ post?: any }, any, { post: post } | u
 	}, []);
 
 	return (
-		<div id="contentContainer">
+		<>
 			{postContent ? (
 				<>
 					<VoteControls postContent={postContent} />
-					<PostComponent postContent={postContent} />
+					<div id="contentContainer">
+						<PostComponent postContent={postContent} isExpanded={true} />{' '}
+						{comments ? comments.map(comment => <Comment comment={comment} />) : null}
+					</div>
 				</>
 			) : null}
-			{comments ? comments.map(comment => <Comment comment={comment} />) : null}
-		</div>
+		</>
 	);
 };
 

@@ -42,7 +42,8 @@
 }
 
 // expanded post
-a.expanded .post {
+a.expanded .post,
+.post.expanded {
 	max-height: 600px;
 
 	* {
