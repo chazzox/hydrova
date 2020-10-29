@@ -26,6 +26,28 @@
 		max-height: 55%;
 		overflow-y: auto;
 		overflow-x: hidden;
+
+		position: relative;
+
+		.scrollGradient {
+			position: sticky;
+			left: 0;
+			width: 100%;
+			height: 60px;
+			margin-bottom: -40px;
+
+			// gradient at the top of the scroll section (fades OUT content at the top as you scroll down)
+			&:first-of-type {
+				top: 0;
+				background: linear-gradient(to top, rgba(255, 255, 255, 0), var(--background-color) 50%);
+			}
+
+			// gradient at the bottom of the scroll section (fades IN content at the bottom as you scroll down)
+			&:last-of-type {
+				top: calc(100% - 60px);
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background-color) 50%);
+			}
+		}
 	}
 
 	.navButton,

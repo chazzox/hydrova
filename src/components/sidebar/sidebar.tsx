@@ -63,6 +63,10 @@ const Sidebar = () => {
 			<GenericButton text="Settings" svgPath="settings" href="/" />
 
 			<div className="scrollSection">
+				{/* gradient of scroll section (fades in/out content as user scrolls */}
+				<div className="scrollGradient"></div>
+				<div className="scrollGradient"></div>
+				{/* main sidebar content */}
 				<h3>Feeds</h3>
 				<GenericButton href="/r/all" text="All" />
 				{multiReddits.map((multiReddit, index) => (
