@@ -21,18 +21,21 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 						dispatch(
 							VOTE({
 								fullName: postContent.name,
-								voteDirection: 1
+								voteDirection: postContent.likes === true ? 0 : 1
 							})
 						);
 					}}
 				/>
-				<p>{postContent.ups}</p>
+				<p>
+					{postContent.ups +
+						(postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}
+				</p>
 				<GenericButton
 					clickEvent={() => {
 						dispatch(
 							VOTE({
 								fullName: postContent.name,
-								voteDirection: -1
+								voteDirection: postContent.likes === false ? 0 : -1
 							})
 						);
 					}}
