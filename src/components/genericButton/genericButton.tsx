@@ -33,7 +33,7 @@ const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelect
 	return (
 		<>
 			{href ? (
-				<NavLink to={href} activeClassName="selected">
+				<NavLink exact to={href} activeClassName="selected">
 					<Content />
 				</NavLink>
 			) : (
