@@ -1,7 +1,15 @@
 .voteControls {
 	color: var(--text-color-primary);
+	background-color: var(--alt-background-color);
+	border-radius: var(--small-border-radius);
+	margin: 2px;
+	padding: 8px;
 	text-align: center;
 
 	width: 80px;
 	flex-shrink: 0;
+
+	button {
+		background-color: var(--background-color);
+	}
 }
