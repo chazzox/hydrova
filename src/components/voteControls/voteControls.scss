@@ -2,11 +2,12 @@
 	color: var(--text-color-primary);
 	background-color: var(--alt-background-color);
 	border-radius: var(--small-border-radius);
-	margin: 2px;
+	margin: 8px;
 	padding: 8px;
 	text-align: center;
 
 	width: 80px;
+	height: fit-content;
 	flex-shrink: 0;
 
 	button {

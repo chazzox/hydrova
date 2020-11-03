@@ -1,12 +1,32 @@
 // indents nested comments
 .comment {
+	background-color: var(--alt-background-color);
 	color: var(--text-color-primary);
-	background-color: var(--background-color);
-	border-left: solid 2px var(--border-color);
-	border-radius: var(--small-border-radius);
 	width: 100%;
+	max-width: 100%;
+	margin-top: 16px;
+	padding-bottom: 8px;
+	border-radius: var(--small-border-radius);
+	overflow: hidden;
+
+	// inset child comments
 	.comment {
-		margin-left: 35px;
+		border-radius: 0;
+		margin-top: 8px;
+		margin-left: 8px;
+		max-width: calc(100% - 8px);
+		padding-bottom: 0;
+		padding-left: 8px;
+		border-left: solid 3px var(--border-color);
+	}
+	
+	.commentBody {
+		background-color: var(--background-color);
+		padding: 8px 24px;
+		width: 100%;
+	};
+	.commentChildContainer {
+		display: inline;
 	}
 
 	button {
