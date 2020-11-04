@@ -1,9 +1,8 @@
-button {
+.genericButton {
 	width: 100%;
 	padding: 8px 16px;
 	margin: 5px auto;
 	border-radius: var(--small-border-radius);
-	text-align: left;
 
 	background: none;
 	border: none;
@@ -11,17 +10,32 @@ button {
 
 	color: var(--text-color-primary);
 	font-size: 12pt;
-
 	svg {
-		float: left;
 		width: 20px;
-		margin-right: 10px;
 		path {
 			fill: var(--text-color-primary) !important;
 		}
 	}
+
+	// horizontally arranged button (default)
+	text-align: left;
+	svg {
+		float: left;
+		margin-right: 12px;
+	}
+
+	// vertically arranged button
+	&.vertical {
+		text-align: center;
+
+		svg {
+			float: none;
+			margin-right: 0px;
+			margin-bottom: 5px;
+		}
+	}
 }
 
-.selected button {
+.selected .genericButton {
 		background-color: var(--accent-color);
 }

@@ -12,53 +12,62 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();
 
 	return (
-		<div className="voteControls">
-			<div className="votesContainer">
+		<>
+			<div className="voteControls">
+				<div className="votesContainer">
+					<GenericButton
+						text="⬆️"
+						isVertical={true}
+						isSelected={postContent.likes === true}
+						clickEvent={() => {
+							dispatch(
+								VOTE({
+									fullName: postContent.name,
+									voteDirection: postContent.likes === true ? 0 : 1
+								})
+							);
+						}}
+					/>
+					<p>
+						{postContent.ups +
+							(postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}
+					</p>
+					<GenericButton
+						isVertical={true}
+						clickEvent={() => {
+							dispatch(
+								VOTE({
+									fullName: postContent.name,
+									voteDirection: postContent.likes === false ? 0 : -1
+								})
+							);
+						}}
+						text="⬇️"
+						isSelected={postContent.likes === false}
+					/>
+				</div>
 				<GenericButton
-					text="⬆️"
-					isSelected={postContent.likes === true}
+					isVertical={true}
 					clickEvent={() => {
 						dispatch(
-							VOTE({
+							SAVE({
 								fullName: postContent.name,
-								voteDirection: postContent.likes === true ? 0 : 1
+								isSaving: !postContent.saved
 							})
 						);
 					}}
+					isSelected={postContent.saved}
+					text="save"
 				/>
-				<p>
-					{postContent.ups +
-						(postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}
-				</p>
-				<GenericButton
-					clickEvent={() => {
-						dispatch(
-							VOTE({
-								fullName: postContent.name,
-								voteDirection: postContent.likes === false ? 0 : -1
-							})
-						);
-					}}
-					text="⬇️"
-					isSelected={postContent.likes === false}
-				/>
-			</div>
-			<GenericButton
-				clickEvent={() => {
-					dispatch(
-						SAVE({
-							fullName: postContent.name,
-							isSaving: !postContent.saved
-						})
-					);
-				}}
-				isSelected={postContent.saved}
-				text="save"
-			/>
 
-			<button onClick={() => copy(`https://www.reddit.com${postContent.permalink}`)}>share</button>
-			<button>💬{postContent.num_comments}</button>
-		</div>
+				<GenericButton
+					clickEvent={() => copy(`https://www.reddit.com${postContent.permalink}`)}
+					text="share"
+					isVertical={true}
+				/>
+				<GenericButton text={postContent.num_comments} isVertical={true} svgPath="home" />
+			</div>
+		</>
 	);
 };
 

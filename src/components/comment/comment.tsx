@@ -19,12 +19,13 @@ const Comment = ({ comment }: { comment: any }) => {
 				/>
 				<button>Upvote</button>
 				<button>Downvote</button>
-
 				<div className="commentChildContainer">
-					<GenericButton
-						clickEvent={() => setIsCollapsed(!isCollapsed)}
-						text={`${isCollapsed ? 'un' : ''}collapse`}
-					/>
+					{comment.replies ? (
+						<GenericButton
+							clickEvent={() => setIsCollapsed(!isCollapsed)}
+							text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
+						/>
+					) : null}
 					{comment.replies && !isCollapsed
 						? comment.replies.data.children.map((childComments: any, index: any) => {
 								if (childComments.kind === 't1')

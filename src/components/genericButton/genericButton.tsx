@@ -8,26 +8,20 @@ import './genericButton.scss';
 interface propTypes {
 	svgPath?: keyof typeof SVGS;
 	text?: string;
-	id?: string;
 	href?: string;
 	clickEvent?: () => void;
-	children?: JSX.Element;
-	isSelected?: boolean | null;
+	isSelected?: boolean;
+	isVertical?: boolean;
 }
 
-const GenericButton = ({ svgPath, text, id, href, clickEvent, children, isSelected }: propTypes) => {
-	const genClasses = () => {
-		const classNames: string[] = [];
-		classNames.push('genericButton');
-		if (svgPath) classNames.push('iconButton');
-		if (isSelected) classNames.push('selected');
-		return classNames.join(' ');
-	};
+const GenericButton = ({ svgPath, text, href, clickEvent, isSelected, isVertical }: propTypes) => {
 	const Content = () => (
-		<button onClick={clickEvent} className={genClasses()} id={id || ''}>
+		<button
+			onClick={clickEvent}
+			className={`genericButton ${isVertical ? 'vertical' : ''}${isSelected ? 'selected' : ''}`}
+		>
 			{svgPath ? SVGS[svgPath] : null}
 			{text ? text : null}
-			{children}
 		</button>
 	);
 	return (
