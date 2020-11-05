@@ -9,7 +9,7 @@ import './home.scss';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const timeline = useSelector((state: ReduxStateType) => state.listings.subredditKeys['/']?.postKeys);
+	const timeline = useSelector((state: ReduxStateType) => state.post.subredditKeys['/']?.postKeys);
 
 	useEffect(() => {
 		dispatch(GET_LISTING('/'));

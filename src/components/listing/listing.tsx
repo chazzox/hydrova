@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { setClickedPostID } from '../../redux/listingReducer';
+import { setClickedPostID } from '../../redux/postStore/postReducer';
 
 import PostComponent from '../postComponent/postComponent';
 import VoteControls from '../voteControls/voteControls';

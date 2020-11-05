@@ -3,21 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import SubredditInfoBar from '../../components/subredditInfoBar/subredditInfoBar';
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { SET_SIZE_MODE } from '../../redux/sidebar/sidebarReducer';
-import { GET_SUBREDDIT_ABOUT } from '../../redux/listingReducer';
-import { GET_LISTING } from '../../redux/postStore/postThunks';
 import Listing from '../../components/listing/listing';
+
+import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import { GET_SUBREDDIT_ABOUT } from '../../redux/postStore/postThunks';
+import { SET_SIZE_MODE } from '../../redux/sidebar/sidebarReducer';
+import { GET_LISTING } from '../../redux/postStore/postThunks';
 
 const SubredditHome: React.FC<RouteComponentProps> = props => {
 	const dispatch: AppDispatch = useDispatch();
 
 	const [subredditName, setSubName] = useState(props.location.pathname);
 	const subredditPointerArray = useSelector(
-		(state: ReduxStateType) => state.listings.subredditKeys[subredditName]?.postKeys
+		(state: ReduxStateType) => state.post.subredditKeys[subredditName]?.postKeys
 	);
 	const subredditInfoBar = useSelector(
-		(state: ReduxStateType) => state.listings.subredditKeys[subredditName]?.sidebar
+		(state: ReduxStateType) => state.post.subredditKeys[subredditName]?.sidebar
 	);
 
 	useEffect(() => {

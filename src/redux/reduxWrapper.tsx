@@ -5,7 +5,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import sidebarReducer from './sidebar/sidebarReducer';
 import postReducer from './postStore/postReducer';
 import settingsReducer from './settingsReducer';
-import listingReducer from './listingReducer';
 import authReducer from './authReducer';
 
 let sideBar: null | string = null;
@@ -18,7 +17,6 @@ if (typeof window !== `undefined`) {
 
 const store = configureStore({
 	reducer: {
-		listings: listingReducer.reducer,
 		sidebar: sidebarReducer.reducer,
 		style: settingsReducer.reducer,
 		auth: authReducer.reducer,
