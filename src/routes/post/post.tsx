@@ -31,7 +31,12 @@ const Home: React.FC<RouteComponentProps<any, any, any>> = props => {
 							: null}
 					</div>
 				</>
-			) : null}
+			) : (
+				<>
+					<div className="voteControls" />
+					<div id="contentContainer" />
+				</>
+			)}
 		</>
 	);
 };
