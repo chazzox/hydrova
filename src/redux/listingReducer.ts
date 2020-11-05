@@ -24,7 +24,7 @@ const subredditSlice = createSlice({
 		subredditKeys: {} as { [key: string]: { sidebar?: AboutApiResponse; postKeys?: string[] } }
 	},
 	reducers: {
-		setClickedPostID: (state, action: PayloadAction<boolean>) => {
+		setClickedPostID: (state, action: PayloadAction<string>) => {
 			console.log(action.payload);
 		}
 	},

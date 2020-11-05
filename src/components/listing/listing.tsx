@@ -44,7 +44,7 @@ const Listing = ({ postData }: { postData: string[] }) => {
 							<Link
 								key={index}
 								id={post.id}
-								onClick={() => dispatch(setClickedPostID({ test: post.id }))}
+								onClick={() => dispatch(setClickedPostID(post.id))}
 								to={{ pathname: '/post/' + post.id, state: { post: post } }}
 								className="expanded"
 							>
