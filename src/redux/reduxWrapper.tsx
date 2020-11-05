@@ -2,15 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import subredditReducer from './subreddit/subredditReducer';
 import sidebarReducer from './sidebar/sidebarReducer';
 import postReducer from './postStore/postReducer';
-import timelineReducer from './timelineReducer';
 import settingsReducer from './settingsReducer';
-import authReducer from './auth/authReducer';
+import listingReducer from './listingReducer';
+import authReducer from './authReducer';
 
 let sideBar: null | string = null;
 let sideBarJSON: null | any = null;
+
 if (typeof window !== `undefined`) {
 	sideBar = localStorage.getItem('sidebar');
 	sideBarJSON = sideBar ? JSON.parse(sideBar) : null;
@@ -18,11 +18,10 @@ if (typeof window !== `undefined`) {
 
 const store = configureStore({
 	reducer: {
-		auth: authReducer.reducer,
-		style: settingsReducer.reducer,
+		listings: listingReducer.reducer,
 		sidebar: sidebarReducer.reducer,
-		timeline: timelineReducer.reducer,
-		subreddits: subredditReducer.reducer,
+		style: settingsReducer.reducer,
+		auth: authReducer.reducer,
 		post: postReducer.reducer
 	},
 	preloadedState: {

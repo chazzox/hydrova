@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
-import _ from 'lodash';
 
 import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
-import { refreshAccessToken, setNoAuthCookies } from '../redux/auth/authReducer';
+import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
 import Login from '../routes/login/login';
 import App from '../routes/app';
 

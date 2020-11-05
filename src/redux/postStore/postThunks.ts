@@ -1,26 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ReduxStateType } from '../reduxWrapper';
 
-export const GET_TIMELINE = createAsyncThunk<
-	TimelineResponse,
+export const GET_LISTING = createAsyncThunk<
+	{ postArray: TimelineResponse },
 	string,
 	{ state: ReduxStateType; rejectValue: failure }
->('sidebar/getTimeline', async (afterId, { getState, rejectWithValue }) => {
-	const response = await fetch('https://oauth.reddit.com/best/?limit=25&after=' + afterId, {
+>('sidebar/getListing', async (urlSuffix, { getState, rejectWithValue }) => {
+	const response = await fetch(`https://oauth.reddit.com${urlSuffix}`, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400) return rejectWithValue(responseJSON as failure);
-	return responseJSON as TimelineResponse;
+	return { postArray: responseJSON };
 });
 
 export const GET_POST = createAsyncThunk<
 	GetPostResponse,
 	{ id: string },
 	{ state: ReduxStateType; rejectValue: failure }
->('post/fetchPost', async ({ id }, { getState, rejectWithValue }) => {
+>('post/getPost', async ({ id }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
@@ -34,15 +34,16 @@ export const GET_POST = createAsyncThunk<
 export const VOTE = createAsyncThunk<
 	voteSuccess,
 	{ fullName: string; voteDirection: 1 | 0 | -1 },
-	{ state: ReduxStateType; rejectValue: failure }
->('post/upvote', async ({ fullName, voteDirection }, { getState, rejectWithValue }) => {
+	{ state: ReduxStateType; rejectValue: failure & { voteDir: number; fullName: string } }
+>('post/vote', async ({ fullName, voteDirection }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/api/vote?id=${fullName}&dir=${voteDirection}`, {
 		method: 'POST',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
 		redirect: 'manual'
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
+	if (response.status === 400 || response.status === 404)
+		return rejectWithValue({ ...responseJSON, voteDir: voteDirection, fullName: fullName });
 	return { response: responseJSON, fullName: fullName, voteDir: voteDirection } as voteSuccess;
 });
 

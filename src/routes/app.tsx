@@ -19,7 +19,7 @@ const App: React.FC = () => {
 				<Route path="/mail" render={() => <Mail />} />
 				<Route path="/r/:subreddit" render={props => <Subreddit {...props} />} />
 				<Route path="/post/:permalink" render={props => <Post {...props} />} />
-				<Route path="/" render={() => <Home />} />
+				<Route path="/" render={props => <Home routeProps={props} />} />
 			</Switch>
 		</HashRouter>
 	);

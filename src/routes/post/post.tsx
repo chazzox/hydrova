@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { setPostContent, GET_POST } from '../../redux/postStore/postReducer';
+import { GET_POST } from '../../redux/postStore/postThunks';
 
 import VoteControls from '../../components/voteControls/voteControls';
 import PostComponent from '../../components/postComponent/postComponent';
@@ -16,12 +16,7 @@ const Home: React.FC<RouteComponentProps<any, any, any>> = props => {
 	const comments = useSelector((state: ReduxStateType) => state.post.posts[id]?.comments?.commentArray);
 
 	useEffect(() => {
-		if (props.location.state?.post) {
-			dispatch(setPostContent({ postId: id, postContent: props.location.state.post }));
-			dispatch(GET_POST({ id: id }));
-		} else {
-			dispatch(GET_POST({ id: id }));
-		}
+		dispatch(GET_POST({ id: id }));
 	}, []);
 
 	return (
@@ -31,7 +26,9 @@ const Home: React.FC<RouteComponentProps<any, any, any>> = props => {
 					<VoteControls postContent={postContent} />
 					<div id="contentContainer">
 						<PostComponent postContent={postContent} isExpanded={true} />{' '}
-						{comments ? comments.map(comment => <Comment comment={comment} />) : null}
+						{comments
+							? comments.map((comment, index) => <Comment key={index} comment={comment} />)
+							: null}
 					</div>
 				</>
 			) : null}

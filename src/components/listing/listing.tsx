@@ -1,30 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { setClickedPostID } from '../../redux/timelineReducer';
+import { setClickedPostID } from '../../redux/listingReducer';
 
 import PostComponent from '../postComponent/postComponent';
 import VoteControls from '../voteControls/voteControls';
 
 const Listing = ({ postData }: { postData: string[] }) => {
+	const location = useLocation();
+
 	const dispatch: AppDispatch = useDispatch();
-	const postContainerRef = useRef<HTMLDivElement>(null);
-	const [currentTop, setCurrentTop] = useState<Element | null>(null);
 	const posts = useSelector((state: ReduxStateType) => state.post.posts);
-	useEffect(() => {
-		selectTopPost();
-	});
-	useEffect(() => {
-		if (currentTop) currentTop.classList.add('expanded');
-	}, [currentTop]);
+
+	const [currentTop, setCurrentTop] = useState<Element | null>(null);
+	const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+
+	const postContainerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => setCurrentTop(postContainerRef.current?.children[0] || null), [
+		postContainerRef.current?.children
+	]);
 	const selectTopPost = () => {
-		if (currentTop?.getBoundingClientRect().top !== 0) {
-			currentTop?.classList.remove('expanded');
-		}
 		Array.from(postContainerRef.current?.children || []).forEach(postNode => {
 			if (postNode.getBoundingClientRect().top == 0) {
-				if (currentTop !== postNode) currentTop?.classList.remove('expanded');
 				setCurrentTop(postNode);
 			}
 		});
@@ -32,7 +31,11 @@ const Listing = ({ postData }: { postData: string[] }) => {
 
 	return (
 		<>
-			{currentTop ? <VoteControls postContent={posts[currentTop?.id].postContent} /> : null}
+			{currentTop ? (
+				<VoteControls postContent={posts[currentTop?.id].postContent} />
+			) : (
+				<div className="voteControls" />
+			)}
 			<div id="contentContainer" className="home" onScroll={selectTopPost}>
 				<span ref={postContainerRef}>
 					{postData.map((postId, index) => {
@@ -41,8 +44,9 @@ const Listing = ({ postData }: { postData: string[] }) => {
 							<Link
 								key={index}
 								id={post.id}
-								onClick={() => dispatch(setClickedPostID(post.id))}
+								onClick={() => dispatch(setClickedPostID({ test: post.id }))}
 								to={{ pathname: '/post/' + post.id, state: { post: post } }}
+								className="expanded"
 							>
 								<object>
 									<PostComponent postContent={post} />

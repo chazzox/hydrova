@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
 import { AppDispatch } from '../../redux/reduxWrapper';
-import { refreshAccessToken } from '../../redux/auth/authReducer';
+import { refreshAccessToken } from '../../redux/authReducer';
 import generateAuthenticationURL from '../../utils/generateLogin';
 
 import hydrovaSVG from '../../assets/logo.svg';

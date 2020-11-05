@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
 import './voteControls.scss';
 
-import { SAVE, VOTE } from '../../redux/postStore/postReducer';
+import { SAVE, VOTE } from '../../redux/postStore/postThunks';
 import { AppDispatch } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
 

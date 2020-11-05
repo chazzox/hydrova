@@ -65,6 +65,7 @@ const sidebarReducer = createSlice({
 					.sort((a, b) => a.display_name.localeCompare(b.display_name)),
 				(sub: SidebarStoredSub) => sub.display_name
 			);
+
 			// if we are in initial load mode
 			state.subReddits = newSubArr;
 			// once the fetching of all the subreddit list is complete, we want to save the entire list to local storage
