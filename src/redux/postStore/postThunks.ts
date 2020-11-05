@@ -8,8 +8,7 @@ export const GET_LISTING = createAsyncThunk<
 >('sidebar/getListing', async (urlSuffix, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com${urlSuffix}`, {
 		method: 'GET',
-		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
-		redirect: 'manual'
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400) return rejectWithValue(responseJSON as failure);
@@ -23,8 +22,7 @@ export const GET_POST = createAsyncThunk<
 >('post/getPost', async ({ id }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
 		method: 'GET',
-		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
-		redirect: 'manual'
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
@@ -38,8 +36,7 @@ export const VOTE = createAsyncThunk<
 >('post/vote', async ({ fullName, voteDirection }, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com/api/vote?id=${fullName}&dir=${voteDirection}`, {
 		method: 'POST',
-		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
-		redirect: 'manual'
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
