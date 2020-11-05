@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import Listing from '../../components/listing/listing';
 const SubredditHome: React.FC<RouteComponentProps> = props => {
 	const dispatch: AppDispatch = useDispatch();
 
-	const subredditName = props.location.pathname.split('/')[2];
+	const [subredditName, setSubName] = useState(props.location.pathname);
 	const subredditPointerArray = useSelector(
 		(state: ReduxStateType) => state.listings.subredditKeys[subredditName]?.postKeys
 	);
@@ -22,9 +22,11 @@ const SubredditHome: React.FC<RouteComponentProps> = props => {
 
 	useEffect(() => {
 		dispatch(SET_SIZE_MODE(true));
-		if (!subredditPointerArray) dispatch(GET_LISTING(`/r/${subredditName}`));
+		if (!subredditPointerArray) dispatch(GET_LISTING(subredditName));
 		if (!subredditInfoBar) dispatch(GET_SUBREDDIT_ABOUT(subredditName));
-	}, []);
+	}, [subredditName]);
+
+	useEffect(() => setSubName(props.location.pathname), [props.location.pathname]);
 
 	return (
 		<>

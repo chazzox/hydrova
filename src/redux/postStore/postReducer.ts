@@ -8,8 +8,7 @@ const postReducer = createSlice({
 	initialState: {
 		posts: {} as {
 			[state: string]: { comments?: { commentArray: any[]; latestComment: string }; postContent: post };
-		},
-		timelineArr: [] as string[]
+		}
 	},
 	reducers: {
 		setPostContent: (state, action: PayloadAction<{ postId: string; postContent: post }>) => {
@@ -18,7 +17,6 @@ const postReducer = createSlice({
 	},
 	extraReducers: builder => {
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
-			state.timelineArr.push(...action.payload.postArray.data.children.map(({ data: { id } }) => id));
 			action.payload.postArray.data.children.forEach(
 				({ data }) =>
 					(state.posts[data.id] = {
