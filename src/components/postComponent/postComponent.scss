@@ -10,13 +10,17 @@
 	-ms-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
 		min-height 0.3s ease;
 
+	display: flex;
+	justify-content: space-between;
+
+	img, video {
+		justify-self: right;
+		height: 80px;
+		visibility: visible;
+	}
+
 	.postInfo {
 		* {
-			visibility: visible;
-		}
-		img, video {
-			height: 80px;
-			float: right;
 			visibility: visible;
 		}
 		// post title
@@ -33,7 +37,7 @@
 		}
 	}
 
-	* {
+	.postContent {
 		visibility: hidden;
 	}
 
@@ -51,7 +55,7 @@ a.expanded .post,
 .post.expanded {
 	max-height: 600px;
 
-	* {
+	.postContent {
 		visibility: visible;
 	}
 	img,

@@ -1,20 +1,43 @@
 .genericButton {
 	width: 100%;
-	padding: 8px 16px;
+	padding: 10px 16px;
 	margin: 5px auto;
 	border-radius: var(--small-border-radius);
+
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 
 	background: none;
 	border: none;
 	outline: none;
 
 	color: var(--text-color-primary);
-	font-size: 12pt;
+	font-size: 11pt;
+
 	svg {
 		width: 20px;
 		path {
 			fill: var(--text-color-primary) !important;
 		}
+	}
+	.icon {
+		border-radius: var(--small-border-radius);
+		float: left;
+		margin-right: 12px;
+
+		text-align: center;
+		font-size: 10pt;
+		font-weight: 600;
+
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+
+
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 
 	// horizontally arranged button (default)
@@ -27,8 +50,8 @@
 	// vertically arranged button
 	&.vertical {
 		text-align: center;
-
 		svg {
+			display: block;
 			float: none;
 			margin-right: 0px;
 			margin-bottom: 5px;

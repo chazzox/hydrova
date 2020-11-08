@@ -12,15 +12,17 @@ interface propTypes {
 	clickEvent?: () => void;
 	isSelected?: boolean;
 	isVertical?: boolean;
+	children?: JSX.Element;
 }
 
-const GenericButton = ({ svgPath, text, href, clickEvent, isSelected, isVertical }: propTypes) => {
+const GenericButton = ({ svgPath, text, href, clickEvent, isSelected, isVertical, children }: propTypes) => {
 	const Content = () => (
 		<button
 			onClick={clickEvent}
 			className={`genericButton ${isVertical ? 'vertical' : ''}${isSelected ? 'selected' : ''}`}
 		>
 			{svgPath ? SVGS[svgPath] : null}
+			{children}
 			{text ? text : null}
 		</button>
 	);
