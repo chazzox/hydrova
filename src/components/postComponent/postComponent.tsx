@@ -26,10 +26,27 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 			return (
 				<video controls={true}>
 					<source src={postContent.media.reddit_video.fallback_url} type="video/mp4" />
+					<source
+						src={postContent.media.reddit_video.fallback_url.replace(
+							/(DASH_)(\d*)(.mp4)/,
+							(__, p1: string, p2, p3: string, ...__2) => p1 + 'AUDIO' + p3
+						)}
+						type="audio/mp4"
+					/>
 				</video>
 			);
 		} else if (postContent.post_hint === 'link')
-			return <div className="postContent">this is a link, support will be added soon</div>;
+			return (
+				<div className="postContent">link</div>
+				// <div
+				// 	className="postContent"
+				// 	dangerouslySetInnerHTML={{
+				// 		__html:
+				// 			new DOMParser().parseFromString(postContent.media., 'text/html')
+				// 				.documentElement.textContent || ''
+				// 	}}
+				// />
+			);
 		else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
 		else {
 			return <div className="postContent">this is a reddit collage</div>;
