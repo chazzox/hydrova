@@ -10,7 +10,7 @@ interface propTypes {
 }
 
 const postComponent = ({ postContent, isExpanded }: propTypes) => {
-	const PostContent = () => {
+	const RenderPostType = () => {
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
 				<span
@@ -69,7 +69,7 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 			</div>
 			<div className="postContent">
 				<p>{postContent.selftext_html}</p>
-				<PostContent />
+				<RenderPostType />
 			</div>
 		</div>
 	);

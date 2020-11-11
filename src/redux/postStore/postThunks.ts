@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ReduxStateType } from '../reduxWrapper';
 
 export const GET_LISTING = createAsyncThunk<
-	{ postArray: TimelineResponse },
+	{ postArray: ListingResponse },
 	string,
 	{ state: ReduxStateType; rejectValue: failure }
 >('sidebar/getListing', async (urlSuffix, { getState, rejectWithValue }) => {
