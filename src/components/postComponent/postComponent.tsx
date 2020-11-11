@@ -13,8 +13,7 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 	const PostContent = () => {
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
-				<div
-					className="postContent"
+				<span
 					dangerouslySetInnerHTML={{
 						__html:
 							new DOMParser().parseFromString(postContent.selftext_html, 'text/html')
@@ -37,7 +36,7 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 			);
 		} else if (postContent.post_hint === 'link')
 			return (
-				<div className="postContent">link</div>
+				<>link</>
 				// <div
 				// 	className="postContent"
 				// 	dangerouslySetInnerHTML={{
@@ -49,7 +48,7 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 			);
 		else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
 		else {
-			return <div className="postContent">this is a reddit collage</div>;
+			return <>this is a reddit collage</>;
 		}
 	};
 
@@ -68,7 +67,10 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 					</p>
 				</div>
 			</div>
-			<PostContent />
+			<div className="postContent">
+				<p>{postContent.selftext_html}</p>
+				<PostContent />
+			</div>
 		</div>
 	);
 };
