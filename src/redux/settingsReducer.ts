@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const settingsReducer = createSlice({
 	name: 'settingsReducer',
-	initialState: { styleMode: true, dynamicExpand: false },
+	initialState: { styleMode: true, dynamicExpand: true },
 	reducers: {
 		SET_STYLE_MODE: (state, action: PayloadAction<any>) => {
 			state.styleMode = action.payload;

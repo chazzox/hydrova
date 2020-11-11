@@ -9,7 +9,7 @@ import './horizontal.scss';
 
 interface propTypes {
 	svgPath?: keyof typeof SVGS;
-	text?: string;
+	text?: string | number;
 	href?: string;
 	clickEvent?: () => void;
 	isSelected?: boolean;

@@ -16,7 +16,7 @@ export default function getValues(data: ChildData): post {
 		permalink: data.permalink,
 		created_utc: data.created_utc,
 		saved: data.saved,
-		likes: data.likes,
-		oembed: data.media.oembed.html
+		likes: data.likes
+		//oembed: data.media.oembed.html // FIXME:
 	};
 }
