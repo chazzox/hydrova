@@ -43,10 +43,10 @@ interface post {
 	created_utc: number;
 	likes: boolean | null;
 	media: {
-		reddit_video: {
+		reddit_video?: {
 			height: number;
 			width: number;
-			dash_url: string;
+			fallback_url: string;
 		};
 	};
 }

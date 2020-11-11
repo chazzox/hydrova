@@ -22,12 +22,12 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 					}}
 				/>
 			);
-		} else if (postContent.is_video && postContent.media) {
+		} else if (postContent.is_video && postContent.media?.reddit_video) {
 			return (
 				<video controls={true}>
-					<source src={postContent.media.reddit_video.dash_url} type="video/mp4" />
+					{/* <source src={postContent.media.reddit_video.fallback_url} type="video/mp4" /> */}
 					<source
-						src={postContent.media.reddit_video.dash_url.replace(
+						src={postContent.media.reddit_video.fallback_url.replace(
 							/(DASH_)(\d*)(.mp4)/,
 							(_ign1, part1: string, _ign2, part3: string, _ign3) => part1 + 'AUDIO' + part3
 						)}
