@@ -42,4 +42,11 @@ interface post {
 	permalink: string;
 	created_utc: number;
 	likes: boolean | null;
+	media: {
+		reddit_video: {
+			height: number;
+			width: number;
+			dash_url: string;
+		};
+	};
 }

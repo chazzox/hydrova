@@ -73,6 +73,7 @@ interface ChildData {
 
 	// rendered things
 	upvote_ratio: number;
+	saved: boolean;
 	ups: number;
 	score: number;
 	edited: boolean;
@@ -113,6 +114,7 @@ interface ChildData {
 	media_embed: MediaEmbed | {};
 	secure_media_embed: MediaEmbed | {};
 	gildings: Media | {};
+	is_reddit_media_domain: boolean;
 
 	all_awardings: AllAwarding[] | [];
 
@@ -181,8 +183,21 @@ interface Image {
 
 // media
 interface Media {
-	oembed: Oembed;
-	type: string;
+	oembed?: Oembed;
+	type?: string;
+	reddit_video?: RedditVideo;
+}
+
+export interface RedditVideo {
+	fallback_url: string;
+	height: number;
+	width: number;
+	scrubber_media_url: string;
+	dash_url: string;
+	duration: number;
+	hls_url: string;
+	is_gif: boolean;
+	transcoding_status: string;
 }
 interface Oembed {
 	provider_url: string;

@@ -24,11 +24,11 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 		} else if (postContent.is_video && postContent.media) {
 			return (
 				<video controls={true}>
-					<source src={postContent.media.reddit_video.fallback_url} type="video/mp4" />
+					<source src={postContent.media.reddit_video.dash_url} type="video/mp4" />
 					<source
-						src={postContent.media.reddit_video.fallback_url.replace(
+						src={postContent.media.reddit_video.dash_url.replace(
 							/(DASH_)(\d*)(.mp4)/,
-							(__, p1: string, p2, p3: string, ...__2) => p1 + 'AUDIO' + p3
+							(_ign1, part1: string, _ign2, part3: string, _ign3) => part1 + 'AUDIO' + part3
 						)}
 						type="audio/mp4"
 					/>
@@ -53,7 +53,7 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 	};
 
 	return (
-		<div id={postContent.id} className={'post' + (isExpanded ? ' expanded' : '')}>
+		<div id={postContent.id} className={'post'}>
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
 				<div>

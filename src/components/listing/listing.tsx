@@ -14,27 +14,23 @@ const Listing = ({ postData }: { postData: string[] }) => {
 	const isDynamic = useSelector((state: ReduxStateType) => state.style.dynamicExpand);
 
 	// component state
-	const [currentTop, setCurrentTop] = useState<Element | null>(null);
+	const [currentTop, setCurrentTop] = useState<HTMLElement>();
 	const postContainerRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => setCurrentTop(postContainerRef.current?.children[0] || null), [
-		postContainerRef.current?.children
-	]);
-
-	useEffect(() => {
-		if (currentTop && isDynamic) currentTop.classList.add('expanded');
-	}, [currentTop]);
-
 	const scrollEvent = () => {
-		const currentTop = Array.from(postContainerRef.current?.children || []).find(
-			el => el.getBoundingClientRect().top > 0
-		) as HTMLElement;
-		currentTop.style.minHeight = 100 + (500 - currentTop.getBoundingClientRect().top) + 'px';
+		setCurrentTop(
+			Array.from(postContainerRef.current?.children || []).find(
+				el => el.getBoundingClientRect().top > 0
+			) as HTMLElement
+		);
+
+		if (currentTop)
+			currentTop.style.minHeight = 100 + (500 - currentTop.getBoundingClientRect().top) + 'px';
 	};
 
 	return (
 		<>
-			{currentTop ? (
+			{currentTop && posts[currentTop?.id || ''] ? (
 				<VoteControls postContent={posts[currentTop?.id].postContent} />
 			) : (
 				<div className="voteControls" />
@@ -46,6 +42,7 @@ const Listing = ({ postData }: { postData: string[] }) => {
 						return (
 							<Link
 								key={index}
+								className="post"
 								id={post.id}
 								onClick={() => dispatch(setClickedPostID(post.id))}
 								to={{ pathname: '/post/' + post.id, state: { post: post } }}
