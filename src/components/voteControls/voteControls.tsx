@@ -16,7 +16,8 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 			<div className="voteControls">
 				<div className="votesContainer">
 					<GenericButton
-						text="⬆️"
+						text="Vote"
+						svgPath="placeholder"
 						isVertical={true}
 						isSelected={postContent.likes === true}
 						clickEvent={() => {
@@ -42,7 +43,8 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 								})
 							);
 						}}
-						text="⬇️"
+						text="Vote"
+						svgPath="placeholder"
 						isSelected={postContent.likes === false}
 					/>
 				</div>
@@ -58,14 +60,16 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 					}}
 					isSelected={postContent.saved}
 					text="save"
+					svgPath="placeholder"
 				/>
 
 				<GenericButton
 					clickEvent={() => copy(`https://www.reddit.com${postContent.permalink}`)}
 					text="share"
 					isVertical={true}
+					svgPath="placeholder"
 				/>
-				<GenericButton text={postContent.num_comments} isVertical={true} svgPath="home" />
+				<GenericButton text={postContent.num_comments} isVertical={true} svgPath="placeholder" />
 			</div>
 		</>
 	);

@@ -14,7 +14,7 @@ import {
 } from '../../redux/sidebar/sidebarReducer';
 
 import hydrovaSVG from '../../assets/logo.svg';
-import searchIcon from '../../assets/icons/search.svg';
+import placeholderSVG from '../../assets/icons/placeholder.svg';
 
 import './sidebar.scss';
 
@@ -50,21 +50,17 @@ const Sidebar = () => {
 			<button id="shrinkSidebarBtn" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
 			<input
 				onClick={() => dispatch(SET_SIZE_MODE(false))}
-				className="navButton hasIcon"
 				type="text"
 				id="searchBar"
 				placeholder="Search"
-				style={{ backgroundImage: `url(${searchIcon})` }}
+				style={{ backgroundImage: `url('${placeholderSVG}')` }}
 			/>
 			<GenericButton text="Timeline" svgPath="home" href="/" />
 			<GenericButton text="Post" svgPath="new" href="/submit" />
 			<GenericButton text="Mail" svgPath="mail" href="/mail" />
-			<GenericButton text="Settings" svgPath="settings" href="/settings" />
+			<GenericButton text="Settings" svgPath="placeholder" href="/settings" />
 
 			<div className="scrollSection">
-				{/* gradient of scroll section (fades in/out content as user scrolls */}
-				<div className="scrollGradient"></div>
-				<div className="scrollGradient"></div>
 				{/* main sidebar content */}
 				<h3>Feeds</h3>
 				<NavLink to="/r/all" activeClassName="selected">

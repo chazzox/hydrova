@@ -4,6 +4,8 @@
 	margin: 5px auto;
 	border-radius: var(--small-border-radius);
 
+	text-transform: capitalize;
+
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -16,11 +18,21 @@
 	font-size: 11pt;
 
 	svg {
-		width: 20px;
-		path {
-			fill: var(--text-color-primary) !important;
+		* {
+			fill: none;
+			stroke-width: 18px;
+			stroke: var(--text-color-primary);
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+		.strokeNone {
+			stroke: none;
+		}
+		.strokeThick {
+			stroke-width: 30px;
 		}
 	}
+
 	.icon {
 		border-radius: var(--small-border-radius);
 		float: left;
@@ -30,35 +42,28 @@
 		font-size: 10pt;
 		font-weight: 600;
 
-		width: 20px;
-		height: 20px;
-		line-height: 20px;
-
+		width: 22px;
+		height: 22px;
+		line-height: 22px;
 
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+}
 
-	// horizontally arranged button (default)
-	text-align: left;
+// style applied to both hover and select effect
+.selected .genericButton,
+.genericButton:hover {
+	font-weight: 600;
 	svg {
-		float: left;
-		margin-right: 12px;
-	}
-
-	// vertically arranged button
-	&.vertical {
-		text-align: center;
-		svg {
-			display: block;
-			float: none;
-			margin-right: 0px;
-			margin-bottom: 5px;
+		.fill {
+			fill: var(--text-color-tertiary);
 		}
 	}
 }
 
+// style applied to JUST select effect
 .selected .genericButton {
-		background-color: var(--accent-color);
+	background-color: var(--accent-color) !important;
 }

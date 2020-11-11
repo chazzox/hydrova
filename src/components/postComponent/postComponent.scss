@@ -13,27 +13,31 @@
 	display: flex;
 	justify-content: space-between;
 
-	img, video {
+	img,
+	video {
 		justify-self: right;
 		height: 80px;
 		visibility: visible;
 	}
 
 	.postInfo {
+		width: 100%;
+		padding-right: 12px;
+		white-space: nowrap;
 		* {
 			visibility: visible;
+			text-decoration: none;
 		}
 		// post title
 		h1 {
-			font-size: 16pt;
-			max-width: calc(100% - 20px);
-			text-overflow: ellipsis;
 			overflow: hidden;
-			white-space: nowrap;
+			text-overflow: ellipsis;
+			font-size: 15pt;
 		}
 		// username / subreddit / time posted
 		p {
 			color: var(--text-color-secondary);
+			white-space: nowrap;
 		}
 	}
 
@@ -54,7 +58,10 @@
 a.expanded .post,
 .post.expanded {
 	max-height: 600px;
-
+	display: block;
+	.postInfo {
+		white-space: normal;
+	}
 	.postContent {
 		visibility: visible;
 	}
