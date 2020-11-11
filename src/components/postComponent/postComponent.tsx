@@ -7,9 +7,10 @@ import './postComponent.scss';
 interface propTypes {
 	postContent: post;
 	isExpanded?: boolean | null;
+	additionalClassNames?: string[];
 }
 
-const postComponent = ({ postContent, isExpanded }: propTypes) => {
+const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTypes) => {
 	const RenderPostType = () => {
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
@@ -53,7 +54,10 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 	};
 
 	return (
-		<div id={postContent.id} className={'post'}>
+		<div
+			id={postContent.id}
+			className={[additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
+		>
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>
 				<div>
@@ -68,7 +72,6 @@ const postComponent = ({ postContent, isExpanded }: propTypes) => {
 				</div>
 			</div>
 			<div className="postContent">
-				<p>{postContent.selftext_html}</p>
 				<RenderPostType />
 			</div>
 		</div>

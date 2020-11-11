@@ -25,7 +25,11 @@ const Home: React.FC<RouteComponentProps<any, any, any>> = props => {
 				<>
 					<VoteControls postContent={postContent} />
 					<div id="contentContainer">
-						<PostComponent postContent={postContent} isExpanded={true} />{' '}
+						<PostComponent
+							postContent={postContent}
+							isExpanded={true}
+							additionalClassNames={['post']}
+						/>{' '}
 						{comments
 							? comments.map((comment, index) => <Comment key={index} comment={comment} />)
 							: null}

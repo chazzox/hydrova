@@ -23,7 +23,6 @@ const Listing = ({ postData }: { postData: string[] }) => {
 				el => el.getBoundingClientRect().top > 0
 			) as HTMLElement
 		);
-
 		if (currentTop)
 			currentTop.style.minHeight = 100 + (500 - currentTop.getBoundingClientRect().top) + 'px';
 	};
