@@ -25,15 +25,11 @@ const Listing = ({ postData }: { postData: string[] }) => {
 		if (currentTop && isDynamic) currentTop.classList.add('expanded');
 	}, [currentTop]);
 
-	const selectTopPost = () => {
-		if (currentTop?.getBoundingClientRect().top !== 0 && isDynamic) {
-			currentTop?.classList.remove('expanded');
-		}
-		Array.from(postContainerRef.current?.children || []).forEach(postNode => {
-			if (postNode.getBoundingClientRect().top == 0) {
-				setCurrentTop(postNode);
-			}
-		});
+	const scrollEvent = () => {
+		const currentTop = Array.from(postContainerRef.current?.children || []).find(
+			el => el.getBoundingClientRect().top > 0
+		) as HTMLElement;
+		currentTop.style.minHeight = 100 + (500 - currentTop.getBoundingClientRect().top) + 'px';
 	};
 
 	return (
@@ -43,7 +39,7 @@ const Listing = ({ postData }: { postData: string[] }) => {
 			) : (
 				<div className="voteControls" />
 			)}
-			<div id="contentContainer" className="home" onScroll={selectTopPost}>
+			<div id="contentContainer" className="home" onScroll={scrollEvent}>
 				<span ref={postContainerRef}>
 					{postData.map((postId, index) => {
 						const post = posts[postId].postContent;
@@ -53,7 +49,6 @@ const Listing = ({ postData }: { postData: string[] }) => {
 								id={post.id}
 								onClick={() => dispatch(setClickedPostID(post.id))}
 								to={{ pathname: '/post/' + post.id, state: { post: post } }}
-								className={isDynamic ? undefined : 'expanded'}
 							>
 								<object>
 									<PostComponent postContent={post} />
