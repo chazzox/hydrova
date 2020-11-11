@@ -4,6 +4,7 @@ html {
 	--bigger-border-radius: 24px;
 
 	--accent-color: rgb(88, 94, 254);
+	--text-color-button: white;
 
 	--dark-txt-col: white;
 	--dark-txt-col-secondary: rgba(255, 255, 255, 0.66);
@@ -17,11 +18,11 @@ html {
 		--alt-background-color: rgb(211, 211, 205);
 		--border-color: rgba(0, 0, 0, 0);
 		--accent-background-color: rgb(198, 198, 193);
-		--box-background-color: rgb(47, 52, 56); //needs to be made light
+		--box-background-color: rgb(47, 52, 56); //TODO: needs to be made light
 
-		--text-color-primary: black;
+		--text-color-primary: rgba(0, 0, 0, 1);
 		--text-color-secondary: rgba(0, 0, 0, 0.66);
-		--text-color-button: white;
+		--text-color-tertiary: rgba(0, 0, 0, 0.4);
 	}
 
 	// dark mode
@@ -33,8 +34,8 @@ html {
 		--accent-background-color: rgb(57, 57, 62);
 		--box-background-color: rgb(47, 52, 56);
 
-		--text-color-primary: white;
+		--text-color-primary: rgba(255, 255, 255, 1);
 		--text-color-secondary: rgba(255, 255, 255, 0.66);
-		--text-color-button: white;
+		--text-color-tertiary: rgba(255, 255, 255, 0.35);
 	}
 }

@@ -1,23 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#FFFFFF;}
-</style>
-<g>
-	<g>
-		<path class="st0" d="M312,34.7L0,346.6v70.7h70.7l312-312L312,34.7z M58.3,387.3H30v-28.3l282-282l28.3,28.3L58.3,387.3z"/>
-	</g>
-</g>
-<g>
-	<g>
-		<rect y="447.3" class="st0" width="512" height="30"/>
-	</g>
-</g>
-<g>
-	<g>
-		<rect x="150" y="387.3" class="st0" width="362" height="30"/>
-	</g>
-</g>
+<svg
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <g id="new">
+        <path class="fill strokeNone" d="M172.28,365.89c-6.21,2.26-9.68-1.05-7.73-7.35l45.9-148.08a57.25,57.25,0,0,1,12.07-19.91l95-94.1C322.16,91.8,320.6,88,314,88l-201.29-.25a12,12,0,0,0-12,12V412.29a12,12,0,0,0,12,12H425.29a12,12,0,0,0,12-12L437,209c0-6.6-3.84-8.18-8.51-3.51l-97,97a64.59,64.59,0,0,1-19.77,12.6Z"/>
+        <path class="strokeThick" d="M326,88l-213.29-.27a12,12,0,0,0-12,12V412.29a12,12,0,0,0,12,12H425.29a12,12,0,0,0,12-12L437,197"/>
+        <g id="Pen">
+            <polygon class="fill" points="414.21 110.55 437.64 133.98 286.97 284.65 214.21 310.55 240.1 237.79 390.77 87.12 414.21 110.55"/>
+            <path class="fill" d="M438.59,86.17,462,109.6l22-22s24.91-24.9,1.47-48.34c-25.13-25.13-48.33,1.47-48.33,1.47l-22,22Z"/>
+            <polygon points="238.58 263.61 226.12 298.64 261.15 286.17 238.58 263.61 238.58 263.61"/>
+        </g>
+    </g>
 </svg>

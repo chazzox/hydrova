@@ -10,7 +10,15 @@
 	height: fit-content;
 	flex-shrink: 0;
 
-	button {
+	// container that has upvote/downvote btn and vote count inside
+	.votesContainer {
+		padding: 5px;
+		margin-bottom: 8px;
+		border-radius: var(--small-border-radius);
 		background-color: var(--background-color);
+
+		button {
+			background-color: var(--accent-background-color);
+		}
 	}
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+   <g id="placeholer">
+      <circle class="strokeThick" cx="256" cy="256" r="207.5" />
+      <circle class="strokeNone fill" cx="256" cy="256" r="129" />
+      <path d="M127.5,256a128.5,128.5,0,1,1,209.72,99.58" />
+   </g>
+</svg>
