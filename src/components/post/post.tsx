@@ -16,7 +16,7 @@ const Post = ({ id }: { id: string }) => {
 
 	useEffect(() => {
 		if ((!comments || !postContent) && id) dispatch(GET_POST({ id: id }));
-	}, []);
+	}, [id]);
 
 	return (
 		<div className="main">
@@ -24,7 +24,8 @@ const Post = ({ id }: { id: string }) => {
 				<>
 					<div className="contentContainer">
 						<VoteControls postContent={postContent} />
-						<PostComponent postContent={postContent} isExpanded={true} />{' '}
+						<PostComponent postContent={postContent} isExpanded={true} />
+						{'comments:'}
 						{comments ? comments.map((comment, index) => <Comment key={index} comment={comment} />) : null}
 					</div>
 				</>
