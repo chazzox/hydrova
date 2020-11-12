@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-   <g id="mail">
-      <polyline class="fill strokeThic" points="470.04 113.12 256 304 42.67 113.56" />
-      <polyline class="fill" points="344.63 268 475 398.95 474.63 147" />
-      <polyline class="fill" points="167.37 268 37 398.95 37.37 147" />
-      <rect class="strokeThick" x="32" y="105.5" width="448" height="301" rx="30" />
-   </g>
-</svg>

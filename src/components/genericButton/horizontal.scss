@@ -1,14 +1,10 @@
 .genericButton.horizontal {
 	text-align: left;
-	line-height: var(--padding-size-tertiary);
+	line-height: 20px;
 
 	svg {
-		width: var(--padding-size-tertiary);
+		width: 20px;
 		float: left;
 		margin-right: var(--padding-size-secondary);
-	}
-
-	&:hover {
-		background-color: var(--background-color-primary);
 	}
 }

@@ -1,13 +1,12 @@
 import React from 'react';
 
 import Home from './home.svg';
-import Mail from './mail.svg';
 import New from './new.svg';
 import Placeholder from './placeholder.svg';
 
 const SVGs = {
 	home: <Home />,
-	mail: <Mail />,
+	mail: <Placeholder />,
 	new: <New />,
 	placeholder: <Placeholder />
 };

@@ -20,16 +20,13 @@
 	svg {
 		* {
 			fill: none;
-			stroke-width: 18px;
+			stroke-width: 36px;
 			stroke: var(--text-color-primary);
 			stroke-linecap: round;
 			stroke-linejoin: round;
 		}
-		.strokeNone {
+		.noStroke {
 			stroke: none;
-		}
-		.strokeThick {
-			stroke-width: 30px;
 		}
 	}
 
@@ -50,15 +47,18 @@
 		background-repeat: no-repeat;
 		background-position: center;
 	}
+
+	&:hover {
+		background-color: var(--accent-color-secondary);
+	}
 }
 
 // style applied to both hover and select effect
 .selected .genericButton,
 .genericButton:hover {
-	font-weight: 600;
 	svg {
 		.fill {
-			fill: var(--text-color-tertiary);
+			fill: var(--text-color-primary);
 		}
 	}
 }
