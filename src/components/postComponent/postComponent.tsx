@@ -51,15 +51,19 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 			);
 		else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
 		else if (postContent.is_gallery) {
-			return postContent.gallery_data?.items.map(({ media_id }, index) => {
-				return (
-					<img
-						key={index}
-						src={_.unescape(postContent?.media_meta[media_id].p.slice(-1)[0].u)}
-						alt={`img${index} of collage`}
-					/>
-				);
-			});
+			return (
+				<span className="galleryContent">
+					{postContent.gallery_data?.items.map(({ media_id }, index) => {
+						return (
+							<img
+								key={index}
+								src={_.unescape(postContent?.media_meta[media_id].p.slice(-1)[0].u)}
+								alt={`img${index} of collage`}
+							/>
+						);
+					})}
+				</span>
+			);
 		} else {
 			return <>post type unknown</>;
 		}
