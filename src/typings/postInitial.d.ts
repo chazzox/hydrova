@@ -86,7 +86,7 @@ interface ChildData {
 	author: string;
 	num_comments: number;
 	send_replies: boolean;
-	media: null;
+	media: Media | null;
 	crosspost_parent: string;
 	permalink: string;
 	num_crossposts: number;
@@ -115,13 +115,15 @@ interface ChildData {
 	secure_media_embed: MediaEmbed | {};
 	gildings: Media | {};
 	is_reddit_media_domain: boolean;
-
+	media_metadata?: { [key: string]: MediaMetadatum };
 	all_awardings: AllAwarding[] | [];
+	gallery_data?: GalleryDataClass;
 
 	// post type indications
 	is_self: boolean;
 	is_crosspostable: boolean;
 	is_video: boolean;
+	is_gallery: boolean;
 
 	// crossposting specifics
 	crosspost_parent_list?: ChildData[];
@@ -188,7 +190,7 @@ interface Media {
 	reddit_video?: RedditVideo;
 }
 
-export interface RedditVideo {
+interface RedditVideo {
 	fallback_url: string;
 	height: number;
 	width: number;
@@ -220,8 +222,23 @@ interface MediaEmbed {
 	media_domain_url?: string;
 }
 
-// rando shit
+interface MediaMetadatum {
+	status: string;
+	e: string;
+	m: string;
+	p: S[];
+	s: S;
+	id: string;
+}
 
+interface GalleryDataClass {
+	items: {
+		media_id: string;
+		id: number;
+	}[];
+}
+
+// rando shit
 interface FlairRichtext {
 	e: string;
 	t: string;

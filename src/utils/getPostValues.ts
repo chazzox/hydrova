@@ -3,7 +3,7 @@ export default function getValues(data: ChildData): post {
 		is_self: data.is_self,
 		selftext_html: data.selftext_html,
 		is_video: data.is_video,
-		media: data.media,
+		media: data.media as Media,
 		post_hint: data.post_hint,
 		url: data.url,
 		id: data.id,
@@ -16,7 +16,10 @@ export default function getValues(data: ChildData): post {
 		permalink: data.permalink,
 		created_utc: data.created_utc,
 		saved: data.saved,
-		likes: data.likes
+		likes: data.likes,
+		is_gallery: data.is_gallery,
+		media_meta: data?.media_metadata,
+		gallery_data: data?.gallery_data
 		//oembed: data.media.oembed.html // FIXME:
 	};
 }

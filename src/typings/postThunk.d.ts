@@ -27,9 +27,10 @@ interface ListingResponse {
 
 interface post {
 	is_self: boolean;
+	is_video: boolean;
+	is_gallery: boolean;
 	saved: boolean;
 	selftext_html: string | null;
-	is_video: boolean;
 	post_hint?: PostHint;
 	url: string;
 	id: string;
@@ -49,4 +50,6 @@ interface post {
 			fallback_url: string;
 		};
 	};
+	media_meta?: { [key: string]: MediaMetadatum };
+	gallery_data?: GalleryDataClass;
 }
