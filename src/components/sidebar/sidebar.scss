@@ -60,19 +60,8 @@
 		border-radius: var(--border-radius-primary);
 		cursor: pointer;
 
-		&::-webkit-scrollbar-track {
-			background-color: var(--background-color-secondary);
-		}
-		&::-webkit-scrollbar-track:hover {
-			background-color: var(--background-color-primary);
-		}
-		&::-webkit-scrollbar-thumb {
-			background-color: var(--accent-color-secondary);
-			border-color: var(--background-color-secondary);
-		}
-		&::-webkit-scrollbar-thumb:hover {
-			background-color: #a0a0a5;
-			border-color: var(--background-color-primary);
+		&::-webkit-scrollbar {
+			width: 0 !important;
 		}
 	}
 

@@ -43,6 +43,7 @@ li a {
 	}
 	.main {
 		min-width: 480px;
+		width: 50%;
 		flex-grow: 1;
 		flex-shrink: 1;
 		background-color: var(--background-color-tertiary);

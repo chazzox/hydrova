@@ -1,0 +1,14 @@
+.roundButton {
+	width: 40px;
+	height: 40px;
+
+	position: absolute;
+	top: 30px;
+	right: -20px;
+
+	border-radius: 50%;
+	background-color: var(--accent-color-primary);
+
+	border: none;
+	outline: none;
+}

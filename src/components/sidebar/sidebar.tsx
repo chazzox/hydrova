@@ -12,6 +12,7 @@ import hydrovaSVG from '../../assets/logo.svg';
 import placeholderSVG from '../../assets/icons/placeholder.svg';
 
 import './sidebar.scss';
+import '../roundButton/roundButton.scss';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -41,7 +42,7 @@ const Sidebar = () => {
 				<img src={hydrovaSVG} id="logo" alt="" />
 			</Link>
 			<h1 id="navTitle">Hydrova</h1>
-			<button id="shrinkSidebarBtn" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
+			<button className="roundButton" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
 			<input
 				onClick={() => dispatch(SET_SIZE_MODE(false))}
 				type="text"
