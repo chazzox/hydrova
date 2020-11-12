@@ -25,6 +25,7 @@ const Post = ({ id }: { id: string }) => {
 					<div className="contentContainer">
 						<VoteControls postContent={postContent} />
 						<PostComponent postContent={postContent} isExpanded={true} />
+						<div id="comments" />
 						{comments ? comments.map((comment, index) => <Comment key={index} comment={comment} />) : null}
 					</div>
 				</>

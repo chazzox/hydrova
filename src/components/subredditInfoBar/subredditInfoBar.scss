@@ -2,7 +2,7 @@
 	direction: rtl;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	min-width: 350px;
+	flex-shrink: 2;
 	max-width: 450px;
 	height: 100vh;
 	padding: var(--padding-size-tertiary);

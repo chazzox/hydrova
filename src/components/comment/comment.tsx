@@ -17,13 +17,18 @@ const Comment = ({ comment }: { comment: any }) => {
 								.textContent || ''
 					}}
 				/>
-				<button>Upvote</button>
-				<button>Downvote</button>
+				<div className="votesContainer">
+					<GenericButton svgPath="placeholder" isCompact={true} />
+					<span>0</span>
+					<GenericButton svgPath="placeholder" isCompact={true} />
+				</div>
 				<div className="commentChildContainer">
 					{comment.replies ? (
 						<GenericButton
 							clickEvent={() => setIsCollapsed(!isCollapsed)}
 							text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
+							isCompact={true}
+							svgPath="placeholder"
 						/>
 					) : null}
 					{comment.replies && !isCollapsed
