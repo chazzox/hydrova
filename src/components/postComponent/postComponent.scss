@@ -11,12 +11,15 @@
 		min-height 0.3s ease;
 
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
+
+	font-size: 11pt;
 
 	color: var(--text-color-primary);
 	padding: var(--padding-size-secondary);
-	max-height: 100px;
-	min-height: 100px;
+	max-height: calc(80px + 2 * (var(--padding-size-secondary)));
+	min-height: calc(80px + 2 * (var(--padding-size-secondary)));
 	overflow: hidden;
 
 	border-width: 2px;
@@ -25,29 +28,49 @@
 
 	img,
 	video {
-		justify-self: right;
-		height: 80px;
-		visibility: visible;
+		&:first-child {
+			border-radius: var(--border-radius-primary);
+			justify-self: right;
+			height: 80px;
+			width: 80px;
+			visibility: visible;
+		}
+		width: 0; // avoid having a bunch of images from gallery view
 	}
 
 	.postInfo {
-		width: 100%;
 		padding-right: var(--padding-size-secondary);
-		white-space: nowrap;
 		* {
 			visibility: visible;
 			text-decoration: none;
 		}
 		// post title
 		h1 {
+			line-height: 1.5em;
+			height: 3em;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			font-size: 15pt;
+			font-size: 11pt;
+			font-weight: normal;
 		}
 		// username / subreddit / time posted
 		p {
-			color: var(--text-color-secondary);
+			color: var(--text-color-tertiary);
+			margin-top: 0;
+			margin-bottom: var(--padding-size-primary);
 			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			// username
+			strong {
+				font-weight: regular;
+				color: var(--text-color-primary);
+				margin-right: var(--padding-size-secondary);
+			}
+			a {
+				margin-left: var(--padding-size-secondary);
+			}
 		}
 	}
 

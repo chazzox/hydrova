@@ -22,8 +22,8 @@ html {
 
 		--border-color: rgba(58, 58, 58, 1);
 
-		--accent-color-primary: rgb(88, 94, 254);
-		--accent-color-secondary: rgb(198, 198, 193);
+		--accent-color-primary: rgba(88, 94, 254, 1);
+		--accent-color-secondary: rgba(198, 198, 193, 1);
 
 		--text-color-primary: rgba(0, 0, 0, 1);
 		--text-color-secondary: rgba(0, 0, 0, 0.66);
@@ -32,18 +32,18 @@ html {
 
 	// dark mode
 	&.darkMode {
-		--background-color-primary: rgb(37, 41, 46);
-		--background-color-secondary: rgb(34, 34, 40);
-		--background-color-tertiary: rgb(20, 20, 26);
-		--background-color-quanternary: rgb(47, 52, 56);
+		--background-color-primary: rgb(32, 34, 37);
+		--background-color-secondary: rgb(20, 20, 26);
+		--background-color-tertiary: rgb(32, 34, 37);
+		--background-color-quanternary: rgb(39, 41, 44);
 
 		--border-color: rgb(59, 59, 59);
 
 		--accent-color-primary: rgb(88, 94, 254);
-		--accent-color-secondary: rgb(57, 57, 62);
+		--accent-color-secondary: rgb(52, 58, 64);
 
 		--text-color-primary: rgba(255, 255, 255, 1);
 		--text-color-secondary: rgba(255, 255, 255, 0.66);
-		--text-color-tertiary: rgba(255, 255, 255, 0.35);
+		--text-color-tertiary: rgba(255, 255, 255, 0.4);
 	}
 }

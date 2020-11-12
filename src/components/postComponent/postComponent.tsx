@@ -75,17 +75,14 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 			className={'post' + [additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
 		>
 			<div className="postInfo">
+				<p>
+					<strong>{postContent.author}</strong>
+					{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
+					<Link to={'/' + postContent.subreddit_name_prefixed}>
+						{postContent.subreddit_name_prefixed}
+					</Link>
+				</p>
 				<h1 className="postTitle">{postContent.title}</h1>
-				<div>
-					<p>
-						<Link to={'/' + postContent.subreddit_name_prefixed}>
-							{postContent.subreddit_name_prefixed}
-						</Link>{' '}
-						| u/
-						{postContent.author} | posted{' '}
-						{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
-					</p>
-				</div>
 			</div>
 			<div className="postContent">
 				<RenderPostType />

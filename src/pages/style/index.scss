@@ -11,8 +11,25 @@ body {
 }
 
 a {
-	color: var(--accent-color-primary);
 	text-decoration: none;
+}
+
+li {
+	line-height: 2em;
+}
+
+p a,
+li a {
+	font-weight: normal;
+	color: var(--text-color-secondary);
+	padding-left: var(--padding-size-primary);
+	padding-right: var(--padding-size-primary);
+	border-radius: 100px;
+	background-color: var(--accent-color-secondary);
+	&:hover {
+		background-color: var(--accent-color-primary);
+		color: var(--text-color-button);
+	}
 }
 
 #gatsby-focus-wrapper {
@@ -24,7 +41,9 @@ a {
 		overflow-y: scroll;
 	}
 	#main {
+		min-width: 480px;
 		flex-grow: 1;
+		flex-shrink: 1;
 		background-color: var(--background-color-quanternary);
 		margin: var(--padding-size-secondary);
 		padding-top: var(--padding-size-primary);

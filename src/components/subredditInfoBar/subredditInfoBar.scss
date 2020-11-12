@@ -1,15 +1,47 @@
 #subredditInfoBar {
-	flex-shrink: 0;
-	width: 500px;
+	min-width: 350px;
+	max-width: 450px;
 	padding: var(--padding-size-tertiary);
 	height: 100vh;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	color: var(--text-color-primary);
 	background-color: var(--background-color-tertiary);
+	font-size: 11pt;
 
-	h2 {
-		font-size: 16pt;
+	p {
+		margin-top: var(--padding-size-primary);
+		margin-bottom: var(--padding-size-primary);
+	}
+
+	hr {
+		border-color: var(--border-color);
+		border-width: 2px;
+		border-style: none;
+		border-top-style: solid;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 0;
+		margin-bottom: var(--padding-size-primary);
+		margin-top: var(--padding-size-tertiary);
+		text-transform: uppercase;
+		color: var(--text-color-secondary) !important;
+		font-size: 10pt;
+		font-weight: 600;
+		letter-spacing: 1px;
+
+		a {
+			color: var(--text-color-secondary) !important;
+			&:hover {
+				color: var(--accent-color-primary) !important;
+			}
+		}
 	}
 
 	&::-webkit-scrollbar-track {
