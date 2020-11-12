@@ -1,8 +1,8 @@
 .genericButton {
 	width: 100%;
-	padding: 10px 16px;
+	padding: var(--padding-size-secondary) 16px;
 	margin: 5px auto;
-	border-radius: var(--small-border-radius);
+	border-radius: var(--border-radius-primary);
 
 	text-transform: capitalize;
 
@@ -34,17 +34,17 @@
 	}
 
 	.icon {
-		border-radius: var(--small-border-radius);
+		border-radius: var(--border-radius-primary);
 		float: left;
-		margin-right: 12px;
+		margin-right: var(--padding-size-secondary);
 
 		text-align: center;
 		font-size: 10pt;
 		font-weight: 600;
 
-		width: 22px;
-		height: 22px;
-		line-height: 22px;
+		width: var(--padding-size-tertiary);
+		height: var(--padding-size-tertiary);
+		line-height: var(--padding-size-tertiary);
 
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -65,5 +65,5 @@
 
 // style applied to JUST select effect
 .selected .genericButton {
-	background-color: var(--accent-color) !important;
+	background-color: var(--accent-color-primary) !important;
 }

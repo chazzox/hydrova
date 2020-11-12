@@ -1,9 +1,11 @@
 html {
-	--small-border-radius: 10px;
-	--big-border-radius: 14px;
-	--bigger-border-radius: 24px;
+	--border-radius-primary: 8px;
+	--border-radius-secondary: var(--padding-size-secondary);
 
-	--accent-color: rgb(88, 94, 254);
+	--padding-size-primary: 8px;
+	--padding-size-secondary: 11px;
+	--padding-size-tertiary: 24px;
+
 	--text-color-button: white;
 
 	--dark-txt-col: white;
@@ -13,12 +15,13 @@ html {
 
 	// light mode
 	&.lightMode {
-		--page-color: rgb(225, 225, 230);
-		--background-color: rgb(221, 221, 215);
-		--alt-background-color: rgb(211, 211, 205);
-		--border-color: rgba(0, 0, 0, 0);
-		--accent-background-color: rgb(198, 198, 193);
-		--box-background-color: rgb(47, 52, 56); //TODO: needs to be made light
+		--background-color-primary: rgb(225, 225, 230);
+		--background-color-secondary: rgb(221, 221, 215);
+		--background-color-tertiary: rgb(211, 211, 205);
+		--background-color-quanternary: rgb(255, 0, 0); //FIXME: needs to be designed
+
+		--accent-color-primary: rgb(88, 94, 254);
+		--accent-color-secondary: rgb(198, 198, 193);
 
 		--text-color-primary: rgba(0, 0, 0, 1);
 		--text-color-secondary: rgba(0, 0, 0, 0.66);
@@ -27,12 +30,15 @@ html {
 
 	// dark mode
 	&.darkMode {
-		--page-color: rgb(37, 41, 46);
-		--background-color: rgb(34, 34, 40);
-		--alt-background-color: rgb(20, 20, 26);
+		--background-color-primary: rgb(37, 41, 46);
+		--background-color-secondary: rgb(34, 34, 40);
+		--background-color-tertiary: rgb(20, 20, 26);
+		--background-color-quanternary: rgb(47, 52, 56);
+
 		--border-color: rgba(58, 58, 58, 1);
-		--accent-background-color: rgb(57, 57, 62);
-		--box-background-color: rgb(47, 52, 56);
+
+		--accent-color-primary: rgb(88, 94, 254);
+		--accent-color-secondary: rgb(57, 57, 62);
 
 		--text-color-primary: rgba(255, 255, 255, 1);
 		--text-color-secondary: rgba(255, 255, 255, 0.66);

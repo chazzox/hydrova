@@ -1,9 +1,9 @@
 .voteControls {
 	color: var(--text-color-primary);
-	background-color: var(--alt-background-color);
-	border-radius: var(--small-border-radius);
-	margin: 8px;
-	padding: 8px;
+	background-color: var(--background-color-tertiary);
+	border-radius: var(--border-radius-primary);
+	margin: var(--padding-size-primary);
+	padding: var(--padding-size-primary);
 	text-align: center;
 
 	width: 80px;
@@ -13,12 +13,12 @@
 	// container that has upvote/downvote btn and vote count inside
 	.votesContainer {
 		padding: 5px;
-		margin-bottom: 8px;
-		border-radius: var(--small-border-radius);
-		background-color: var(--background-color);
+		margin-bottom: var(--padding-size-primary);
+		border-radius: var(--border-radius-primary);
+		background-color: var(--background-color-secondary);
 
 		button {
-			background-color: var(--accent-background-color);
+			background-color: var(--accent-color-secondary);
 		}
 	}
 }

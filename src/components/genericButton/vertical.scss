@@ -1,8 +1,8 @@
 .genericButton.vertical {
 	text-align: center;
-	padding: 8px 0;
+	padding: var(--padding-size-primary) 0;
 	font-size: 9pt;
-	background-color: var(--background-color);
+	background-color: var(--background-color-secondary);
 
 	svg {
 		width: calc(100% - 16px);
@@ -13,6 +13,6 @@
 	}
 
 	&:hover {
-		background-color: var(--accent-background-color);
+		background-color: var(--accent-color-secondary);
 	}
 }

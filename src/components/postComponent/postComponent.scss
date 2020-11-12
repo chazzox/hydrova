@@ -22,7 +22,7 @@
 
 	.postInfo {
 		width: 100%;
-		padding-right: 12px;
+		padding-right: var(--padding-size-secondary);
 		white-space: nowrap;
 		* {
 			visibility: visible;
@@ -46,8 +46,8 @@
 	}
 
 	color: var(--text-color-primary);
-	padding: 10px;
-	background-color: var(--box-background-color);
+	padding: var(--padding-size-secondary);
+	background-color: var(--background-color-quanternary);
 	max-height: 100px;
 	min-height: 100px;
 	overflow: hidden;

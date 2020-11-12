@@ -7,11 +7,11 @@
 
 body {
 	margin: 0;
-	background: var(--page-color);
+	background: var(--background-color-primary);
 }
 
 a {
-	color: var(--accent-color);
+	color: var(--accent-color-primary);
 	text-decoration: none;
 }
 
@@ -32,19 +32,19 @@ a {
 	width: 16px;
 }
 ::-webkit-scrollbar-track {
-	background-color: var(--page-color);
+	background-color: var(--background-color-primary);
 }
 ::-webkit-scrollbar-track:hover {
-	background-color: var(--background-color);
+	background-color: var(--background-color-secondary);
 }
 ::-webkit-scrollbar-thumb {
 	background-color: #babac0;
 	border-radius: 16px;
-	border: 5px solid var(--page-color);
+	border: 5px solid var(--background-color-primary);
 }
 ::-webkit-scrollbar-thumb:hover {
 	background-color: #a0a0a5;
-	border: 3px solid var(--background-color);
+	border: 3px solid var(--background-color-secondary);
 }
 ::-webkit-scrollbar-button {
 	display: none;

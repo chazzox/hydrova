@@ -1,9 +1,9 @@
 #sidebar {
-	background: var(--background-color);
+	background: var(--background-color-secondary);
 	color: var(--dark-txt-col);
 
 	margin: auto;
-	padding: 16px 24px;
+	padding: 16px var(--padding-size-tertiary);
 
 	position: relative;
 
@@ -31,10 +31,10 @@
 		font-weight: 400;
 		font-size: 11pt;
 		min-height: 44px;
-		margin: 25px 0;
-		padding: 10px 16px;
-		border-radius: var(--small-border-radius);
-		background: var(--accent-background-color);
+		margin: var(--padding-size-tertiary) 0;
+		padding: var(--padding-size-secondary) 16px;
+		border-radius: var(--border-radius-primary);
+		background: var(--accent-color-secondary);
 		color: var(--text-color-primary);
 
 		&::placeholder {
@@ -53,22 +53,22 @@
 		width: 100%;
 		max-height: 52%;
 
-		border-radius: var(--small-border-radius);
+		border-radius: var(--border-radius-primary);
 		cursor: pointer;
 
 		&::-webkit-scrollbar-track {
-			background-color: var(--background-color);
+			background-color: var(--background-color-secondary);
 		}
 		&::-webkit-scrollbar-track:hover {
-			background-color: var(--alt-background-color);
+			background-color: var(--background-color-tertiary);
 		}
 		&::-webkit-scrollbar-thumb {
-			background-color: var(--accent-background-color);
-			border-color: var(--background-color);
+			background-color: var(--accent-color-secondary);
+			border-color: var(--background-color-secondary);
 		}
 		&::-webkit-scrollbar-thumb:hover {
 			background-color: #a0a0a5;
-			border-color: var(--alt-background-color);
+			border-color: var(--background-color-tertiary);
 		}
 	}
 
@@ -81,7 +81,7 @@
 	#logo {
 		width: 38px;
 		vertical-align: middle;
-		margin-right: 12px;
+		margin-right: var(--padding-size-secondary);
 	}
 
 	// Hydrova text
@@ -111,10 +111,10 @@ h3 {
 
 	position: absolute;
 	bottom: 20px;
-	left: 24px;
+	left: var(--padding-size-tertiary);
 
-	background-color: var(--accent-background-color);
-	border-radius: var(--small-border-radius);
+	background-color: var(--accent-color-secondary);
+	border-radius: var(--border-radius-primary);
 
 	// container for user details eg: username / karama count
 	#userText {
@@ -161,7 +161,7 @@ h3 {
 		left: 7px;
 		width: 50px;
 		height: 50px;
-		border-radius: var(--small-border-radius);
+		border-radius: var(--border-radius-primary);
 		background-size: cover;
 		background-position: center;
 	}

@@ -1,10 +1,10 @@
 #subredditInfoBar {
 	flex-shrink: 0;
 	width: 500px;
-	padding: 10px;
+	padding: var(--padding-size-secondary);
 	height: 100vh;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	color: var(--text-color-primary);
-	background-color: var(--alt-background-color);
+	background-color: var(--background-color-tertiary);
 }
