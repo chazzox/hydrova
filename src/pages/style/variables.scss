@@ -17,8 +17,7 @@ html {
 	&.lightMode {
 		--background-color-primary: rgb(225, 225, 230);
 		--background-color-secondary: rgb(221, 221, 215);
-		--background-color-tertiary: rgb(211, 211, 205);
-		--background-color-quanternary: rgb(255, 0, 0); //FIXME: needs to be designed
+		--background-color-tertiary: rgb(255, 0, 0); //FIXME: needs to be designed
 
 		--border-color: rgba(58, 58, 58, 1);
 
@@ -34,8 +33,7 @@ html {
 	&.darkMode {
 		--background-color-primary: rgb(32, 34, 37);
 		--background-color-secondary: rgb(20, 20, 26);
-		--background-color-tertiary: rgb(32, 34, 37);
-		--background-color-quanternary: rgb(39, 41, 44);
+		--background-color-tertiary: rgb(39, 41, 44);
 
 		--border-color: rgb(59, 59, 59);
 

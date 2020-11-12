@@ -1,59 +1,64 @@
 #subredditInfoBar {
-	min-width: 350px;
-	max-width: 450px;
-	padding: var(--padding-size-tertiary);
-	height: 100vh;
+	direction: rtl;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	color: var(--text-color-primary);
-	background-color: var(--background-color-tertiary);
-	font-size: 11pt;
-
-	p {
-		margin-top: var(--padding-size-primary);
-		margin-bottom: var(--padding-size-primary);
-	}
-
-	hr {
-		border-color: var(--border-color);
-		border-width: 2px;
-		border-style: none;
-		border-top-style: solid;
-	}
-
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		margin: 0;
-		margin-bottom: var(--padding-size-primary);
-		margin-top: var(--padding-size-tertiary);
-		text-transform: uppercase;
-		color: var(--text-color-secondary) !important;
-		font-size: 10pt;
-		font-weight: 600;
-		letter-spacing: 1px;
-
-		a {
-			color: var(--text-color-secondary) !important;
-			&:hover {
-				color: var(--accent-color-primary) !important;
-			}
-		}
-	}
+	min-width: 350px;
+	max-width: 450px;
+	height: 100vh;
+	padding: var(--padding-size-tertiary);
+	background-color: var(--background-color-primary);
 
 	&::-webkit-scrollbar-track {
-		background-color: var(--background-color-tertiary);
+		background-color: var(--background-color-primary);
 	}
 	&::-webkit-scrollbar-track:hover {
-		background-color: var(--background-color-quanternary);
+		background-color: var(--background-color-tertiary);
 	}
 	&::-webkit-scrollbar-thumb {
-		border-color: var(--background-color-tertiary);
+		border-color: var(--background-color-primary);
 	}
 	&::-webkit-scrollbar-thumb:hover {
-		border-color: var(--background-color-quanternary);
+		border-color: var(--background-color-tertiary);
+	}
+
+	div {
+		direction: ltr;
+		color: var(--text-color-primary);
+		font-size: 11pt;
+
+		p {
+			margin-top: var(--padding-size-primary);
+			margin-bottom: var(--padding-size-primary);
+		}
+
+		hr {
+			border-color: var(--border-color);
+			border-width: 2px;
+			border-style: none;
+			border-top-style: solid;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin: 0;
+			margin-bottom: var(--padding-size-primary);
+			margin-top: var(--padding-size-tertiary);
+			text-transform: uppercase;
+			color: var(--text-color-secondary) !important;
+			font-size: 10pt;
+			font-weight: 600;
+			letter-spacing: 1px;
+
+			a {
+				color: var(--text-color-secondary) !important;
+				&:hover {
+					color: var(--accent-color-primary) !important;
+				}
+			}
+		}
 	}
 }
