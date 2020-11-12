@@ -18,27 +18,20 @@ interface reAuthenticationResponse {
 const Redirect: React.FC = () => {
 	useEffect(() => {
 		if (!window.opener && process.env.GATSBY_CALLBACK_URL)
-			window.location.href = process.env.GATSBY_CALLBACK_URL.slice(
-				0,
-				process.env.GATSBY_CALLBACK_URL.length - 9
-			);
+			window.location.href = process.env.GATSBY_CALLBACK_URL.slice(0, process.env.GATSBY_CALLBACK_URL.length - 9);
 		if (/^state=([\w-]*)&code=([\w-]*)$/.test(document.location.href.split('?')[1])) {
 			const urlencoded = new URLSearchParams();
 			// constructing the query string
 			urlencoded.append('grant_type', 'authorization_code');
 			urlencoded.append('code', queryStringToJSON(document.location.href.split('?')[1]).code);
-			urlencoded.append(
-				'redirect_uri',
-				process.env.GATSBY_CALLBACK_URL ? process.env.GATSBY_CALLBACK_URL : ''
-			);
+			urlencoded.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ? process.env.GATSBY_CALLBACK_URL : '');
 
 			fetch('https://www.reddit.com/api/v1/access_token', {
 				method: 'POST',
 				headers: {
 					// encoding the auth info into a base64 string
 					Authorization:
-						'Basic ' +
-						btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
+						'Basic ' + btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
 				body: urlencoded,

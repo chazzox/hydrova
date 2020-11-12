@@ -36,14 +36,11 @@ export const GET_SUBREDDITS = createAsyncThunk<
 	string | undefined,
 	{ state: ReduxStateType; rejectValue: failure }
 >('sidebar/getSubreddits', async (afterId, { getState, rejectWithValue }) => {
-	const response = await fetch(
-		'https://oauth.reddit.com/subreddits/mine/subscriber?limit=50&after=' + afterId,
-		{
-			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` },
-			redirect: 'manual'
-		}
-	);
+	const response = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=50&after=' + afterId, {
+		method: 'GET',
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` },
+		redirect: 'manual'
+	});
 	const responseJSON = await response.json();
 	if (response.status === 400) return rejectWithValue(responseJSON as failure);
 	const responseJSONSuccess: userSubSuccess = responseJSON;

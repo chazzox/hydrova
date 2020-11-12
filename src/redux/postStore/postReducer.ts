@@ -11,11 +11,7 @@ const postReducer = createSlice({
 		},
 		subredditKeys: {} as { [key: string]: { sidebar?: AboutApiResponse; postKeys?: string[] } }
 	},
-	reducers: {
-		setClickedPostID: (state, action: PayloadAction<string>) => {
-			console.log(action.payload);
-		}
-	},
+	reducers: {},
 	extraReducers: builder => {
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
 			action.payload.postArray.data.children.forEach(
@@ -35,9 +31,7 @@ const postReducer = createSlice({
 		builder.addCase(GET_POST.fulfilled, (state, action) => {
 			state.posts[action.meta.arg.id] = {
 				postContent: {
-					...action.payload[0].data.children.map(({ data }: { data: ChildData }) =>
-						getValues(data)
-					)[0]
+					...action.payload[0].data.children.map(({ data }: { data: ChildData }) => getValues(data))[0]
 				},
 				comments: {
 					commentArray: action.payload[1].data.children.map(({ data }: any) => data),
@@ -70,7 +64,5 @@ const postReducer = createSlice({
 		});
 	}
 });
-
-export const { setClickedPostID } = postReducer.actions;
 
 export default postReducer;

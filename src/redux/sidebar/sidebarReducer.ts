@@ -55,9 +55,7 @@ const sidebarReducer = createSlice({
 						// filtering out the unneeded data from the subreddit info
 						...action.payload.data.children.map(({ data }) => ({
 							display_name: data.display_name,
-							icon_img: getProfileURL(
-								data.icon_img ? data.icon_img : data.community_icon || ''
-							),
+							icon_img: getProfileURL(data.icon_img ? data.icon_img : data.community_icon || ''),
 							subreddit_type: data.subreddit_type,
 							icon_color: getColor(data.display_name)
 						}))

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	box-sizing: border-box;
 }
 
@@ -34,22 +34,24 @@ li a {
 
 #gatsby-focus-wrapper {
 	display: flex;
+	padding-right: var(--padding-size-secondary);
 
-	#contentContainer {
+	.contentContainer {
 		width: 100%;
 		max-height: 100%;
 		overflow-y: scroll;
 	}
-	#main {
+	.main {
 		min-width: 480px;
 		flex-grow: 1;
 		flex-shrink: 1;
 		background-color: var(--background-color-tertiary);
 		margin: var(--padding-size-secondary);
+		margin-right: 0;
 		padding-top: var(--padding-size-primary);
 		padding-bottom: var(--padding-size-primary);
 		border-radius: var(--border-radius-secondary);
-		overflow-x: hidden;
+		overflow: hidden;
 		max-height: calc(100vh - 2 * (var(--padding-size-secondary)));
 	}
 }

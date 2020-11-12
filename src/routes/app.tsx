@@ -1,12 +1,11 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
+import { Redirect } from '@reach/router';
 
+import Dashboard from './dashboard/dashboard';
 import Sidebar from '../components/sidebar/sidebar';
-import Subreddit from './subreddit/subreddit';
 import Settings from './settings/settings';
 import Submit from './submit/submit';
-import Home from './home/home';
-import Post from './post/post';
 import Mail from './mail/mail';
 
 const App: React.FC = () => {
@@ -14,12 +13,14 @@ const App: React.FC = () => {
 		<HashRouter>
 			<Sidebar />
 			<Switch>
-				<Route path="/submit" render={() => <Submit />} />
-				<Route path="/settings" render={() => <Settings />} />
-				<Route path="/mail" render={() => <Mail />} />
-				<Route path="/r/:subreddit" render={props => <Subreddit {...props} />} />
-				<Route path="/post/:permalink" render={props => <Post {...props} />} />
-				<Route path="/" render={() => <Home />} />
+				<Route path="/submit" exact render={() => <Submit />} />
+				<Route path="/mail" exact render={() => <Mail />} />
+				<Route path="/settings" exact render={() => <Settings />} />
+				<Route
+					exact
+					path={['/', '/r/:subName', '/r/:subName/:postId', '/:postId']}
+					render={props => <Dashboard navProps={props} />}
+				/>
 			</Switch>
 		</HashRouter>
 	);

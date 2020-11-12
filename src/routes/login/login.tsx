@@ -37,9 +37,7 @@ const Login = () => {
 						style={isMouseOn ? { transform: 'translate(-50%) translateZ(100px)' } : {}}
 					/>
 					<h1 style={isMouseOn ? { transform: 'translateZ(100px)' } : {}}>Hydrova</h1>
-					<h2 style={isMouseOn ? { transform: 'translateZ(100px)' } : {}}>
-						High Performance Reddit Client
-					</h2>
+					<h2 style={isMouseOn ? { transform: 'translateZ(100px)' } : {}}>High Performance Reddit Client</h2>
 				</div>
 				<div
 					onClick={() => {
@@ -50,9 +48,7 @@ const Login = () => {
 						);
 						let checkLoginModalClosed = setInterval(() => {
 							if (loginModal?.closed) {
-								dispatch(
-									refreshAccessToken({ refresh_token: Cookies.getJSON('refresh_token') })
-								);
+								dispatch(refreshAccessToken({ refresh_token: Cookies.getJSON('refresh_token') }));
 								clearInterval(checkLoginModalClosed);
 							}
 						}, 50);

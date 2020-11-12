@@ -29,10 +29,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 							);
 						}}
 					/>
-					<p>
-						{postContent.ups +
-							(postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}
-					</p>
+					<p>{postContent.ups + (postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}</p>
 					<GenericButton
 						isVertical={true}
 						clickEvent={() => {

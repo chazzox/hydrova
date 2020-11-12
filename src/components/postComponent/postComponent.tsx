@@ -13,14 +13,13 @@ interface propTypes {
 
 const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTypes) => {
 	const RenderPostType = () => {
-		console.log(postContent);
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
 				<span
 					dangerouslySetInnerHTML={{
 						__html:
-							new DOMParser().parseFromString(postContent.selftext_html, 'text/html')
-								.documentElement.textContent || ''
+							new DOMParser().parseFromString(postContent.selftext_html, 'text/html').documentElement
+								.textContent || ''
 					}}
 				/>
 			);
@@ -54,13 +53,15 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 			return (
 				<span className="galleryContent">
 					{postContent.gallery_data?.items.map(({ media_id }, index) => {
-						return (
-							<img
-								key={index}
-								src={_.unescape(postContent?.media_meta[media_id].p.slice(-1)[0].u)}
-								alt={`img${index} of collage`}
-							/>
-						);
+						if (postContent?.media_meta)
+							return (
+								<img
+									key={index}
+									src={_.unescape(postContent?.media_meta[media_id].p.slice(-1)[0].u)}
+									alt={`img${index} of collage`}
+								/>
+							);
+						else return <p>json returned from reddit is not formed correctly</p>;
 					})}
 				</span>
 			);
@@ -78,9 +79,7 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 				<p>
 					<strong>{postContent.author}</strong>
 					{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
-					<Link to={'/' + postContent.subreddit_name_prefixed}>
-						{postContent.subreddit_name_prefixed}
-					</Link>
+					<Link to={'/' + postContent.subreddit_name_prefixed}>{postContent.subreddit_name_prefixed}</Link>
 				</p>
 				<h1 className="postTitle">{postContent.title}</h1>
 			</div>

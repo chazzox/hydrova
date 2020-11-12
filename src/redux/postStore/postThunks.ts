@@ -49,13 +49,10 @@ export const SAVE = createAsyncThunk<
 	{ fullName: string; isSaving: boolean },
 	{ state: ReduxStateType; rejectValue: failure }
 >('post/save', async ({ fullName, isSaving }, { getState, rejectWithValue }) => {
-	const response = await fetch(
-		`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`,
-		{
-			method: 'POST',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` }
-		}
-	);
+	const response = await fetch(`https://oauth.reddit.com/api/${isSaving ? 'save' : 'unsave'}?id=${fullName}`, {
+		method: 'POST',
+		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
+	});
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
 	return { response: responseJSON, fullName: fullName, isSaving: isSaving } as saveSuccess;

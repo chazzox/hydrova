@@ -12,8 +12,7 @@ export const refreshAccessToken = createAsyncThunk<
 	const response = await fetch('https://www.reddit.com/api/v1/access_token', {
 		method: 'POST',
 		headers: {
-			Authorization:
-				'Basic ' + btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
+			Authorization: 'Basic ' + btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		body: urlencoded

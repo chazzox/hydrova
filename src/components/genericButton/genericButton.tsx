@@ -21,9 +21,7 @@ const GenericButton = ({ svgPath, text, href, clickEvent, isSelected, isVertical
 	const Content = () => (
 		<button
 			onClick={clickEvent}
-			className={`genericButton ${isVertical ? 'vertical' : 'horizontal'}${
-				isSelected ? 'selected' : ''
-			}`}
+			className={`genericButton ${isVertical ? 'vertical' : 'horizontal'}${isSelected ? 'selected' : ''}`}
 		>
 			{svgPath ? SVGS[svgPath] : null}
 			{children}

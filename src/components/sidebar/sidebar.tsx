@@ -6,12 +6,7 @@ import _ from 'lodash';
 
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
 import GenericButton from '../genericButton/genericButton';
-import {
-	SET_SIZE_MODE,
-	GET_USER_INFO,
-	GET_MULTIREDDITS,
-	GET_SUBREDDITS
-} from '../../redux/sidebar/sidebarReducer';
+import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebar/sidebarReducer';
 
 import hydrovaSVG from '../../assets/logo.svg';
 import placeholderSVG from '../../assets/icons/placeholder.svg';
@@ -30,8 +25,7 @@ const Sidebar = () => {
 		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
 			.then(originalPromiseResult => {
-				if (originalPromiseResult.data.after)
-					getUserSubscribedSubreddits(originalPromiseResult.data.after);
+				if (originalPromiseResult.data.after) getUserSubscribedSubreddits(originalPromiseResult.data.after);
 			});
 	};
 
@@ -67,11 +61,7 @@ const Sidebar = () => {
 					<GenericButton text="All" />
 				</NavLink>
 				{multiReddits.map((multiReddit, index) => (
-					<GenericButton
-						key={index}
-						href={'/m/' + multiReddit.display_name}
-						text={multiReddit.display_name}
-					>
+					<GenericButton key={index} href={'/m/' + multiReddit.display_name} text={multiReddit.display_name}>
 						<div
 							className="icon"
 							style={
@@ -101,9 +91,7 @@ const Sidebar = () => {
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>
-									{_.isEmpty(subreddit.icon_img)
-										? subreddit.display_name[0].toUpperCase()
-										: ''}
+									{_.isEmpty(subreddit.icon_img) ? subreddit.display_name[0].toUpperCase() : ''}
 								</div>
 							</GenericButton>
 						);
