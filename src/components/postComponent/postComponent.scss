@@ -13,6 +13,16 @@
 	display: flex;
 	justify-content: space-between;
 
+	color: var(--text-color-primary);
+	padding: var(--padding-size-secondary);
+	max-height: 100px;
+	min-height: 100px;
+	overflow: hidden;
+
+	border-width: 2px;
+	border-bottom-style: solid;
+	border-color: var(--border-color);
+
 	img,
 	video {
 		justify-self: right;
@@ -44,14 +54,6 @@
 	.postContent {
 		visibility: hidden;
 	}
-
-	color: var(--text-color-primary);
-	padding: var(--padding-size-secondary);
-	background-color: var(--background-color-quanternary);
-	max-height: 100px;
-	min-height: 100px;
-	overflow: hidden;
-	margin-bottom: 2px;
 }
 
 // expanded post

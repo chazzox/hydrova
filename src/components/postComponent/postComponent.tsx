@@ -72,7 +72,7 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 	return (
 		<div
 			id={postContent.id}
-			className={[additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
+			className={'post' + [additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
 		>
 			<div className="postInfo">
 				<h1 className="postTitle">{postContent.title}</h1>

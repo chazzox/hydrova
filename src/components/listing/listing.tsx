@@ -14,25 +14,26 @@ const Listing = ({ postData }: { postData: string[] }) => {
 
 	return (
 		<>
-			<div id="contentContainer" className="home">
-				<span>
-					{postData.map((postId, index) => {
-						const post = posts[postId].postContent;
-						return (
-							<Link
-								key={index}
-								className="post"
-								id={post.id}
-								onClick={() => dispatch(setClickedPostID(post.id))}
-								to={{ pathname: '/post/' + post.id, state: { post: post } }}
-							>
-								<object>
-									<PostComponent postContent={post} />
-								</object>
-							</Link>
-						);
-					})}
-				</span>
+			<div id="main">
+				<div id="contentContainer" className="home">
+					<span>
+						{postData.map((postId, index) => {
+							const post = posts[postId].postContent;
+							return (
+								<Link
+									key={index}
+									id={post.id}
+									onClick={() => dispatch(setClickedPostID(post.id))}
+									to={{ pathname: '/post/' + post.id, state: { post: post } }}
+								>
+									<object>
+										<PostComponent postContent={post} />
+									</object>
+								</Link>
+							);
+						})}
+					</span>
+				</div>
 			</div>
 		</>
 	);
