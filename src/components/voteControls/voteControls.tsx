@@ -16,7 +16,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 			<div className="voteControls">
 				<div className="votesContainer">
 					<GenericButton
-						svgPath="placeholder"
+						svgPath="upvote"
 						isSelected={postContent.likes === true}
 						isCompact={true}
 						clickEvent={() => {
@@ -40,7 +40,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 								})
 							);
 						}}
-						svgPath="placeholder"
+						svgPath="downvote"
 						isSelected={postContent.likes === false}
 						isCompact={true}
 					/>
@@ -56,14 +56,14 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 					}}
 					isSelected={postContent.saved}
 					text="save"
-					svgPath="placeholder"
+					svgPath="save"
 					isCompact={true}
 				/>
 
 				<GenericButton
 					clickEvent={() => copy(`https://www.reddit.com${postContent.permalink}`)}
 					text="share"
-					svgPath="placeholder"
+					svgPath="share"
 					isCompact={true}
 				/>
 				<GenericButton
@@ -73,7 +73,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 						document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
 					}}
 					isCompact={true}
-					svgPath="placeholder"
+					svgPath="comment"
 				/>
 			</div>
 		</>

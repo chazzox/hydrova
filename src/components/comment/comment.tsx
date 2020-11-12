@@ -18,9 +18,9 @@ const Comment = ({ comment }: { comment: any }) => {
 					}}
 				/>
 				<div className="votesContainer">
-					<GenericButton svgPath="placeholder" isCompact={true} />
+					<GenericButton svgPath="upvote" isCompact={true} />
 					<span>0</span>
-					<GenericButton svgPath="placeholder" isCompact={true} />
+					<GenericButton svgPath="downvote" isCompact={true} />
 				</div>
 				<div className="commentChildContainer">
 					{comment.replies ? (
@@ -28,7 +28,7 @@ const Comment = ({ comment }: { comment: any }) => {
 							clickEvent={() => setIsCollapsed(!isCollapsed)}
 							text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
 							isCompact={true}
-							svgPath="placeholder"
+							svgPath="comment"
 						/>
 					) : null}
 					{comment.replies && !isCollapsed

@@ -4,9 +4,15 @@ import getProfileURL from '../../utils/imgQuerySplit';
 import './subredditInfoBar.scss';
 
 const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
+	console.log(infoBar.data);
 	return (
 		<div id="subredditInfoBar">
-			<img id="banner" style={{ height: '15px' }} src={getProfileURL(infoBar.data.banner_background_image)} />
+			<div id="subredditHeader">
+				<img id="subredditBanner" src={getProfileURL(infoBar.data.banner_background_image)} />
+				<img id="subredditIcon" src={getProfileURL(infoBar.data.icon_img)} />
+				<h1>{infoBar.data.url}</h1>
+				<p>{infoBar.data.subscribers} Subscribers</p>
+			</div>
 			<div
 				dangerouslySetInnerHTML={{
 					__html:

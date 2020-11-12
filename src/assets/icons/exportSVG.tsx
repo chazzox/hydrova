@@ -8,7 +8,12 @@ const SVGs = {
 	home: <Home />,
 	mail: <Placeholder />,
 	new: <New />,
-	placeholder: <Placeholder />
+	settings: <Placeholder />,
+	upvote: <Placeholder />,
+	downvote: <Placeholder />,
+	comment: <Placeholder />,
+	share: <Placeholder />,
+	save: <Placeholder />
 };
 
 export default SVGs;
