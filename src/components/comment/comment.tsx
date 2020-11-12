@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import GenericButton from '../genericButton/genericButton';
+import GenericButton from '../buttons/genericButton';
 
 import './comment.scss';
 

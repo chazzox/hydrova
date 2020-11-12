@@ -1,10 +1,10 @@
-.roundButton {
-	width: 40px;
-	height: 40px;
+button.roundButton {
+	width: 30px;
+	height: 30px;
 
 	position: absolute;
-	top: 30px;
-	right: -20px;
+	top: var(--padding-size-tertiary);
+	right: -10px;
 
 	border-radius: 50%;
 	background-color: var(--accent-color-primary);

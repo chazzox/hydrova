@@ -25,15 +25,12 @@ const Post = ({ id }: { id: string }) => {
 					<div className="contentContainer">
 						<VoteControls postContent={postContent} />
 						<PostComponent postContent={postContent} isExpanded={true} />
-						{'comments:'}
 						{comments ? comments.map((comment, index) => <Comment key={index} comment={comment} />) : null}
 					</div>
 				</>
 			) : (
 				<>
-					<div className="contentContainer">
-						<div className="voteControls" />
-					</div>
+					<div className="contentContainer"></div>
 				</>
 			)}
 		</div>

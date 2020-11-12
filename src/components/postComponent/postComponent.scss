@@ -31,8 +31,11 @@
 		&:first-child {
 			border-radius: var(--border-radius-primary);
 			justify-self: right;
-			height: 80px;
-			width: 80px;
+			min-width: 80px;
+			min-height: 80px;
+			max-height: 80px;
+			max-width: 80px;
+			object-fit: cover;
 			visibility: visible;
 		}
 		width: 0; // avoid having a bunch of images from gallery view
@@ -80,18 +83,25 @@
 }
 
 // expanded post
-a.expanded .post,
 .post.expanded {
-	max-height: 600px;
 	display: block;
+	max-height: fit-content;
+
 	.postInfo {
 		white-space: normal;
+
+		h1 {
+			font-size: 14pt;
+			height: fit-content;
+		}
 	}
 	.postContent {
 		visibility: visible;
 	}
 	img,
 	video {
-		height: 480px;
+		max-height: fit-content;
+		max-width: 100%;
+		width: 100%;
 	}
 }

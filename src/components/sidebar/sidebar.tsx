@@ -5,14 +5,14 @@ import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 
 import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
-import GenericButton from '../genericButton/genericButton';
+import GenericButton from '../buttons/genericButton';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebar/sidebarReducer';
 
 import hydrovaSVG from '../../assets/logo.svg';
 import placeholderSVG from '../../assets/icons/placeholder.svg';
 
 import './sidebar.scss';
-import '../roundButton/roundButton.scss';
+import '../buttons/styles/round.scss';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();

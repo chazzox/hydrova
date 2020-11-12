@@ -17,7 +17,13 @@
 	color: var(--text-color-primary);
 	font-size: 11pt;
 
+	text-align: left;
+	line-height: 20px;
+
 	svg {
+		width: 20px;
+		float: left;
+		margin-right: var(--padding-size-secondary);
 		* {
 			fill: none;
 			stroke-width: 36px;
@@ -64,6 +70,7 @@
 }
 
 // style applied to JUST select effect
-.selected .genericButton {
+.selected .genericButton,
+.genericButton.selected {
 	background-color: var(--accent-color-primary) !important;
 }

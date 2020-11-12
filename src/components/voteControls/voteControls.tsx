@@ -6,7 +6,7 @@ import './voteControls.scss';
 
 import { SAVE, VOTE } from '../../redux/postStore/postThunks';
 import { AppDispatch } from '../../redux/reduxWrapper';
-import GenericButton from '../genericButton/genericButton';
+import GenericButton from '../buttons/genericButton';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -16,10 +16,9 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 			<div className="voteControls">
 				<div className="votesContainer">
 					<GenericButton
-						text="Vote"
 						svgPath="placeholder"
-						isVertical={true}
 						isSelected={postContent.likes === true}
+						isCompact={true}
 						clickEvent={() => {
 							dispatch(
 								VOTE({
@@ -29,9 +28,10 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 							);
 						}}
 					/>
-					<p>{postContent.ups + (postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}</p>
+					<span>
+						{postContent.ups + (postContent.likes === true ? 1 : postContent.likes === false ? -1 : 0)}
+					</span>
 					<GenericButton
-						isVertical={true}
 						clickEvent={() => {
 							dispatch(
 								VOTE({
@@ -40,13 +40,12 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 								})
 							);
 						}}
-						text="Vote"
 						svgPath="placeholder"
 						isSelected={postContent.likes === false}
+						isCompact={true}
 					/>
 				</div>
 				<GenericButton
-					isVertical={true}
 					clickEvent={() => {
 						dispatch(
 							SAVE({
@@ -58,15 +57,16 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 					isSelected={postContent.saved}
 					text="save"
 					svgPath="placeholder"
+					isCompact={true}
 				/>
 
 				<GenericButton
 					clickEvent={() => copy(`https://www.reddit.com${postContent.permalink}`)}
 					text="share"
-					isVertical={true}
 					svgPath="placeholder"
+					isCompact={true}
 				/>
-				<GenericButton text={postContent.num_comments} isVertical={true} svgPath="placeholder" />
+				<GenericButton text={postContent.num_comments} isCompact={true} svgPath="placeholder" />
 			</div>
 		</>
 	);

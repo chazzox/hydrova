@@ -1,24 +1,38 @@
 .voteControls {
 	color: var(--text-color-primary);
-	background-color: var(--background-color-primary);
+	background-color: var(--accent-color-secondary);
 	border-radius: var(--border-radius-primary);
 	margin: var(--padding-size-primary);
 	padding: var(--padding-size-primary);
-	text-align: center;
+	white-space: nowrap;
+	overflow-x: scroll;
 
-	width: 80px;
-	height: fit-content;
-	flex-shrink: 0;
+	vertical-align: middle;
+
+	height: calc(42px + 2 * var(--padding-size-primary));
+
+	&::-webkit-scrollbar {
+		width: 0 !important;
+		height: 0 !important;
+	}
 
 	// container that has upvote/downvote btn and vote count inside
 	.votesContainer {
-		padding: 5px;
-		margin-bottom: var(--padding-size-primary);
+		display: inline-block;
+		margin-right: var(--padding-size-primary);
+		height: 42px;
+		padding: calc(var(--padding-size-primary) / 2);
 		border-radius: var(--border-radius-primary);
 		background-color: var(--background-color-secondary);
 
+		vertical-align: middle;
+
 		button {
-			background-color: var(--accent-color-secondary);
+			padding: calc(var(--padding-size-secondary) - (var(--padding-size-primary) / 2)) 8px;
+		}
+
+		span {
+			margin: auto var(--padding-size-primary);
 		}
 	}
 }
