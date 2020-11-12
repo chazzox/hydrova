@@ -11,4 +11,17 @@
 	h2 {
 		font-size: 16pt;
 	}
+
+	&::-webkit-scrollbar-track {
+		background-color: var(--background-color-tertiary);
+	}
+	&::-webkit-scrollbar-track:hover {
+		background-color: var(--background-color-quanternary);
+	}
+	&::-webkit-scrollbar-thumb {
+		border-color: var(--background-color-tertiary);
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		border-color: var(--background-color-quanternary);
+	}
 }
