@@ -45,8 +45,8 @@ const postReducer = createSlice({
 			];
 		});
 		builder.addCase(GET_SUBREDDIT_ABOUT.fulfilled, (state, action) => {
-			state.subredditKeys[action.payload.subredditName] = {
-				...state.subredditKeys[action.payload.subredditName],
+			state.subredditKeys[action.meta.arg] = {
+				...state.subredditKeys[action.meta.arg],
 				sidebar: action.payload.sidebar
 			};
 		});

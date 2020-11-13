@@ -41,7 +41,7 @@ export const VOTE = createAsyncThunk<
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404)
 		return rejectWithValue({ ...responseJSON, voteDir: voteDirection, fullName: fullName });
-	return { response: responseJSON, fullName: fullName, voteDir: voteDirection } as voteSuccess;
+	return { response: responseJSON } as voteSuccess;
 });
 
 export const SAVE = createAsyncThunk<
@@ -59,15 +59,15 @@ export const SAVE = createAsyncThunk<
 });
 
 export const GET_SUBREDDIT_ABOUT = createAsyncThunk<
-	{ sidebar: AboutApiResponse; subredditName: string },
+	{ sidebar: AboutApiResponse },
 	string,
 	{ state: ReduxStateType; rejectValue: failure }
->('subreddits/getSubAbout', async (subRedditString, { getState, rejectWithValue, dispatch }) => {
+>('subreddits/getSubAbout', async (subRedditString, { getState, rejectWithValue }) => {
 	const response = await fetch(`https://oauth.reddit.com${subRedditString}/about`, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON as failure);
-	return { sidebar: responseJSON as AboutApiResponse, subredditName: subRedditString as string };
+	return { sidebar: responseJSON as AboutApiResponse };
 });
