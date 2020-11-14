@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import GenericButton from '../buttons/genericButton';
 
@@ -6,6 +6,7 @@ import './comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
+	useEffect(() => console.log('generating comment thread'), []);
 	return (
 		<>
 			<div className="comment">

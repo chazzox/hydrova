@@ -19,7 +19,8 @@ export default function getValues(data: ChildData): post {
 		likes: data.likes,
 		is_gallery: data.is_gallery,
 		media_meta: data?.media_metadata,
-		gallery_data: data?.gallery_data
+		gallery_data: data?.gallery_data,
+		thumbnail: data.thumbnail
 		//oembed: data.media.oembed.html // FIXME:
 	};
 }

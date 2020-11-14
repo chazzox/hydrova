@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
 import PostComponent from '../postComponent/postComponent';
-import VoteControls from '../voteControls/voteControls';
 
 const Listing = ({
 	postData = [],
@@ -31,9 +31,23 @@ const Listing = ({
 									to={{ pathname: '/' + post.id }}
 									onClick={() => postClickEvent(post.id)}
 								>
-									<object>
-										<PostComponent postContent={post} />
-									</object>
+									<div className="post">
+										<div className="postInfo">
+											<p>
+												<strong>{post.author}</strong>
+												{formatTimeSince(timeSinceCurrent(post.created_utc))}
+												<Link to={'/' + post.subreddit_name_prefixed}>
+													{post.subreddit_name_prefixed}
+												</Link>
+											</p>
+											<h1 className="postTitle">{post.title}</h1>
+										</div>
+										<div className="postContent">
+											{post.thumbnail !== 'default' && post.thumbnail !== 'self' ? (
+												<img src={post.thumbnail} alt={`thumbnail for ${post.id}`} />
+											) : null}
+										</div>
+									</div>
 								</Link>
 							);
 						})}
@@ -43,5 +57,7 @@ const Listing = ({
 		</>
 	);
 };
+
+const PostCompact = () => {};
 
 export default Listing;

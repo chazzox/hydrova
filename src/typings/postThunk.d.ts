@@ -26,6 +26,7 @@ interface ListingResponse {
 }
 
 interface post {
+	thumbnail: string;
 	is_self: boolean;
 	is_video: boolean;
 	is_gallery: boolean;
