@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import { ReduxStateType } from '../../redux/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
-
-import PostComponent from '../postComponent/postComponent';
 
 const Listing = ({
 	postData = [],
@@ -13,8 +11,6 @@ const Listing = ({
 	postData?: string[];
 	postClickEvent: (postId: string) => void;
 }) => {
-	// redux
-	const dispatch: AppDispatch = useDispatch();
 	const posts = useSelector((state: ReduxStateType) => state.post.posts);
 
 	return (
@@ -31,23 +27,28 @@ const Listing = ({
 									to={{ pathname: '/' + post.id }}
 									onClick={() => postClickEvent(post.id)}
 								>
-									<div className="post">
-										<div className="postInfo">
-											<p>
-												<strong>{post.author}</strong>
-												{formatTimeSince(timeSinceCurrent(post.created_utc))}
-												<Link to={'/' + post.subreddit_name_prefixed}>
-													{post.subreddit_name_prefixed}
-												</Link>
-											</p>
-											<h1 className="postTitle">{post.title}</h1>
+									<object>
+										<div className="post">
+											<div className="postInfo">
+												<p>
+													<Link to={'/user/' + post.author}>
+														<strong>{post.author}</strong>
+													</Link>
+													{formatTimeSince(timeSinceCurrent(post.created_utc))}
+													<Link to={'/' + post.subreddit_name_prefixed}>
+														{post.subreddit_name_prefixed}
+													</Link>
+												</p>
+												<h1 className="postTitle">{post.title}</h1>
+											</div>
+											<div className="postContent">
+												{post.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
+												post.thumbnail ? (
+													<img src={post.thumbnail} alt={`thumbnail for ${post.id}`} />
+												) : null}
+											</div>
 										</div>
-										<div className="postContent">
-											{post.thumbnail !== 'default' && post.thumbnail !== 'self' ? (
-												<img src={post.thumbnail} alt={`thumbnail for ${post.id}`} />
-											) : null}
-										</div>
-									</div>
+									</object>
 								</Link>
 							);
 						})}

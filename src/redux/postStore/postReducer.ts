@@ -9,7 +9,8 @@ const postReducer = createSlice({
 		posts: {} as {
 			[state: string]: { comments?: { commentArray: any[]; latestComment: string }; postContent: post };
 		},
-		subredditKeys: {} as { [key: string]: { sidebar?: AboutApiResponse; postKeys?: string[] } }
+		subredditKeys: {} as { [key: string]: { sidebar?: AboutApiResponse; postKeys?: string[] } },
+		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
 	},
 	reducers: {},
 	extraReducers: builder => {
