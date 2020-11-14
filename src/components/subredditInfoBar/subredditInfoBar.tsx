@@ -4,7 +4,7 @@ import getProfileURL from '../../utils/imgQuerySplit';
 import './subredditInfoBar.scss';
 
 const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
-	console.log(infoBar.data);
+	console.log(infoBar.data.description_html);
 	return (
 		<div id="subredditInfoBar">
 			<div id="subredditHeader">
@@ -15,9 +15,10 @@ const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
 			</div>
 			<div
 				dangerouslySetInnerHTML={{
-					__html:
-						new DOMParser().parseFromString(infoBar.data.description_html || '', 'text/html')
-							.documentElement.textContent || ''
+					__html: (
+						new DOMParser().parseFromString(infoBar.data.description_html, 'text/html').documentElement
+							?.textContent || ''
+					).replace('href="/', 'href="#/')
 				}}
 			/>
 		</div>
