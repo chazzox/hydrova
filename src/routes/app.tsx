@@ -1,6 +1,5 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import { Redirect } from '@reach/router';
 
 import Dashboard from './dashboard/dashboard';
 import Sidebar from '../components/sidebar/sidebar';

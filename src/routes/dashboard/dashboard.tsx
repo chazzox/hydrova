@@ -29,8 +29,10 @@ const Dashboard = ({
 		} else if (match.path === '/:postId') {
 			setPostInView(match.params.postId || '');
 		} else if (match.path === '/r/:subName') {
+			SET_SIZE_MODE(true);
 			setListingName(`/r/${match.params.subName}`);
 		} else if (match.path === '/r/:subName/:postId') {
+			SET_SIZE_MODE(true);
 			setPostInView(match.params.postId || '');
 			setListingName(`/r/${match.params.subName}`);
 		}
