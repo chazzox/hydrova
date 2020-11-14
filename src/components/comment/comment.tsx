@@ -6,7 +6,6 @@ import './comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
-	useEffect(() => console.log('generating comment thread'), []);
 	return (
 		<>
 			<div className="comment">
@@ -25,12 +24,15 @@ const Comment = ({ comment }: { comment: any }) => {
 				</div>
 				<div className="commentChildContainer">
 					{comment.replies ? (
-						<GenericButton
-							clickEvent={() => setIsCollapsed(!isCollapsed)}
-							text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
-							isCompact={true}
-							svgPath="comment"
-						/>
+						<>
+							<p>thread of {comment.replies.data.children.length}</p>
+							<GenericButton
+								clickEvent={() => setIsCollapsed(!isCollapsed)}
+								text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
+								isCompact={true}
+								svgPath="comment"
+							/>
+						</>
 					) : null}
 					{comment.replies && !isCollapsed
 						? comment.replies.data.children.map((childComments: any, index: any) => {
