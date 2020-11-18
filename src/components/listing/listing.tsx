@@ -29,12 +29,10 @@ const Listing = ({
 								>
 									<object>
 										<div className="post">
-											<div className="postInfo">
+											<div className="postInfo roundedLinks">
 												<p>
-													<Link to={'/user/' + post.author}>
-														<strong>{post.author}</strong>
-													</Link>
-													{formatTimeSince(timeSinceCurrent(post.created_utc))}
+													<Link to={'/user/' + post.author}>{post.author}</Link>
+													<span>{formatTimeSince(timeSinceCurrent(post.created_utc))}</span>
 													<Link to={'/' + post.subreddit_name_prefixed}>
 														{post.subreddit_name_prefixed}
 													</Link>

@@ -61,7 +61,8 @@
 
 // style applied to both hover and select effect
 .selected .genericButton,
-.genericButton:hover {
+.genericButton:hover,
+.genericButton.selected {
 	svg {
 		.fill {
 			fill: var(--text-color-primary);

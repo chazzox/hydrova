@@ -65,14 +65,12 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			// username
-			strong {
-				font-weight: regular;
-				color: var(--text-color-primary);
-				margin-right: var(--padding-size-secondary);
-			}
-			a {
+			// padding between elements
+			> * {
 				margin-left: var(--padding-size-secondary);
+			}
+			> *:first-child {
+				margin-left: 0;
 			}
 		}
 	}

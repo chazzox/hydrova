@@ -6,7 +6,7 @@ import './subredditInfoBar.scss';
 const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
 	console.log(infoBar.data.description_html);
 	return (
-		<div id="subredditInfoBar">
+		<div id="subredditInfoBar" className="roundedLinks">
 			<div id="subredditHeader">
 				<img id="subredditBanner" src={getProfileURL(infoBar.data.banner_background_image)} />
 				<img id="subredditIcon" src={getProfileURL(infoBar.data.community_icon)} />

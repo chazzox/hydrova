@@ -75,10 +75,10 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 			id={postContent.id}
 			className={'post' + [additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
 		>
-			<div className="postInfo">
+			<div className="postInfo roundedLinks">
 				<p>
-					<strong>{postContent.author}</strong>
-					{formatTimeSince(timeSinceCurrent(postContent.created_utc))}
+					{postContent.author}
+					<span>{formatTimeSince(timeSinceCurrent(postContent.created_utc))}</span>
 					<Link to={'/' + postContent.subreddit_name_prefixed}>{postContent.subreddit_name_prefixed}</Link>
 				</p>
 				<h1 className="postTitle">{postContent.title}</h1>

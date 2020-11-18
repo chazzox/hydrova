@@ -1,14 +1,22 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import copy from 'copy-to-clipboard';
 import GenericButton from '../buttons/genericButton';
+import { Link } from 'react-router-dom';
+import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
 import './comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
+	console.log(comment);
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	return (
 		<>
 			<div className="comment">
+				<p className="commentInfo roundedLinks">
+					<Link to={'/user/' + comment.author}>{comment.author}</Link>
+					<span>{formatTimeSince(timeSinceCurrent(comment.created_utc))}</span>
+				</p>
 				<div
 					className="commentBody"
 					dangerouslySetInnerHTML={{
@@ -19,16 +27,26 @@ const Comment = ({ comment }: { comment: any }) => {
 				/>
 				<div className="votesContainer">
 					<GenericButton svgPath="upvote" isCompact={true} />
-					<span>0</span>
+					<span>{comment.score}</span>
 					<GenericButton svgPath="downvote" isCompact={true} />
 				</div>
+				<GenericButton text="Reply" isCompact={true} svgPath="reply" />
+				<GenericButton
+					text="Share"
+					isCompact={true}
+					svgPath="share"
+					clickEvent={() => copy(`https://www.reddit.com${comment.permalink}`)}
+				/>
 				<div className="commentChildContainer">
 					{comment.replies ? (
 						<>
-							<p>thread of {comment.replies.data.children.length}</p>
 							<GenericButton
 								clickEvent={() => setIsCollapsed(!isCollapsed)}
-								text={`${isCollapsed ? 'Expand' : 'Collapse'} Thread`}
+								text={`${isCollapsed ? 'Expand' : 'Collapse'} ${
+									comment.replies.data.children.length > 1
+										? comment.replies.data.children.length + ' Threads'
+										: 'Thread'
+								}`}
 								isCompact={true}
 								svgPath="comment"
 							/>

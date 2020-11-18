@@ -18,17 +18,24 @@ li {
 	line-height: 2em;
 }
 
-p a,
-li a {
-	font-weight: normal;
-	color: var(--text-color-secondary);
-	padding-left: var(--padding-size-primary);
-	padding-right: var(--padding-size-primary);
-	border-radius: 100px;
-	background-color: var(--accent-color-secondary);
-	&:hover {
-		background-color: var(--accent-color-primary);
-		color: var(--text-color-button);
+a {
+	color: var(--accent-color-primary);
+}
+
+.roundedLinks {
+	a,
+	p a,
+	li a {
+		font-weight: normal;
+		color: var(--text-color-secondary);
+		padding-left: var(--padding-size-primary);
+		padding-right: var(--padding-size-primary);
+		border-radius: 100px;
+		background-color: var(--accent-color-secondary);
+		&:hover {
+			background-color: var(--accent-color-primary);
+			color: var(--text-color-button);
+		}
 	}
 }
 
@@ -42,9 +49,9 @@ li a {
 		overflow-y: scroll;
 	}
 	.main {
-		width: 50%;
-		max-width: 32vw;
-		flex-grow: 1;
+		flex: 1;
+		max-width: calc(50vw - 160px);
+		flex-grow: 2;
 		flex-shrink: 1;
 		background-color: var(--background-color-tertiary);
 		margin: var(--padding-size-secondary);

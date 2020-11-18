@@ -8,6 +8,8 @@ import './login.scss';
 import generateAuthenticationURL from '../../utils/generateLogin';
 import Cookies from 'js-cookie';
 
+import GenericButton from '../../components/buttons/genericButton';
+
 const Login = () => {
 	const dispatch: AppDispatch = useDispatch();
 
@@ -18,8 +20,8 @@ const Login = () => {
 				<h1>Hydrova</h1>
 				<h2>High Performance Reddit Client</h2>
 			</div>
-			<div
-				onClick={() => {
+			<GenericButton
+				clickEvent={() => {
 					let loginModal = window.open(generateAuthenticationURL(), '_blank', 'resizable,scrollbars,status');
 					let checkLoginModalClosed = setInterval(() => {
 						if (loginModal?.closed) {
@@ -28,13 +30,10 @@ const Login = () => {
 						}
 					}, 50);
 				}}
-				id="signIn"
-			>
-				Sign In
-			</div>
-
+				text="Sign In"
+			/>
 			<a href="https://www.reddit.com/register">
-				<div id="signUp">Sign Up</div>
+				<GenericButton text="Sign Up" />
 			</a>
 		</div>
 	);
