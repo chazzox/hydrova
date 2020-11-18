@@ -38,22 +38,46 @@
 	}
 
 	// serach bar
-	input#searchBar {
+	#sidebarSearchWrapper {
+		min-height: 44px;
 		width: 100%;
 		display: block;
-		border: none;
-		outline: none;
-		font-weight: 400;
-		font-size: 11pt;
-		min-height: 44px;
 		margin: var(--padding-size-tertiary) 0;
 		padding: var(--padding-size-secondary) 16px;
 		border-radius: var(--border-radius-primary);
 		background: var(--accent-color-secondary);
-		color: var(--text-color-primary);
+		white-space: nowrap;
+		overflow: hidden;
 
-		&::placeholder {
-			color: var(--text-color-secondary);
+		svg {
+			width: 20px;
+			float: left;
+			margin-right: var(--padding-size-secondary);
+			* {
+				fill: none;
+				stroke-width: 36px;
+				stroke: var(--text-color-primary);
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			.noStroke {
+				stroke: none;
+			}
+		}
+
+		input {
+			display: inline-block;
+			border: none;
+			outline: none;
+			background: none;
+			font-weight: 400;
+			font-size: 11pt;
+			width: calc(100% - 20px - var(--padding-size-secondary));
+			color: var(--text-color-primary);
+
+			&::placeholder {
+				color: var(--text-color-secondary);
+			}
 		}
 	}
 

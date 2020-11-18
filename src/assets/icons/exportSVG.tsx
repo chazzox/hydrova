@@ -7,6 +7,7 @@ import Upvote from './upvote.svg';
 import Downvote from './downvote.svg';
 
 const SVGs = {
+	search: <Placeholder />,
 	home: <Home />,
 	mail: <Placeholder />,
 	new: <New />,

@@ -9,7 +9,7 @@ import GenericButton from '../buttons/genericButton';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebar/sidebarReducer';
 
 import hydrovaSVG from '../../assets/logo.svg';
-import placeholderSVG from '../../assets/icons/placeholder.svg';
+import SVGS from '../../assets/icons/exportSVG';
 
 import './sidebar.scss';
 import '../buttons/styles/round.scss';
@@ -45,13 +45,10 @@ const Sidebar = () => {
 				<h1 id="navTitle">Hydrova</h1>
 			</div>
 			<button className="roundButton" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
-			<input
-				onClick={() => dispatch(SET_SIZE_MODE(false))}
-				type="text"
-				id="searchBar"
-				placeholder="Search"
-				style={{ backgroundImage: `url('${placeholderSVG}')` }}
-			/>
+			<div id="sidebarSearchWrapper">
+				{SVGS['search']}
+				<input onClick={() => dispatch(SET_SIZE_MODE(false))} type="text" id="searchBar" placeholder="Search" />
+			</div>
 			<GenericButton text="Timeline" svgPath="home" href="/" />
 			<GenericButton text="Post" svgPath="new" href="/submit" />
 			<GenericButton text="Mail" svgPath="mail" href="/mail" />
