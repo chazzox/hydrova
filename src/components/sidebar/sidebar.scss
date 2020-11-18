@@ -16,13 +16,18 @@
 
 	* {
 		user-select: none;
+		transition: color 0.2s ease;
+		-webkit-transition: color 0.2s ease;
+		-moz-transition: color 0.2s ease;
+		-o-transition: color 0.2s ease;
+		-ms-transition: color 0.2s ease;
 	}
 
-	transition: width 0.4s ease, padding 0.4s ease;
-	-webkit-transition: width 0 0.4s ease, padding 0.4s ease;
-	-moz-transition: width 0.4s ease, padding 0.4s ease;
-	-o-transition: width 0.4s e ase, padding 0.4s ease;
-	-ms-transition: width 0.4s ease, padding 0.4s ease;
+	transition: max-width 0.4s ease, padding 0.4s ease;
+	-webkit-transition: max-width 0.4s ease, padding 0.4s ease;
+	-moz-transition: max-width 0.4s ease, padding 0.4s ease;
+	-o-transition: max-width 0.4s ease, padding 0.4s ease;
+	-ms-transition: max-width 0.4s ease, padding 0.4s ease;
 
 	// container for "Hydrova" logo
 	#navTitleContainer {
@@ -85,6 +90,11 @@
 		width: 38px;
 		vertical-align: middle;
 		margin-right: var(--padding-size-secondary);
+		transition: margin 0.4s ease;
+		-webkit-transition: margin 0.4s ease;
+		-moz-transition: margin 0.4s ease;
+		-o-transition: margin 0.4s ease;
+		-ms-transition: margin 0.4s ease;
 	}
 
 	// Hydrova text
@@ -107,8 +117,6 @@
 			margin-right: var(--padding-size-primary);
 		}
 		#userDetails {
-			white-space: nowrap;
-			overflow: hidden;
 			padding: var(--padding-size-secondary) var(--padding-size-primary);
 		}
 	}
@@ -128,6 +136,15 @@ h3 {
 #userDetails {
 	font-size: 11pt;
 	width: 100%;
+
+	white-space: nowrap;
+	overflow: hidden;
+
+	transition: padding 0.4s ease;
+	-webkit-transition: padding 0.4s ease;
+	-moz-transition: padding 0.4s ease;
+	-o-transition: padding 0.4s ease;
+	-ms-transition: padding 0.4s ease;
 
 	padding: var(--padding-size-secondary) var(--padding-size-tertiary);
 
