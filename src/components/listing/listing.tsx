@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { ReduxStateType } from '../../redux/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
+import GenericButton from '../buttons/genericButton';
+
+import './listing.scss';
+
 const Listing = ({
 	postData = [],
 	postClickEvent
@@ -16,7 +20,14 @@ const Listing = ({
 	return (
 		<>
 			<div className="main">
-				<div className="contentContainer">
+				<div className="timelineSortContainer">
+					<GenericButton text="Best" isCompact={true} svgPath="best" />
+					<GenericButton text="Hot" isCompact={true} svgPath="hot" />
+					<GenericButton text="New" isCompact={true} svgPath="recent" />
+					<GenericButton text="Top" isCompact={true} svgPath="top" />
+					<GenericButton text="Rising" isCompact={true} svgPath="rising" />
+				</div>
+				<div className="contentContainer" style={{ paddingTop: '30px' }}>
 					<span>
 						{postData.map((postId, index) => {
 							const post = posts[postId].postContent;

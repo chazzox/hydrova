@@ -49,15 +49,16 @@ a {
 		overflow-y: scroll;
 	}
 	.main {
+		padding-top: var(--padding-size-primary);
+		padding-bottom: var(--padding-size-primary);
+		position: relative;
 		flex: 1;
-		max-width: calc(50vw - 160px);
+		max-width: 50%;
 		flex-grow: 2;
 		flex-shrink: 1;
 		background-color: var(--background-color-tertiary);
 		margin: var(--padding-size-secondary);
 		margin-right: 0;
-		padding-top: var(--padding-size-primary);
-		padding-bottom: var(--padding-size-primary);
 		border-radius: var(--border-radius-secondary);
 		overflow: hidden;
 		max-height: calc(100vh - 2 * (var(--padding-size-secondary)));

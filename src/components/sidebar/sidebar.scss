@@ -24,6 +24,14 @@
 	-o-transition: width 0.4s e ase, padding 0.4s ease;
 	-ms-transition: width 0.4s ease, padding 0.4s ease;
 
+	// container for "Hydrova" logo
+	#navTitleContainer {
+		white-space: nowrap;
+		overflow: hidden;
+		display: inline-block;
+		width: fit-content;
+	}
+
 	// serach bar
 	input#searchBar {
 		width: 100%;
@@ -85,6 +93,24 @@
 		font-weight: 600;
 		font-size: 13pt;
 		display: inline-block;
+	}
+
+	// Sidebar slim icon only view
+	&.compact {
+		padding: 16px var(--padding-size-primary);
+		max-width: calc(2 * var(--padding-size-primary) + 52px);
+		* {
+			color: rgba(0, 0, 0, 0) !important;
+		}
+		#logo {
+			margin-left: var(--padding-size-primary);
+			margin-right: var(--padding-size-primary);
+		}
+		#userDetails {
+			white-space: nowrap;
+			overflow: hidden;
+			padding: var(--padding-size-secondary) var(--padding-size-primary);
+		}
 	}
 }
 

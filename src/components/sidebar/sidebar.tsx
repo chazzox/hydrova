@@ -38,10 +38,12 @@ const Sidebar = () => {
 
 	return (
 		<div id="sidebar" className={isCollapsed ? 'compact' : ''}>
-			<Link to="/">
-				<img src={hydrovaSVG} id="logo" alt="" />
-			</Link>
-			<h1 id="navTitle">Hydrova</h1>
+			<div id="navTitleContainer">
+				<Link to="/">
+					<img src={hydrovaSVG} id="logo" alt="" />
+				</Link>
+				<h1 id="navTitle">Hydrova</h1>
+			</div>
 			<button className="roundButton" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
 			<input
 				onClick={() => dispatch(SET_SIZE_MODE(false))}
@@ -99,11 +101,11 @@ const Sidebar = () => {
 				})}
 			</div>
 			<div id="userDetails">
+				<div id="profileImage" style={{ backgroundImage: `url(${userInfo.icon_img})` }} />
 				<div id="userText">
 					<p id="userName">{userInfo.name}</p>
 					<p id="userKarma">{userInfo.total_karma}</p>
 				</div>
-				<div id="profileImage" style={{ backgroundImage: `url(${userInfo.icon_img})` }} />
 			</div>
 		</div>
 	);

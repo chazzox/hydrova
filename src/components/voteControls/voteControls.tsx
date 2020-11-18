@@ -55,7 +55,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 						);
 					}}
 					isSelected={postContent.saved}
-					text="save"
+					text={postContent.saved ? 'Unsave' : 'Save'}
 					svgPath="save"
 					isCompact={true}
 				/>

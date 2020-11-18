@@ -16,7 +16,12 @@ const SVGs = {
 	downvote: <Downvote />,
 	comment: <Placeholder />,
 	share: <Placeholder />,
-	save: <Placeholder />
+	save: <Placeholder />,
+	best: <Placeholder />,
+	hot: <Placeholder />,
+	recent: <Placeholder />,
+	top: <Placeholder />,
+	rising: <Placeholder />
 };
 
 export default SVGs;
