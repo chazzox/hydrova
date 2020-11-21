@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
+import LogRocket from 'logrocket';
 
 import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
 import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
@@ -10,7 +11,7 @@ import App from '../routes/app';
 
 import './style/index.scss';
 import './style/variables.scss';
-
+LogRocket.init('15kfmg/hydrova');
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
