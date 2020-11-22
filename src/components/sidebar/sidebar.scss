@@ -65,6 +65,23 @@
 			}
 		}
 
+		// hover/focus effect
+		&:hover,
+		&:focus-within {
+			svg {
+				.fill {
+					fill: var(--text-color-primary);
+				}
+			}
+		}
+		&:hover {
+			filter: brightness(1.35);
+		}
+		&:focus-within {
+			background-color: var(--accent-color-primary);
+			filter: brightness(1) !important;
+		}
+
 		input {
 			display: inline-block;
 			border: none;

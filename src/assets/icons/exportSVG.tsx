@@ -5,9 +5,10 @@ import New from './new.svg';
 import Placeholder from './placeholder.svg';
 import Upvote from './upvote.svg';
 import Downvote from './downvote.svg';
+import Search from './search.svg';
 
 const SVGs = {
-	search: <Placeholder />,
+	search: <Search />,
 	home: <Home />,
 	mail: <Placeholder />,
 	new: <New />,
