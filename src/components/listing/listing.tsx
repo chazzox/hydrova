@@ -46,7 +46,12 @@ const Listing = ({
 							containerRef.current &&
 							(containerRef.current.scrollTop / containerRef.current.scrollHeight) * 100 > 60
 						)
-							dispatch(GET_LISTING({ urlSuffix1: subKey, urlSuffix2: `?afterId=${currentAfter}` }));
+							dispatch(
+								GET_LISTING({
+									listingEndpointName: subKey,
+									listingQueryParams: `?afterId=${currentAfter}`
+								})
+							);
 					}}
 					ref={containerRef}
 				>

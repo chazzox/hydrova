@@ -28,10 +28,10 @@ const postReducer = createSlice({
 						postContent: getValues(data)
 					})
 			);
-			state.subredditKeys[action.meta.arg.urlSuffix1] = {
-				...state.subredditKeys[action.meta.arg.urlSuffix1],
+			state.subredditKeys[action.meta.arg.listingEndpointName] = {
+				...state.subredditKeys[action.meta.arg.listingEndpointName],
 				postKeys: [
-					...(state.subredditKeys[action.meta.arg.urlSuffix1]?.postKeys || []),
+					...(state.subredditKeys[action.meta.arg.listingEndpointName]?.postKeys || []),
 					...action.payload.postArray.data.children.map(({ data: { id } }) => id)
 				],
 				isFetching: false,
@@ -40,12 +40,12 @@ const postReducer = createSlice({
 		});
 		// sub fetch in progress
 		builder.addCase(GET_LISTING.pending, (state, action) => {
-			state.subredditKeys[action.meta.arg.urlSuffix1].isFetching = true;
+			state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
 		});
 		//  sub fetch failed
 		builder.addCase(GET_LISTING.rejected, (state, action) => {
-			state.subredditKeys[action.meta.arg.urlSuffix1] = {
-				...state.subredditKeys[action.meta.arg.urlSuffix1],
+			state.subredditKeys[action.meta.arg.listingEndpointName] = {
+				...state.subredditKeys[action.meta.arg.listingEndpointName],
 				isFetching: false
 			};
 			// error logic here ...

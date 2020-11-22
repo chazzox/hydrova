@@ -39,7 +39,7 @@ const Dashboard = ({
 	}, [match, location]);
 
 	useEffect(() => {
-		dispatch(GET_LISTING({ urlSuffix1: listingName }));
+		dispatch(GET_LISTING({ listingEndpointName: listingName }));
 		if (listingName.includes('/r/')) dispatch(GET_SUBREDDIT_ABOUT(listingName));
 	}, [listingName]);
 
