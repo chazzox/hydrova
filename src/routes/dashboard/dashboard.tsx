@@ -41,7 +41,7 @@ const Dashboard = ({
 	useEffect(() => {
 		dispatch(GET_LISTING({ listingEndpointName: listingName }));
 		if (listingName.includes('/r/')) dispatch(GET_SUBREDDIT_ABOUT(listingName));
-	}, [listingName]);
+	});
 
 	return (
 		<>
