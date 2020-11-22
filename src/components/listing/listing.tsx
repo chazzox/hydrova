@@ -18,9 +18,6 @@ const Listing = ({
 	postClickEvent: (postId: string) => void;
 	subKey: string;
 }) => {
-	useEffect(() => {
-		console.log(postData);
-	}, [postData]);
 	const dispatch: AppDispatch = useDispatch();
 	const posts = useSelector((state: ReduxStateType) => postData.map(postId => state.post.posts[postId].postContent));
 	const isFetchingNew = useSelector((state: ReduxStateType) => {
