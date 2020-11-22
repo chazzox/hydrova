@@ -44,7 +44,12 @@ const Sidebar = () => {
 				</Link>
 				<h1 id="navTitle">Hydrova</h1>
 			</div>
-			<button className="roundButton" onClick={() => dispatch(SET_SIZE_MODE(!isCollapsed))} />
+			<GenericButton
+				svgPath={isCollapsed ? 'collapse_right' : 'collapse_left'}
+				isRound={true}
+				clickEvent={() => dispatch(SET_SIZE_MODE(!isCollapsed))}
+			/>
+			{/* <button className="roundButton" /> */}
 			<div id="sidebarSearchWrapper">
 				{SVGS['search']}
 				<input onClick={() => dispatch(SET_SIZE_MODE(false))} type="text" id="searchBar" placeholder="Search" />
