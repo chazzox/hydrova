@@ -5,24 +5,36 @@ import New from './new.svg';
 import Placeholder from './placeholder.svg';
 import Upvote from './upvote.svg';
 import Downvote from './downvote.svg';
+import Search from './search.svg';
+import Save from './save.svg';
+import Comment from './comment.svg';
+import Reply from './reply.svg';
+import CollapseUp from './collapseUp.svg';
+import CollapseDown from './collapseDown.svg';
+import CollapseLeft from './collapseLeft.svg';
+import CollapseRight from './collapseRight.svg';
 
 const SVGs = {
-	search: <Placeholder />,
+	search: <Search />,
 	home: <Home />,
 	mail: <Placeholder />,
 	new: <New />,
 	settings: <Placeholder />,
-	reply: <Placeholder />,
+	reply: <Reply />,
 	upvote: <Upvote />,
 	downvote: <Downvote />,
-	comment: <Placeholder />,
+	comment: <Comment />,
 	share: <Placeholder />,
-	save: <Placeholder />,
+	save: <Save />,
 	best: <Placeholder />,
 	hot: <Placeholder />,
 	recent: <Placeholder />,
 	top: <Placeholder />,
-	rising: <Placeholder />
+	rising: <Placeholder />,
+	collapse_up: <CollapseUp />,
+	collapse_down: <CollapseDown />,
+	collapse_left: <CollapseLeft />,
+	collapse_right: <CollapseRight />
 };
 
 export default SVGs;

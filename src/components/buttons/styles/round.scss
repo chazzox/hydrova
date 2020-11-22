@@ -2,6 +2,8 @@ button.roundButton {
 	width: 30px;
 	height: 30px;
 
+	padding: 0;
+
 	position: absolute;
 	top: var(--padding-size-tertiary);
 	right: -10px;
@@ -11,4 +13,26 @@ button.roundButton {
 
 	border: none;
 	outline: none;
+
+	svg {
+		width: 15px;
+		height: 15px;
+		float: none;
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&:hover {
+		background-color: var(--text-color-primary);
+
+		svg {
+			* {
+				stroke-width: 84px;
+				stroke: var(--accent-color-primary);
+			}
+		}
+	}
 }

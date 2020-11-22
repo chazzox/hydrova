@@ -13,16 +13,17 @@ interface propTypes {
 	clickEvent?: () => void;
 	isSelected?: boolean;
 	isCompact?: boolean;
+	isRound?: boolean;
 	children?: JSX.Element;
 }
 
-const GenericButton = ({ svgPath, text, href, clickEvent, isCompact, isSelected, children }: propTypes) => {
+const GenericButton = ({ svgPath, text, href, clickEvent, isCompact, isRound, isSelected, children }: propTypes) => {
 	const Content = () => (
 		<button
 			onClick={clickEvent}
-			className={`genericButton ${isCompact ? 'compactButton' : ''} ${text ? '' : 'noText'} ${
-				isSelected ? 'selected' : ''
-			}`}
+			className={`genericButton ${isRound ? 'roundButton' : ''} ${isCompact ? 'compactButton' : ''} ${
+				text ? '' : 'noText'
+			} ${isSelected ? 'selected' : ''}`}
 		>
 			{svgPath ? SVGS[svgPath] : null}
 			{children}

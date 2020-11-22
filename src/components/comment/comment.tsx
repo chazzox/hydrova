@@ -47,7 +47,7 @@ const Comment = ({ comment }: { comment: any }) => {
 										: 'Thread'
 								}`}
 								isCompact={true}
-								svgPath="comment"
+								svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
 							/>
 						</>
 					) : null}
