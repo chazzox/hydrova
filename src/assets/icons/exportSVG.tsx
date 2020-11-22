@@ -6,6 +6,8 @@ import Placeholder from './placeholder.svg';
 import Upvote from './upvote.svg';
 import Downvote from './downvote.svg';
 import Search from './search.svg';
+import Save from './save.svg';
+import Comment from './comment.svg';
 
 const SVGs = {
 	search: <Search />,
@@ -16,9 +18,9 @@ const SVGs = {
 	reply: <Placeholder />,
 	upvote: <Upvote />,
 	downvote: <Downvote />,
-	comment: <Placeholder />,
+	comment: <Comment />,
 	share: <Placeholder />,
-	save: <Placeholder />,
+	save: <Save />,
 	best: <Placeholder />,
 	hot: <Placeholder />,
 	recent: <Placeholder />,
