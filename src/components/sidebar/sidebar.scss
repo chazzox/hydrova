@@ -14,8 +14,10 @@
 	flex-shrink: 3; //will be the first to compress to save space
 	justify-self: left;
 
-	* {
+	h3,
+	button {
 		user-select: none;
+		will-change: opacity, color;
 		transition: color 0.2s ease;
 		-webkit-transition: color 0.2s ease;
 		-moz-transition: color 0.2s ease;

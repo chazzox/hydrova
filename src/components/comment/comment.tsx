@@ -8,7 +8,6 @@ import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent'
 import './comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
-	console.log(comment);
 	const [isCollapsed, setIsCollapsed] = useState(false);
 	return (
 		<>

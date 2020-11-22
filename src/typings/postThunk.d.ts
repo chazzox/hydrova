@@ -53,4 +53,5 @@ interface post {
 	};
 	media_meta?: { [key: string]: MediaMetadatum };
 	gallery_data?: GalleryDataClass;
+	url_overridden_by_dest: string;
 }

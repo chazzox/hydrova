@@ -12,6 +12,7 @@ interface propTypes {
 }
 
 const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTypes) => {
+	console.log(postContent.url);
 	const RenderPostType = () => {
 		if (postContent.is_self && postContent.selftext_html) {
 			return (
@@ -36,19 +37,9 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 					/>
 				</video>
 			);
-		} else if (postContent.post_hint === 'link')
-			return (
-				<>link</>
-				// <div
-				// 	className="postContent"
-				// 	dangerouslySetInnerHTML={{
-				// 		__html:
-				// 			new DOMParser().parseFromString(postContent.media., 'text/html')
-				// 				.documentElement.textContent || ''
-				// 	}}
-				// />
-			);
-		else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
+		} else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
+		else if (postContent.post_hint === 'link' || postContent.url_overridden_by_dest)
+			return <a href={postContent.url_overridden_by_dest}>{postContent.url_overridden_by_dest}</a>;
 		else if (postContent.is_gallery) {
 			return (
 				<span className="galleryContent">
@@ -66,6 +57,7 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 				</span>
 			);
 		} else {
+			console.log(postContent);
 			return <>post type unknown</>;
 		}
 	};
@@ -81,7 +73,9 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames }: propTy
 					<span>{formatTimeSince(timeSinceCurrent(postContent.created_utc))}</span>
 					<Link to={'/' + postContent.subreddit_name_prefixed}>{postContent.subreddit_name_prefixed}</Link>
 				</p>
-				<h1 className="postTitle">{postContent.title}</h1>
+				<h1 className="postTitle">
+					{new DOMParser().parseFromString(postContent.title, 'text/html').documentElement.textContent}
+				</h1>
 			</div>
 			<div className="postContent">
 				<RenderPostType />
