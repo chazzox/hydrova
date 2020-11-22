@@ -25,7 +25,7 @@ const Dashboard = ({
 
 	useEffect(() => {
 		if (match.path === '/') {
-			setListingName(match.path);
+			setListingName('/');
 		} else if (match.path === '/:postId') {
 			setPostInView(match.params.postId || '');
 		} else if (match.path === '/r/:subName') {
@@ -41,12 +41,14 @@ const Dashboard = ({
 	useEffect(() => {
 		dispatch(GET_LISTING({ listingEndpointName: listingName }));
 		if (listingName.includes('/r/')) dispatch(GET_SUBREDDIT_ABOUT(listingName));
-	});
+	}, [listingName]);
 
 	return (
 		<>
 			{subredditInfoBar ? <SubredditInfoBar infoBar={subredditInfoBar} /> : null}
-			<Listing postData={listingPointerArray} postClickEvent={setPostInView} subKey={listingName} />
+			{listingPointerArray ? (
+				<Listing postData={listingPointerArray} postClickEvent={setPostInView} subKey={listingName} />
+			) : null}
 			<Post id={postInView || (listingPointerArray || [])[0]} />
 		</>
 	);

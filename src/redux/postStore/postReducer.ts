@@ -14,8 +14,8 @@ const postReducer = createSlice({
 		},
 		subredditKeys: {} as {
 			[key: string]: { sidebar?: AboutApiResponse; postKeys?: string[]; afterId: string; isFetching: boolean };
-		}
-		// userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
+		},
+		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
 	},
 	reducers: {},
 	extraReducers: builder => {
@@ -23,10 +23,7 @@ const postReducer = createSlice({
 		// sub fetch succeeds
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
 			action.payload.postArray.data.children.forEach(
-				({ data }) =>
-					(state.posts[data.id] = {
-						postContent: getValues(data)
-					})
+				({ data }) => (state.posts[data.id] = { ...state.posts[data.id], postContent: getValues(data) })
 			);
 			state.subredditKeys[action.meta.arg.listingEndpointName] = {
 				...state.subredditKeys[action.meta.arg.listingEndpointName],
@@ -73,9 +70,7 @@ const postReducer = createSlice({
 			};
 		});
 		// info fetch failure
-		builder.addCase(GET_SUBREDDIT_ABOUT.rejected, (state, action) => {
-			// error business logic
-		});
+		// builder.addCase(GET_SUBREDDIT_ABOUT.rejected, (state, action) => {});
 
 		// save thunk actions
 		// save post success
@@ -83,7 +78,7 @@ const postReducer = createSlice({
 			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.saved = action.meta.arg.isSaving;
 		});
 		// save post failure
-		builder.addCase(SAVE.rejected, (state, action) => {});
+		// builder.addCase(SAVE.rejected, (state, action) => {});
 
 		// vote thunk actions
 		// vote post success
