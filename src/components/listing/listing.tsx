@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { GET_LISTING } from '../../redux/postStore/postThunks';
@@ -18,6 +18,9 @@ const Listing = ({
 	postClickEvent: (postId: string) => void;
 	subKey: string;
 }) => {
+	useEffect(() => {
+		console.log(postData);
+	}, [postData]);
 	const dispatch: AppDispatch = useDispatch();
 	const posts = useSelector((state: ReduxStateType) => postData.map(postId => state.post.posts[postId].postContent));
 	const isFetchingNew = useSelector((state: ReduxStateType) => {
