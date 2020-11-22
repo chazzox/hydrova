@@ -21,7 +21,8 @@ export default function getValues(data: ChildData): post {
 		media_meta: data?.media_metadata,
 		gallery_data: data?.gallery_data,
 		thumbnail: data.thumbnail,
-		url_overridden_by_dest: data.url_overridden_by_dest
+		url_overridden_by_dest: data.url_overridden_by_dest,
+		domain: data.domain
 		//oembed: data.media.oembed.html // FIXME:
 	};
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReduxStateType } from '../../redux/reduxWrapper';
-import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
 import GenericButton from '../buttons/genericButton';
+import PostComponent from '../postComponent/postComponent';
 
 import './listing.scss';
 
@@ -39,24 +39,7 @@ const Listing = ({
 									onClick={() => postClickEvent(post.id)}
 								>
 									<object>
-										<div className="post">
-											<div className="postInfo roundedLinks">
-												<p>
-													<Link to={'/user/' + post.author}>{post.author}</Link>
-													<span>{formatTimeSince(timeSinceCurrent(post.created_utc))}</span>
-													<Link to={'/' + post.subreddit_name_prefixed}>
-														{post.subreddit_name_prefixed}
-													</Link>
-												</p>
-												<h1 className="postTitle">{post.title}</h1>
-											</div>
-											<div className="postContent">
-												{post.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
-												post.thumbnail ? (
-													<img src={post.thumbnail} alt={`thumbnail for ${post.id}`} />
-												) : null}
-											</div>
-										</div>
+										<PostComponent isSmall={true} postContent={post} />
 									</object>
 								</Link>
 							);

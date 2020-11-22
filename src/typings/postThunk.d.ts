@@ -32,7 +32,7 @@ interface post {
 	is_gallery: boolean;
 	saved: boolean;
 	selftext_html: string | null;
-	post_hint?: PostHint;
+	post_hint?: string;
 	url: string;
 	id: string;
 	ups: number;
@@ -54,4 +54,5 @@ interface post {
 	media_meta?: { [key: string]: MediaMetadatum };
 	gallery_data?: GalleryDataClass;
 	url_overridden_by_dest: string;
+	domain: string;
 }
