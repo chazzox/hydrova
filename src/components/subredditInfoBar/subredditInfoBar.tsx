@@ -4,7 +4,6 @@ import getProfileURL from '../../utils/imgQuerySplit';
 import './subredditInfoBar.scss';
 
 const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
-	console.log(infoBar.data.description_html);
 	return (
 		<div id="subredditInfoBar" className="roundedLinks">
 			<div id="subredditHeader">

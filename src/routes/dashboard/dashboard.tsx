@@ -39,14 +39,14 @@ const Dashboard = ({
 	}, [match, location]);
 
 	useEffect(() => {
-		dispatch(GET_LISTING(listingName));
+		dispatch(GET_LISTING({ urlSuffix1: listingName }));
 		if (listingName.includes('/r/')) dispatch(GET_SUBREDDIT_ABOUT(listingName));
 	}, [listingName]);
 
 	return (
 		<>
 			{subredditInfoBar ? <SubredditInfoBar infoBar={subredditInfoBar} /> : null}
-			<Listing postData={listingPointerArray} postClickEvent={setPostInView} />
+			<Listing postData={listingPointerArray} postClickEvent={setPostInView} subKey={listingName} />
 			<Post id={postInView || (listingPointerArray || [])[0]} />
 		</>
 	);

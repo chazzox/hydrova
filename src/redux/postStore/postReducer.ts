@@ -7,13 +7,20 @@ const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
 		posts: {} as {
-			[state: string]: { comments?: { commentArray: any[]; latestComment: string }; postContent: post };
+			[state: string]: {
+				comments?: { commentArray: any[]; latestComment: string };
+				postContent: post;
+			};
 		},
-		subredditKeys: {} as { [key: string]: { sidebar?: AboutApiResponse; postKeys?: string[] } },
-		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
+		subredditKeys: {} as {
+			[key: string]: { sidebar?: AboutApiResponse; postKeys?: string[]; afterId: string; isFetching: boolean };
+		}
+		// userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
 	},
 	reducers: {},
 	extraReducers: builder => {
+		// subreddit thunk actions
+		// sub fetch succeeds
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
 			action.payload.postArray.data.children.forEach(
 				({ data }) =>
@@ -21,14 +28,30 @@ const postReducer = createSlice({
 						postContent: getValues(data)
 					})
 			);
-			state.subredditKeys[action.meta.arg] = {
-				...state.subredditKeys[action.meta.arg],
+			state.subredditKeys[action.meta.arg.urlSuffix1] = {
+				...state.subredditKeys[action.meta.arg.urlSuffix1],
 				postKeys: [
-					...(state.subredditKeys[action.meta.arg]?.postKeys || []),
+					...(state.subredditKeys[action.meta.arg.urlSuffix1]?.postKeys || []),
 					...action.payload.postArray.data.children.map(({ data: { id } }) => id)
-				]
+				],
+				isFetching: false,
+				afterId: action.payload.postArray.data.after
 			};
 		});
+		// sub fetch in progress
+		builder.addCase(GET_LISTING.pending, (state, action) => {
+			state.subredditKeys[action.meta.arg.urlSuffix1].isFetching = true;
+		});
+		//  sub fetch failed
+		builder.addCase(GET_LISTING.rejected, (state, action) => {
+			state.subredditKeys[action.meta.arg.urlSuffix1] = {
+				...state.subredditKeys[action.meta.arg.urlSuffix1],
+				isFetching: false
+			};
+			// error logic here ...
+		});
+
+		// post thunk actions
 		builder.addCase(GET_POST.fulfilled, (state, action) => {
 			state.posts[action.meta.arg.id] = {
 				postContent: {
@@ -40,28 +63,46 @@ const postReducer = createSlice({
 				}
 			};
 		});
-		builder.addCase(VOTE.fulfilled, (state, action) => {
-			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.likes = [false, null, true][
-				action.meta.arg.voteDirection + 1
-			];
-		});
+
+		// subreddit info thunk actions
+		// info fetch success
 		builder.addCase(GET_SUBREDDIT_ABOUT.fulfilled, (state, action) => {
 			state.subredditKeys[action.meta.arg] = {
 				...state.subredditKeys[action.meta.arg],
 				sidebar: action.payload.sidebar
 			};
 		});
+		// info fetch failure
+		builder.addCase(GET_SUBREDDIT_ABOUT.rejected, (state, action) => {
+			// error business logic
+		});
+
+		// save thunk actions
+		// save post success
+		builder.addCase(SAVE.fulfilled, (state, action) => {
+			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.saved = action.meta.arg.isSaving;
+		});
+		// save post failure
+		builder.addCase(SAVE.rejected, (state, action) => {});
+
+		// vote thunk actions
+		// vote post success
+		builder.addCase(VOTE.fulfilled, (state, action) => {
+			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.likes = [false, null, true][
+				action.meta.arg.voteDirection + 1
+			];
+		});
+		// pre-emptively changing the vote talley
 		builder.addCase(VOTE.pending, (state, action) => {
 			if (action.payload)
 				state.posts[action.meta.arg.fullName.split('_')[1]].postContent.likes = [false, null, true][
 					action.meta.arg.voteDirection + 1
 				];
 		});
-		builder.addCase(SAVE.fulfilled, (state, action) => {
-			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.saved = action.meta.arg.isSaving;
-		});
+		// vote thunk action
 		builder.addCase(VOTE.rejected, (state, action) => {
 			state.posts[action.meta.arg.fullName.split('_')[1]].postContent.likes = null;
+			// more error logic ...
 		});
 	}
 });

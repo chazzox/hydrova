@@ -3,10 +3,10 @@ import { ReduxStateType } from '../reduxWrapper';
 
 export const GET_LISTING = createAsyncThunk<
 	{ postArray: ListingResponse },
-	string,
+	{ urlSuffix1: string; urlSuffix2?: string },
 	{ state: ReduxStateType; rejectValue: failure }
->('sidebar/getListing', async (urlSuffix, { getState, rejectWithValue }) => {
-	const response = await fetch(`https://oauth.reddit.com${urlSuffix}`, {
+>('sidebar/getListing', async ({ urlSuffix1, urlSuffix2 }, { getState, rejectWithValue }) => {
+	const response = await fetch(`https://oauth.reddit.com${urlSuffix1}${urlSuffix2 || ''}`, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
 	});
