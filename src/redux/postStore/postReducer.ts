@@ -35,10 +35,11 @@ const postReducer = createSlice({
 				afterId: action.payload.postArray.data.after
 			};
 		});
-		// sub fetch in progress
-		builder.addCase(GET_LISTING.pending, (state, action) => {
-			state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
-		});
+		// causes fetch to hang, removed until figured out why, 90% chance it is because i am stupid
+		// // sub fetch in progress
+		// builder.addCase(GET_LISTING.pending, (state, action) => {
+		// 	state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
+		// });
 		//  sub fetch failed
 		builder.addCase(GET_LISTING.rejected, (state, action) => {
 			state.subredditKeys[action.meta.arg.listingEndpointName] = {

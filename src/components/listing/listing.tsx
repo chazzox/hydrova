@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { GET_LISTING } from '../../redux/postStore/postThunks';
@@ -10,58 +10,61 @@ import PostComponent from '../postComponent/postComponent';
 import './listing.scss';
 
 const Listing = ({
-	postData = [],
+	postIDArr = [],
 	postClickEvent,
 	subKey
 }: {
-	postData?: string[];
+	postIDArr?: string[];
 	postClickEvent: (postId: string) => void;
 	subKey: string;
 }) => {
 	const dispatch: AppDispatch = useDispatch();
-	const posts = useSelector((state: ReduxStateType) => postData.map(postId => state.post.posts[postId].postContent));
-	const isFetchingNew = useSelector((state: ReduxStateType) => {
-		return state.post.subredditKeys[subKey]?.isFetching;
-	});
-	const currentAfter = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.afterId);
 
+	// posts for this listing
+	const postJSONArr = useSelector((state: ReduxStateType) =>
+		postIDArr.map(postId => state.post.posts[postId].postContent)
+	);
+
+	// variables for fetching new when near bottom of view area
+	// const currentAfter = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.afterId);
+	// const isFetchingNew = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.isFetching);
+	// const [inScrollArea, setInScrollArea] = useState(false);
+
+	// sorting type variable
+	const [sortType, setSortType] = useState('');
+
+	// ref used for calculating the % of way through listing scroll area
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<>
 			<div className="main">
 				<div className="timelineSortContainer">
-					<GenericButton text="Best" isCompact={true} svgPath="best" />
-					<GenericButton text="Hot" isCompact={true} svgPath="hot" />
-					<GenericButton text="New" isCompact={true} svgPath="recent" />
-					<GenericButton text="Top" isCompact={true} svgPath="top" />
-					<GenericButton text="Rising" isCompact={true} svgPath="rising" />
+					<GenericButton text="Best" isCompact={true} svgPath="best" clickEvent={() => setSortType('best')} />
+					<GenericButton text="Hot" isCompact={true} svgPath="hot" clickEvent={() => setSortType('hot')} />
+					<GenericButton
+						text="New"
+						isCompact={true}
+						svgPath="recent"
+						clickEvent={() => setSortType('recent')}
+					/>
+					<GenericButton text="Top" isCompact={true} svgPath="top" clickEvent={() => setSortType('recent')} />
+					<GenericButton
+						text="Rising"
+						isCompact={true}
+						svgPath="rising"
+						clickEvent={() => setSortType('rising')}
+					/>
 				</div>
-				<div
-					className="contentContainer"
-					style={{ paddingTop: '30px' }}
-					onScroll={() => {
-						if (
-							!isFetchingNew &&
-							containerRef.current &&
-							(containerRef.current.scrollTop / containerRef.current.scrollHeight) * 100 > 60
-						)
-							dispatch(
-								GET_LISTING({
-									listingEndpointName: subKey,
-									listingQueryParams: `?afterId=${currentAfter}`
-								})
-							);
-					}}
-					ref={containerRef}
-				>
-					{posts.map((post, index) => (
+				<div className="contentContainer" style={{ paddingTop: '30px' }} ref={containerRef}>
+					{postJSONArr.map((post, index) => (
 						<Link
 							key={index}
 							id={post.id}
 							to={{ pathname: '/' + post.id }}
 							onClick={() => postClickEvent(post.id)}
 						>
+							{/* <object> is needed for the site to allow nested <a> tags */}
 							<object>
 								<PostComponent isSmall={true} postContent={post} />
 							</object>
@@ -72,7 +75,5 @@ const Listing = ({
 		</>
 	);
 };
-
-const PostCompact = () => {};
 
 export default Listing;
