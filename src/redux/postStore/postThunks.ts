@@ -6,7 +6,6 @@ export const GET_LISTING = createAsyncThunk<
 	{ listingEndpointName: string; listingQueryParams?: string },
 	{ state: ReduxStateType; rejectValue: failure }
 >('sidebar/getListing', async ({ listingEndpointName, listingQueryParams = '' }, { getState, rejectWithValue }) => {
-	console.log('flume');
 	const response = await fetch(`https://oauth.reddit.com${listingEndpointName}${listingQueryParams}`, {
 		method: 'GET',
 		headers: { Authorization: `Bearer ${getState().auth.access_token}` }
