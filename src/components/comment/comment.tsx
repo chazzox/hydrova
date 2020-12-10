@@ -37,7 +37,7 @@ const Comment = ({ comment }: { comment: any }) => {
 					clickEvent={() => copy(`https://www.reddit.com${comment.permalink}`)}
 				/>
 				<div className="commentChildContainer">
-					{comment.replies ? (
+					{comment.replies && (
 						<>
 							<GenericButton
 								clickEvent={() => setIsCollapsed(!isCollapsed)}
@@ -50,13 +50,13 @@ const Comment = ({ comment }: { comment: any }) => {
 								svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
 							/>
 						</>
-					) : null}
-					{comment.replies && !isCollapsed
-						? comment.replies.data.children.map((childComments: any, index: any) => {
-								if (childComments.kind === 't1')
-									return <Comment comment={childComments.data} key={index} />;
-						  })
-						: null}
+					)}
+					{comment.replies &&
+						!isCollapsed &&
+						comment.replies.data.children.map((childComments: any, index: any) => {
+							if (childComments.kind === 't1')
+								return <Comment comment={childComments.data} key={index} />;
+						})}
 				</div>
 			</div>
 		</>

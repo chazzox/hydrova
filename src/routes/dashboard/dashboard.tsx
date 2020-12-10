@@ -45,10 +45,10 @@ const Dashboard = ({
 
 	return (
 		<>
-			{subredditInfoBar ? <SubredditInfoBar infoBar={subredditInfoBar} /> : null}
-			{listingPointerArray ? (
+			{subredditInfoBar && <SubredditInfoBar infoBar={subredditInfoBar} />}
+			{listingPointerArray && (
 				<Listing postIDArr={listingPointerArray} postClickEvent={setPostInView} subKey={listingName} />
-			) : null}
+			)}
 			<Post id={postInView || (listingPointerArray || [])[0]} />
 		</>
 	);

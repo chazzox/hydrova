@@ -21,11 +21,11 @@ const GenericButton = ({ svgPath, text, href, clickEvent, isCompact, isRound, is
 	const Content = () => (
 		<button
 			onClick={clickEvent}
-			className={`genericButton ${isRound ? 'roundButton' : ''} ${isCompact ? 'compactButton' : ''} ${
-				text ? '' : 'noText'
-			} ${isSelected ? 'selected' : ''}`}
+			className={`genericButton ${isRound && 'roundButton'} ${isCompact && 'compactButton'} ${
+				!text && 'noText'
+			} ${isSelected && 'selected'}`}
 		>
-			{svgPath ? SVGS[svgPath] : null}
+			{svgPath && SVGS[svgPath]}
 			{children}
 			{text}
 		</button>

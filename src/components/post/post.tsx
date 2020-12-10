@@ -26,7 +26,7 @@ const Post = ({ id }: { id: string }) => {
 						<VoteControls postContent={postContent} />
 						<PostComponent postContent={postContent} isExpanded={true} />
 						<div id="comments" />
-						{comments ? comments.map((comment, index) => <Comment key={index} comment={comment} />) : null}
+						{comments && comments.map((comment, index) => <Comment key={index} comment={comment} />)}
 					</>
 				)}
 			</div>
