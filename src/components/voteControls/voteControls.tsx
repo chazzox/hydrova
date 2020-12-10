@@ -68,10 +68,7 @@ const voteControls = ({ postContent }: { postContent: post }) => {
 				/>
 				<GenericButton
 					text={postContent.num_comments}
-					clickEvent={() => {
-						// FIXME: idk how to react lol
-						document.getElementById('comments').scrollIntoView({ behavior: 'smooth' });
-					}}
+					clickEvent={() => document.getElementById('comments')?.scrollIntoView({ behavior: 'smooth' })}
 					isCompact={true}
 					svgPath="comment"
 				/>
