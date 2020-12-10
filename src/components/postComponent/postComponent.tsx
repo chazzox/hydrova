@@ -19,7 +19,7 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames, isSmall 
 		>
 			<div className="postInfo roundedLinks">
 				<p>
-					{postContent.author}
+					<Link to={'/user/' + postContent.author}>{postContent.author}</Link>
 					<span>{formatTimeSince(timeSinceCurrent(postContent.created_utc))}</span>
 					<Link to={'/' + postContent.subreddit_name_prefixed}>{postContent.subreddit_name_prefixed}</Link>
 				</p>
@@ -30,9 +30,10 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames, isSmall 
 			<div className="postContent">
 				{!isSmall ? (
 					<RenderPostType postContent={postContent} />
-				) : postContent.thumbnail.match(/(default)|(self)|(unknown)/) === null && postContent.thumbnail ? (
-					<img src={postContent.thumbnail} alt={`thumbnail for ${postContent.id}`} />
-				) : null}
+				) : (
+					postContent.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
+					postContent.thumbnail && <img src={postContent.thumbnail} alt={`thumbnail for ${postContent.id}`} />
+				)}
 			</div>
 		</div>
 	);
