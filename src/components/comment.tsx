@@ -39,18 +39,16 @@ const Comment = ({ comment }: { comment: any }) => {
 				/>
 				<div className="commentChildContainer">
 					{comment.replies && (
-						<>
-							<GenericButton
-								clickEvent={() => setIsCollapsed(!isCollapsed)}
-								text={`${isCollapsed ? 'Expand' : 'Collapse'} ${
-									comment.replies.data.children.length > 1
-										? comment.replies.data.children.length + ' Threads'
-										: 'Thread'
-								}`}
-								isCompact={true}
-								svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
-							/>
-						</>
+						<GenericButton
+							clickEvent={() => setIsCollapsed(!isCollapsed)}
+							text={`${isCollapsed ? 'Expand' : 'Collapse'} ${
+								comment.replies.data.children.length > 1
+									? comment.replies.data.children.length + ' Threads'
+									: 'Thread'
+							}`}
+							isCompact={true}
+							svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
+						/>
 					)}
 					{comment.replies &&
 						!isCollapsed &&

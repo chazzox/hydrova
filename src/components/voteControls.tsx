@@ -10,7 +10,6 @@ import 'styles/component/voteControls.scss';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();
-
 	return (
 		<>
 			<div className="voteControls">
