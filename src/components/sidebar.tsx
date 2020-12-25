@@ -4,15 +4,15 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
 
-import { ReduxStateType, AppDispatch } from '../../redux/reduxWrapper';
-import GenericButton from '../buttons/genericButton';
-import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '../../redux/sidebar/sidebarReducer';
+import { ReduxStateType, AppDispatch } from 'reduxStore/reduxWrapper';
+import GenericButton from 'components/genericButton';
+import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from 'reduxStore/sidebar/sidebarReducer';
 
-import hydrovaSVG from '../../assets/logo.svg';
-import SVGS from '../../assets/icons/exportSVG';
+import hydrovaSVG from 'assets/logo.svg';
+import SVGS from 'assets/icons/exportSVG';
 
-import './sidebar.scss';
-import '../buttons/styles/round.scss';
+import 'styles/component/sidebar.scss';
+import 'styles/component/button/round.scss';
 
 const Sidebar = () => {
 	const dispatch: AppDispatch = useDispatch();

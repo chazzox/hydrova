@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import SVGS from '../../assets/icons/exportSVG';
+import SVGS from 'assets/icons/exportSVG';
 
-import './styles/generic.scss';
-import './styles/compact.scss';
+import 'styles/component/button/generic.scss';
+import 'styles/component/button/compact.scss';
 
 interface propTypes {
 	svgPath?: keyof typeof SVGS;

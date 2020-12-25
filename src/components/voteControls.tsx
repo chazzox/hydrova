@@ -2,11 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
-import './voteControls.scss';
+import { SAVE, VOTE } from 'reduxStore/postStore/postThunks';
+import { AppDispatch } from 'reduxStore/reduxWrapper';
+import GenericButton from 'components/genericButton';
 
-import { SAVE, VOTE } from '../../redux/postStore/postThunks';
-import { AppDispatch } from '../../redux/reduxWrapper';
-import GenericButton from '../buttons/genericButton';
+import 'styles/component/voteControls.scss';
 
 const voteControls = ({ postContent }: { postContent: post }) => {
 	const dispatch: AppDispatch = useDispatch();

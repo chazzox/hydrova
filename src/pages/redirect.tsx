@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 
 import Logo from '../assets/logo.svg';
 import queryStringToJSON from '../utils/queryString';
-import './style/redirect.scss';
+
+import 'styles/redirect.scss';
 
 interface reAuthenticationResponse {
 	scope: string;

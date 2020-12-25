@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-import './postComponent.scss';
+import 'styles/component/postComponent.scss';
 
 interface propTypes {
 	postContent: post;

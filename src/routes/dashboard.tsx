@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { GET_LISTING, GET_SUBREDDIT_ABOUT } from '../../redux/postStore/postThunks';
-import { SET_SIZE_MODE } from '../../redux/sidebar/sidebarReducer';
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
+import { GET_LISTING, GET_SUBREDDIT_ABOUT } from 'reduxStore/postStore/postThunks';
+import { SET_SIZE_MODE } from 'reduxStore/sidebar/sidebarReducer';
 
-import Listing from '../../components/listing/listing';
-import Post from '../../components/post/post';
-import SubredditInfoBar from '../../components/subredditInfoBar/subredditInfoBar';
+import Listing from 'components/listing';
+import Post from 'components/post';
+import SubredditInfoBar from 'components/subredditInfoBar';
 
 const Dashboard = ({
 	navProps: { match, location }

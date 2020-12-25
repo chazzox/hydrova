@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import copy from 'copy-to-clipboard';
-import GenericButton from '../buttons/genericButton';
 import { Link } from 'react-router-dom';
-import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
-import './comment.scss';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
+import GenericButton from 'components/genericButton';
+
+import 'styles/component/comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);

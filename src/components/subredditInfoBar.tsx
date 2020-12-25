@@ -1,7 +1,7 @@
 import React from 'react';
-import getProfileURL from '../../utils/imgQuerySplit';
+import getProfileURL from '../utils/imgQuerySplit';
 
-import './subredditInfoBar.scss';
+import 'styles/component/subredditInfoBar.scss';
 
 const subredditInfoBar = ({ infoBar }: { infoBar: AboutApiResponse }) => {
 	return (

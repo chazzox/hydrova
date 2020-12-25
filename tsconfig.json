@@ -14,7 +14,21 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"downlevelIteration": true,
-		"jsx": "preserve"
+		"jsx": "preserve",
+		"baseUrl": "src",
+		// allows for root import
+		"paths": {
+			"*": [
+				"*",
+				"src/components/*",
+				"src/styles/*",
+				"src/assets/*",
+				"src/reduxStore/*",
+				"/src/routes/*",
+				"/src/utils/*",
+				"/src/pages/*"
+			]
+		}
 	},
 	"include": ["src", "src/custom.d.ts"]
 }

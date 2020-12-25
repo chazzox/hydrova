@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
 	pathPrefix: `/Hydrova`,
 	plugins: [
@@ -13,6 +15,19 @@ module.exports = {
 				display: 'standalone',
 				crossOrigin: `use-credentials`,
 				icon: 'static/icon-144x144.png'
+			}
+		},
+		{
+			resolve: 'gatsby-plugin-root-import',
+			options: {
+				src: path.join(__dirname, 'src'),
+				components: path.join(__dirname, 'src/components'),
+				reduxStore: path.join(__dirname, 'src/reduxStore'),
+				styles: path.join(__dirname, 'src/styles'),
+				routes: path.join(__dirname, 'src/routes'),
+				assets: path.join(__dirname, 'src/assets'),
+				utils: path.join(__dirname, 'src/utils'),
+				pages: path.join(__dirname, 'src/pages')
 			}
 		},
 		{
