@@ -44,7 +44,7 @@ const Redirect: React.FC = () => {
 				.then(json => {
 					if (json.error === undefined) {
 						const refresh_token: string = json.refresh_token;
-						Cookies.set('refresh_token', refresh_token, { sameSite: 'Lax', expires: 365 });
+						Cookies.set('refresh_token', refresh_token, { sameSite: 'Strict', expires: 365 });
 						window.close();
 					} else {
 						// deal with errors from here down
