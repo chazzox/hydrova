@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import copy from 'copy-to-clipboard';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'copy-to-clipboard';
 
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 import GenericButton from 'components/genericButton';

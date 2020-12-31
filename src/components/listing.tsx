@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
 
 import GenericButton from 'components/genericButton';
