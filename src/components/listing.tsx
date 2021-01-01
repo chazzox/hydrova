@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { GET_LISTING } from '../../redux/postStore/postThunks';
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
+import { GET_LISTING } from 'reduxStore/postStore/postThunks';
+import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
 
-import GenericButton from '../buttons/genericButton';
-import PostComponent from '../postComponent/postComponent';
+import GenericButton from 'components/genericButton';
+import PostComponent from 'components/postComponent';
 
-import './listing.scss';
+import 'styles/component/listing.scss';
 
 const Listing = ({
 	postIDArr = [],

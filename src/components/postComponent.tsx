@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-import './postComponent.scss';
+import 'styles/component/postComponent.scss';
 
 interface propTypes {
 	postContent: post;
@@ -43,7 +43,7 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames, isSmall 
 };
 
 const RenderPostType = ({ postContent }: { postContent: post }) => {
-	if (postContent.is_self && postContent.selftext_html) {
+	if (postContent.is_self && postContent.selftext_html)
 		return (
 			<span
 				dangerouslySetInnerHTML={{
@@ -53,7 +53,7 @@ const RenderPostType = ({ postContent }: { postContent: post }) => {
 				}}
 			/>
 		);
-	} else if (postContent.is_video && postContent.media?.reddit_video) {
+	else if (postContent.is_video && postContent.media?.reddit_video)
 		return (
 			<video controls={true}>
 				<source src={postContent.media.reddit_video.fallback_url} type="video/mp4" />
@@ -66,14 +66,13 @@ const RenderPostType = ({ postContent }: { postContent: post }) => {
 				/>
 			</video>
 		);
-	} else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
+	else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
 	else if (
 		postContent.post_hint === 'link' ||
 		(postContent.url == postContent.url_overridden_by_dest && postContent.domain !== 'i.redd.it')
-	) {
-		console.log(postContent);
+	)
 		return <a href={postContent.url_overridden_by_dest}>{postContent.url_overridden_by_dest}</a>;
-	} else if (postContent.is_gallery)
+	else if (postContent.is_gallery)
 		return (
 			<span className="galleryContent">
 				{postContent.gallery_data?.items.map(({ media_id }, index) => {
@@ -89,10 +88,7 @@ const RenderPostType = ({ postContent }: { postContent: post }) => {
 				})}
 			</span>
 		);
-	else {
-		console.log(postContent);
-		return <>post type unknown</>;
-	}
+	else return <>post type unknown</>;
 };
 
 export default postComponent;

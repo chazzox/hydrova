@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { AppDispatch, ReduxStateType } from '../../redux/reduxWrapper';
-import { GET_POST } from '../../redux/postStore/postThunks';
-
-import VoteControls from '../voteControls/voteControls';
-import PostComponent from '../postComponent/postComponent';
-import Comment from '../comment/comment';
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
+import { GET_POST } from 'reduxStore/postStore/postThunks';
+import VoteControls from 'components/voteControls';
+import PostComponent from 'components/postComponent';
+import Comment from 'components/comment';
 
 const Post = ({ id }: { id: string }) => {
 	const dispatch: AppDispatch = useDispatch();

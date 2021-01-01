@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import getValues from '../../utils/getPostValues';
 
 import { GET_POST, GET_LISTING, SAVE, VOTE, GET_SUBREDDIT_ABOUT } from './postThunks';
@@ -90,6 +90,7 @@ const postReducer = createSlice({
 		});
 		// pre-emptively changing the vote talley
 		builder.addCase(VOTE.pending, (state, action) => {
+			console.log('pending');
 			if (action.payload)
 				state.posts[action.meta.arg.fullName.split('_')[1]].postContent.likes = [false, null, true][
 					action.meta.arg.voteDirection + 1

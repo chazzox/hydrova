@@ -1,14 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-
-import { AppDispatch } from '../../redux/reduxWrapper';
-import { refreshAccessToken } from '../../redux/authReducer';
-import hydrovaSVG from '../../assets/logo.svg';
-import './login.scss';
-import generateAuthenticationURL from '../../utils/generateLogin';
 import Cookies from 'js-cookie';
 
-import GenericButton from '../../components/buttons/genericButton';
+import { AppDispatch } from 'reduxStore/reduxWrapper';
+import { refreshAccessToken } from 'reduxStore/authReducer';
+import generateAuthenticationURL from 'utils/generateLogin';
+import GenericButton from 'components/genericButton';
+
+import hydrovaSVG from 'assets/logo.svg';
+
+import 'styles/route/login.scss';
 
 const Login = () => {
 	const dispatch: AppDispatch = useDispatch();

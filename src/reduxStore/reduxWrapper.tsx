@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import sidebarReducer from './sidebar/sidebarReducer';
 import postReducer from './postStore/postReducer';
@@ -24,7 +24,8 @@ const store = configureStore({
 	},
 	preloadedState: {
 		...(sideBarJSON ? { sidebar: sideBarJSON } : null)
-	}
+	},
+	middleware: [...getDefaultMiddleware({ immutableCheck: false })]
 });
 
 export type ReduxStateType = ReturnType<typeof store.getState>;

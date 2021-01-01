@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import copy from 'copy-to-clipboard';
-import GenericButton from '../buttons/genericButton';
 import { Link } from 'react-router-dom';
-import timeSinceCurrent, { formatTimeSince } from '../../utils/timeSinceCurrent';
 
-import './comment.scss';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
+import GenericButton from 'components/genericButton';
+
+import 'styles/component/comment.scss';
 
 const Comment = ({ comment }: { comment: any }) => {
 	const [isCollapsed, setIsCollapsed] = useState(false);
@@ -38,18 +39,16 @@ const Comment = ({ comment }: { comment: any }) => {
 				/>
 				<div className="commentChildContainer">
 					{comment.replies && (
-						<>
-							<GenericButton
-								clickEvent={() => setIsCollapsed(!isCollapsed)}
-								text={`${isCollapsed ? 'Expand' : 'Collapse'} ${
-									comment.replies.data.children.length > 1
-										? comment.replies.data.children.length + ' Threads'
-										: 'Thread'
-								}`}
-								isCompact={true}
-								svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
-							/>
-						</>
+						<GenericButton
+							clickEvent={() => setIsCollapsed(!isCollapsed)}
+							text={`${isCollapsed ? 'Expand' : 'Collapse'} ${
+								comment.replies.data.children.length > 1
+									? comment.replies.data.children.length + ' Threads'
+									: 'Thread'
+							}`}
+							isCompact={true}
+							svgPath={isCollapsed ? 'collapse_down' : 'collapse_up'}
+						/>
 					)}
 					{comment.replies &&
 						!isCollapsed &&

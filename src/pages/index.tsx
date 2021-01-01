@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
-import { AppDispatch, ReduxStateType } from '../redux/reduxWrapper';
-import { refreshAccessToken, setNoAuthCookies } from '../redux/authReducer';
-import Login from '../routes/login/login';
-import App from '../routes/app';
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
+import { refreshAccessToken, setNoAuthCookies } from 'reduxStore/authReducer';
+import Login from 'routes/login';
+import App from 'routes/app';
 
-import './style/index.scss';
-import './style/variables.scss';
+import 'styles/variables.scss';
+import 'styles/index.scss';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();

@@ -1,11 +1,12 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import Dashboard from './dashboard/dashboard';
-import Sidebar from '../components/sidebar/sidebar';
-import Settings from './settings/settings';
-import Submit from './submit/submit';
-import Mail from './mail/mail';
+import Dashboard from './dashboard';
+import Sidebar from '../components/sidebar';
+import Settings from './settings';
+import Submit from './submit';
+import Mail from './mail';
+import User from './user';
 
 const App: React.FC = () => {
 	return (
