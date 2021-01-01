@@ -28,12 +28,15 @@ const postComponent = ({ postContent, isExpanded, additionalClassNames, isSmall 
 				</h1>
 			</div>
 			<div className="postContent">
-				{!isSmall ? (
+				<RenderPostType postContent={postContent} />
+				{/* {!isSmall ? (
 					<RenderPostType postContent={postContent} />
 				) : (
-					postContent.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
-					postContent.thumbnail && <img src={postContent.thumbnail} alt={`thumbnail for ${postContent.id}`} />
-				)}
+					postContent?.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
+					postContent?.thumbnail && (
+						<img src={postContent.thumbnail} alt={`thumbnail for ${postContent.id}`} />
+					)
+				)} */}
 			</div>
 		</div>
 	);

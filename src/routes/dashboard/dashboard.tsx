@@ -13,28 +13,39 @@ import SubredditInfoBar from '../../components/subredditInfoBar/subredditInfoBar
 const Dashboard = ({
 	navProps: { match, location }
 }: {
-	navProps: RouteComponentProps<{ postId?: string; subName?: string }>;
+	navProps: RouteComponentProps<{ postId?: string; subName?: string; userId?: string }>;
 }) => {
 	const dispatch: AppDispatch = useDispatch();
 
 	const [listingName, setListingName] = useState('');
 	const [postInView, setPostInView] = useState('');
 
-	const listingPointerArray = useSelector((state: ReduxStateType) => state.post.subredditKeys[listingName]?.postKeys);
-	const subredditInfoBar = useSelector((state: ReduxStateType) => state.post.subredditKeys[listingName]?.sidebar);
+	const listingPointerArray = useSelector((state: ReduxStateType) => state.post.listingKeys[listingName]?.postKeys);
+	const subredditInfoBar = useSelector((state: ReduxStateType) => state.post.listingKeys[listingName]?.sidebar);
 
 	useEffect(() => {
-		if (match.path === '/') {
-			setListingName('/');
-		} else if (match.path === '/:postId') {
-			setPostInView(match.params.postId || '');
-		} else if (match.path === '/r/:subName') {
-			SET_SIZE_MODE(true);
-			setListingName(`/r/${match.params.subName}`);
-		} else if (match.path === '/r/:subName/:postId') {
-			SET_SIZE_MODE(true);
-			setPostInView(match.params.postId || '');
-			setListingName(`/r/${match.params.subName}`);
+		switch (match.path) {
+			case '/':
+				setListingName('/');
+				break;
+			case '/:postId':
+				setPostInView(match.params.postId || '');
+				break;
+			case '/r/:subName':
+				SET_SIZE_MODE(true);
+				setListingName(`/r/${match.params.subName}`);
+				break;
+			case '/r/:subName/:postId':
+				SET_SIZE_MODE(true);
+				setPostInView(match.params.postId || '');
+				setListingName(`/r/${match.params.subName}`);
+				break;
+			case '/user/:userId':
+				SET_SIZE_MODE(true);
+				setListingName(`/user/${match.params.userId}`);
+				break;
+			default:
+				break;
 		}
 	}, [match, location]);
 

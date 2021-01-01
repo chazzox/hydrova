@@ -12,23 +12,23 @@ const postReducer = createSlice({
 				postContent: post;
 			};
 		},
-		subredditKeys: {} as {
+		listingKeys: {} as {
 			[key: string]: { sidebar?: AboutApiResponse; postKeys?: string[]; afterId: string; isFetching: boolean };
-		},
-		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
+		}
 	},
 	reducers: {},
 	extraReducers: builder => {
 		// subreddit thunk actions
 		// sub fetch succeeds
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
+			console.log(action.payload.postArray);
 			action.payload.postArray.data.children.forEach(
 				({ data }) => (state.posts[data.id] = { ...state.posts[data.id], postContent: getValues(data) })
 			);
-			state.subredditKeys[action.meta.arg.listingEndpointName] = {
-				...state.subredditKeys[action.meta.arg.listingEndpointName],
+			state.listingKeys[action.meta.arg.listingEndpointName] = {
+				...state.listingKeys[action.meta.arg.listingEndpointName],
 				postKeys: [
-					...(state.subredditKeys[action.meta.arg.listingEndpointName]?.postKeys || []),
+					...(state.listingKeys[action.meta.arg.listingEndpointName]?.postKeys || []),
 					...action.payload.postArray.data.children.map(({ data: { id } }) => id)
 				],
 				isFetching: false,
@@ -38,12 +38,12 @@ const postReducer = createSlice({
 		// causes fetch to hang, removed until figured out why, 90% chance it is because i am stupid
 		// // sub fetch in progress
 		// builder.addCase(GET_LISTING.pending, (state, action) => {
-		// 	state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
+		// 	state.listingKeys[action.meta.arg.listingEndpointName].isFetching = true;
 		// });
 		//  sub fetch failed
 		builder.addCase(GET_LISTING.rejected, (state, action) => {
-			state.subredditKeys[action.meta.arg.listingEndpointName] = {
-				...state.subredditKeys[action.meta.arg.listingEndpointName],
+			state.listingKeys[action.meta.arg.listingEndpointName] = {
+				...state.listingKeys[action.meta.arg.listingEndpointName],
 				isFetching: false
 			};
 			// error logic here ...
@@ -65,8 +65,8 @@ const postReducer = createSlice({
 		// subreddit info thunk actions
 		// info fetch success
 		builder.addCase(GET_SUBREDDIT_ABOUT.fulfilled, (state, action) => {
-			state.subredditKeys[action.meta.arg] = {
-				...state.subredditKeys[action.meta.arg],
+			state.listingKeys[action.meta.arg] = {
+				...state.listingKeys[action.meta.arg],
 				sidebar: action.payload.sidebar
 			};
 		});

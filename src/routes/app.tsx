@@ -6,7 +6,6 @@ import Sidebar from '../components/sidebar/sidebar';
 import Settings from './settings/settings';
 import Submit from './submit/submit';
 import Mail from './mail/mail';
-import User from './user/user';
 
 const App: React.FC = () => {
 	return (
@@ -16,10 +15,9 @@ const App: React.FC = () => {
 				<Route path="/submit" exact render={() => <Submit />} />
 				<Route path="/mail" exact render={() => <Mail />} />
 				<Route path="/settings" exact render={() => <Settings />} />
-				<Route path="/user/:userId" exact render={() => <User />} />
 				<Route
 					exact
-					path={['/', '/r/:subName', '/r/:subName/:postId', '/:postId']}
+					path={['/', '/r/:subName', '/r/:subName/:postId', '/:postId', '/user/:userId']}
 					render={props => <Dashboard navProps={props} />}
 				/>
 			</Switch>

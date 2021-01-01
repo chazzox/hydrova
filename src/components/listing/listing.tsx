@@ -26,8 +26,8 @@ const Listing = ({
 	);
 
 	// variables for fetching new when near bottom of view area
-	// const currentAfter = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.afterId);
-	// const isFetchingNew = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.isFetching);
+	// const currentAfter = useSelector((state: ReduxStateType) => state.post.listingKeys[subKey]?.afterId);
+	// const isFetchingNew = useSelector((state: ReduxStateType) => state.post.listingKeys[subKey]?.isFetching);
 	// const [inScrollArea, setInScrollArea] = useState(false);
 
 	// sorting type variable
