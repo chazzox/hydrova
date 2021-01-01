@@ -4,10 +4,8 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { GET_LISTING, GET_SUBREDDIT_ABOUT } from 'reduxStore/postStore/postThunks';
-import { SET_SIZE_MODE } from 'reduxStore/sidebar/sidebarReducer';
 
 import Listing from 'components/listing';
-import Post from 'components/post';
 import SubredditInfoBar from 'components/subredditInfoBar';
 
 const Dashboard = ({
@@ -26,14 +24,9 @@ const Dashboard = ({
 	useEffect(() => {
 		if (match.path === '/') {
 			setListingName('/');
-		} else if (match.path === '/:postId') {
-			setPostInView(match.params.postId || '');
 		} else if (match.path === '/r/:subName') {
-			SET_SIZE_MODE(true);
 			setListingName(`/r/${match.params.subName}`);
 		} else if (match.path === '/r/:subName/:postId') {
-			SET_SIZE_MODE(true);
-			setPostInView(match.params.postId || '');
 			setListingName(`/r/${match.params.subName}`);
 		}
 	}, [match, location]);
@@ -46,10 +39,7 @@ const Dashboard = ({
 	return (
 		<>
 			{subredditInfoBar && <SubredditInfoBar infoBar={subredditInfoBar} />}
-			{listingPointerArray && (
-				<Listing postIDArr={listingPointerArray} postClickEvent={setPostInView} subKey={listingName} />
-			)}
-			<Post id={postInView || (listingPointerArray || [])[0]} />
+			{listingPointerArray && <Listing postIDArr={listingPointerArray} />}
 		</>
 	);
 };

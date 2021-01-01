@@ -8,6 +8,39 @@ import 'styles/index.scss';
 import 'styles/variables.scss';
 
 const Data: React.FC = () => {
+	const shit = jail.data.children.map(
+		({
+			data: {
+				subreddit,
+				selftext_html,
+				title,
+				saved,
+				id,
+				ups,
+				url,
+				locked,
+				subreddit_name_prefixed,
+				author,
+				num_comments,
+				permalink,
+				created_utc
+			}
+		}) => ({
+			id,
+			title,
+			author,
+			subreddit_name_prefixed,
+			subreddit,
+			selftext_html,
+			num_comments,
+			permalink,
+			locked,
+			saved,
+			ups,
+			url,
+			created_utc
+		})
+	);
 	// Define a users schema
 	const user = new schema.Entity('users');
 
@@ -21,6 +54,7 @@ const Data: React.FC = () => {
 		author: user,
 		comments: [comment]
 	});
+
 	const notNormal = {
 		id: 123,
 		author: {
@@ -47,6 +81,18 @@ const Data: React.FC = () => {
 		]
 	};
 	const normalizedData = normalize(notNormal, article);
+
+	const subreddit = new schema.Entity('subreddits');
+	const users = new schema.Entity('users');
+	const post = new schema.Entity('posts', [
+		{
+			author: users,
+			subreddit_name_prefixed: subreddit
+		}
+	]);
+
+	const normalizedData2 = normalize(shit, post);
+
 	return (
 		<>
 			<Helmet
@@ -62,7 +108,12 @@ const Data: React.FC = () => {
 				<code style={{ color: 'white' }}>{JSON.stringify(notNormal, null, 2)}</code>
 			</pre>
 			<pre>
-				<code style={{ color: 'white' }}>{JSON.stringify(jail, null, 2)}</code>
+				<code style={{ color: 'white', maxWidth: '500px', overflow: 'hidden' }}>
+					{JSON.stringify(shit, null, 2)}
+				</code>
+			</pre>
+			<pre>
+				<code style={{ color: 'white' }}>{JSON.stringify(normalizedData2, null, 2)}</code>
 			</pre>
 		</>
 	);

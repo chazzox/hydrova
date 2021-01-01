@@ -1,23 +1,51 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
 
 import GenericButton from 'components/genericButton';
-import PostComponent from 'components/postComponent';
+import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import 'styles/component/listing.scss';
+import 'styles/component/postComponent.scss';
+import { Link } from 'react-router-dom';
 
-const Listing = ({
-	postIDArr = [],
-	postClickEvent,
-	subKey
-}: {
-	postIDArr?: string[];
-	postClickEvent: (postId: string) => void;
-	subKey: string;
-}) => {
+interface RowProps extends ListChildComponentProps, post {}
+
+const Row: React.FC<RowProps> = ({
+	style,
+	id,
+	author,
+	title,
+	subreddit_name_prefixed,
+	thumbnail,
+	created_utc
+}: RowProps) => (
+	<div key={id} id={id} style={style} className="post">
+		<div className="postInfo roundedLinks">
+			<p>
+				<Link to={'/user/' + author}>{author}</Link>
+				<span>{formatTimeSince(timeSinceCurrent(created_utc))}</span>
+				<Link to={'/' + subreddit_name_prefixed}>{subreddit_name_prefixed}</Link>
+			</p>
+			<h1 className="postTitle">
+				{new DOMParser().parseFromString(title, 'text/html').documentElement.textContent}
+			</h1>
+		</div>
+		<div className="data">
+			{thumbnail && thumbnail.match(/(default)|(self)|(unknown)/) === null && (
+				<img src={thumbnail} alt={`thumbnail for ${id}`} />
+			)}
+		</div>
+	</div>
+);
+
+const Listing = ({ postIDArr = [] }: { postIDArr?: string[] }) => {
 	const dispatch: AppDispatch = useDispatch();
+
+	// we use the 'as const' part so that we can extract the values as the typings got it
+	const sortTypes = ['best', 'hot', 'new', 'recent', 'rising'] as const;
 
 	// posts for this listing
 	const postJSONArr = useSelector((state: ReduxStateType) =>
@@ -25,51 +53,38 @@ const Listing = ({
 	);
 
 	// variables for fetching new when near bottom of view area
-	// const currentAfter = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.afterId);
-	// const isFetchingNew = useSelector((state: ReduxStateType) => state.post.subredditKeys[subKey]?.isFetching);
-	// const [inScrollArea, setInScrollArea] = useState(false);
 
 	// sorting type variable
 	const [sortType, setSortType] = useState('');
 
 	// ref used for calculating the % of way through listing scroll area
-	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<>
 			<div className="main">
 				<div className="timelineSortContainer">
-					<GenericButton text="Best" isCompact={true} svgPath="best" clickEvent={() => setSortType('best')} />
-					<GenericButton text="Hot" isCompact={true} svgPath="hot" clickEvent={() => setSortType('hot')} />
-					<GenericButton
-						text="New"
-						isCompact={true}
-						svgPath="recent"
-						clickEvent={() => setSortType('recent')}
-					/>
-					<GenericButton text="Top" isCompact={true} svgPath="top" clickEvent={() => setSortType('recent')} />
-					<GenericButton
-						text="Rising"
-						isCompact={true}
-						svgPath="rising"
-						clickEvent={() => setSortType('rising')}
-					/>
-				</div>
-				<div className="contentContainer" style={{ paddingTop: '30px' }} ref={containerRef}>
-					{postJSONArr.map((post, index) => (
-						<Link
-							key={index}
-							id={post.id}
-							to={{ pathname: '/' + post.id }}
-							onClick={() => postClickEvent(post.id)}
-						>
-							{/* <object> is needed for the site to allow nested <a> tags */}
-							<object>
-								<PostComponent isSmall={true} postContent={post} />
-							</object>
-						</Link>
+					{sortTypes.map((sortTypeString: typeof sortTypes[number]) => (
+						<GenericButton
+							text={sortTypeString}
+							isCompact={true}
+							svgPath={sortTypeString}
+							clickEvent={() => setSortType(sortTypeString)}
+							isSelected={sortType == sortTypeString}
+						/>
 					))}
 				</div>
+				<AutoSizer style={{ marginTop: '50px' }}>
+					{({ height, width }) => (
+						<List
+							className="List"
+							height={height}
+							itemCount={postJSONArr.length}
+							itemSize={100}
+							width={width}
+							children={({ index, style }) => <Row index={index} style={style} {...postJSONArr[index]} />}
+						/>
+					)}
+				</AutoSizer>
 			</div>
 		</>
 	);
