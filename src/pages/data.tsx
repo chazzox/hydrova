@@ -21,27 +21,32 @@ const Data: React.FC = () => {
 		author: user,
 		comments: [comment]
 	});
-
-	const normalizedData = normalize(
-		{
-			id: '123',
-			author: {
-				id: '1',
-				name: 'Paul'
-			},
-			title: 'My awesome blog post',
-			comments: [
-				{
-					id: '324',
-					commenter: {
-						id: '2',
-						name: 'Nicole'
-					}
-				}
-			]
+	const notNormal = {
+		id: 123,
+		author: {
+			id: 1,
+			otherThing: 'test',
+			name: 'Paul'
 		},
-		article
-	);
+		title: 'My awesome blog post',
+		comments: [
+			{
+				id: 324,
+				commenter: {
+					id: 2,
+					name: 'Nicole'
+				}
+			},
+			{
+				id: 34,
+				commenter: {
+					id: 19,
+					name: 'Me'
+				}
+			}
+		]
+	};
+	const normalizedData = normalize(notNormal, article);
 	return (
 		<>
 			<Helmet
@@ -49,8 +54,16 @@ const Data: React.FC = () => {
 					class: 'darkMode'
 				}}
 			/>
-			<h1>Normalisation Testing</h1>
-			<code>{JSON.stringify(normalizedData)}</code>
+			<h1 style={{ color: 'white' }}>Normalisation Testing</h1>
+			<pre>
+				<code style={{ color: 'white' }}>{JSON.stringify(normalizedData, null, 2)}</code>
+			</pre>
+			<pre>
+				<code style={{ color: 'white' }}>{JSON.stringify(notNormal, null, 2)}</code>
+			</pre>
+			<pre>
+				<code style={{ color: 'white' }}>{JSON.stringify(jail, null, 2)}</code>
+			</pre>
 		</>
 	);
 };
