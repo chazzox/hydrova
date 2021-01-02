@@ -32,14 +32,14 @@ const postReducer = createSlice({
 					...(state.subredditKeys[action.meta.arg.listingEndpointName]?.postKeys || []),
 					...action.payload.postArray.data.children.map(({ data: { id } }) => id)
 				],
-				isFetching: false,
 				afterId: action.payload.postArray.data.after
 			};
+			state.isFetching = false;
 		});
 		// causes fetch to hang, removed until figured out why, 90% chance it is because i am stupid
 		// // sub fetch in progress
 		builder.addCase(GET_LISTING.pending, (state, action) => {
-			state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
+			state.isFetching = true;
 		});
 
 		//  sub fetch failed

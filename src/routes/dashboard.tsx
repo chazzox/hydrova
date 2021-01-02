@@ -16,7 +16,6 @@ const Dashboard = ({
 	const dispatch = useDispatch<AppDispatch>();
 
 	const [listingName, setListingName] = useState('');
-	const [postInView, setPostInView] = useState('');
 
 	const listingPointerArray = useSelector<ReduxStateType, string[] | undefined>(
 		state => state.post.subredditKeys[listingName]?.postKeys
