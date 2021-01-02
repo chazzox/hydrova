@@ -58,15 +58,15 @@ const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps)
 	const after = useSelector<ReduxStateType, string>(state => state.post.subredditKeys[name]?.afterId);
 
 	// we use the 'as const' part so that we can extract the values as the typings got it
-	const sortTypes = ['best', 'hot', 'new', 'recent', 'rising'] as const;
-
+	const sortOptions = ['best', 'hot', 'new', 'recent', 'rising'] as const;
+	type sortOptionType = typeof sortOptions[number];
 	// posts for this listing
 	const postJSONArr = useSelector<ReduxStateType, post[]>(state =>
 		postIDArr.map(postId => state.post.posts[postId].postContent)
 	);
 
 	// sorting type variable
-	const [sortType, setSortType] = useState('');
+	const [sortType, setSortType] = useState<sortOptionType>('best');
 
 	return (
 		<>
@@ -74,7 +74,7 @@ const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps)
 				<div className="timelineSortContainer">
 					{
 						// mapping the sort type array and creating buttons based on that
-						sortTypes.map((sortTypeString: typeof sortTypes[number]) => (
+						sortOptions.map((sortTypeString: sortOptionType) => (
 							<GenericButton
 								key={sortTypeString}
 								text={sortTypeString}

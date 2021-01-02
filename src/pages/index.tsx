@@ -21,7 +21,6 @@ const Home = () => {
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;
-
 		if (oauthCookieData) dispatch(refreshAccessToken({ refresh_token: oauthCookieData }));
 		else dispatch(setNoAuthCookies());
 	}, []);
