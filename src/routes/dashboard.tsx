@@ -42,7 +42,7 @@ const Dashboard = ({
 	return (
 		<>
 			{subredditInfoBar && <SubredditInfoBar infoBar={subredditInfoBar} />}
-			{listingPointerArray && <Listing postIDArr={listingPointerArray} name={listingName} />}
+			{listingPointerArray && <Listing idKeys={listingPointerArray} name={listingName} />}
 		</>
 	);
 };

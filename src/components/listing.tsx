@@ -47,11 +47,11 @@ const ListingRow: React.FC<RowProps> = ({
 );
 
 interface listingProps {
-	postIDArr?: string[];
+	idKeys?: string[];
 	name: string;
 }
 
-const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps) => {
+const Listing: React.FC<listingProps> = ({ idKeys = [], name }: listingProps) => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const isFetching = useSelector<ReduxStateType, boolean>(state => state.post.isFetching);
@@ -62,7 +62,7 @@ const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps)
 	type sortOptionType = typeof sortOptions[number];
 	// posts for this listing
 	const postJSONArr = useSelector<ReduxStateType, post[]>(state =>
-		postIDArr.map(postId => state.post.posts[postId].postContent)
+		idKeys.map(id => state.post.posts[id].postContent)
 	);
 
 	// sorting type variable
@@ -89,22 +89,24 @@ const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps)
 				<AutoSizer style={{ marginTop: '50px' }}>
 					{({ height, width }) => (
 						<InfiniteLoader
-							isItemLoaded={index => !isFetching || index < postIDArr.length}
-							itemCount={postIDArr.length}
-							loadMoreItems={(startNum, stopNum) => {
-								console.log(startNum, stopNum);
-								return new Promise((resolve, reject) => {
-									setTimeout(function () {
-										var didSucceed = Math.random() >= 0.5;
-										didSucceed ? resolve(console.log('test')) : reject('Error');
-									}, 2000);
-								});
+							isItemLoaded={index => !isFetching || index < idKeys.length}
+							itemCount={idKeys.length}
+							loadMoreItems={(startIndex, stopIndex) => {
+								console.log(startIndex, stopIndex);
+								return new Promise<void>(resolve =>
+									setTimeout(() => {
+										for (let index = startIndex; index <= stopIndex; index++) {
+											console.log(index);
+										}
+										resolve();
+									}, 2500)
+								);
 							}}
 							threshold={3}
 						>
 							{({ onItemsRendered, ref }) => (
 								<FixedSizeList
-									itemCount={postJSONArr.length}
+									itemCount={postJSONArr.length + (isFetching ? 25 : 0)}
 									onItemsRendered={onItemsRendered}
 									ref={ref}
 									height={height}
