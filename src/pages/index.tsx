@@ -12,12 +12,12 @@ import 'styles/variables.scss';
 import 'styles/index.scss';
 
 const Home = () => {
-	const dispatch: AppDispatch = useDispatch();
-	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
-	const authenticationResultReturned = useSelector(
-		(state: ReduxStateType) => state.auth.authenticationResultReturned
+	const dispatch = useDispatch<AppDispatch>();
+	const isLoggedIn = useSelector<ReduxStateType, boolean>(state => state.auth.isLoggedIn);
+	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
+		state => state.auth.authenticationResultReturned
 	);
-	const styleMode = useSelector((state: ReduxStateType) => state.style.styleMode);
+	const styleMode = useSelector<ReduxStateType, boolean>(state => state.style.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;

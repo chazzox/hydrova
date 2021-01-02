@@ -12,7 +12,7 @@ import hydrovaSVG from 'assets/logo.svg';
 import 'styles/route/login.scss';
 
 const Login = () => {
-	const dispatch: AppDispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	return (
 		<div id="loginBox">

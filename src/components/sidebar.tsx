@@ -15,12 +15,19 @@ import 'styles/component/sidebar.scss';
 import 'styles/component/button/round.scss';
 
 const Sidebar = () => {
-	const dispatch: AppDispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
-	const isCollapsed = useSelector((state: ReduxStateType) => state.sidebar.isCollapsed);
-	const userInfo = useSelector((state: ReduxStateType) => state.sidebar.userInfo);
-	const multiReddits = useSelector((state: ReduxStateType) => state.sidebar.multiReddits);
-	const subReddits = useSelector((state: ReduxStateType) => state.sidebar.subReddits);
+	const isCollapsed = useSelector<ReduxStateType,boolean>(state => state.sidebar.isCollapsed);
+	const userInfo = useSelector<
+		ReduxStateType,
+		{
+			name: string;
+			total_karma: number;
+			icon_img: string;
+		}
+	>(state => state.sidebar.userInfo);
+	const multiReddits = useSelector<ReduxStateType,multi[]>(state => state.sidebar.multiReddits);
+	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>(state => state.sidebar.subReddits);
 
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
 		dispatch(GET_SUBREDDITS(afterId))

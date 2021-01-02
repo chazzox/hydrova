@@ -13,13 +13,17 @@ const Dashboard = ({
 }: {
 	navProps: RouteComponentProps<{ postId?: string; subName?: string }>;
 }) => {
-	const dispatch: AppDispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const [listingName, setListingName] = useState('');
 	const [postInView, setPostInView] = useState('');
 
-	const listingPointerArray = useSelector((state: ReduxStateType) => state.post.subredditKeys[listingName]?.postKeys);
-	const subredditInfoBar = useSelector((state: ReduxStateType) => state.post.subredditKeys[listingName]?.sidebar);
+	const listingPointerArray = useSelector<ReduxStateType, string[] | undefined>(
+		state => state.post.subredditKeys[listingName]?.postKeys
+	);
+	const subredditInfoBar = useSelector<ReduxStateType, AboutApiResponse | undefined>(
+		state => state.post.subredditKeys[listingName]?.sidebar
+	);
 
 	useEffect(() => {
 		if (match.path === '/') {
@@ -39,7 +43,7 @@ const Dashboard = ({
 	return (
 		<>
 			{subredditInfoBar && <SubredditInfoBar infoBar={subredditInfoBar} />}
-			{listingPointerArray && <Listing postIDArr={listingPointerArray} />}
+			{listingPointerArray && <Listing postIDArr={listingPointerArray} name={listingName} />}
 		</>
 	);
 };

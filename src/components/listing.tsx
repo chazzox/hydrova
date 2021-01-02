@@ -1,19 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 
-import GenericButton from 'components/genericButton';
 import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
+import GenericButton from 'components/genericButton';
+import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import 'styles/component/listing.scss';
 import 'styles/component/postComponent.scss';
-import { Link } from 'react-router-dom';
 
-interface RowProps extends ListChildComponentProps, post {}
+interface RowProps extends post {
+	style: React.CSSProperties;
+	index: number;
+}
 
-const Row: React.FC<RowProps> = ({
+const ListingRow: React.FC<RowProps> = ({
 	style,
 	id,
 	author,
@@ -22,7 +27,7 @@ const Row: React.FC<RowProps> = ({
 	thumbnail,
 	created_utc
 }: RowProps) => (
-	<div key={id} id={id} style={style} className="post">
+	<div id={id} style={style} className="post">
 		<div className="postInfo roundedLinks">
 			<p>
 				<Link to={'/user/' + author}>{author}</Link>
@@ -41,48 +46,76 @@ const Row: React.FC<RowProps> = ({
 	</div>
 );
 
-const Listing = ({ postIDArr = [] }: { postIDArr?: string[] }) => {
-	const dispatch: AppDispatch = useDispatch();
+interface listingProps {
+	postIDArr?: string[];
+	name: string;
+}
+
+const Listing: React.FC<listingProps> = ({ postIDArr = [], name }: listingProps) => {
+	const dispatch = useDispatch<AppDispatch>();
+
+	const isFetching = useSelector<ReduxStateType, boolean>(state => state.post.isFetching);
+	const after = useSelector<ReduxStateType, string>(state => state.post.subredditKeys[name]?.afterId);
 
 	// we use the 'as const' part so that we can extract the values as the typings got it
 	const sortTypes = ['best', 'hot', 'new', 'recent', 'rising'] as const;
 
 	// posts for this listing
-	const postJSONArr = useSelector((state: ReduxStateType) =>
+	const postJSONArr = useSelector<ReduxStateType, post[]>(state =>
 		postIDArr.map(postId => state.post.posts[postId].postContent)
 	);
 
-	// variables for fetching new when near bottom of view area
-
 	// sorting type variable
 	const [sortType, setSortType] = useState('');
-
-	// ref used for calculating the % of way through listing scroll area
 
 	return (
 		<>
 			<div className="main">
 				<div className="timelineSortContainer">
-					{sortTypes.map((sortTypeString: typeof sortTypes[number]) => (
-						<GenericButton
-							text={sortTypeString}
-							isCompact={true}
-							svgPath={sortTypeString}
-							clickEvent={() => setSortType(sortTypeString)}
-							isSelected={sortType == sortTypeString}
-						/>
-					))}
+					{
+						// mapping the sort type array and creating buttons based on that
+						sortTypes.map((sortTypeString: typeof sortTypes[number]) => (
+							<GenericButton
+								key={sortTypeString}
+								text={sortTypeString}
+								isCompact={true}
+								svgPath={sortTypeString}
+								clickEvent={() => setSortType(sortTypeString)}
+								isSelected={sortType == sortTypeString}
+							/>
+						))
+					}
 				</div>
 				<AutoSizer style={{ marginTop: '50px' }}>
 					{({ height, width }) => (
-						<List
-							className="List"
-							height={height}
-							itemCount={postJSONArr.length}
-							itemSize={100}
-							width={width}
-							children={({ index, style }) => <Row index={index} style={style} {...postJSONArr[index]} />}
-						/>
+						<InfiniteLoader
+							isItemLoaded={index => !isFetching || index < postIDArr.length}
+							itemCount={postIDArr.length}
+							loadMoreItems={(startNum, stopNum) => {
+								console.log(startNum, stopNum);
+								return new Promise((resolve, reject) => {
+									setTimeout(function () {
+										var didSucceed = Math.random() >= 0.5;
+										didSucceed ? resolve(console.log('test')) : reject('Error');
+									}, 2000);
+								});
+							}}
+							threshold={3}
+						>
+							{({ onItemsRendered, ref }) => (
+								<FixedSizeList
+									itemCount={postJSONArr.length}
+									onItemsRendered={onItemsRendered}
+									ref={ref}
+									height={height}
+									itemSize={100}
+									width={width}
+									children={({ index, style }) => (
+										<ListingRow key={index} index={index} style={style} {...postJSONArr[index]} />
+									)}
+								/>
+							)}
+						</InfiniteLoader>
 					)}
 				</AutoSizer>
 			</div>

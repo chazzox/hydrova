@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 import sidebarReducer from './sidebar/sidebarReducer';
@@ -34,5 +34,7 @@ export type AppDispatch = typeof store.dispatch;
 const wrapper = ({ element }: any) => {
 	return <Provider store={store}>{element}</Provider>;
 };
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export default wrapper;

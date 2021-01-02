@@ -7,7 +7,7 @@ const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
 		posts: {} as {
-			[state: string]: {
+			[key: string]: {
 				comments?: { commentArray: any[]; latestComment: string };
 				postContent: post;
 			};
@@ -15,7 +15,8 @@ const postReducer = createSlice({
 		subredditKeys: {} as {
 			[key: string]: { sidebar?: AboutApiResponse; postKeys?: string[]; afterId: string; isFetching: boolean };
 		},
-		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } }
+		userKeys: {} as { [key: string]: { about?: UserAbout; postKeys?: string[] } },
+		isFetching: false
 	},
 	reducers: {},
 	extraReducers: builder => {
@@ -37,9 +38,10 @@ const postReducer = createSlice({
 		});
 		// causes fetch to hang, removed until figured out why, 90% chance it is because i am stupid
 		// // sub fetch in progress
-		// builder.addCase(GET_LISTING.pending, (state, action) => {
-		// 	state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
-		// });
+		builder.addCase(GET_LISTING.pending, (state, action) => {
+			state.subredditKeys[action.meta.arg.listingEndpointName].isFetching = true;
+		});
+
 		//  sub fetch failed
 		builder.addCase(GET_LISTING.rejected, (state, action) => {
 			state.subredditKeys[action.meta.arg.listingEndpointName] = {
