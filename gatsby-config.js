@@ -6,6 +6,7 @@ module.exports = {
 		`gatsby-plugin-typescript`,
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-sass`,
+		{ resolve: 'gatsby-plugin-no-sourcemaps' },
 		{
 			resolve: `gatsby-plugin-manifest`,
 			options: {
