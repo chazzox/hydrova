@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import SVGS from 'assets/icons/exportSVG';
+import SVGS from 'assets/exportSVG';
 
 import 'styles/component/button/generic.scss';
 import 'styles/component/button/compact.scss';

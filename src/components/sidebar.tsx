@@ -9,7 +9,7 @@ import GenericButton from 'components/genericButton';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from 'reduxStore/sidebar/sidebarReducer';
 
 import hydrovaSVG from 'assets/logo.svg';
-import SVGS from 'assets/icons/exportSVG';
+import SVGS from 'assets/exportSVG';
 
 import 'styles/component/sidebar.scss';
 import 'styles/component/button/round.scss';
@@ -17,16 +17,9 @@ import 'styles/component/button/round.scss';
 const Sidebar = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
-	const isCollapsed = useSelector<ReduxStateType,boolean>(state => state.sidebar.isCollapsed);
-	const userInfo = useSelector<
-		ReduxStateType,
-		{
-			name: string;
-			total_karma: number;
-			icon_img: string;
-		}
-	>(state => state.sidebar.userInfo);
-	const multiReddits = useSelector<ReduxStateType,multi[]>(state => state.sidebar.multiReddits);
+	const isCollapsed = useSelector<ReduxStateType, boolean>(state => state.sidebar.isCollapsed);
+	const userInfo = useSelector<ReduxStateType, UserAbout>(state => state.sidebar.userInfo);
+	const multiReddits = useSelector<ReduxStateType, multi[]>(state => state.sidebar.multiReddits);
 	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>(state => state.sidebar.subReddits);
 
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
@@ -56,7 +49,6 @@ const Sidebar = () => {
 				isRound={true}
 				clickEvent={() => dispatch(SET_SIZE_MODE(!isCollapsed))}
 			/>
-			{/* <button className="roundButton" /> */}
 			<div id="sidebarSearchWrapper">
 				{SVGS['search']}
 				<input onClick={() => dispatch(SET_SIZE_MODE(false))} type="text" id="searchBar" placeholder="Search" />

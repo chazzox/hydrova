@@ -15,11 +15,7 @@ const sidebarReducer = createSlice({
 
 		subReddits: [] as SidebarStoredSub[],
 
-		userInfo: {
-			name: '',
-			total_karma: 0,
-			icon_img: ''
-		}
+		userInfo: {} as UserAbout
 	},
 	reducers: {
 		SET_SIZE_MODE: (state, action: PayloadAction<boolean>) => {

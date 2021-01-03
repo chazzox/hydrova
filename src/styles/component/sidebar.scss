@@ -108,8 +108,6 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 
-		margin-top: var(--padding-size-tertiary);
-
 		padding-bottom: 40px;
 
 		width: 100%;
@@ -117,10 +115,6 @@
 
 		border-radius: var(--border-radius-primary);
 		cursor: pointer;
-
-		&::-webkit-scrollbar {
-			width: 0 !important;
-		}
 	}
 
 	h3 {
