@@ -9,7 +9,7 @@ import GenericButton from 'components/genericButton';
 
 import hydrovaSVG from 'assets/logo.svg';
 
-import 'styles/route/login.scss';
+import 'styles/login.scss';
 
 const Login = () => {
 	const dispatch = useDispatch<AppDispatch>();
