@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link, NavLink } from 'react-router-dom';
-import _ from 'lodash';
 
 import { ReduxStateType, AppDispatch } from 'reduxStore/reduxWrapper';
 import GenericButton from 'components/genericButton';
@@ -69,12 +68,12 @@ const Sidebar = () => {
 						<div
 							className="icon"
 							style={
-								_.isEmpty(multiReddit.icon_img)
+								!!multiReddit.icon_img
 									? { backgroundColor: multiReddit.icon_color }
 									: { backgroundImage: `url(${multiReddit.icon_img})` }
 							}
 						>
-							{_.isEmpty(multiReddit.icon_img) ? multiReddit.display_name[0].toUpperCase() : ''}
+							{!!multiReddit.icon_img ? multiReddit.display_name[0].toUpperCase() : ''}
 						</div>
 					</GenericButton>
 				))}
@@ -90,12 +89,12 @@ const Sidebar = () => {
 								<div
 									className="icon"
 									style={
-										_.isEmpty(subreddit.icon_img)
+										!!subreddit.icon_img
 											? { backgroundColor: subreddit.icon_color }
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>
-									{_.isEmpty(subreddit.icon_img) ? subreddit.display_name[0].toUpperCase() : ''}
+									{!!subreddit.icon_img ? subreddit.display_name[0].toUpperCase() : ''}
 								</div>
 							</GenericButton>
 						);
