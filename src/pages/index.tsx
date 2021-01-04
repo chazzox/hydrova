@@ -41,7 +41,7 @@ const Home = () => {
 					content="Hydrova is a free to use, high performance, Reddit client"
 				/>
 			</Helmet>
-			{authenticationResultReturned ? isLoggedIn ? <App /> : <Login /> : null}
+			{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
 		</>
 	);
 };

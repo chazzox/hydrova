@@ -12,9 +12,9 @@ const Listing = () => {
 	useEffect(() => {
 		if (isNextPageLoading) {
 			setTimeout(() => {
-				setHasNextPage(items.length < 100);
-				setIsNextPageLoading(false);
 				setItems(items.concat(Array.from({ length: 20 }, (_, i) => (1 + i + items.length).toString())));
+				setIsNextPageLoading(false);
+				setHasNextPage(items.length < 90);
 			}, 2500);
 		}
 	}, [isNextPageLoading]);
