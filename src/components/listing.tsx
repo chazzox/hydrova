@@ -19,69 +19,69 @@ const Listing = () => {
 		}
 	}, [isNextPageLoading]);
 
+	const itemCount = hasNextPage ? items.length + 1 : items.length;
+	const loadAdditionalItems = useCallback(() => {
+		if (!isNextPageLoading) setIsNextPageLoading(true);
+	}, [isNextPageLoading]);
+
+	// we use the 'as const' part so that we can extract the values as the typings got it
+	const sortOptions = ['best', 'hot', 'new', 'recent', 'rising'] as const;
+	type sortOptionType = typeof sortOptions[number];
+	const [sortType, setSortType] = useState<sortOptionType>('best');
+
 	return (
 		<>
 			<div className="main">
-				<ExampleWrapper
-					hasNextPage={hasNextPage}
-					isNextPageLoading={isNextPageLoading}
-					items={items}
-					loadNextPage={useCallback(() => setIsNextPageLoading(true), [])}
-				/>
+				<div className="timelineSortContainer">
+					{
+						// mapping the sort type array and creating buttons based on that
+						sortOptions.map((sortTypeString: sortOptionType) => (
+							<GenericButton
+								key={sortTypeString}
+								text={sortTypeString}
+								isCompact={true}
+								svgPath={sortTypeString}
+								clickEvent={() => setSortType(sortTypeString)}
+								isSelected={sortType == sortTypeString}
+							/>
+						))
+					}
+				</div>
+				<AutoSizer style={{ marginTop: '5px' }}>
+					{({ height, width }) => (
+						<InfiniteLoader
+							isItemLoaded={(index: number) => !hasNextPage || index < items.length}
+							itemCount={itemCount}
+							// @ts-expect-error
+							loadMoreItems={loadAdditionalItems}
+						>
+							{({ onItemsRendered, ref }) => (
+								<FixedSizeList
+									itemCount={itemCount}
+									itemSize={100}
+									onItemsRendered={onItemsRendered}
+									ref={ref}
+									height={height}
+									width={width}
+								>
+									{({ index, style }) => <Item content={items[index]} style={style} />}
+								</FixedSizeList>
+							)}
+						</InfiniteLoader>
+					)}
+				</AutoSizer>
 			</div>
 		</>
 	);
 };
 
-interface ExampleWrapperProps {
-	hasNextPage: boolean;
-	isNextPageLoading: boolean;
-	items: any[];
-	loadNextPage: () => void;
+interface RowProps {
+	content?: string;
+	style: React.CSSProperties;
 }
 
-const ExampleWrapper: React.FC<ExampleWrapperProps> = ({ hasNextPage, isNextPageLoading, items, loadNextPage }) => {
-	const itemCount = hasNextPage ? items.length + 1 : items.length;
-	const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
-	const isItemLoaded = (index: number) => !hasNextPage || index < items.length;
-
-	interface RowProps {
-		index: number;
-		style: React.CSSProperties;
-	}
-
-	const Item: React.FC<RowProps> = ({ index, style }) => {
-		let content;
-		if (!isItemLoaded(index)) {
-			content = 'Loading...';
-		} else {
-			content = items[index];
-		}
-
-		return <div style={style}>{content}</div>;
-	};
-
-	return (
-		<AutoSizer style={{ marginTop: '5px' }}>
-			{({ height, width }) => (
-				// @ts-expect-error
-				<InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems}>
-					{({ onItemsRendered, ref }) => (
-						<FixedSizeList
-							itemCount={itemCount}
-							itemSize={100}
-							onItemsRendered={onItemsRendered}
-							ref={ref}
-							height={height}
-							width={width}
-						>
-							{Item}
-						</FixedSizeList>
-					)}
-				</InfiniteLoader>
-			)}
-		</AutoSizer>
-	);
+const Item: React.FC<RowProps> = ({ content, style }) => {
+	return <div style={style}>{!!content ? content : 'loading'}</div>;
 };
 
 export default Listing;
