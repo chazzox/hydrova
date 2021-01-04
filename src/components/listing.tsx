@@ -12,16 +12,19 @@ const Listing = () => {
 	useEffect(() => {
 		if (isNextPageLoading) {
 			setTimeout(() => {
-				setItems(items.concat(Array.from({ length: 20 }, (_, i) => (1 + i + items.length).toString())));
+				setItems(items.concat(Array.from({ length: 30 }, (_, i) => (1 + i + items.length).toString())));
 				setIsNextPageLoading(false);
-				setHasNextPage(items.length < 90);
-			}, 2500);
+				setHasNextPage(items.length < 100);
+			}, 1500);
 		}
 	}, [isNextPageLoading]);
 
 	const itemCount = hasNextPage ? items.length + 1 : items.length;
 	const loadAdditionalItems = useCallback(() => {
-		if (!isNextPageLoading) setIsNextPageLoading(true);
+		if (!isNextPageLoading) {
+			console.log('fetching items');
+			setIsNextPageLoading(true);
+		}
 	}, [isNextPageLoading]);
 
 	// we use the 'as const' part so that we can extract the values as the typings got it
