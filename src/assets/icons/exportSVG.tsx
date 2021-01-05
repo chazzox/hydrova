@@ -7,6 +7,7 @@ import Upvote from './upvote.svg';
 import Downvote from './downvote.svg';
 import Search from './search.svg';
 import Save from './save.svg';
+import Mail from './mail.svg';
 import Comment from './comment.svg';
 import Reply from './reply.svg';
 import CollapseUp from './collapseUp.svg';
@@ -17,7 +18,7 @@ import CollapseRight from './collapseRight.svg';
 const SVGs = {
 	search: <Search />,
 	home: <Home />,
-	mail: <Placeholder />,
+	mail: <Mail />,
 	new: <New />,
 	settings: <Placeholder />,
 	reply: <Reply />,
