@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO } from './sidebarThunks';
 export { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO };
-import getProfileURL from '../../utils/imgQuerySplit';
-import getColor from '../../utils/randomColor';
-import unique from '../../utils/unique';
+import getProfileURL from 'utils/imgQuerySplit';
+import getColor from 'utils/randomColor';
+import unique from 'utils/unique';
 
 const sidebarReducer = createSlice({
 	name: 'sidebarReducer',

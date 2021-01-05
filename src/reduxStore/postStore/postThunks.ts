@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ReduxStateType } from '../reduxWrapper';
 
 export const GET_LISTING = createAsyncThunk<
-	{ postArray: ListingResponse },
+	{ postArray: Listing },
 	{ listingEndpointName: string; listingQueryParams?: string },
 	{ state: ReduxStateType; rejectValue: Failure }
 >('sidebar/getListing', async ({ listingEndpointName, listingQueryParams = '' }, { getState, rejectWithValue }) => {

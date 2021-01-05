@@ -18,6 +18,8 @@ const Dashboard = ({
 		state => state.post.subredditKeys[listingName]?.postKeys
 	);
 
+	const listingAfterId = useSelector<ReduxStateType, string>(state => state.post.subredditKeys[listingName]?.afterId);
+
 	useEffect(() => {
 		if (match.path === '/') {
 			setListingName('/');
@@ -32,7 +34,23 @@ const Dashboard = ({
 		dispatch(GET_LISTING({ listingEndpointName: listingName }));
 	}, [listingName]);
 
-	return <>{listingPointerArray && <Listing idKeys={listingPointerArray} name={listingName} />}</>;
+	return (
+		<>
+			{listingPointerArray && (
+				<Listing
+					idKeys={listingPointerArray}
+					fetchMore={() =>
+						dispatch(
+							GET_LISTING({
+								listingEndpointName: listingName,
+								listingQueryParams: `?after=${listingAfterId}`
+							})
+						)
+					}
+				/>
+			)}
+		</>
+	);
 };
 
 export default Dashboard;

@@ -6,10 +6,37 @@ import { GET_LISTING } from './postThunks';
 const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
-		posts: {} as {
+		posts: {
+			'': {
+				postContent: {
+					is_self: false,
+					is_video: false,
+					created_utc: 0,
+					saved: false,
+					likes: false,
+					is_gallery: false,
+					gallery_data: false,
+					url_overridden_by_dest: false,
+					domain: '',
+					ups: 0,
+					num_comments: 0,
+					post_hint: '',
+					selftext_html: '',
+					thumbnail: '',
+					url: '',
+					id: '',
+					title: '',
+					subreddit_name_prefixed: '',
+					author: '',
+					name: '',
+					permalink: ''
+				},
+				comments: { commentArray: [], latestComment: '' }
+			}
+		} as {
 			[key: string]: {
 				comments?: { commentArray: any[]; latestComment: string };
-				postContent: post;
+				postContent: Post;
 			};
 		},
 		subredditKeys: {} as {
