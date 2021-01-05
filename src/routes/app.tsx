@@ -5,8 +5,8 @@ import Sidebar from 'components/sidebar';
 import Dashboard from './dashboard';
 
 // lazy loading other components
-const Settings = lazy(() => import('./settings'));
-const Submit = lazy(() => import('./submit'));
+const Settings = lazy(() => import(/* webpackPrefetch: true */ './settings'));
+const Submit = lazy(() => import(/* webpackPrefetch: true */ './submit'));
 const Mail = lazy(() => import('./mail'));
 const User = lazy(() => import('./user'));
 

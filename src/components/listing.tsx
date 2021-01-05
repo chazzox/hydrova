@@ -1,32 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { PureComponent, useCallback, useEffect, useState } from 'react';
 import { FixedSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import GenericButton from './genericButton';
 
+const LOADING = 1;
+const LOADED = 2;
+let itemStatusMap = {} as { [key: number]: 1 | 2 };
+
+const isItemLoaded = (index: number) => !!itemStatusMap[index];
+const loadMoreItems = (startIndex: number, stopIndex: number) => {
+	for (let index = startIndex; index <= stopIndex; index++) {
+		itemStatusMap[index] = LOADING;
+	}
+	return new Promise(resolve =>
+		setTimeout(() => {
+			for (let index = startIndex; index <= stopIndex; index++) {
+				itemStatusMap[index] = LOADED;
+			}
+			resolve();
+		}, 2500)
+	);
+};
+
+const Row: React.FC<{ index: number; style: React.CSSProperties; data: any }> = ({ index, style, data }) => {
+	useEffect(() => console.log(data), []);
+	let label;
+	if (itemStatusMap[index] === LOADED) {
+		label = `Row ${index}`;
+	} else {
+		label = 'Loading...';
+	}
+	return (
+		<div className="ListItem" style={style}>
+			{label}
+		</div>
+	);
+};
+
 const Listing = () => {
-	const [hasNextPage, setHasNextPage] = useState<boolean>(true);
-	const [isNextPageLoading, setIsNextPageLoading] = useState<boolean>(false);
-	const [items, setItems] = useState<string[]>([]);
-
-	useEffect(() => {
-		if (isNextPageLoading) {
-			setTimeout(() => {
-				setItems(items.concat(Array.from({ length: 30 }, (_, i) => (1 + i + items.length).toString())));
-				setIsNextPageLoading(false);
-				setHasNextPage(items.length < 100);
-			}, 1500);
-		}
-	}, [isNextPageLoading]);
-
-	const itemCount = hasNextPage ? items.length + 1 : items.length;
-	const loadAdditionalItems = useCallback(() => {
-		if (!isNextPageLoading) {
-			console.log('fetching items');
-			setIsNextPageLoading(true);
-		}
-	}, [isNextPageLoading]);
-
 	// we use the 'as const' part so that we can extract the values as the typings got it
 	const sortOptions = ['best', 'hot', 'new', 'recent', 'rising'] as const;
 	type sortOptionType = typeof sortOptions[number];
@@ -50,24 +62,20 @@ const Listing = () => {
 						))
 					}
 				</div>
+
 				<AutoSizer style={{ marginTop: '5px' }}>
 					{({ height, width }) => (
-						<InfiniteLoader
-							isItemLoaded={(index: number) => !hasNextPage || index < items.length}
-							itemCount={itemCount}
-							// @ts-expect-error
-							loadMoreItems={loadAdditionalItems}
-						>
+						<InfiniteLoader isItemLoaded={isItemLoaded} itemCount={1000} loadMoreItems={loadMoreItems}>
 							{({ onItemsRendered, ref }) => (
 								<FixedSizeList
-									itemCount={itemCount}
+									itemCount={1000}
 									itemSize={100}
 									onItemsRendered={onItemsRendered}
 									ref={ref}
 									height={height}
 									width={width}
 								>
-									{({ index, style }) => <Item content={items[index]} style={style} />}
+									{({ index, style, data }) => <Row data={data} index={index} style={style} />}
 								</FixedSizeList>
 							)}
 						</InfiniteLoader>
