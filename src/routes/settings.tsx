@@ -1,10 +1,12 @@
 import React from 'react';
 
+import PillSelector from 'components/pillSelector';
+
 const Settings = () => {
 	return (
-		<div className="contentContainer">
-			<h1>settings page</h1>
-		</div>
+		<>
+			<PillSelector options={['account', 'appearance', 'content', 'general', 'keybinds']} />
+		</>
 	);
 };
 
