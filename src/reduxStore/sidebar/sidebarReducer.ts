@@ -11,7 +11,7 @@ const sidebarReducer = createSlice({
 	initialState: {
 		isCollapsed: false,
 
-		multiReddits: [] as multi[],
+		multiReddits: [] as Multireddit[],
 
 		subReddits: [] as SidebarStoredSub[],
 
@@ -39,7 +39,7 @@ const sidebarReducer = createSlice({
 						icon_color: getColor(multi.data.display_name)
 					}))
 				),
-				(multi: multi) => multi.display_name
+				(multi: Multireddit) => multi.display_name
 			);
 			state.multiReddits = newMultiArr;
 		});

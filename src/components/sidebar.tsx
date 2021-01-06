@@ -18,9 +18,10 @@ const Sidebar = () => {
 
 	const isCollapsed = useSelector<ReduxStateType, boolean>(state => state.sidebar.isCollapsed);
 	const userInfo = useSelector<ReduxStateType, UserAbout>(state => state.sidebar.userInfo);
-	const multiReddits = useSelector<ReduxStateType, multi[]>(state => state.sidebar.multiReddits);
+	const multiReddits = useSelector<ReduxStateType, Multireddit[]>(state => state.sidebar.multiReddits);
 	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>(state => state.sidebar.subReddits);
 
+	// fetching all user subs in batches of 25
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
 		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
@@ -68,12 +69,12 @@ const Sidebar = () => {
 						<div
 							className="icon"
 							style={
-								!!multiReddit.icon_img
+								!!!multiReddit.icon_img
 									? { backgroundColor: multiReddit.icon_color }
 									: { backgroundImage: `url(${multiReddit.icon_img})` }
 							}
 						>
-							{!!multiReddit.icon_img ? multiReddit.display_name[0].toUpperCase() : ''}
+							{!!!multiReddit.icon_img ? multiReddit.display_name[0].toUpperCase() : ''}
 						</div>
 					</GenericButton>
 				))}
@@ -89,7 +90,7 @@ const Sidebar = () => {
 								<div
 									className="icon"
 									style={
-										!!subreddit.icon_img
+										!!!subreddit.icon_img
 											? { backgroundColor: subreddit.icon_color }
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}

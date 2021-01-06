@@ -50,6 +50,8 @@ const postReducer = createSlice({
 		// subreddit thunk actions
 		// sub fetch succeeds
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
+			console.log(action.payload);
+
 			action.payload.postArray.data.children.forEach(
 				({ data }) => (state.posts[data.id] = { ...state.posts[data.id], postContent: getValues(data) })
 			);

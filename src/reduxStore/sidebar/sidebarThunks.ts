@@ -17,7 +17,7 @@ export const GET_USER_INFO = createAsyncThunk<
 });
 
 export const GET_MULTIREDDITS = createAsyncThunk<
-	userMultiSuccess,
+	UserMultiSuccess,
 	undefined,
 	{ state: ReduxStateType; rejectValue: Failure }
 >('sidebar/getMultiRedditList', async (_, { getState, rejectWithValue }) => {
@@ -28,7 +28,7 @@ export const GET_MULTIREDDITS = createAsyncThunk<
 	});
 	const responseJSON = await response.json();
 	if (response.status === 400) return rejectWithValue(responseJSON as Failure);
-	return responseJSON as userMultiSuccess;
+	return responseJSON as UserMultiSuccess;
 });
 
 export const GET_SUBREDDITS = createAsyncThunk<

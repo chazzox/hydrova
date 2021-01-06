@@ -9,3 +9,13 @@ interface AuthenticationSuccess {
 	scope: string;
 	token_type: string;
 }
+
+interface UserMultiResponse {
+	kind: string;
+	data: {
+		display_name: string;
+		icon_url: string;
+	};
+}
+
+type UserMultiSuccess = UserMultiResponse[];
