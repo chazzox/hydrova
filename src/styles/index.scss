@@ -53,7 +53,8 @@ a {
 		padding-bottom: var(--padding-size-primary);
 		position: relative;
 		flex: 1;
-		max-width: 50%;
+		max-width: 100%;
+		width: 50%;
 		flex-grow: 2;
 		flex-shrink: 1;
 		background-color: var(--background-color-tertiary);

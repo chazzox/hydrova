@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Accounts = () => {
-	return <>acc</>;
+	return <>account settings</>;
 };
 
 export default Accounts;

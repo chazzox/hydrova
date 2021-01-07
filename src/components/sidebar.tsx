@@ -57,7 +57,7 @@ const Sidebar = () => {
 			<GenericButton text="Timeline" svgPath="home" href="/" />
 			<GenericButton text="Post" svgPath="new" href="/submit" />
 			<GenericButton text="Mail" svgPath="mail" href="/mail" />
-			<GenericButton text="Settings" svgPath="settings" href="/settings" />
+			<GenericButton text="Settings" svgPath="settings" href="/settings/account" />
 
 			<div className="scrollSection">
 				{/* main sidebar content */}
