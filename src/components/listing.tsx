@@ -19,6 +19,10 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: () => void }> = ({ idKeys
 
 	const isListingBeingFetched = useSelector<ReduxStateType, boolean>(state => state.post.isFetching);
 
+	const itemCount = true ? idKeys.length + 1 : idKeys.length;
+	const loadMoreItems = isListingBeingFetched ? () => {} : fetchMore;
+	const isItemLoaded = (index: number) => !true || index < idKeys.length;
+
 	return (
 		<>
 			<div className="main">
@@ -38,52 +42,32 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: () => void }> = ({ idKeys
 					}
 				</div>
 				<div style={{ height: '100%' }}>
-					<ExampleWrapper
-						hasNextPage={true}
-						items={idKeys}
-						isNextPageLoading={isListingBeingFetched}
-						loadNextPage={() => fetchMore()}
-					/>
+					<AutoSizer style={{ marginTop: '5px', paddingBottom: '5px' }}>
+						{({ height, width }) => (
+							<InfiniteLoader
+								isItemLoaded={isItemLoaded}
+								itemCount={itemCount}
+								// @ts-expect-error
+								loadMoreItems={loadMoreItems}
+							>
+								{({ onItemsRendered, ref }) => (
+									<FixedSizeList
+										itemCount={itemCount}
+										onItemsRendered={onItemsRendered}
+										ref={ref}
+										height={height}
+										width={width}
+										itemSize={100}
+									>
+										{({ style, index }) => <Item style={style} id={idKeys[index]} />}
+									</FixedSizeList>
+								)}
+							</InfiniteLoader>
+						)}
+					</AutoSizer>
 				</div>
 			</div>
 		</>
-	);
-};
-
-const ExampleWrapper: React.FC<{
-	hasNextPage: boolean;
-	isNextPageLoading: boolean;
-	items: string[];
-	loadNextPage: () => void;
-}> = ({ hasNextPage, isNextPageLoading, items, loadNextPage }) => {
-	const itemCount = hasNextPage ? items.length + 1 : items.length;
-	const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
-	const isItemLoaded = (index: number) => !hasNextPage || index < items.length;
-
-	return (
-		<AutoSizer style={{ marginTop: '5px', paddingBottom: '5px' }}>
-			{({ height, width }) => (
-				<InfiniteLoader
-					isItemLoaded={isItemLoaded}
-					itemCount={itemCount}
-					// @ts-expect-error
-					loadMoreItems={loadMoreItems}
-				>
-					{({ onItemsRendered, ref }) => (
-						<FixedSizeList
-							itemCount={itemCount}
-							onItemsRendered={onItemsRendered}
-							ref={ref}
-							height={height}
-							width={width}
-							itemSize={100}
-						>
-							{({ style, index }) => <Item style={style} id={items[index]} />}
-						</FixedSizeList>
-					)}
-				</InfiniteLoader>
-			)}
-		</AutoSizer>
 	);
 };
 
@@ -97,7 +81,7 @@ const Item: React.FC<RowProps> = ({ id = '', style }) => {
 
 	return (
 		<>
-			{typeof content === 'string' ? (
+			{id === '' ? (
 				<div id={id} style={style} className="post">
 					loading
 				</div>
