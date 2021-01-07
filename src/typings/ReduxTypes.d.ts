@@ -1,4 +1,5 @@
 interface Post {
+	media: any;
 	is_self: boolean;
 	is_video: boolean;
 	created_utc: number;
@@ -21,3 +22,5 @@ interface Post {
 	name: string;
 	permalink: string;
 }
+
+type SortOptionType = 'best' | 'hot' | 'new' | 'top' | 'rising' | '';

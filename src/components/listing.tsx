@@ -10,15 +10,10 @@ import { Link } from 'react-router-dom';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import 'styles/component/listing.scss';
+import Sorter from './sorter';
 
 const Listing: React.FC<{ idKeys: string[]; fetchMore: () => void }> = ({ idKeys, fetchMore }) => {
-	// we use the 'as const' part so that we can extract the values as the typings got it
-	const sortOptions = ['best', 'hot', 'new', 'recent', 'rising'] as const;
-	type sortOptionType = typeof sortOptions[number];
-	const [sortType, setSortType] = useState<sortOptionType>('best');
-
-	const isListingBeingFetched = useSelector<ReduxStateType, boolean>(state => state.post.isFetching);
-
+	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetching);
 	const itemCount = true ? idKeys.length + 1 : idKeys.length;
 	const loadMoreItems = isListingBeingFetched ? () => {} : fetchMore;
 	const isItemLoaded = (index: number) => !true || index < idKeys.length;
@@ -27,19 +22,7 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: () => void }> = ({ idKeys
 		<>
 			<div className="main">
 				<div className="timelineSortContainer">
-					{
-						// mapping the sort type array and creating buttons based on that
-						sortOptions.map((sortTypeString: sortOptionType) => (
-							<GenericButton
-								key={sortTypeString}
-								text={sortTypeString}
-								isCompact={true}
-								svgPath={sortTypeString}
-								clickEvent={() => setSortType(sortTypeString)}
-								isSelected={sortType == sortTypeString}
-							/>
-						))
-					}
+					<Sorter isCommentSort={false} />
 				</div>
 				<div style={{ height: '100%' }}>
 					<AutoSizer style={{ marginTop: '5px', paddingBottom: '5px' }}>
@@ -77,11 +60,11 @@ interface RowProps {
 }
 
 const Item: React.FC<RowProps> = ({ id = '', style }) => {
-	const content = useSelector<ReduxStateType, Post>(state => state.post.posts[id]?.postContent);
+	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[id]?.postContent);
 
 	return (
 		<>
-			{id === '' ? (
+			{!Boolean(id) ? (
 				<div id={id} style={style} className="post">
 					loading
 				</div>
@@ -89,7 +72,7 @@ const Item: React.FC<RowProps> = ({ id = '', style }) => {
 				<div id={id} style={style} className="post">
 					<div className="postInfo roundedLinks">
 						<p>
-							<Link to={'/user/' + content.author}>{content.author}</Link>
+							<Link to={'/u/' + content.author}>{content.author}</Link>
 							<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
 							<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
 						</p>

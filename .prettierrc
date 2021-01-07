@@ -1,5 +1,5 @@
 {
-	"arrowParens": "avoid",
+	"arrowParens": "always",
 	"trailingComma": "none",
 	"tabWidth": 4,
 	"semi": true,

@@ -13,11 +13,11 @@ import 'styles/index.scss';
 
 const Home = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const isLoggedIn = useSelector<ReduxStateType, boolean>(state => state.auth.isLoggedIn);
+	const isLoggedIn = useSelector<ReduxStateType, boolean>((state) => state.auth.isLoggedIn);
 	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
-		state => state.auth.authenticationResultReturned
+		(state) => state.auth.authenticationResultReturned
 	);
-	const styleMode = useSelector<ReduxStateType, boolean>(state => state.style.styleMode);
+	const styleMode = useSelector<ReduxStateType, boolean>((state) => state.style.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;

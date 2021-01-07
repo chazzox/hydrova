@@ -16,16 +16,16 @@ import 'styles/component/button/round.scss';
 const Sidebar = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
-	const isCollapsed = useSelector<ReduxStateType, boolean>(state => state.sidebar.isCollapsed);
-	const userInfo = useSelector<ReduxStateType, UserAbout>(state => state.sidebar.userInfo);
-	const multiReddits = useSelector<ReduxStateType, Multireddit[]>(state => state.sidebar.multiReddits);
-	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>(state => state.sidebar.subReddits);
+	const isCollapsed = useSelector<ReduxStateType, boolean>((state) => state.sidebar.isCollapsed);
+	const userInfo = useSelector<ReduxStateType, UserAbout>((state) => state.sidebar.userInfo);
+	const multiReddits = useSelector<ReduxStateType, Multireddit[]>((state) => state.sidebar.multiReddits);
+	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>((state) => state.sidebar.subReddits);
 
 	// fetching all user subs in batches of 25
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
 		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
-			.then(originalPromiseResult => {
+			.then((originalPromiseResult) => {
 				if (originalPromiseResult.data.after) getUserSubscribedSubreddits(originalPromiseResult.data.after);
 			});
 	};

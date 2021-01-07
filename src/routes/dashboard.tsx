@@ -4,35 +4,33 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { GET_LISTING } from 'reduxStore/postStore/postThunks';
+import { setSortType } from 'reduxStore/postStore/postReducer';
 
 import Listing from 'components/listing';
+import PostPreview from 'components/PostPreview';
 
-const Dashboard: React.FC<{
-	navProps: RouteComponentProps<{ postId?: string; subName?: string; userId?: string }>;
-}> = ({ navProps: { match, location } }) => {
+interface DashboardProps {
+	listingType?: string;
+	postId?: string;
+	name?: string;
+	sortType?: SortOptionType;
+}
+
+const Dashboard: React.FC<RouteComponentProps<DashboardProps>> = ({ match, location }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [listingName, setListingName] = useState('');
 	const listingPointerArray = useSelector<ReduxStateType, string[] | undefined>(
-		state => state.post.subredditKeys[listingName]?.postKeys
+		(state) => state.post.listingKey[listingName]?.postKeys
 	);
-
-	const listingAfterId = useSelector<ReduxStateType, string>(state => state.post.subredditKeys[listingName]?.afterId);
+	const postSort = useSelector<ReduxStateType, SortOptionType>((state) => state.post.postSortType);
+	const listingAfterId = useSelector<ReduxStateType, string>((state) => state.post.listingKey[listingName]?.afterId);
 
 	useEffect(() => {
-		console.log(match.path);
-		if (match.path === '/') {
-			setListingName('/');
-		} else if (match.path === '/r/:subName') {
-			setListingName(`/r/${match.params.subName}`);
-		} else if (match.path === '/r/:subName/:postId') {
-			setListingName(`/r/${match.params.subName}`);
-		} else if (match.path === '/user/:userId') {
-			setListingName(`/user/${match.params.userId}/submitted`);
-		}
+		setListingName('/');
 	}, [match, location]);
 
 	useEffect(() => {
-		if (listingName != '') dispatch(GET_LISTING({ listingEndpointName: listingName }));
+		if (listingName) dispatch(GET_LISTING({ listingEndpointName: listingName }));
 	}, [listingName]);
 
 	return (
@@ -43,13 +41,14 @@ const Dashboard: React.FC<{
 					fetchMore={() =>
 						dispatch(
 							GET_LISTING({
-								listingEndpointName: listingName,
-								listingQueryParams: `?after=${listingAfterId}`
+								listingEndpointName: '/',
+								listingQueryParams: { afterId: listingAfterId }
 							})
 						)
 					}
 				/>
 			)}
+			{listingPointerArray && <PostPreview postKey={listingPointerArray[0]} />}
 		</>
 	);
 };

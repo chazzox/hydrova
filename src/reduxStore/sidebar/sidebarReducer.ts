@@ -23,7 +23,7 @@ const sidebarReducer = createSlice({
 			localStorage.setItem('sidebar', JSON.stringify(state));
 		}
 	},
-	extraReducers: builder => {
+	extraReducers: (builder) => {
 		builder.addCase(GET_USER_INFO.fulfilled, (state, action) => {
 			state.userInfo.name = action.payload?.name;
 			state.userInfo.total_karma = action.payload?.total_karma;
@@ -33,7 +33,7 @@ const sidebarReducer = createSlice({
 		builder.addCase(GET_MULTIREDDITS.fulfilled, (state, action) => {
 			const newMultiArr = unique(
 				state.multiReddits.concat(
-					...action.payload.map(multi => ({
+					...action.payload.map((multi) => ({
 						display_name: multi.data.display_name,
 						icon_img: multi.data.icon_url,
 						icon_color: getColor(multi.data.display_name)

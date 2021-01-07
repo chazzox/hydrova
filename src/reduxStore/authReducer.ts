@@ -32,11 +32,11 @@ const authSlice = createSlice({
 		authenticationErrors: [] as string[]
 	},
 	reducers: {
-		setNoAuthCookies: state => {
+		setNoAuthCookies: (state) => {
 			state.authenticationResultReturned = true;
 		}
 	},
-	extraReducers: builder => {
+	extraReducers: (builder) => {
 		builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
 			state.isLoggedIn = true;
 			state.authenticationResultReturned = true;
