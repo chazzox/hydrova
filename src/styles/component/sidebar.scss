@@ -153,7 +153,15 @@
 		padding: 16px var(--padding-size-primary);
 		max-width: calc(2 * var(--padding-size-primary) + 52px);
 		* {
-			color: rgba(0, 0, 0, 0) !important;
+			color: transparent !important;
+		}
+		h3 {
+			color: var(--text-color-secondary) !important;
+			text-align: center;
+			margin-left: 0;
+		}
+		#rAllFeed {
+			color: var(--text-color-primary) !important;
 		}
 		#logo {
 			margin-left: var(--padding-size-primary);

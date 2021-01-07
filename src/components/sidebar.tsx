@@ -63,7 +63,7 @@ const Sidebar = () => {
 				{/* main sidebar content */}
 				<h3>Feeds</h3>
 				<NavLink to="/r/all" activeClassName="selected">
-					<GenericButton text="All" />
+					<GenericButton text="All" id="rAllFeed" />
 				</NavLink>
 				{multiReddits.map((multiReddit, index) => (
 					<GenericButton key={index} href={'/m/' + multiReddit.display_name} text={multiReddit.display_name}>
@@ -79,7 +79,7 @@ const Sidebar = () => {
 						</div>
 					</GenericButton>
 				))}
-				<h3>My Subreddits</h3>
+				<h3>{isCollapsed ? 'Subs' : 'My Subreddits'}</h3>
 				{subReddits.map((subreddit, index) => {
 					if (subreddit.subreddit_type !== 'user')
 						return (
