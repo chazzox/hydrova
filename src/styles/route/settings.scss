@@ -1,0 +1,14 @@
+#settings {
+	color: var(--text-color-primary);
+	max-width: 1200px;
+	margin: 0 auto;
+
+	h1 {
+		color: var(--text-color-tertiary);
+		font-weight: 600;
+		font-size: 14pt;
+	}
+	p {
+		font-size: 11pt;
+	}
+}

@@ -10,6 +10,7 @@ button.roundButton {
 
 	border-radius: 50%;
 	background-color: var(--accent-color-primary);
+	color: var(--text-color-button);
 
 	border: none;
 	outline: none;
@@ -24,9 +25,14 @@ button.roundButton {
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
+	svg {
+		* {
+			stroke: var(--text-color-button);
+		}
+	}
 
 	&:hover {
-		background-color: var(--text-color-primary);
+		background-color: var(--text-color-button);
 
 		svg {
 			* {

@@ -49,7 +49,6 @@ const Sidebar = () => {
 				isRound={true}
 				clickEvent={() => dispatch(SET_SIZE_MODE(!isCollapsed))}
 			/>
-			{/* <button className="roundButton" /> */}
 			<div id="sidebarSearchWrapper">
 				{SVGS['search']}
 				<input onClick={() => dispatch(SET_SIZE_MODE(false))} type="text" id="searchBar" placeholder="Search" />

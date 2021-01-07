@@ -1,0 +1,12 @@
+.themePreview {
+	padding: var(--padding-size-primary) var(--padding-size-tertiary);
+	display: inline-block;
+	margin-right: var(--padding-size-primary);
+	margin-bottom: var(--padding-size-primary);
+	background: var(--background-color-primary);
+	color: var(--text-color-primary);
+	border-radius: var(--border-radius-primary);
+	cursor: pointer;
+	user-select: none;
+	text-transform: capitalize;
+}

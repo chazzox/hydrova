@@ -18,7 +18,7 @@ if (typeof window !== `undefined`) {
 const store = configureStore({
 	reducer: {
 		sidebar: sidebarReducer.reducer,
-		style: settingsReducer.reducer,
+		settings: settingsReducer.reducer,
 		auth: authReducer.reducer,
 		post: postReducer.reducer
 	},

@@ -7,7 +7,7 @@
 	margin: 20px auto;
 	display: flex;
 	overflow: hidden;
-	background-color: var(--background-color-secondary);
+	background-color: var(--accent-color-secondary);
 
 	.pillInside {
 		border-radius: var(--padding-size-primary);
@@ -15,7 +15,7 @@
 		cursor: pointer;
 		padding: var(--padding-size-primary) var(--padding-size-secondary);
 		text-align: center;
-		color: var(--text-color-tertiary);
+		color: var(--text-color-secondary);
 		text-transform: capitalize;
 		flex-grow: 1;
 		flex-basis: 0;

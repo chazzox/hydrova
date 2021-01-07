@@ -11,13 +11,19 @@ import App from 'routes/app';
 import 'styles/variables.scss';
 import 'styles/index.scss';
 
+import 'styles/themes/defaultDark.scss';
+import 'styles/themes/defaultLight.scss';
+import 'styles/themes/bestOfBoth.scss';
+import 'styles/themes/gruvboxLight.scss';
+import 'styles/themes/gruvboxDark.scss';
+
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
 	const authenticationResultReturned = useSelector(
 		(state: ReduxStateType) => state.auth.authenticationResultReturned
 	);
-	const styleMode = useSelector((state: ReduxStateType) => state.style.styleMode);
+	const styleMode = useSelector((state: ReduxStateType) => state.settings.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;
@@ -30,15 +36,11 @@ const Home = () => {
 		<>
 			<Helmet
 				htmlAttributes={{
-					class: styleMode === true ? 'darkMode' : 'lightMode'
+					class: styleMode
 				}}
 			>
 				<meta charSet="utf-8" />
 				<title>Hydrova | Reddit Client</title>
-				<link
-					rel="stylesheet"
-					href="https://cdn.rawgit.com/mfd/09b70eb47474836f25a21660282ce0fd/raw/e06a670afcb2b861ed2ac4a1ef752d062ef6b46b/Gilroy.css"
-				></link>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta
 					name="description"

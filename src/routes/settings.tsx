@@ -8,6 +8,8 @@ import General from './settings/general';
 import Keybinds from './settings/keybinds';
 import { Route, Router, Switch, useRouteMatch } from 'react-router-dom';
 
+import 'styles/route/settings.scss';
+
 const Settings = () => {
 	let { path } = useRouteMatch();
 

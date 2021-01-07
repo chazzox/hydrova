@@ -63,9 +63,13 @@
 .selected .genericButton,
 .genericButton:hover,
 .genericButton.selected {
+	color: var(--text-color-button);
 	svg {
+		* {
+			stroke: var(--text-color-button);
+		}
 		.fill {
-			fill: var(--text-color-primary);
+			fill: var(--text-color-button);
 		}
 	}
 }
