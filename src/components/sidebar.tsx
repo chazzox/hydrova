@@ -49,6 +49,7 @@ const Sidebar = () => {
 				isRound={true}
 				clickEvent={() => dispatch(SET_SIZE_MODE(!isCollapsed))}
 			/>
+			{/* <button className="roundButton" /> */}
 			<div id="sidebarSearchWrapper">
 				{SVGS['search']}
 				<input onClick={() => dispatch(SET_SIZE_MODE(false))} type="text" id="searchBar" placeholder="Search" />
@@ -69,12 +70,12 @@ const Sidebar = () => {
 						<div
 							className="icon"
 							style={
-								!!!multiReddit.icon_img
+								multiReddit.icon_img == ''
 									? { backgroundColor: multiReddit.icon_color }
 									: { backgroundImage: `url(${multiReddit.icon_img})` }
 							}
 						>
-							{!!!multiReddit.icon_img ? multiReddit.display_name[0].toUpperCase() : ''}
+							{multiReddit.icon_img == '' ? multiReddit.display_name[0].toUpperCase() : ''}
 						</div>
 					</GenericButton>
 				))}
@@ -90,12 +91,12 @@ const Sidebar = () => {
 								<div
 									className="icon"
 									style={
-										!!!subreddit.icon_img
+										subreddit.icon_img == ''
 											? { backgroundColor: subreddit.icon_color }
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>
-									{!!subreddit.icon_img ? subreddit.display_name[0].toUpperCase() : ''}
+									{subreddit.icon_img == '' ? subreddit.display_name[0].toUpperCase() : ''}
 								</div>
 							</GenericButton>
 						);
