@@ -1,25 +1,32 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
+
+import 'styles/component/postComponent.scss'
 
 const PostPreview: React.FC<{ postKey: string | undefined }> = ({ postKey }) => {
 	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[postKey || '']?.postContent);
 	return (
-		<div id={content.id} className={'post'}>
-			<div className="postInfo roundedLinks">
-				<p>
-					<Link to={'/u/' + content.author}>{content.author}</Link>
-					<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
-					<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
-				</p>
-				<h1 className="postTitle">
-					{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
-				</h1>
-			</div>
-			<div className="postContent">
-				<RenderPostType postContent={content} />
+		<div className="main">
+			<div className="contentContainer">
+				<div id={content.id} className={'post'}>
+					<div className="postInfo roundedLinks">
+						<p>
+							<Link to={'/u/' + content.author}>{content.author}</Link>
+							<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
+							<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
+						</p>
+						<h1 className="postTitle">
+							{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
+						</h1>
+					</div>
+					<div className="postContent">
+						<RenderPostType postContent={content} />
+					</div>
+				</div>
 			</div>
 		</div>
 	);

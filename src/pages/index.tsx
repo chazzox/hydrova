@@ -24,7 +24,7 @@ const Home = () => {
 	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
 		(state) => state.auth.authenticationResultReturned
 	);
-	const styleMode = useSelector<ReduxStateType, boolean>((state) => state.style.styleMode);
+	const styleMode = useSelector<ReduxStateType, string>((state) => state.settings.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;
