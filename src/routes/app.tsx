@@ -15,7 +15,7 @@ const App: React.FC = () => {
 			<Switch>
 				<Route path="/submit" exact render={() => <Submit />} />
 				<Route path="/mail" exact render={() => <Mail />} />
-				<Route path="/settings" exact render={() => <Settings />} />
+				<Route path="/settings" render={() => <Settings />} />
 				<Route
 					exact
 					path={['/', '/r/:subName', '/r/:subName/:postId', '/:postId', '/user/:userId']}
