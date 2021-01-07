@@ -1,77 +1,92 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { GET_LISTING } from 'reduxStore/postStore/postThunks';
-import { AppDispatch, ReduxStateType } from '../reduxStore/reduxWrapper';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { FixedSizeList } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
-import GenericButton from 'components/genericButton';
-import PostComponent from 'components/postComponent';
+import { ReduxStateType } from 'reduxStore/reduxWrapper';
+import GenericButton from './genericButton';
+import { Link } from 'react-router-dom';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import 'styles/component/listing.scss';
+import Sorter from './sorter';
 
-const Listing = ({
-	postIDArr = [],
-	postClickEvent,
-	subKey
-}: {
-	postIDArr?: string[];
-	postClickEvent: (postId: string) => void;
-	subKey: string;
-}) => {
-	const dispatch: AppDispatch = useDispatch();
-
-	// posts for this listing
-	const postJSONArr = useSelector((state: ReduxStateType) =>
-		postIDArr.map(postId => state.post.posts[postId].postContent)
-	);
-
-	// variables for fetching new when near bottom of view area
-	// const currentAfter = useSelector((state: ReduxStateType) => state.post.listingKeys[subKey]?.afterId);
-	// const isFetchingNew = useSelector((state: ReduxStateType) => state.post.listingKeys[subKey]?.isFetching);
-	// const [inScrollArea, setInScrollArea] = useState(false);
-
-	// sorting type variable
-	const [sortType, setSortType] = useState('');
-
-	// ref used for calculating the % of way through listing scroll area
-	const containerRef = useRef<HTMLDivElement>(null);
+const Listing: React.FC<{ idKeys: string[]; fetchMore: () => void }> = ({ idKeys, fetchMore }) => {
+	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetching);
+	const itemCount = true ? idKeys.length + 1 : idKeys.length;
+	const loadMoreItems = isListingBeingFetched ? () => {} : fetchMore;
+	const isItemLoaded = (index: number) => !true || index < idKeys.length;
 
 	return (
 		<>
 			<div className="main">
 				<div className="timelineSortContainer">
-					<GenericButton text="Best" isCompact={true} svgPath="best" clickEvent={() => setSortType('best')} />
-					<GenericButton text="Hot" isCompact={true} svgPath="hot" clickEvent={() => setSortType('hot')} />
-					<GenericButton
-						text="New"
-						isCompact={true}
-						svgPath="recent"
-						clickEvent={() => setSortType('recent')}
-					/>
-					<GenericButton text="Top" isCompact={true} svgPath="top" clickEvent={() => setSortType('recent')} />
-					<GenericButton
-						text="Rising"
-						isCompact={true}
-						svgPath="rising"
-						clickEvent={() => setSortType('rising')}
-					/>
+					<Sorter isCommentSort={false} />
 				</div>
-				<div className="contentContainer" style={{ paddingTop: '30px' }} ref={containerRef}>
-					{postJSONArr.map((post, index) => (
-						<Link
-							key={index}
-							id={post.id}
-							to={{ pathname: '/' + post.id }}
-							onClick={() => postClickEvent(post.id)}
-						>
-							{/* <object> is needed for the site to allow nested <a> tags */}
-							<object>
-								<PostComponent isSmall={true} postContent={post} />
-							</object>
-						</Link>
-					))}
+				<div style={{ height: '100%' }}>
+					<AutoSizer style={{ marginTop: '5px', paddingBottom: '5px' }}>
+						{({ height, width }) => (
+							<InfiniteLoader
+								isItemLoaded={isItemLoaded}
+								itemCount={itemCount}
+								// @ts-expect-error
+								loadMoreItems={loadMoreItems}
+							>
+								{({ onItemsRendered, ref }) => (
+									<FixedSizeList
+										itemCount={itemCount}
+										onItemsRendered={onItemsRendered}
+										ref={ref}
+										height={height}
+										width={width}
+										itemSize={100}
+									>
+										{({ style, index }) => <Item style={style} id={idKeys[index]} />}
+									</FixedSizeList>
+								)}
+							</InfiniteLoader>
+						)}
+					</AutoSizer>
 				</div>
 			</div>
+		</>
+	);
+};
+
+interface RowProps {
+	id?: string;
+	style: React.CSSProperties;
+}
+
+const Item: React.FC<RowProps> = ({ id = '', style }) => {
+	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[id]?.postContent);
+
+	return (
+		<>
+			{!Boolean(id) ? (
+				<div id={id} style={style} className="post">
+					loading
+				</div>
+			) : (
+				<div id={id} style={style} className="post">
+					<div className="postInfo roundedLinks">
+						<p>
+							<Link to={'/u/' + content.author}>{content.author}</Link>
+							<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
+							<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
+						</p>
+						<h1 className="postTitle">
+							{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
+						</h1>
+					</div>
+					<div className="data">
+						{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null && (
+							<img src={content.thumbnail} alt={`thumbnail for ${id}`} />
+						)}
+					</div>
+				</div>
+			)}
 		</>
 	);
 };

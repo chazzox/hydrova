@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const refreshAccessToken = createAsyncThunk<
-	responseSuccess,
+	AuthenticationSuccess,
 	{ refresh_token: string },
-	{ rejectValue: failure }
+	{ rejectValue: Failure }
 >('users/refreshAccessToken', async ({ refresh_token }, thunkApi) => {
 	const urlencoded = new URLSearchParams();
 	urlencoded.append('grant_type', 'refresh_token');
@@ -18,8 +18,8 @@ export const refreshAccessToken = createAsyncThunk<
 		body: urlencoded
 	});
 	const responseJSON = await response.json();
-	if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as failure);
-	return responseJSON as responseSuccess;
+	if (response.status === 400) return thunkApi.rejectWithValue(responseJSON as Failure);
+	return responseJSON as AuthenticationSuccess;
 });
 
 const authSlice = createSlice({
@@ -32,11 +32,11 @@ const authSlice = createSlice({
 		authenticationErrors: [] as string[]
 	},
 	reducers: {
-		setNoAuthCookies: state => {
+		setNoAuthCookies: (state) => {
 			state.authenticationResultReturned = true;
 		}
 	},
-	extraReducers: builder => {
+	extraReducers: (builder) => {
 		builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
 			state.isLoggedIn = true;
 			state.authenticationResultReturned = true;

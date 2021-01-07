@@ -6,21 +6,14 @@ interface SidebarStoredSub {
 	community_icon?: string;
 }
 
-interface multi {
+interface Multireddit {
 	icon_img: string;
 	display_name: string;
 	icon_color: string;
 }
 
-interface userSubSuccess {
-	kind: string;
-	data: {
-		after: string | null | undefined;
-		before: string | null;
-		dist: number;
-		children: {
-			kind: string;
-			data: SidebarStoredSub;
-		}[];
-	};
+interface UserAbout {
+	name: string;
+	total_karma: number;
+	icon_img: string;
 }

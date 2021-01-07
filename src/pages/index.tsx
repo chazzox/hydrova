@@ -19,16 +19,15 @@ import 'styles/themes/gruvboxDark.scss';
 import 'styles/themes/dracula.scss';
 
 const Home = () => {
-	const dispatch: AppDispatch = useDispatch();
-	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
-	const authenticationResultReturned = useSelector(
-		(state: ReduxStateType) => state.auth.authenticationResultReturned
+	const dispatch = useDispatch<AppDispatch>();
+	const isLoggedIn = useSelector<ReduxStateType, boolean>((state) => state.auth.isLoggedIn);
+	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
+		(state) => state.auth.authenticationResultReturned
 	);
-	const styleMode = useSelector((state: ReduxStateType) => state.settings.styleMode);
+	const styleMode = useSelector<ReduxStateType, boolean>((state) => state.style.styleMode);
 
 	useEffect(() => {
 		const oauthCookieData = Cookies.getJSON('refresh_token') as string;
-
 		if (oauthCookieData) dispatch(refreshAccessToken({ refresh_token: oauthCookieData }));
 		else dispatch(setNoAuthCookies());
 	}, []);
@@ -49,7 +48,7 @@ const Home = () => {
 					content="Hydrova is a free to use, high performance, Reddit client"
 				/>
 			</Helmet>
-			{authenticationResultReturned ? isLoggedIn ? <App /> : <Login /> : null}
+			{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
 		</>
 	);
 };

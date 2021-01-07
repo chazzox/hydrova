@@ -17,7 +17,7 @@ function genColor(nameToHash: string): string {
 		'#6f4a8e'
 	];
 	return colorArray[
-		[...nameToHash].map(element => element.charCodeAt(0)).reduce((a, b) => a + b) % colorArray.length
+		[...nameToHash].map((element) => element.charCodeAt(0)).reduce((a, b) => a + b) % colorArray.length
 	];
 }
 

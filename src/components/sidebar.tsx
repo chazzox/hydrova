@@ -2,30 +2,30 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Link, NavLink } from 'react-router-dom';
-import _ from 'lodash';
 
 import { ReduxStateType, AppDispatch } from 'reduxStore/reduxWrapper';
 import GenericButton from 'components/genericButton';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from 'reduxStore/sidebar/sidebarReducer';
 
 import hydrovaSVG from 'assets/logo.svg';
-import SVGS from 'assets/icons/exportSVG';
+import SVGS from 'assets/exportSVG';
 
 import 'styles/component/sidebar.scss';
 import 'styles/component/button/round.scss';
 
 const Sidebar = () => {
-	const dispatch: AppDispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
-	const isCollapsed = useSelector((state: ReduxStateType) => state.sidebar.isCollapsed);
-	const userInfo = useSelector((state: ReduxStateType) => state.sidebar.userInfo);
-	const multiReddits = useSelector((state: ReduxStateType) => state.sidebar.multiReddits);
-	const subReddits = useSelector((state: ReduxStateType) => state.sidebar.subReddits);
+	const isCollapsed = useSelector<ReduxStateType, boolean>((state) => state.sidebar.isCollapsed);
+	const userInfo = useSelector<ReduxStateType, UserAbout>((state) => state.sidebar.userInfo);
+	const multiReddits = useSelector<ReduxStateType, Multireddit[]>((state) => state.sidebar.multiReddits);
+	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>((state) => state.sidebar.subReddits);
 
+	// fetching all user subs in batches of 25
 	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
 		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
-			.then(originalPromiseResult => {
+			.then((originalPromiseResult) => {
 				if (originalPromiseResult.data.after) getUserSubscribedSubreddits(originalPromiseResult.data.after);
 			});
 	};
@@ -69,12 +69,12 @@ const Sidebar = () => {
 						<div
 							className="icon"
 							style={
-								_.isEmpty(multiReddit.icon_img)
+								multiReddit.icon_img == ''
 									? { backgroundColor: multiReddit.icon_color }
 									: { backgroundImage: `url(${multiReddit.icon_img})` }
 							}
 						>
-							{_.isEmpty(multiReddit.icon_img) ? multiReddit.display_name[0].toUpperCase() : ''}
+							{multiReddit.icon_img == '' ? multiReddit.display_name[0].toUpperCase() : ''}
 						</div>
 					</GenericButton>
 				))}
@@ -90,12 +90,12 @@ const Sidebar = () => {
 								<div
 									className="icon"
 									style={
-										_.isEmpty(subreddit.icon_img)
+										subreddit.icon_img == ''
 											? { backgroundColor: subreddit.icon_color }
 											: { backgroundImage: `url(${subreddit.icon_img})` }
 									}
 								>
-									{_.isEmpty(subreddit.icon_img) ? subreddit.display_name[0].toUpperCase() : ''}
+									{subreddit.icon_img == '' ? subreddit.display_name[0].toUpperCase() : ''}
 								</div>
 							</GenericButton>
 						);

@@ -2,24 +2,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO } from './sidebarThunks';
 export { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO };
-import getProfileURL from '../../utils/imgQuerySplit';
-import getColor from '../../utils/randomColor';
-import unique from '../../utils/unique';
+import getProfileURL from 'utils/imgQuerySplit';
+import getColor from 'utils/randomColor';
+import unique from 'utils/unique';
 
 const sidebarReducer = createSlice({
 	name: 'sidebarReducer',
 	initialState: {
 		isCollapsed: false,
 
-		multiReddits: [] as multi[],
+		multiReddits: [] as Multireddit[],
 
 		subReddits: [] as SidebarStoredSub[],
 
-		userInfo: {
-			name: '',
-			total_karma: 0,
-			icon_img: ''
-		}
+		userInfo: {} as UserAbout
 	},
 	reducers: {
 		SET_SIZE_MODE: (state, action: PayloadAction<boolean>) => {
@@ -27,7 +23,7 @@ const sidebarReducer = createSlice({
 			localStorage.setItem('sidebar', JSON.stringify(state));
 		}
 	},
-	extraReducers: builder => {
+	extraReducers: (builder) => {
 		builder.addCase(GET_USER_INFO.fulfilled, (state, action) => {
 			state.userInfo.name = action.payload?.name;
 			state.userInfo.total_karma = action.payload?.total_karma;
@@ -37,13 +33,13 @@ const sidebarReducer = createSlice({
 		builder.addCase(GET_MULTIREDDITS.fulfilled, (state, action) => {
 			const newMultiArr = unique(
 				state.multiReddits.concat(
-					...action.payload.map(multi => ({
+					...action.payload.map((multi) => ({
 						display_name: multi.data.display_name,
 						icon_img: multi.data.icon_url,
 						icon_color: getColor(multi.data.display_name)
 					}))
 				),
-				(multi: multi) => multi.display_name
+				(multi: Multireddit) => multi.display_name
 			);
 			state.multiReddits = newMultiArr;
 		});

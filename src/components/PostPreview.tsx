@@ -1,48 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-import 'styles/component/postComponent.scss';
-
-interface propTypes {
-	postContent: post;
-	isExpanded?: boolean | null;
-	additionalClassNames?: string[];
-	isSmall?: boolean;
-}
-
-const postComponent = ({ postContent, isExpanded, additionalClassNames, isSmall = false }: propTypes) => {
+const PostPreview: React.FC<{ postKey: string | undefined }> = ({ postKey }) => {
+	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[postKey || '']?.postContent);
 	return (
-		<div
-			id={postContent.id}
-			className={'post' + [additionalClassNames, ...[isExpanded ? 'expanded' : []]]?.join(' ')}
-		>
+		<div id={content.id} className={'post'}>
 			<div className="postInfo roundedLinks">
 				<p>
-					<Link to={'/user/' + postContent.author}>{postContent.author}</Link>
-					<span>{formatTimeSince(timeSinceCurrent(postContent.created_utc))}</span>
-					<Link to={'/' + postContent.subreddit_name_prefixed}>{postContent.subreddit_name_prefixed}</Link>
+					<Link to={'/u/' + content.author}>{content.author}</Link>
+					<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
+					<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
 				</p>
 				<h1 className="postTitle">
-					{new DOMParser().parseFromString(postContent.title, 'text/html').documentElement.textContent}
+					{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
 				</h1>
 			</div>
 			<div className="postContent">
-				<RenderPostType postContent={postContent} />
-				{/* {!isSmall ? (
-					<RenderPostType postContent={postContent} />
-				) : (
-					postContent?.thumbnail.match(/(default)|(self)|(unknown)/) === null &&
-					postContent?.thumbnail && (
-						<img src={postContent.thumbnail} alt={`thumbnail for ${postContent.id}`} />
-					)
-				)} */}
+				<RenderPostType postContent={content} />
 			</div>
 		</div>
 	);
 };
 
-const RenderPostType = ({ postContent }: { postContent: post }) => {
+const RenderPostType = ({ postContent }: { postContent: Post }) => {
 	if (postContent.is_self && postContent.selftext_html)
 		return (
 			<span
@@ -57,13 +40,6 @@ const RenderPostType = ({ postContent }: { postContent: post }) => {
 		return (
 			<video controls={true}>
 				<source src={postContent.media.reddit_video.fallback_url} type="video/mp4" />
-				<source
-					src={postContent.media.reddit_video.fallback_url.replace(
-						/(DASH_)(\d*)(.mp4)/,
-						(_ign1, part1: string, _ign2, part3: string, _ign3) => part1 + 'AUDIO' + part3
-					)}
-					type="audio/mp4"
-				/>
 			</video>
 		);
 	else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
@@ -91,4 +67,4 @@ const RenderPostType = ({ postContent }: { postContent: post }) => {
 	else return <>post type unknown</>;
 };
 
-export default postComponent;
+export default PostPreview;

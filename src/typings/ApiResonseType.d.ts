@@ -1,21 +1,16 @@
-interface userInfoSuccess {
-	name: string;
-	total_karma: number;
-	icon_img: string;
-}
-interface failure {
+interface Failure {
 	message: string;
 	error: number;
 }
 
-interface responseSuccess {
+interface AuthenticationSuccess {
 	access_token: string;
 	expires_in: number;
 	scope: string;
 	token_type: string;
 }
 
-interface userMulti {
+interface UserMultiResponse {
 	kind: string;
 	data: {
 		display_name: string;
@@ -23,4 +18,4 @@ interface userMulti {
 	};
 }
 
-type userMultiSuccess = userMulti[];
+type UserMultiSuccess = UserMultiResponse[];

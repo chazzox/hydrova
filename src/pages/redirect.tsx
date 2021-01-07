@@ -39,19 +39,19 @@ const Redirect: React.FC = () => {
 				redirect: 'manual'
 			})
 				// parsing the promise information
-				.then(response => response.text())
-				.then(text => JSON.parse(text) as reAuthenticationResponse)
-				.then(json => {
+				.then((response) => response.text())
+				.then((text) => JSON.parse(text) as reAuthenticationResponse)
+				.then((json) => {
 					if (json.error === undefined) {
 						const refresh_token: string = json.refresh_token;
-						Cookies.set('refresh_token', refresh_token, { sameSite: 'Strict', expires: 365 });
+						Cookies.set('refresh_token', refresh_token, { sameSite: 'lax', expires: 365 });
 						window.close();
 					} else {
 						// deal with errors from here down
 						console.log(json);
 					}
 				})
-				.catch(error => console.log(error));
+				.catch((error) => console.log(error));
 		}
 	}, []);
 	return (
