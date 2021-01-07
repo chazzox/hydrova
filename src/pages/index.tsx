@@ -16,6 +16,7 @@ import 'styles/themes/defaultLight.scss';
 import 'styles/themes/bestOfBoth.scss';
 import 'styles/themes/gruvboxLight.scss';
 import 'styles/themes/gruvboxDark.scss';
+import 'styles/themes/dracula.scss';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();

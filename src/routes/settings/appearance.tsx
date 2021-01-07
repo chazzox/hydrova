@@ -12,6 +12,7 @@ const Appearance = () => {
 			<ThemePreview themeName="bestOfBoth" />
 			<ThemePreview themeName="gruvboxLight" />
 			<ThemePreview themeName="gruvboxDark" />
+			<ThemePreview themeName="dracula" />
 		</div>
 	);
 };
