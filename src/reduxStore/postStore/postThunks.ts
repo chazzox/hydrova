@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ReduxStateType } from '../reduxWrapper';
+import { ThunkInterface } from 'typings/Thunk';
 
 export const GET_LISTING = createAsyncThunk<
 	Listing,
@@ -8,9 +8,9 @@ export const GET_LISTING = createAsyncThunk<
 		sortType?: SortOptionType;
 		listingQueryParams?: { [key: string]: string };
 	},
-	{ state: ReduxStateType; rejectValue: Failure }
+	ThunkInterface
 >(
-	'sidebar/getListing',
+	'post/getListing',
 	async ({ listingEndpointName, sortType = '', listingQueryParams }, { getState, rejectWithValue }) => {
 		const response = await fetch(
 			`https://oauth.reddit.com${listingEndpointName}${sortType}${
@@ -27,7 +27,20 @@ export const GET_LISTING = createAsyncThunk<
 			}
 		);
 		const responseJSON = await response.json();
-		if (response.status === 400) return rejectWithValue(responseJSON as Failure);
+		if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON);
 		return responseJSON;
+	}
+);
+
+export const GET_POST = createAsyncThunk<Listing, { id: string }, ThunkInterface>(
+	'post/getPost',
+	async ({ id }, { getState, rejectWithValue }) => {
+		const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
+			method: 'GET',
+			headers: { Authorization: `Bearer ${getState().auth.access_token}` }
+		});
+		const responseJSON = await response.json();
+		if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON);
+		return responseJSON as Listing;
 	}
 );
