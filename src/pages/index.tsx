@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
@@ -41,7 +41,7 @@ const Home = () => {
 					content="Hydrova is a free to use, high performance, Reddit client"
 				/>
 			</Helmet>
-			{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
+			<Suspense fallback={<></>}>{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}</Suspense>
 		</>
 	);
 };
