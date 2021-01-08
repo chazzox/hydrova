@@ -13,9 +13,10 @@ export const GET_LISTING = createAsyncThunk<
 	'sidebar/getListing',
 	async ({ listingEndpointName, sortType = '', listingQueryParams }, { getState, rejectWithValue }) => {
 		const response = await fetch(
-			`https://oauth.reddit.com${listingEndpointName}${sortType}?${
+			`https://oauth.reddit.com${listingEndpointName}${sortType}${
 				typeof listingQueryParams != 'undefined'
-					? Object.keys(listingQueryParams)
+					? '?' +
+					  Object.keys(listingQueryParams)
 							.map((key: string) => key + '=' + listingQueryParams[key])
 							.join('&')
 					: ''

@@ -1,54 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useParams, useRouteMatch } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { GET_LISTING } from 'reduxStore/postStore/postThunks';
-import { setSortType } from 'reduxStore/postStore/postReducer';
 
 import Listing from 'components/listing';
 import PostPreview from 'components/PostPreview';
 
-interface DashboardProps {
-	listingType?: string;
-	postId?: string;
-	name?: string;
-	sortType?: SortOptionType;
-}
-
-const Dashboard: React.FC<RouteComponentProps<DashboardProps>> = ({ match, location }) => {
+const Dashboard: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const [listingName, setListingName] = useState('');
+	const { listingType, listingName, postId, sortType } = useParams<UrlParameters>();
+	const routeMap = {
+		u: ['user', listingName, 'submitted'],
+		m: ['m', listingName],
+		r: ['r', listingName],
+		'': []
+	};
+
+	const [endPointName, setEndPointName] = useState('');
 	const listingPointerArray = useSelector<ReduxStateType, string[] | undefined>(
-		(state) => state.post.listingKey[listingName]?.postKeys
+		(state) => state.post.listingKey[endPointName]?.postKeys
 	);
-	const postSort = useSelector<ReduxStateType, SortOptionType>((state) => state.post.postSortType);
-	const listingAfterId = useSelector<ReduxStateType, string>((state) => state.post.listingKey[listingName]?.afterId);
+	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
+		(state) => state.post.listingKey[endPointName]?.afterId
+	);
 
 	useEffect(() => {
-		setListingName('/');
-	}, [match, location]);
+		const posName = routeMap[listingType ?? ''].join('/');
+		setEndPointName('/' + posName);
+	}, [listingType]);
 
 	useEffect(() => {
-		if (listingName) dispatch(GET_LISTING({ listingEndpointName: listingName }));
-	}, [listingName]);
+		if (endPointName) dispatch(GET_LISTING({ listingEndpointName: endPointName }));
+	}, [endPointName]);
 
 	return (
 		<>
 			{listingPointerArray && (
 				<Listing
 					idKeys={listingPointerArray}
-					fetchMore={() =>
+					fetchMore={(_, __) =>
 						dispatch(
 							GET_LISTING({
-								listingEndpointName: '/',
-								listingQueryParams: { afterId: listingAfterId }
+								listingEndpointName: endPointName,
+								sortType: sortType ?? '',
+								listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
 							})
 						)
 					}
 				/>
 			)}
-			{listingPointerArray && <PostPreview postKey={listingPointerArray[0]} />}
+			{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}
 		</>
 	);
 };

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
-import Hydrova from '../assets/icons/logo.svg';
-import queryStringToJSON from '../utils/queryString';
+import Hydrova from 'assets/icons/logo.svg';
+import queryStringToJSON from 'utils/queryString';
 
 import 'styles/redirect.scss';
 
@@ -46,9 +46,6 @@ const Redirect: React.FC = () => {
 						const refresh_token: string = json.refresh_token;
 						Cookies.set('refresh_token', refresh_token, { sameSite: 'lax', expires: 365 });
 						window.close();
-					} else {
-						// deal with errors from here down
-						console.log(json);
 					}
 				})
 				.catch((error) => console.log(error));

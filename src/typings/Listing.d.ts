@@ -17,6 +17,7 @@ interface Child {
 }
 
 interface ChildData {
+	media_meta: any;
 	approved_at_utc: null;
 	subreddit: string;
 	selftext: string;

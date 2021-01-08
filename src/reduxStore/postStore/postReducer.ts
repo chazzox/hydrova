@@ -19,16 +19,7 @@ const postReducer = createSlice({
 		postSortType: '' as SortOptionType,
 		commentSortType: '' as SortOptionType
 	},
-	reducers: {
-		setSortType(
-			state,
-			{
-				payload: { isCommentSort, sortType }
-			}: PayloadAction<{ isCommentSort: boolean; sortType: SortOptionType }>
-		) {
-			state[isCommentSort ? 'commentSortType' : 'postSortType'] = sortType;
-		}
-	},
+	reducers: {},
 	extraReducers: (builder) => {
 		// subreddit thunk actions
 		// sub fetch succeeds
