@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
-import Logo from '../assets/logo.svg';
+import Hydrova from '../assets/icons/logo.svg';
 import queryStringToJSON from '../utils/queryString';
 
 import 'styles/redirect.scss';
@@ -68,7 +68,7 @@ const Redirect: React.FC = () => {
 			</Helmet>
 
 			<div id="loginBox">
-				<img src={Logo} alt="logo" id="logo" />
+				<Hydrova />
 				<div id="loginInfo">
 					<h1>Hydrova</h1>
 					<h2>This window should close soon</h2>

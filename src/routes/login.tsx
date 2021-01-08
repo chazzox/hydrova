@@ -7,7 +7,7 @@ import { refreshAccessToken } from 'reduxStore/authReducer';
 import generateAuthenticationURL from 'utils/generateLogin';
 import GenericButton from 'components/genericButton';
 
-import hydrovaSVG from 'assets/logo.svg';
+import HydrovaSVG from 'assets/icons/logo.svg';
 
 import 'styles/route/login.scss';
 
@@ -16,7 +16,8 @@ const Login = () => {
 
 	return (
 		<div id="loginBox">
-			<img src={hydrovaSVG} alt="logo" id="logo" />
+			<HydrovaSVG />
+
 			<div id="loginInfo">
 				<h1>Hydrova</h1>
 				<h2>High Performance Reddit Client</h2>

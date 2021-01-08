@@ -43,6 +43,16 @@ a {
 	color: var(--accent-color-primary);
 }
 
+// hydrova logo
+svg {
+	.logoColorOne {
+		fill: var(--accent-color-tertiary);
+	}
+	.logoColorTwo {
+		fill: var(--accent-color-primary);
+	}
+}
+
 .roundedLinks {
 	a,
 	p a,

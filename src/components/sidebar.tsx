@@ -7,7 +7,6 @@ import { ReduxStateType, AppDispatch } from 'reduxStore/reduxWrapper';
 import GenericButton from 'components/genericButton';
 import { SET_SIZE_MODE, GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from 'reduxStore/sidebar/sidebarReducer';
 
-import hydrovaSVG from 'assets/logo.svg';
 import SVGS from 'assets/exportSVG';
 
 import 'styles/component/sidebar.scss';
@@ -39,9 +38,7 @@ const Sidebar = () => {
 	return (
 		<div id="sidebar" className={`backgroundTransition ${isCollapsed ? 'compact' : ''}`}>
 			<div id="navTitleContainer">
-				<Link to="/">
-					<img src={hydrovaSVG} id="logo" alt="" />
-				</Link>
+				<Link to="/">{SVGS['hydrova']}</Link>
 				<h1 id="navTitle">Hydrova</h1>
 			</div>
 			<GenericButton

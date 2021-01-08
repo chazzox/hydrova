@@ -37,6 +37,18 @@
 		overflow: hidden;
 		display: inline-block;
 		width: fit-content;
+
+		svg {
+			width: 34px;
+			height: 34px;
+			vertical-align: middle;
+			margin-right: var(--padding-size-secondary);
+			transition: margin 0.4s ease;
+			-webkit-transition: margin 0.4s ease;
+			-moz-transition: margin 0.4s ease;
+			-o-transition: margin 0.4s ease;
+			-ms-transition: margin 0.4s ease;
+		}
 	}
 
 	// serach bar
@@ -127,17 +139,6 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-	}
-
-	#logo {
-		width: 38px;
-		vertical-align: middle;
-		margin-right: var(--padding-size-secondary);
-		transition: margin 0.4s ease;
-		-webkit-transition: margin 0.4s ease;
-		-moz-transition: margin 0.4s ease;
-		-o-transition: margin 0.4s ease;
-		-ms-transition: margin 0.4s ease;
 	}
 
 	// Hydrova text

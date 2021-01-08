@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import Logo from '../assets/logo.svg';
+import Hydrova from '../assets/icons/logo.svg';
 
 const Redirect: React.FC = () => {
 	return (
@@ -18,7 +18,7 @@ const Redirect: React.FC = () => {
 			</Helmet>
 
 			<div id="loginBox">
-				<img src={Logo} alt="logo" id="logo" />
+				<Hydrova />
 				<div id="loginInfo">
 					<h1>Hydrova - 404 Site</h1>
 					<h2>Tempororary 404 Page</h2>

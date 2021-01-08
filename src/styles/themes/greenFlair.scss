@@ -8,8 +8,9 @@ html.greenFlair,
 
 	--border-color: rgba(245, 247, 251, 1);
 
-	--accent-color-primary: rgba(0, 204, 143, 1);
+	--accent-color-primary: rgb(0, 204, 143);
 	--accent-color-secondary: rgb(109, 112, 134);
+	--accent-color-tertiary: rgb(0, 138, 117);
 
 	--text-color-primary: rgba(0, 0, 0, 1);
 	--text-color-secondary: rgba(0, 0, 0, 0.75);
@@ -43,6 +44,9 @@ html.greenFlair,
 				color: rgb(218, 219, 224);
 				background-color: rgba(109, 112, 134, 1);
 			}
+		}
+		.selected .pillInside {
+			color: white;
 		}
 	}
 }
