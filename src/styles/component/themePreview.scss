@@ -18,11 +18,11 @@ html {
 	border-width: 5px;
 	border-color: var(--bgColor);
 
-	transition: border-color 0.4s ease;
-	-webkit-transition: border-color 0.4s ease;
-	-moz-transition: border-color 0.4s ease;
-	-o-transition: border-color 0.4s ease;
-	-ms-transition: border-color 0.4s ease;
+	transition: border-color 1s ease;
+	-webkit-transition: border-color 1s ease;
+	-moz-transition: border-color 1s ease;
+	-o-transition: border-color 1s ease;
+	-ms-transition: border-color 1s ease;
 
 	&.selected {
 		border-color: var(--accent-color-primary);
