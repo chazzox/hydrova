@@ -9,10 +9,13 @@ const Appearance = () => {
 			<p>The colors used to style the user interface</p>
 			<ThemePreview themeName="defaultDark" />
 			<ThemePreview themeName="defaultLight" />
+			<ThemePreview themeName="dracula" />
 			<ThemePreview themeName="bestOfBoth" />
 			<ThemePreview themeName="gruvboxLight" />
 			<ThemePreview themeName="gruvboxDark" />
-			<ThemePreview themeName="dracula" />
+			<ThemePreview themeName="horizonLight" />
+			<ThemePreview themeName="horizonDark" />
+			<ThemePreview themeName="greenFlair" />
 		</div>
 	);
 };

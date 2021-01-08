@@ -1,9 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+@import url('themes/bestOfBoth.scss');
+@import url('themes/defaultDark.scss');
+@import url('themes/defaultLight.scss');
+@import url('themes/dracula.scss');
+@import url('themes/gruvboxDark.scss');
+@import url('themes/gruvboxLight.scss');
+@import url('themes/horizonLight.scss');
+@import url('themes/hoirzonDark.scss');
+@import url('themes/greenFlair.scss');
+
 * {
 	font-family: 'Roboto', sans-serif;
 	box-sizing: border-box;
 	letter-spacing: 0.5pt;
+}
+
+body,
+.main,
+.bgTransition {
+	transition: background-color 0.4s ease;
+	-webkit-transition: background-color 0.4s ease;
+	-moz-transition: background-color 0.4s ease;
+	-o-transition: background-color 0.4s ease;
+	-ms-transition: background-color 0.4s ease;
 }
 
 body {

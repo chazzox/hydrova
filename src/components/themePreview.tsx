@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'reduxStore/reduxWrapper';
-import { SET_STYLE_MODE } from 'reduxStore/settingsReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
+import { SET_STYLE_MODE, PREVIEW_STYLE_MODE, SET_PREVIOUS_STYLE_MODE } from 'reduxStore/settingsReducer';
 
 import 'styles/component/themePreview.scss';
 
 const ThemePreview: React.FC<{ themeName: string }> = ({ themeName }) => {
 	const dispatch: AppDispatch = useDispatch();
+	const currentStyle = useSelector<ReduxStateType>((state) => state.settings.styleMode);
 	return (
 		<div
-			className="themePreview"
+			className={`themePreview ${currentStyle == themeName ? 'selected' : ''}`}
 			id={themeName + 'Theme'}
 			onClick={() => dispatch(SET_STYLE_MODE(`${themeName}`))}
-			onMouseOver={() => dispatch(SET_STYLE_MODE(`${themeName}`))}
+			onMouseOver={() => dispatch(PREVIEW_STYLE_MODE(`${themeName}`))}
+			onMouseOut={() => dispatch(SET_PREVIOUS_STYLE_MODE())}
 		>
 			{
 				/* insert space between lower case and upper case character

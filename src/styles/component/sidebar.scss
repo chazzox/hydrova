@@ -1,5 +1,5 @@
 #sidebar {
-	background: var(--background-color-secondary);
+	background-color: var(--background-color-secondary);
 	color: var(--dark-txt-col);
 
 	padding: 16px var(--padding-size-tertiary);
@@ -25,11 +25,11 @@
 		-ms-transition: color 0.2s ease;
 	}
 
-	transition: max-width 0.4s ease, padding 0.4s ease;
-	-webkit-transition: max-width 0.4s ease, padding 0.4s ease;
-	-moz-transition: max-width 0.4s ease, padding 0.4s ease;
-	-o-transition: max-width 0.4s ease, padding 0.4s ease;
-	-ms-transition: max-width 0.4s ease, padding 0.4s ease;
+	transition: max-width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+	-webkit-transition: max-width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+	-moz-transition: max-width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+	-o-transition: max-width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+	-ms-transition: max-width 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
 
 	// container for "Hydrova" logo
 	#navTitleContainer {
@@ -201,6 +201,12 @@ h3 {
 
 	box-shadow: 0px -40px 40px 0px var(--background-color-secondary);
 	background-color: var(--background-color-secondary);
+
+	transition: background-color 0.4s ease, box-shadow 0.4s ease;
+	-webkit-transition: background-color 0.4s ease, box-shadow 0.4s ease;
+	-moz-transition: background-color 0.4s ease, box-shadow 0.4s ease;
+	-o-transition: background-color 0.4s ease, box-shadow 0.4s ease;
+	-ms-transition: background-color 0.4s ease, box-shadow 0.4s ease;
 
 	position: absolute;
 	bottom: 0;

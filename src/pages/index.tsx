@@ -11,13 +11,6 @@ import App from 'routes/app';
 import 'styles/variables.scss';
 import 'styles/index.scss';
 
-import 'styles/themes/defaultDark.scss';
-import 'styles/themes/defaultLight.scss';
-import 'styles/themes/bestOfBoth.scss';
-import 'styles/themes/gruvboxLight.scss';
-import 'styles/themes/gruvboxDark.scss';
-import 'styles/themes/dracula.scss';
-
 const Home = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector<ReduxStateType, boolean>((state) => state.auth.isLoggedIn);

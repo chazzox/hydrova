@@ -37,7 +37,7 @@ const Sidebar = () => {
 	}, []);
 
 	return (
-		<div id="sidebar" className={isCollapsed ? 'compact' : ''}>
+		<div id="sidebar" className={`backgroundTransition ${isCollapsed ? 'compact' : ''}`}>
 			<div id="navTitleContainer">
 				<Link to="/">
 					<img src={hydrovaSVG} id="logo" alt="" />

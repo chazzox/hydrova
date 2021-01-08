@@ -1,0 +1,21 @@
+html.horizonLight,
+#horizonLightTheme {
+	--background-color-primary: rgb(233, 220, 218);
+	--background-color-secondary: rgb(253, 240, 238);
+	--background-color-tertiary: rgb(253, 240, 238);
+
+	--text-color-button: black;
+
+	--border-color: rgba(246, 210, 220, 1);
+
+	--accent-color-primary: rgba(234, 83, 120, 1);
+	--accent-color-secondary: rgba(252, 223, 219, 1);
+
+	--text-color-primary: rgba(0, 0, 0, 1);
+	--text-color-secondary: rgba(0, 0, 0, 0.75);
+	--text-color-tertiary: rgba(0, 0, 0, 0.6);
+
+	.selected {
+		--text-color-button: white;
+	}
+}

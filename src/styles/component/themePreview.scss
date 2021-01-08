@@ -1,12 +1,31 @@
+html {
+	--bgColor: var(--background-color-tertiary);
+}
+
 .themePreview {
-	padding: var(--padding-size-primary) var(--padding-size-tertiary);
+	padding: var(--padding-size-primary);
+	text-align: center;
 	display: inline-block;
-	margin-right: var(--padding-size-primary);
-	margin-bottom: var(--padding-size-primary);
 	background: var(--background-color-primary);
 	color: var(--text-color-primary);
 	border-radius: var(--border-radius-primary);
 	cursor: pointer;
 	user-select: none;
 	text-transform: capitalize;
+	max-width: calc(300px - var(--padding-size-primary));
+	width: 100%;
+	border-style: solid;
+	border-width: 5px;
+	border-color: var(--bgColor);
+
+	transition: border-color 0.4s ease;
+	-webkit-transition: border-color 0.4s ease;
+	-moz-transition: border-color 0.4s ease;
+	-o-transition: border-color 0.4s ease;
+	-ms-transition: border-color 0.4s ease;
+
+	&.selected {
+		border-color: var(--accent-color-primary);
+		font-weight: 600;
+	}
 }

@@ -30,6 +30,6 @@
 	.selected > .pillInside {
 		color: var(--text-color-button);
 		font-weight: 600;
-		background-color: var(--accent-color-primary);
+		background-color: var(--accent-color-primary) !important;
 	}
 }
