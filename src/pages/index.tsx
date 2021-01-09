@@ -12,6 +12,9 @@ import 'styles/index.scss';
 import 'styles/variables.scss';
 
 const Home = () => {
+	// gatsby does not support react.suspense yet, therefor this is need for build to succeed
+	const isSSR = typeof window === 'undefined';
+
 	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector<ReduxStateType, boolean>((state) => state.auth.isLoggedIn);
 	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
@@ -41,7 +44,11 @@ const Home = () => {
 					content="Hydrova is a free to use, high performance, Reddit client"
 				/>
 			</Helmet>
-			<Suspense fallback={<></>}>{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}</Suspense>
+			{!isSSR && (
+				<Suspense fallback={<></>}>
+					{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
+				</Suspense>
+			)}
 		</>
 	);
 };
