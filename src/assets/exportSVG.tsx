@@ -7,19 +7,18 @@ import Upvote from './icons/upvote.svg';
 import Downvote from './icons/downvote.svg';
 import Search from './icons/search.svg';
 import Save from './icons/save.svg';
+import Mail from './icons/mail.svg';
 import Comment from './icons/comment.svg';
 import Reply from './icons/reply.svg';
 import CollapseUp from './icons/collapseUp.svg';
 import CollapseDown from './icons/collapseDown.svg';
 import CollapseLeft from './icons/collapseLeft.svg';
 import CollapseRight from './icons/collapseRight.svg';
-import Hydrova from './icons/logo.svg';
 
 const SVGs = {
-	hydrova: <Hydrova />,
 	search: <Search />,
 	home: <Home />,
-	mail: <Placeholder />,
+	mail: <Mail />,
 	new: <New />,
 	settings: <Placeholder />,
 	reply: <Reply />,
