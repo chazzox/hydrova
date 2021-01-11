@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { refreshAccessToken, setNoAuthCookies } from 'reduxStore/authReducer';
-import Login from 'routes/login';
 import App from 'routes/app';
+const Login = lazy(() => import('routes/login'));
 
-import 'styles/variables.scss';
 import 'styles/index.scss';
+import 'styles/variables.scss';
 
 const Home = () => {
+	// gatsby does not support react.suspense yet, therefor this is need for build to succeed
+	const isSSR = typeof window === 'undefined';
+
 	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector<ReduxStateType, boolean>((state) => state.auth.isLoggedIn);
 	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
@@ -41,7 +44,11 @@ const Home = () => {
 					content="Hydrova is a free to use, high performance, Reddit client"
 				/>
 			</Helmet>
-			{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
+			{!isSSR && (
+				<Suspense fallback={<></>}>
+					{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
+				</Suspense>
+			)}
 		</>
 	);
 };

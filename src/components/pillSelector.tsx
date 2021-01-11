@@ -10,8 +10,8 @@ const PillSelector: React.FC<{ options: string[]; label?: string }> = ({ options
 			{label && <h1>{label}</h1>}
 			<div className="pillSelector">
 				{options &&
-					options.map((option) => (
-						<NavLink exact to={`${url}/${option}`} activeClassName="selected">
+					options.map((option, index) => (
+						<NavLink key={index} exact to={`${url}/${option}`} activeClassName="selected">
 							<div id={option} className="pillInside">
 								{option}
 							</div>

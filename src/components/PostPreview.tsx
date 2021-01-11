@@ -1,31 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-import 'styles/component/postComponent.scss'
+import 'styles/component/postComponent.scss';
 
-const PostPreview: React.FC<{ postKey: string | undefined }> = ({ postKey }) => {
-	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[postKey || '']?.postContent);
+const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
+	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]?.postContent);
+	useEffect(() => {
+		if (!content) console.log('time to fetch');
+	}, [content, postKey]);
+
 	return (
 		<div className="main">
 			<div className="contentContainer">
-				<div id={content.id} className={'post'}>
+				<div id={content?.id} className={'post expanded'}>
 					<div className="postInfo roundedLinks">
 						<p>
-							<Link to={'/u/' + content.author}>{content.author}</Link>
-							<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
-							<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
+							<Link to={'/u/' + content?.author}>{content?.author}</Link>
+							<span>{formatTimeSince(timeSinceCurrent(content?.created_utc ?? 0))}</span>
+							<Link to={'/' + content?.subreddit_name_prefixed}>{content?.subreddit_name_prefixed}</Link>
 						</p>
 						<h1 className="postTitle">
-							{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
+							{
+								new DOMParser().parseFromString(content?.title ?? '', 'text/html').documentElement
+									.textContent
+							}
 						</h1>
 					</div>
-					<div className="postContent">
-						<RenderPostType postContent={content} />
-					</div>
+					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
 				</div>
 			</div>
 		</div>

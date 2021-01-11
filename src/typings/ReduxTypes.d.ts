@@ -1,4 +1,6 @@
 interface Post {
+	subreddit: string;
+	media_meta: any;
 	media: any;
 	is_self: boolean;
 	is_video: boolean;
@@ -6,8 +8,8 @@ interface Post {
 	saved: boolean;
 	likes: boolean | null;
 	is_gallery?: boolean;
-	gallery_data?: boolean;
-	url_overridden_by_dest?: boolean;
+	gallery_data?: any;
+	url_overridden_by_dest?: string;
 	domain: string;
 	ups: number;
 	num_comments: number;
