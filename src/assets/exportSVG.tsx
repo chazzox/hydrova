@@ -14,13 +14,14 @@ import CollapseUp from './icons/collapseUp.svg';
 import CollapseDown from './icons/collapseDown.svg';
 import CollapseLeft from './icons/collapseLeft.svg';
 import CollapseRight from './icons/collapseRight.svg';
+import Settings from './icons/settings.svg';
 
 const SVGs = {
 	search: <Search />,
 	home: <Home />,
 	mail: <Mail />,
 	new: <New />,
-	settings: <Placeholder />,
+	settings: <Settings />,
 	reply: <Reply />,
 	upvote: <Upvote />,
 	downvote: <Downvote />,
