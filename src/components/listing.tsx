@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
@@ -15,7 +15,7 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: (arg1: number, arg2: numb
 	idKeys,
 	fetchMore
 }) => {
-	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetching);
+	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetchingListing);
 	const itemCount = idKeys.length + 1;
 
 	return (

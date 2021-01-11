@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 
 import Listing from 'components/listing';
-import PostPreview from 'components/PostPreview';
+import PostPreview from 'components/postPreview';
 
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();

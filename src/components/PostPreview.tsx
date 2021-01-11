@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ReduxStateType } from 'reduxStore/reduxWrapper';
+import { GET_POST } from 'reduxStore/postStore/postThunks';
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
+
+import Comments from './postComments';
+import VoteControls from './voteControls';
 
 import 'styles/component/postComponent.scss';
 
 const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
+	const dispatch = useDispatch<AppDispatch>();
 	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]?.postContent);
+
 	useEffect(() => {
-		if (!content) console.log('time to fetch');
+		if (!content) dispatch(GET_POST({ id: postKey }));
 	}, [content, postKey]);
 
 	return (
 		<div className="main">
-			<div className="contentContainer">
-				<div id={content?.id} className={'post expanded'}>
+			{content && <VoteControls postContent={content} />}
+			<div className="contentContainer" style={{ height: '100%' }}>
+				<div id={content?.id} className="post expanded">
 					<div className="postInfo roundedLinks">
 						<p>
 							<Link to={'/u/' + content?.author}>{content?.author}</Link>
@@ -31,6 +38,9 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 						</h1>
 					</div>
 					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
+				</div>
+				<div className="comment" style={{ display: 'flex' }}>
+					<Comments />
 				</div>
 			</div>
 		</div>
@@ -63,7 +73,7 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 	else if (postContent.is_gallery)
 		return (
 			<span className="galleryContent">
-				{postContent.gallery_data?.items.map(({ media_id }, index) => {
+				{postContent.gallery_data?.items.map(({ media_id }: any, index: number) => {
 					if (postContent?.media_meta)
 						return (
 							<img

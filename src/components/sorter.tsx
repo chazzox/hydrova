@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { setSortType } from 'reduxStore/postStore/postReducer';
 import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import GenericButton from './genericButton';
 

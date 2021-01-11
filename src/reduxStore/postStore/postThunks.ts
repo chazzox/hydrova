@@ -32,7 +32,7 @@ export const GET_LISTING = createAsyncThunk<
 	}
 );
 
-export const GET_POST = createAsyncThunk<Listing, { id: string }, ThunkInterface>(
+export const GET_POST = createAsyncThunk<GeneralPostResponse, { id: string }, ThunkInterface>(
 	'post/getPost',
 	async ({ id }, { getState, rejectWithValue }) => {
 		const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
@@ -41,6 +41,6 @@ export const GET_POST = createAsyncThunk<Listing, { id: string }, ThunkInterface
 		});
 		const responseJSON = await response.json();
 		if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON);
-		return responseJSON as Listing;
+		return responseJSON;
 	}
 );

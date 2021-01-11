@@ -16,6 +16,7 @@ interface propTypes {
 	isCompact?: boolean;
 	isRound?: boolean;
 	children?: JSX.Element;
+	isExact?: boolean;
 }
 
 const GenericButton = ({
@@ -27,7 +28,8 @@ const GenericButton = ({
 	isCompact,
 	isRound,
 	isSelected,
-	children
+	children,
+	isExact = true
 }: propTypes) => {
 	const Content = () => (
 		<button
@@ -45,7 +47,7 @@ const GenericButton = ({
 	return (
 		<>
 			{href ? (
-				<NavLink exact to={href} activeClassName="selected">
+				<NavLink exact={isExact} to={href} activeClassName="selected">
 					<Content />
 				</NavLink>
 			) : (

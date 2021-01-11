@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import getValues from '../../utils/getPostValues';
 
-import { GET_LISTING } from './postThunks';
+import { GET_LISTING, GET_POST } from './postThunks';
 
 const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
 		posts: {} as {
 			[key: string]: {
-				comments?: { commentArray: any[]; latestComment: string };
 				postContent: Post;
 			};
 		},
 		listingKey: {} as {
-			[key: string]: { postKeys?: string[]; afterId: string; isFetching: boolean };
+			[key: string]: { postKeys?: string[]; afterId: string; isFetchingListing: boolean };
 		},
-		isFetching: false,
+		isFetchingListing: false,
+		isFetchingComment: false,
 		postSortType: '' as SortOptionType,
 		commentSortType: '' as SortOptionType
 	},
@@ -35,23 +35,26 @@ const postReducer = createSlice({
 				],
 				afterId: action.payload.data.after
 			};
-			state.isFetching = false;
+			state.isFetchingListing = false;
 		});
 
 		builder.addCase(GET_LISTING.pending, (state) => {
-			state.isFetching = true;
+			state.isFetchingListing = true;
 		});
 
 		//  sub fetch failed
-		builder.addCase(GET_LISTING.rejected, (state, action) => {
-			state.listingKey[action.meta.arg.listingEndpointName] = {
-				...state.listingKey[action.meta.arg.listingEndpointName],
-				isFetching: false
-			};
+		builder.addCase(GET_LISTING.rejected, (state) => {
+			state.isFetchingListing = false;
+		});
+
+		// get post thunk actions
+		builder.addCase(GET_POST.fulfilled, (state, action) => {
+			state.isFetchingListing = true;
+		});
+		builder.addCase(GET_POST.pending, (state, action) => {
+			state.isFetchingListing = false;
 		});
 	}
 });
-
-export const { setSortType } = postReducer.actions;
 
 export default postReducer;
