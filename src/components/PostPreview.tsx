@@ -6,7 +6,6 @@ import { GET_POST } from 'reduxStore/postStore/postThunks';
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-import Comments from './postComments';
 import VoteControls from './voteControls';
 
 import 'styles/component/postComponent.scss';
@@ -39,9 +38,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 					</div>
 					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
 				</div>
-				<div className="comment" style={{ display: 'flex' }}>
-					<Comments />
-				</div>
+				<div className="comment" style={{ display: 'flex' }}></div>
 			</div>
 		</div>
 	);
