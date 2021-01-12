@@ -17,6 +17,7 @@ interface propTypes {
 	isRound?: boolean;
 	children?: JSX.Element;
 	isExact?: boolean;
+	additionalStyles?: React.CSSProperties;
 }
 
 const GenericButton = ({
@@ -29,31 +30,28 @@ const GenericButton = ({
 	isRound,
 	isSelected,
 	children,
-	isExact = true
+	isExact = true,
+	additionalStyles = {}
 }: propTypes) => {
 	const Content = () => (
 		<button
 			id={id ? id : ''}
 			onClick={clickEvent}
-			className={`genericButton ${isRound && 'roundButton'} ${isCompact && 'compactButton'} ${
-				!text && 'noText'
-			} ${isSelected && 'selected'}`}
+			className={`genericButton ${isRound ? 'roundButton' : ''} ${isCompact ? 'compactButton' : ''} ${
+				!text ? 'noText' : ''
+			} ${isSelected ? 'selected' : ''}`}
+			style={additionalStyles}
 		>
 			{svgPath && SVGS[svgPath]}
 			{children}
 			{text}
 		</button>
 	);
+	if (!href) return <Content />;
 	return (
-		<>
-			{href ? (
-				<NavLink exact={isExact} to={href} activeClassName="selected">
-					<Content />
-				</NavLink>
-			) : (
-				<Content />
-			)}
-		</>
+		<NavLink exact={isExact} to={href} activeClassName="selected">
+			<Content />
+		</NavLink>
 	);
 };
 
