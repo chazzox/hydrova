@@ -1,14 +1,18 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import Hydrova from '../assets/icons/logo.svg';
+import Hydrova from 'assets/icons/logo.svg';
+
+import 'styles/index.scss';
+import 'styles/route/login.scss';
+import 'styles/redirect.scss';
 
 const Redirect: React.FC = () => {
 	return (
 		<>
 			<Helmet
 				htmlAttributes={{
-					class: 'darkMode'
+					class: 'defaultDark'
 				}}
 			>
 				<meta charSet="utf-8" />
