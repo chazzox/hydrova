@@ -2,6 +2,6 @@
 
 High Performance Reddit Client
 
-## this is still in alpha, do not expect your experience to be user friendly or fully functional
+## About
 
-### there are currently no plans for moderation functionality to be added, this could change in a future build
+This repo is currently in active development, expect things to not work, features to be changed and settings to be rewritten.:GitGutterToggle
