@@ -1,50 +1,17 @@
-import React, { DependencyList, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeNodeData, FixedSizeNodePublicState, FixedSizeTree } from 'react-vtree';
 import { NodeComponentProps, TreeWalkerValue } from 'react-vtree/dist/es/Tree';
-import { noop } from 'react-vtree/dist/es/utils';
 import GenericButton from './genericButton';
-
-export type AsyncTaskSchedulerFinalizeCallback<T> = (ids: readonly T[]) => void;
-
-export class AsyncTaskScheduler<T> {
-	private readonly aborters: Set<() => void> = new Set();
-	private readonly finalizeCallback: AsyncTaskSchedulerFinalizeCallback<T>;
-	private readonly tasks: Map<T, () => void> = new Map();
-
-	public constructor(finalizeCallback: AsyncTaskSchedulerFinalizeCallback<T>) {
-		this.finalizeCallback = finalizeCallback;
-	}
-
-	public add(id: T, task: () => void, aborter: () => void): void {
-		this.tasks.set(id, task);
-		this.dropOthers();
-		this.aborters.add(aborter);
-	}
-
-	public finalize(): void {
-		this.tasks.forEach((task) => task());
-
-		this.finalizeCallback(Array.from(this.tasks.keys()));
-	}
-
-	private dropOthers(): void {
-		this.aborters.forEach((aborter) => aborter());
-		this.aborters.clear();
-	}
-}
 
 type TreeNode = Readonly<{
 	children: TreeNode[];
-	downloaded: boolean;
 	id: number;
 	name: string;
 }>;
 
 type TreeData = FixedSizeNodeData &
 	Readonly<{
-		downloaded: boolean;
-		download: () => Promise<void>;
 		isLeaf: boolean;
 		name: string;
 		nestingLevel: number;
@@ -52,12 +19,10 @@ type TreeData = FixedSizeNodeData &
 
 let nodeId = 0;
 
-const createNode = (downloadedIds: readonly number[], depth: number = 0): TreeNode => {
-	const id = nodeId;
+const createNode = (depth: number = 0): TreeNode => {
 	const node: TreeNode = {
 		children: [],
-		downloaded: downloadedIds.includes(id),
-		id,
+		id: nodeId,
 		name: `test-${nodeId}`
 	};
 
@@ -67,13 +32,14 @@ const createNode = (downloadedIds: readonly number[], depth: number = 0): TreeNo
 		return node;
 	}
 
-	for (let i = 0; i < 1000; i++) {
-		node.children.push(createNode(downloadedIds, depth + 1));
+	for (let i = 0; i < 10; i++) {
+		node.children.push(createNode(depth + 1));
 	}
 
 	return node;
 };
 
+const rootNode = Array.from({ length: 10 }, () => createNode());
 const defaultTextStyle = { marginLeft: 10 };
 
 type NodeMeta = Readonly<{
@@ -81,17 +47,11 @@ type NodeMeta = Readonly<{
 	node: TreeNode;
 }>;
 
-const getNodeData = (
-	node: TreeNode,
-	nestingLevel: number,
-	download: () => Promise<void>
-): TreeWalkerValue<TreeData, NodeMeta> => ({
+const getNodeData = (node: TreeNode, nestingLevel: number): TreeWalkerValue<TreeData, NodeMeta> => ({
 	data: {
-		download,
-		downloaded: node.downloaded,
 		id: node.id.toString(),
 		isLeaf: node.children.length === 0,
-		isOpenByDefault: false,
+		isOpenByDefault: true,
 		name: node.name,
 		nestingLevel
 	},
@@ -99,128 +59,67 @@ const getNodeData = (
 	node
 });
 
-const useBuildingPromise = (deps: DependencyList) => {
-	const resolve = useRef(noop);
+function* treeWalker(): TreeWalker {
+	// Step [1]: Define the root node of our tree. There can be one or
+	// multiple nodes.
+	for (let i = 0; i < rootNode.length; i++) {
+		yield getNodeData(rootNode[i], 0);
+	}
 
-	useEffect(() => {
-		resolve.current();
-	}, deps);
+	while (true) {
+		// Step [2]: Get the parent component back. It will be the object
+		// the `getNodeData` function constructed, so you can read any data from it.
+		const parent = yield;
 
-	return () =>
-		new Promise((r) => {
-			resolve.current = r;
-		});
-};
+		for (let i = 0; i < parent.node.children.length; i++) {
+			// Step [3]: Yielding all the children of the provided component. Then we
+			// will return for the step [2] with the first children.
+			yield getNodeData(parent.node.children[i], parent.nestingLevel + 1);
+		}
+	}
+}
 
 const Node: React.FC<NodeComponentProps<TreeData, FixedSizeNodePublicState<TreeData>>> = ({
-	data: { download, downloaded, isLeaf, name, nestingLevel },
+	data: { isLeaf, name, nestingLevel },
 	isOpen,
 	style,
 	setOpen
-}) => {
-	const [isLoading, setLoading] = useState(false);
-	const createBuildingPromise = useBuildingPromise([download]);
-
-	return (
-		<div
-			style={{
-				...style,
-				alignItems: 'center',
-				display: 'flex',
-				marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0)
-			}}
-		>
-			{!isLeaf && (
-				<div>
-					<GenericButton
-						text={isLoading ? '⌛' : isOpen ? '-' : '+'}
-						clickEvent={
-							!isLoading
-								? async () => {
-										if (!downloaded) {
-											setLoading(true);
-											await Promise.all([download(), setOpen(!isOpen), createBuildingPromise()]);
-											setLoading(false);
-										} else {
-											await setOpen(!isOpen);
-										}
-								  }
-								: undefined
-						}
-					/>
-				</div>
-			)}
-			<div style={defaultTextStyle}>{name}</div>
-		</div>
-	);
-};
+}) => (
+	<div
+		style={{
+			...style,
+			alignItems: 'center',
+			display: 'flex',
+			marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
+			width: 'auto'
+		}}
+	>
+		{!isLeaf && (
+			<>
+				<GenericButton
+					text={isOpen ? '-' : '+'}
+					clickEvent={() => setOpen(!isOpen)}
+					additionalStyles={{ textAlign: 'center', margin: '0em', width: 'auto' }}
+				/>
+			</>
+		)}
+		<div style={defaultTextStyle}>{name}</div>
+	</div>
+);
 
 type TreePresenterProps = Readonly<{
-	disableAsync: boolean;
 	itemSize: number;
 }>;
-
-const TreePresenter: React.FC<TreePresenterProps> = ({ disableAsync, itemSize }) => {
-	const [downloadedIds, setDownloadedIds] = useState<readonly number[]>([]);
-	const scheduler = useRef<AsyncTaskScheduler<number>>(new AsyncTaskScheduler(setDownloadedIds));
-	const rootNode = useMemo(() => {
-		nodeId = 0;
-
-		return createNode(downloadedIds);
-	}, [downloadedIds]);
-
-	const createDownloader = (node: TreeNode) => (): Promise<void> =>
-		new Promise((resolve) => {
-			const timeoutId = setTimeout(() => {
-				scheduler.current.finalize();
-			}, 2000);
-
-			scheduler.current.add(node.id, resolve, () => clearTimeout(timeoutId));
-		});
-
-	const treeWalker = useCallback(
-		function* treeWalker(): ReturnType<TreeWalker<TreeData, NodeMeta>> {
-			yield getNodeData(rootNode, 0, createDownloader(rootNode));
-
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-			while (true) {
-				const parentMeta = yield;
-
-				if (parentMeta.data.downloaded) {
-					// eslint-disable-next-line @typescript-eslint/prefer-for-of
-					for (let i = 0; i < parentMeta.node.children.length; i++) {
-						yield getNodeData(
-							parentMeta.node.children[i],
-							parentMeta.nestingLevel + 1,
-							createDownloader(parentMeta.node.children[i])
-						);
-					}
-				}
-			}
-		},
-		[rootNode]
-	);
-
+const Comments = () => {
 	return (
 		<AutoSizer disableWidth>
-			{({ height }) => (
-				<FixedSizeTree
-					treeWalker={treeWalker}
-					itemSize={itemSize}
-					height={height}
-					placeholder={null}
-					async={!disableAsync}
-					width="100%"
-				>
+			{({ height, width }) => (
+				<FixedSizeTree treeWalker={treeWalker} itemSize={30} height={height} width={width}>
 					{Node}
 				</FixedSizeTree>
 			)}
 		</AutoSizer>
 	);
-};
-
-const Comments: React.FC = () => {
-	return <TreePresenter disableAsync={false} itemSize={30} />;
 };
 
 export default Comments;

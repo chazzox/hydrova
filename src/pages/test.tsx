@@ -17,7 +17,7 @@ const Test = () => {
 					class: 'defaultDark'
 				}}
 			></Helmet>
-			<div className="main" style={{ minHeight: '100vh', flex: 1 }}>
+			<div className="main" style={{ minHeight: '97vh', flex: 1 }}>
 				<Comments />
 			</div>
 		</>
