@@ -37,7 +37,7 @@ interface PurpleData {
 	link_id: string;
 	author_flair_template_id: null | string;
 	likes: null;
-	replies: GeneralPostResponse | string;
+	replies: GeneralPostResponseData | '';
 	user_reports: any[];
 	saved: boolean;
 	id: string;
