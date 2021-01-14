@@ -1,14 +1,14 @@
-interface GeneralPostResponse {
-	kind: string;
-	data: [Child, GeneralPostResponseData];
-}
+type GeneralPostResponse = [Child, GeneralPostResponseData];
 
 interface GeneralPostResponseData {
-	modhash: string;
-	dist: null;
-	children: PurpleChild[];
-	after: null;
-	before: null;
+	kind: string;
+	data: {
+		modhash: string;
+		dist: null;
+		children: PurpleChild[];
+		after: null;
+		before: null;
+	};
 }
 
 interface FluffyData {
