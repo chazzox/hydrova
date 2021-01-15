@@ -4,6 +4,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from './dashboard';
 import Sidebar from 'components/sidebar';
 // lazy loading other components
+const Test = lazy(() => import('./test'));
 const Settings = lazy(() => import('./settings'));
 const Submit = lazy(() => import('./submit'));
 const Mail = lazy(() => import('./mail'));
@@ -21,6 +22,7 @@ const App: React.FC = () => {
 			<Suspense fallback={<Blank />}>
 				<Switch>
 					<Route path="/submit" exact component={Submit} />
+					<Route path="/test" exact component={Test} />
 					<Route path="/mail" exact component={Mail} />
 					<Route path="/settings" component={Settings} />
 					<Route

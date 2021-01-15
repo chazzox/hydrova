@@ -38,7 +38,7 @@ const Sidebar = () => {
 	return (
 		<div id="sidebar" className={`backgroundTransition ${isCollapsed ? 'compact' : ''}`}>
 			<div id="navTitleContainer">
-				<Link to="/">{SVGS['hydrova']}</Link>
+				<Link to="/">{SVGS['logo']}</Link>
 				<h1 id="navTitle">Hydrova</h1>
 			</div>
 			<GenericButton

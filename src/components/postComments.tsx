@@ -1,132 +1,130 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeNodePublicState, FixedSizeTree } from 'react-vtree';
-import { NodeComponentProps, TreeWalkerValue } from 'react-vtree/dist/es/Tree';
+import { Link } from 'react-router-dom';
+import Measure, { ContentRect } from 'react-measure';
+import {
+	TreeWalker,
+	TreeWalkerValue,
+	VariableSizeNodeData,
+	VariableSizeNodePublicState,
+	VariableSizeTree
+} from 'react-vtree';
+import { NodeComponentProps } from 'react-vtree/dist/cjs/Tree';
+import copy from 'copy-to-clipboard';
 
 import GenericButton from './genericButton';
+import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
-interface TreeData {
-	id: string;
-	isOpenByDefault: boolean;
-	isLeaf: boolean;
-	name: string;
-	nestingLevel: number;
-}
-
-const defaultTextStyle = { marginLeft: 10 };
+import 'styles/component/comment.scss';
 
 type NodeMeta = Readonly<{
 	nestingLevel: number;
-	node: CommentData;
+	node: TreeNode;
 }>;
 
-const getNodeData = (node: CommentData, nestingLevel: number): TreeWalkerValue<TreeData, NodeMeta> => ({
+type ExtendedData = VariableSizeNodeData &
+	TreeNode &
+	Readonly<{
+		isLeaf: boolean;
+		nestingLevel: number;
+	}>;
+
+const someHeightConstant = 100 as const;
+
+const getNodeData = (node: TreeNode, nestingLevel: number, itemSize: number): TreeWalkerValue<ExtendedData, NodeMeta> => ({
 	data: {
-		id: node.id.toString(),
+		defaultHeight: itemSize,
 		isLeaf: node.children.length === 0,
 		isOpenByDefault: true,
-		name: node.body_html,
-		nestingLevel
+		nestingLevel,
+		...node
 	},
 	nestingLevel,
 	node
 });
 
-interface CommentData {
-	id: string;
-	body_html: string;
-	children: CommentData[];
-}
-
-const Comments = () => {
-	const [treeData, setTreeData] = useState<CommentData[]>([{ id: '0', body_html: 'loading', children: [] }]);
-
-	useEffect(() => {
-		fetch('https://www.reddit.com/r/headphones/comments/kwkjbb/there_is_no_other_choice_for_good_sound/.json', {
-			method: 'GET'
-		})
-			.then((res) => res.json())
-			.then((json: GeneralPostResponse) => {
-				console.log('res', json);
-				setTreeData(getStuff(json[1].data.children));
-			})
-			.catch((err) => console.log(err));
-	}, []);
-
-	// extracting the values out of each comment that we need to render, only happens when we initially receive the data
-	const getStuff = (commentApiResponse: PurpleChild[]): CommentData[] =>
-		commentApiResponse.map<CommentData>(({ data }) => ({
-			id: data.id,
-			body_html: data.body_html,
-			children: typeof data.replies != 'object' ? [] : getStuff(data.replies.data.children),
-			author: data.author,
-			test: data.created_utc
-		}));
-
-	const treeWalkerCall = useCallback(
-		function* treeWalker(): any {
+const Comments: React.FC<{ treeData: TreeNode[] }> = ({ treeData }) => {
+	const tree = useRef<VariableSizeTree<ExtendedData>>(null);
+	const treeWalker = useCallback(
+		function* treeWalker(): ReturnType<TreeWalker<ExtendedData, NodeMeta>> {
 			for (let i = 0; i < treeData.length; i++) {
-				yield getNodeData(treeData[i], 0);
+				yield getNodeData(treeData[i], 0, someHeightConstant);
 			}
 			while (true) {
-				const parent = yield;
-				for (let i = 0; i < parent.node.children.length; i++) {
-					yield getNodeData(parent.node.children[i], parent.nestingLevel + 1);
+				const parentMeta = yield;
+				for (let i = 0; i < parentMeta.node.children.length; i++) {
+					yield getNodeData(parentMeta.node.children[i], parentMeta.nestingLevel + 1, someHeightConstant);
 				}
 			}
 		},
 		[treeData]
 	);
-
 	return (
-		<>
-			<AutoSizer>
-				{({ height, width }) => (
-					<FixedSizeTree
-						async={true}
-						treeWalker={treeWalkerCall}
-						itemSize={150}
-						height={height}
-						width={width}
-					>
-						{Node}
-					</FixedSizeTree>
-				)}
-			</AutoSizer>
-		</>
+		<AutoSizer disableWidth>
+			{({ height }) => (
+				<VariableSizeTree ref={tree} itemData={100} treeWalker={treeWalker} height={height} width="100%">
+					{Node}
+				</VariableSizeTree>
+			)}
+		</AutoSizer>
 	);
 };
 
-const Node: React.FC<NodeComponentProps<TreeData, FixedSizeNodePublicState<TreeData>>> = ({
-	data: { isLeaf, name, nestingLevel },
+const Node: React.FC<NodeComponentProps<ExtendedData, VariableSizeNodePublicState<ExtendedData>>> = ({
+	height,
+	data: { isLeaf, id, nestingLevel, author, created_utc, body_html, score, permalink },
 	isOpen,
+	resize,
 	style,
 	setOpen
 }) => {
+	const resizeItem = useCallback(
+		(contentRect: ContentRect) => resize((contentRect.bounds?.height ?? 30) + someHeightConstant, true),
+		[resize, height]
+	);
+
 	return (
-		<div
-			style={{
-				...style,
-				alignItems: 'center',
-				display: 'flex',
-				marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
-				width: 'auto'
-			}}
-		>
-			{!isLeaf && (
-				<>
-					<GenericButton
-						text={isOpen ? '-' : '+'}
-						clickEvent={() => setOpen(!isOpen)}
-						additionalStyles={{ textAlign: 'center', margin: '0em', width: 'auto' }}
+		// to change the amount each nesting level is indented, change 30
+		<div id={id} style={{ ...style, marginLeft: nestingLevel * 30 }} className="comment">
+			<p className="commentInfo roundedLinks">
+				<Link to={'/u/' + author}>{author}</Link>
+				<span>{formatTimeSince(timeSinceCurrent(created_utc))}</span>
+			</p>
+			<Measure bounds onResize={resizeItem}>
+				{({ measureRef }) => (
+					<div
+						className="commentBody"
+						ref={measureRef}
+						dangerouslySetInnerHTML={{
+							__html: new DOMParser().parseFromString(body_html, 'text/html').documentElement.textContent || ''
+						}}
 					/>
-				</>
-			)}
-			<span
-				dangerouslySetInnerHTML={{
-					__html: new DOMParser().parseFromString(name, 'text/html').documentElement.textContent || ''
-				}}
-			/>
+				)}
+			</Measure>
+			<div className="lowerVoteInfoContainer">
+				<div className="votesContainer">
+					<GenericButton svgPath="upvote" isCompact={true} />
+					<span>{score}</span>
+					<GenericButton svgPath="downvote" isCompact={true} />
+				</div>
+				<GenericButton text="Reply" isCompact={true} svgPath="reply" />
+				<GenericButton
+					text="Share"
+					isCompact={true}
+					svgPath="share"
+					clickEvent={() => copy(`https://www.reddit.com${permalink}`)}
+				/>
+				<div className="commentChildContainer">
+					{!isLeaf && (
+						<GenericButton
+							clickEvent={() => setOpen(!isOpen)}
+							text={`${isOpen ? 'Expand' : 'Collapse'} Threads`}
+							isCompact={true}
+							svgPath={isOpen ? 'collapse_down' : 'collapse_up'}
+						/>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };

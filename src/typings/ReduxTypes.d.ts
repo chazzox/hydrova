@@ -26,3 +26,14 @@ interface Post {
 }
 
 type SortOptionType = 'best' | 'hot' | 'new' | 'top' | 'rising' | '';
+
+type TreeNode = Readonly<{
+	children: TreeNode[];
+	id: string;
+	name: string;
+	body_html: string;
+	author: string;
+	created_utc: number;
+	score: number;
+	permalink: string;
+}>;

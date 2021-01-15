@@ -15,8 +15,10 @@ import CollapseDown from './icons/collapseDown.svg';
 import CollapseLeft from './icons/collapseLeft.svg';
 import CollapseRight from './icons/collapseRight.svg';
 import Settings from './icons/settings.svg';
+import Logo from './icons/logo.svg';
 
 const SVGs = {
+	logo: <Logo />,
 	search: <Search />,
 	home: <Home />,
 	mail: <Mail />,

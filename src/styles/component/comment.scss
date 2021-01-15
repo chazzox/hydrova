@@ -2,22 +2,9 @@
 .comment {
 	color: var(--text-color-primary);
 	width: calc(100% - var(--padding-size-primary));
-	margin-left: var(--padding-size-primary);
 	max-width: 100%;
 	margin-top: 16px;
 	padding-bottom: var(--padding-size-primary);
-	overflow: hidden;
-
-	// inset child comments
-	.comment {
-		margin-top: var(--padding-size-primary);
-		margin-bottom: var(--padding-size-primary);
-		margin-left: 0;
-		width: 100%;
-		padding-bottom: 0;
-		padding-left: var(--padding-size-primary);
-		border-left: dotted 3px var(--border-color);
-	}
 
 	// username / time posted
 	.commentInfo {
