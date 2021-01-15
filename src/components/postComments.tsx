@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Link } from 'react-router-dom';
 import Measure, { ContentRect } from 'react-measure';
@@ -61,8 +61,8 @@ const Comments: React.FC<{ treeData: TreeNode[] }> = ({ treeData }) => {
 	);
 	return (
 		<AutoSizer disableWidth>
-			{({ height }) => (
-				<VariableSizeTree ref={tree} itemData={100} treeWalker={treeWalker} height={height} width="100%">
+			{({ height, width }) => (
+				<VariableSizeTree ref={tree} itemData={100} treeWalker={treeWalker} height={height} width={width}>
 					{Node}
 				</VariableSizeTree>
 			)}
@@ -78,6 +78,9 @@ const Node: React.FC<NodeComponentProps<ExtendedData, VariableSizeNodePublicStat
 	style,
 	setOpen
 }) => {
+	useEffect(() => {
+		if (id == 'gj62gri') console.log(height);
+	}, [height]);
 	const resizeItem = useCallback(
 		(contentRect: ContentRect) => resize((contentRect.bounds?.height ?? 30) + someHeightConstant, true),
 		[resize, height]
@@ -85,13 +88,17 @@ const Node: React.FC<NodeComponentProps<ExtendedData, VariableSizeNodePublicStat
 
 	return (
 		// to change the amount each nesting level is indented, change 30
-		<div id={id} style={{ ...style, marginLeft: nestingLevel * 30 }} className="comment">
-			<p className="commentInfo roundedLinks">
-				<Link to={'/u/' + author}>{author}</Link>
-				<span>{formatTimeSince(timeSinceCurrent(created_utc))}</span>
-			</p>
-			<Measure bounds onResize={resizeItem}>
-				{({ measureRef }) => (
+		<Measure bounds onResize={resizeItem}>
+			{({ measureRef }) => (
+				<div
+					id={id}
+					style={{ ...style, marginLeft: nestingLevel * 30, width: `calc(100% - ${15 + nestingLevel * 30}px)` }}
+					className="comment"
+				>
+					<p className="commentInfo roundedLinks">
+						<Link to={'/u/' + author}>{author}</Link>
+						<span>{formatTimeSince(timeSinceCurrent(created_utc))}</span>
+					</p>
 					<div
 						className="commentBody"
 						ref={measureRef}
@@ -99,33 +106,33 @@ const Node: React.FC<NodeComponentProps<ExtendedData, VariableSizeNodePublicStat
 							__html: new DOMParser().parseFromString(body_html, 'text/html').documentElement.textContent || ''
 						}}
 					/>
-				)}
-			</Measure>
-			<div className="lowerVoteInfoContainer">
-				<div className="votesContainer">
-					<GenericButton svgPath="upvote" isCompact={true} />
-					<span>{score}</span>
-					<GenericButton svgPath="downvote" isCompact={true} />
-				</div>
-				<GenericButton text="Reply" isCompact={true} svgPath="reply" />
-				<GenericButton
-					text="Share"
-					isCompact={true}
-					svgPath="share"
-					clickEvent={() => copy(`https://www.reddit.com${permalink}`)}
-				/>
-				<div className="commentChildContainer">
-					{!isLeaf && (
+					<div className="lowerVoteInfoContainer">
+						<div className="votesContainer">
+							<GenericButton svgPath="upvote" isCompact={true} />
+							<span>{score}</span>
+							<GenericButton svgPath="downvote" isCompact={true} />
+						</div>
+						<GenericButton text="Reply" isCompact={true} svgPath="reply" />
 						<GenericButton
-							clickEvent={() => setOpen(!isOpen)}
-							text={`${isOpen ? 'Expand' : 'Collapse'} Threads`}
+							text="Share"
 							isCompact={true}
-							svgPath={isOpen ? 'collapse_down' : 'collapse_up'}
+							svgPath="share"
+							clickEvent={() => copy(`https://www.reddit.com${permalink}`)}
 						/>
-					)}
+						<div className="commentChildContainer">
+							{!isLeaf && (
+								<GenericButton
+									clickEvent={() => setOpen(!isOpen)}
+									text={`${isOpen ? 'Expand' : 'Collapse'} Threads`}
+									isCompact={true}
+									svgPath={isOpen ? 'collapse_down' : 'collapse_up'}
+								/>
+							)}
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</Measure>
 	);
 };
 
