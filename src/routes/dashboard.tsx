@@ -8,6 +8,8 @@ import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 import Listing from 'components/listing';
 import PostPreview from 'components/postPreview';
 
+import { IndexRange } from 'react-virtualized';
+
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const { listingType, listingName, postId, sortType } = useParams<UrlParameters>();
@@ -40,7 +42,7 @@ const Dashboard: React.FC = () => {
 			{listingPointerArray && (
 				<Listing
 					idKeys={listingPointerArray}
-					fetchMore={(_, __) =>
+					fetchMore={({ startIndex, stopIndex }) =>
 						dispatch(
 							GET_LISTING({
 								listingEndpointName: endPointName,

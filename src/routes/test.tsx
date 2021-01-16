@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Comments from 'components/postComments';
 
 import 'styles/index.scss';
 import 'styles/variables.scss';
@@ -40,7 +39,7 @@ const Test = () => {
 				}}
 			/>
 			<div className="main" style={{ minHeight: '97vh', flex: 1 }}>
-				{treeData.length > 0 && <Comments treeData={treeData} />}
+				{treeData.length > 0 && <p>test</p>}
 			</div>
 		</>
 	);

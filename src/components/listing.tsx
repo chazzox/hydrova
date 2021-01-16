@@ -1,22 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FixedSizeList } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
-import AutoSizer from 'react-virtualized-auto-sizer';
-
+import { List, InfiniteLoader, AutoSizer, ListRowProps, IndexRange, Index } from 'react-virtualized';
 import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
+
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
+import Sorter from 'components/sorter';
 
+import 'styles/component/postComponent.scss';
 import 'styles/component/listing.scss';
-import Sorter from './sorter';
 
-const Listing: React.FC<{ idKeys: string[]; fetchMore: (arg1: number, arg2: number) => Promise<any> }> = ({
-	idKeys,
-	fetchMore
-}) => {
+const Listing: React.FC<{ idKeys: string[]; fetchMore: (params: IndexRange) => Promise<any> }> = ({ idKeys, fetchMore }) => {
 	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetchingListing);
-	const itemCount = idKeys.length + 1;
+
+	const rowCount = idKeys.length + 1;
+	const loadMoreRows = isListingBeingFetched ? () => {} : fetchMore;
+	const isRowLoaded = ({ index }: Index) => index < idKeys.length;
 
 	return (
 		<>
@@ -28,22 +27,23 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: (arg1: number, arg2: numb
 					<AutoSizer>
 						{({ height, width }) => (
 							<InfiniteLoader
-								isItemLoaded={(index: number) => index < idKeys.length}
-								itemCount={itemCount}
+								isRowLoaded={({ index }: Index) => index < idKeys.length}
 								// @ts-expect-error
-								loadMoreItems={isListingBeingFetched ? () => {} : fetchMore}
+								loadMoreRows={loadMoreRows}
+								rowCount={rowCount}
 							>
-								{({ onItemsRendered, ref }) => (
-									<FixedSizeList
-										itemCount={itemCount}
-										onItemsRendered={onItemsRendered}
-										ref={ref}
+								{({ onRowsRendered, registerChild }) => (
+									<List
+										ref={registerChild}
+										onRowsRendered={onRowsRendered}
+										rowRenderer={({ index, key, style }: ListRowProps) => (
+											<Item key={key} id={idKeys[index]} style={style} />
+										)}
 										height={height}
 										width={width}
-										itemSize={100}
-									>
-										{({ style, index }) => <Item style={style} id={idKeys[index]} />}
-									</FixedSizeList>
+										rowHeight={100}
+										rowCount={rowCount}
+									/>
 								)}
 							</InfiniteLoader>
 						)}
@@ -84,22 +84,16 @@ const Item: React.FC<RowProps> = ({ id = '', style }) => {
 								<p>
 									<Link to={'/u/' + content.author}>{content.author}</Link>
 									<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
-									<Link to={'/' + content.subreddit_name_prefixed}>
-										{content.subreddit_name_prefixed}
-									</Link>
+									<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
 								</p>
 								<h1 className="postTitle">
-									{
-										new DOMParser().parseFromString(content.title, 'text/html').documentElement
-											.textContent
-									}
+									{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
 								</h1>
 							</div>
 							<div className="data">
-								{content.thumbnail &&
-									content.thumbnail.match(/(default)|(self)|(unknown)/) === null && (
-										<img src={content.thumbnail} alt={`thumbnail for ${id}`} />
-									)}
+								{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null && (
+									<img src={content.thumbnail} alt={`thumbnail for ${id}`} />
+								)}
 							</div>
 						</div>
 					</object>
