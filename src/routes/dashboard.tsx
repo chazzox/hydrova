@@ -8,11 +8,9 @@ import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 import Listing from 'components/listing';
 import PostPreview from 'components/postPreview';
 
-import { IndexRange } from 'react-virtualized';
-
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { listingType, listingName, postId, sortType } = useParams<UrlParameters>();
+	const { listingType, listingName, postId } = useParams<UrlParameters>();
 	const routeMap = {
 		u: ['user', listingName, 'submitted'],
 		m: ['m', listingName],
@@ -20,39 +18,21 @@ const Dashboard: React.FC = () => {
 		'': []
 	};
 
-	const [endPointName, setEndPointName] = useState('');
-	const listingPointerArray = useSelector<ReduxStateType, string[] | undefined>(
-		(state) => state.post.listingKey[endPointName]?.postKeys
-	);
-	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
-		(state) => state.post.listingKey[endPointName]?.afterId
-	);
+	const [endpointName, setEndPointName] = useState('');
+	const listingPointerArray =
+		useSelector<ReduxStateType, string[] | undefined>((state) => state.post.listingKey[endpointName]?.postKeys) ?? [];
 
 	useEffect(() => {
-		const posName = routeMap[listingType ?? ''].join('/');
-		setEndPointName('/' + posName);
+		setEndPointName('/' + routeMap[listingType ?? ''].join('/'));
 	}, [listingType]);
 
 	useEffect(() => {
-		if (endPointName) dispatch(GET_LISTING({ listingEndpointName: endPointName }));
-	}, [endPointName]);
+		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
+	}, [endpointName]);
 
 	return (
 		<>
-			{listingPointerArray && (
-				<Listing
-					idKeys={listingPointerArray}
-					fetchMore={({ startIndex, stopIndex }) =>
-						dispatch(
-							GET_LISTING({
-								listingEndpointName: endPointName,
-								sortType: sortType ?? '',
-								listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
-							})
-						)
-					}
-				/>
-			)}
+			<Listing idKeys={listingPointerArray} endpoint={endpointName} />
 			{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}
 		</>
 	);

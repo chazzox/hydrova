@@ -1,21 +1,28 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { List, InfiniteLoader, AutoSizer, ListRowProps, IndexRange, Index } from 'react-virtualized';
-import { ReduxStateType } from 'reduxStore/reduxWrapper';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FixedSizeList } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
+import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
-
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
-import Sorter from 'components/sorter';
 
-import 'styles/component/postComponent.scss';
 import 'styles/component/listing.scss';
+import Sorter from './sorter';
+import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 
-const Listing: React.FC<{ idKeys: string[]; fetchMore: (params: IndexRange) => Promise<any> }> = ({ idKeys, fetchMore }) => {
+const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, endpoint }) => {
+	const dispatch = useDispatch<AppDispatch>();
+
 	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetchingListing);
+	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
+		(state) => state.post.listingKey[endpoint]?.afterId
+	);
+	const itemCount = idKeys.length + 1;
 
-	const rowCount = idKeys.length + 1;
-	const loadMoreRows = isListingBeingFetched ? () => {} : fetchMore;
-	const isRowLoaded = ({ index }: Index) => index < idKeys.length;
+	useEffect(() => console.log('idKeys'), [idKeys]);
+	useEffect(() => console.log('isListingBeingFetched'), [isListingBeingFetched]);
 
 	return (
 		<>
@@ -27,23 +34,28 @@ const Listing: React.FC<{ idKeys: string[]; fetchMore: (params: IndexRange) => P
 					<AutoSizer>
 						{({ height, width }) => (
 							<InfiniteLoader
-								isRowLoaded={({ index }: Index) => index < idKeys.length}
-								// @ts-expect-error
-								loadMoreRows={loadMoreRows}
-								rowCount={rowCount}
+								isItemLoaded={(index: number) => index < idKeys.length}
+								itemCount={itemCount}
+								loadMoreItems={() =>
+									dispatch(
+										GET_LISTING({
+											listingEndpointName: endpoint,
+											listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
+										})
+									)
+								}
 							>
-								{({ onRowsRendered, registerChild }) => (
-									<List
-										ref={registerChild}
-										onRowsRendered={onRowsRendered}
-										rowRenderer={({ index, key, style }: ListRowProps) => (
-											<Item key={key} id={idKeys[index]} style={style} />
-										)}
+								{({ onItemsRendered, ref }) => (
+									<FixedSizeList
+										itemCount={itemCount}
+										onItemsRendered={onItemsRendered}
+										ref={ref}
 										height={height}
 										width={width}
-										rowHeight={100}
-										rowCount={rowCount}
-									/>
+										itemSize={102}
+									>
+										{({ style, index }) => <Item style={style} id={idKeys[index]} />}
+									</FixedSizeList>
 								)}
 							</InfiniteLoader>
 						)}
