@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
 
 	useEffect(() => {
 		setEndPointName('/' + routeMap[listingType ?? ''].join('/'));
-	}, [listingType]);
+	}, [listingType, listingName]);
 
 	useEffect(() => {
 		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
