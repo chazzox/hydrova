@@ -22,7 +22,7 @@ const ThemePreview: React.FC<{ themeName: string }> = ({ themeName }) => {
 				/* insert space between lower case and upper case character
 			   for example to convert:    themeName → theme Name
                CSS then handles capitalisation of that output
-               for example to convert:    theme Name → Theme Name */
+               for example to convert: theme Name → Theme Name */
 				themeName.replace(/([a-z])([A-Z])/g, '$1 $2')
 			}
 		</div>
