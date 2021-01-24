@@ -19,6 +19,12 @@ module.exports = {
 			}
 		},
 		{
+			resolve: `gatsby-plugin-offline`,
+			options: {
+				precachePages: [`/`]
+			}
+		},
+		{
 			resolve: 'gatsby-plugin-root-import',
 			options: {
 				src: path.join(__dirname, 'src'),
