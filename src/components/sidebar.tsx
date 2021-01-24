@@ -11,6 +11,7 @@ import SVGS from 'assets/exportSVG';
 
 import 'styles/component/sidebar.scss';
 import 'styles/component/button/round.scss';
+import classNames from 'classnames';
 
 const Sidebar = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +37,7 @@ const Sidebar = () => {
 	}, []);
 
 	return (
-		<div id="sidebar" className={`backgroundTransition ${isCollapsed ? 'compact' : ''}`}>
+		<div id="sidebar" className={classNames('backgroundTransition', { compact: isCollapsed })}>
 			<div id="navTitleContainer">
 				<Link to="/">{SVGS['logo']}</Link>
 				<h1 id="navTitle">Hydrova</h1>
@@ -53,7 +54,7 @@ const Sidebar = () => {
 			<GenericButton text="Timeline" svgPath="home" href="/" />
 			<GenericButton text="Post" svgPath="new" href="/submit" />
 			<GenericButton text="Mail" svgPath="mail" href="/mail" />
-			<GenericButton text="Settings" svgPath="settings" isExact={false} href="/settings/account" />
+			<GenericButton text="Settings" svgPath="settings" isExact={true} href="/settings" />
 
 			<div className="scrollSection">
 				{/* main sidebar content */}
@@ -79,11 +80,7 @@ const Sidebar = () => {
 				{subReddits.map((subreddit, index) => {
 					if (subreddit.subreddit_type !== 'user')
 						return (
-							<GenericButton
-								key={index}
-								href={'/r/' + subreddit.display_name}
-								text={subreddit.display_name}
-							>
+							<GenericButton key={index} href={'/r/' + subreddit.display_name} text={subreddit.display_name}>
 								<div
 									className="icon"
 									style={

@@ -20,11 +20,11 @@ const Settings = () => {
 			<PillSelector options={settingRoutes} />
 			<div className="contentContainer">
 				<Switch>
-					<Route exact path={`${path}/account`} render={(props) => <Accounts />} />
 					<Route exact path={`${path}/appearance`} render={(props) => <Appearance />} />
 					<Route exact path={`${path}/content`} render={(props) => <Content />} />
 					<Route exact path={`${path}/general`} render={(props) => <General />} />
 					<Route exact path={`${path}/keybinds`} render={(props) => <Keybinds />} />
+					<Route exact path={[`${path}/account`, path]} render={(props) => <Accounts />} />
 				</Switch>
 			</div>
 		</div>

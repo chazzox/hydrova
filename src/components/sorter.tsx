@@ -1,28 +1,23 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
-import { ReduxStateType } from 'reduxStore/reduxWrapper';
+import React, { useState } from 'react';
 import GenericButton from './genericButton';
 
 const Sorter: React.FC<{ isCommentSort: boolean }> = ({ isCommentSort }) => {
 	const sortOptions = ['best', 'hot', 'new', 'top', 'rising'] as const;
 	type sortOptionType = typeof sortOptions[number];
 
-	const sortType = useSelector<ReduxStateType>(
-		(state) => state.post[isCommentSort ? 'commentSortType' : 'postSortType']
-	);
+	const [sortType, setSortType] = useState<sortOptionType>('best');
 
 	return (
 		<>
 			{
 				// mapping the sort type array and creating buttons based on that
-				sortOptions.map((sortTypeString: sortOptionType) => (
+				sortOptions.map((sortTypeString) => (
 					<GenericButton
 						key={sortTypeString}
 						text={sortTypeString}
 						isCompact={true}
 						svgPath={sortTypeString}
-						clickEvent={() => setSortType({ isCommentSort: isCommentSort, sortType: sortTypeString })}
+						clickEvent={() => setSortType(sortTypeString)}
 						isSelected={sortType == sortTypeString}
 					/>
 				))

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +12,7 @@ const ThemePreview: React.FC<{ themeName: string }> = ({ themeName }) => {
 	const currentStyle = useSelector<ReduxStateType>((state) => state.settings.styleMode);
 	return (
 		<div
-			className={`themePreview ${currentStyle == themeName ? 'selected' : ''}`}
+			className={classNames('themePreview', { selected: currentStyle == themeName })}
 			id={themeName + 'Theme'}
 			onClick={() => dispatch(SET_STYLE_MODE(`${themeName}`))}
 			onMouseOver={() => dispatch(PREVIEW_STYLE_MODE(`${themeName}`))}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import ClassNames from 'classnames';
 
 import SVGS from 'assets/exportSVG';
 
@@ -30,16 +31,20 @@ const GenericButton = ({
 	isRound,
 	isSelected,
 	children,
-	isExact = true,
-	additionalStyles = {}
+	additionalStyles = {},
+	isExact
 }: propTypes) => {
 	const Content = () => (
 		<button
 			id={id ? id : ''}
 			onClick={clickEvent}
-			className={`genericButton ${isRound ? 'roundButton' : ''} ${isCompact ? 'compactButton' : ''} ${
-				!text ? 'noText' : ''
-			} ${isSelected ? 'selected' : ''}`}
+			className={ClassNames(
+				'genericButton',
+				{ roundButton: isRound },
+				{ compactButton: isCompact },
+				{ noText: !text },
+				{ selected: isSelected }
+			)}
 			style={additionalStyles}
 		>
 			{svgPath && SVGS[svgPath]}
@@ -49,7 +54,7 @@ const GenericButton = ({
 	);
 	if (!href) return <Content />;
 	return (
-		<NavLink exact={isExact} to={href} activeClassName="selected">
+		<NavLink exact={!!isExact ? undefined : true} to={href} activeClassName="selected">
 			<Content />
 		</NavLink>
 	);
