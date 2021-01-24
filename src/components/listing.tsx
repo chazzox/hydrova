@@ -24,6 +24,8 @@ const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, end
 	useEffect(() => console.log('idKeys'), [idKeys]);
 	useEffect(() => console.log('isListingBeingFetched'), [isListingBeingFetched]);
 
+	const allPosts = useSelector((state: ReduxStateType) => state.post.posts);
+
 	return (
 		<>
 			<div className="main">
@@ -33,31 +35,11 @@ const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, end
 				<div style={{ height: '100%' }}>
 					<AutoSizer>
 						{({ height, width }) => (
-							<InfiniteLoader
-								isItemLoaded={(index: number) => index < idKeys.length}
-								itemCount={itemCount}
-								loadMoreItems={() =>
-									dispatch(
-										GET_LISTING({
-											listingEndpointName: endpoint,
-											listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
-										})
-									)
-								}
-							>
-								{({ onItemsRendered, ref }) => (
-									<FixedSizeList
-										itemCount={itemCount}
-										onItemsRendered={onItemsRendered}
-										ref={ref}
-										height={height}
-										width={width}
-										itemSize={102}
-									>
-										{({ style, index }) => <Item style={style} id={idKeys[index]} />}
-									</FixedSizeList>
+							<FixedSizeList itemCount={itemCount} height={height} width={width} itemSize={102}>
+								{({ style, index }) => (
+									<Item style={style} id={idKeys[index]} content={allPosts[idKeys[index]].postContent} />
 								)}
-							</InfiniteLoader>
+							</FixedSizeList>
 						)}
 					</AutoSizer>
 				</div>
@@ -69,13 +51,12 @@ const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, end
 interface RowProps {
 	id?: string;
 	style: React.CSSProperties;
+	content: Post;
 }
 
-const Item: React.FC<RowProps> = ({ id = '', style }) => {
-	const content = useSelector<ReduxStateType, Post>((state) => state.post.posts[id]?.postContent);
+const Item: React.FC<RowProps> = ({ id = '', style, content }) => {
 	const { path } = useRouteMatch();
 	const { listingType, listingName } = useParams<UrlParameters>();
-
 	return (
 		<>
 			{!id ? (
@@ -89,9 +70,10 @@ const Item: React.FC<RowProps> = ({ id = '', style }) => {
 						listingName: listingName ?? content.subreddit,
 						postId: content.id
 					})}
+					style={style}
 				>
 					<object>
-						<div id={id} style={style} className="post">
+						<div id={id} className="post">
 							<div className="postInfo roundedLinks">
 								<p>
 									<Link to={'/u/' + content.author}>{content.author}</Link>
