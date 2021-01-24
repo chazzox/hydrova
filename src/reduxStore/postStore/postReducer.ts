@@ -7,17 +7,14 @@ const postReducer = createSlice({
 	name: 'postReducer',
 	initialState: {
 		posts: {} as {
-			[key: string]: {
-				postContent: Post;
-			};
+			[key: string]: Post | undefined;
 		},
 		listingKey: {} as {
 			[key: string]: { postKeys?: string[]; afterId: string; isFetchingListing: boolean };
 		},
 		isFetchingListing: false,
 		isFetchingComment: false,
-		postSortType: '' as SortOptionType,
-		commentSortType: '' as SortOptionType
+		postSortType: '' as SortOptionType
 	},
 	reducers: {},
 	extraReducers: (builder) => {
@@ -25,7 +22,7 @@ const postReducer = createSlice({
 		// sub fetch succeeds
 		builder.addCase(GET_LISTING.fulfilled, (state, action) => {
 			action.payload.data.children.forEach(
-				({ data }) => (state.posts[data.id] = { ...state.posts[data.id], postContent: getValues(data) })
+				({ data }) => (state.posts[data.id] = { ...state.posts[data.id], ...getValues(data) })
 			);
 			state.listingKey[action.meta.arg.listingEndpointName] = {
 				...state.listingKey[action.meta.arg.listingEndpointName],

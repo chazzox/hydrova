@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
-import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
+import Sorter from './sorter';
+import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import 'styles/component/listing.scss';
-import Sorter from './sorter';
-import { GET_LISTING } from 'reduxStore/postStore/postThunks';
 
-const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, endpoint }) => {
-	const dispatch = useDispatch<AppDispatch>();
+interface ListingProps {
+	idKeys: string[];
+	fetchMore: (num1: number, num2: number) => Promise<any>;
+}
 
-	const isListingBeingFetched = useSelector<ReduxStateType, boolean>((state) => state.post.isFetchingListing);
-	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
-		(state) => state.post.listingKey[endpoint]?.afterId
-	);
+const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 	const itemCount = idKeys.length + 1;
-
-	useEffect(() => console.log('idKeys'), [idKeys]);
-	useEffect(() => console.log('isListingBeingFetched'), [isListingBeingFetched]);
-
-	const allPosts = useSelector((state: ReduxStateType) => state.post.posts);
 
 	return (
 		<>
@@ -35,11 +28,25 @@ const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, end
 				<div style={{ height: '100%' }}>
 					<AutoSizer>
 						{({ height, width }) => (
-							<FixedSizeList itemCount={itemCount} height={height} width={width} itemSize={102}>
-								{({ style, index }) => (
-									<Item style={style} id={idKeys[index]} content={allPosts[idKeys[index]].postContent} />
+							<InfiniteLoader
+								isItemLoaded={(index) => index < idKeys.length}
+								loadMoreItems={fetchMore}
+								itemCount={itemCount}
+							>
+								{({ onItemsRendered, ref }) => (
+									<FixedSizeList
+										ref={ref}
+										onItemsRendered={onItemsRendered}
+										height={height}
+										width={width}
+										itemSize={100}
+										itemCount={itemCount}
+										itemData={idKeys}
+									>
+										{Item}
+									</FixedSizeList>
 								)}
-							</FixedSizeList>
+							</InfiniteLoader>
 						)}
 					</AutoSizer>
 				</div>
@@ -49,17 +56,21 @@ const Listing: React.FC<{ idKeys: string[]; endpoint: string }> = ({ idKeys, end
 };
 
 interface RowProps {
-	id?: string;
+	data: string[];
+	index: number;
 	style: React.CSSProperties;
-	content: Post;
 }
 
-const Item: React.FC<RowProps> = ({ id = '', style, content }) => {
-	const { path } = useRouteMatch();
+const Item: React.FC<RowProps> = ({ data, index, style }) => {
 	const { listingType, listingName } = useParams<UrlParameters>();
+	const { path } = useRouteMatch();
+
+	const id = data[index];
+	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[id]);
+
 	return (
 		<>
-			{!id ? (
+			{!content ? (
 				<div id={id} style={style} className="post">
 					loading
 				</div>

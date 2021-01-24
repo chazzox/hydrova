@@ -12,7 +12,7 @@ import 'styles/component/postComponent.scss';
 
 const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]?.postContent);
+	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]);
 
 	useEffect(() => {
 		if (!content) dispatch(GET_POST({ id: postKey }));
@@ -30,10 +30,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 							<Link to={'/' + content?.subreddit_name_prefixed}>{content?.subreddit_name_prefixed}</Link>
 						</p>
 						<h1 className="postTitle">
-							{
-								new DOMParser().parseFromString(content?.title ?? '', 'text/html').documentElement
-									.textContent
-							}
+							{new DOMParser().parseFromString(content?.title ?? '', 'text/html').documentElement.textContent}
 						</h1>
 					</div>
 					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>

@@ -22,6 +22,10 @@ const Dashboard: React.FC = () => {
 	const listingPointerArray =
 		useSelector<ReduxStateType, string[] | undefined>((state) => state.post.listingKey[endpointName]?.postKeys) ?? [];
 
+	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
+		(state) => state.post.listingKey[endpointName]?.afterId
+	);
+
 	useEffect(() => {
 		setEndPointName('/' + routeMap[listingType ?? ''].join('/'));
 	}, [listingType]);
@@ -32,7 +36,19 @@ const Dashboard: React.FC = () => {
 
 	return (
 		<>
-			<Listing idKeys={listingPointerArray} endpoint={endpointName} />
+			{listingPointerArray && (
+				<Listing
+					idKeys={listingPointerArray}
+					fetchMore={(_, __) =>
+						dispatch(
+							GET_LISTING({
+								listingEndpointName: endpointName,
+								listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
+							})
+						)
+					}
+				/>
+			)}
 			{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}
 		</>
 	);
