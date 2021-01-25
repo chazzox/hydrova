@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,13 +9,19 @@ import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 import VoteControls from './voteControls';
 
 import 'styles/component/postComponent.scss';
+import { unwrapResult } from '@reduxjs/toolkit';
+import Comments from './postComments';
 
 const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]);
+	const [comments, setComments] = useState<PurpleChild[]>([]);
 
 	useEffect(() => {
-		if (!content) dispatch(GET_POST({ id: postKey }));
+		postKey &&
+			dispatch(GET_POST({ id: postKey }))
+				.then(unwrapResult)
+				.then((returned) => setComments(returned[1].data.children));
 	}, [content, postKey]);
 
 	return (
@@ -35,7 +41,10 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 					</div>
 					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
 				</div>
-				<div className="comment" style={{ display: 'flex' }}></div>
+				<h1>LAGGY AND BAD, WILL BE REPLACED WHEN REACT-WINDOW V2 drops</h1>
+				<div className="comment">
+					{comments ? comments.map((comment, index) => <Comments key={index} data={comment.data} />) : null}
+				</div>
 			</div>
 		</div>
 	);

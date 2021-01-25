@@ -2,19 +2,13 @@ type GeneralPostResponse = [Child, GeneralPostResponseData];
 
 interface GeneralPostResponseData {
 	kind: string;
-	data: {
-		modhash: string;
-		dist: null;
-		children: PurpleChild[];
-		after: null;
-		before: null;
-	};
+	data: FluffyData;
 }
 
 interface FluffyData {
 	modhash: string;
 	dist: null;
-	children: FluffyChild[];
+	children: PurpleChild[];
 	after: null;
 	before: null;
 }
@@ -122,11 +116,6 @@ enum string {
 interface PurpleReplies {
 	kind: string;
 	data: FluffyData;
-}
-
-interface FluffyChild {
-	kind: Kind;
-	data: TentacledData;
 }
 
 enum Subreddit {
