@@ -10,10 +10,11 @@ import PostPreview from 'components/postPreview';
 
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
+	const userName = useSelector((state: ReduxStateType) => state.sidebar.userInfo.name);
 	const { listingType, listingName, postId } = useParams<UrlParameters>();
 	const routeMap = {
 		u: ['user', listingName, 'submitted'],
-		m: ['m', listingName],
+		m: ['me', 'm', listingName],
 		r: ['r', listingName],
 		'': []
 	};
