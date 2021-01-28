@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import { GET_POST } from 'reduxStore/postStore/postThunks';
 import { AppDispatch, ReduxStateType } from 'reduxStore/reduxWrapper';
 import timeSinceCurrent, { formatTimeSince } from 'utils/timeSinceCurrent';
 
 import VoteControls from './voteControls';
+import Comments from './postComments';
 
 import 'styles/component/postComponent.scss';
-import { unwrapResult } from '@reduxjs/toolkit';
-import Comments from './postComments';
 
 const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const dispatch = useDispatch<AppDispatch>();
