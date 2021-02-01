@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -16,8 +16,9 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]);
 	const [comments, setComments] = useState<PurpleChild[]>([]);
-
+	const refTop = useRef<HTMLDivElement>(null);
 	useEffect(() => {
+		refTop?.current?.scrollIntoView();
 		postKey &&
 			dispatch(GET_POST({ id: postKey }))
 				.then(unwrapResult)
@@ -28,7 +29,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 		<div className="main">
 			{content && <VoteControls postContent={content} />}
 			<div className="contentContainer" style={{ height: '100%' }}>
-				<div id={content?.id} className="post expanded">
+				<div id={content?.id} ref={refTop} className="post expanded">
 					<div className="postInfo roundedLinks">
 						<p>
 							<Link to={'/u/' + content?.author}>{content?.author}</Link>
