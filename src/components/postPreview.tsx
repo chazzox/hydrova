@@ -42,7 +42,6 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
 				</div>
 				{content && <VoteControls postContent={content} />}
-				<h1>LAGGY AND BAD, WILL BE REPLACED WHEN REACT-WINDOW V2 drops</h1>
 				<div className="comment">
 					{comments ? comments.map((comment, index) => <Comments key={index} data={comment.data} />) : null}
 				</div>
