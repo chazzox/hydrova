@@ -22,7 +22,7 @@ export default function getValues(data: ChildData): Post {
 		url_overridden_by_dest: data.url_overridden_by_dest,
 		domain: data.domain,
 		subreddit: data.subreddit,
-		media_meta: data.media_meta,
+		media_meta: data.media_metadata,
 		media: data.media
 	};
 }

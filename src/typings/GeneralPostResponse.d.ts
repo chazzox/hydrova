@@ -1,4 +1,4 @@
-type GeneralPostResponse = [Child, GeneralPostResponseData];
+type GeneralPostResponse = [Listing, GeneralPostResponseData];
 
 interface GeneralPostResponseData {
 	kind: string;

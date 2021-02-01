@@ -22,8 +22,11 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 		postKey &&
 			dispatch(GET_POST({ id: postKey }))
 				.then(unwrapResult)
-				.then((returned) => setComments(returned[1].data.children));
-	}, [content, postKey]);
+				.then((returned) => {
+					console.log(returned[0].data.children[0].data);
+					setComments(returned[1].data.children);
+				});
+	}, [postKey]);
 
 	return (
 		<div className="main">
@@ -51,6 +54,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 };
 
 const RenderPostType = ({ postContent }: { postContent: Post }) => {
+	console.log(postContent);
 	if (postContent.is_self && postContent.selftext_html)
 		return (
 			<span
@@ -68,11 +72,6 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 			</video>
 		);
 	else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
-	else if (
-		postContent.post_hint === 'link' ||
-		(postContent.url == postContent.url_overridden_by_dest && postContent.domain !== 'i.redd.it')
-	)
-		return <a href={postContent.url_overridden_by_dest}>{postContent.url_overridden_by_dest}</a>;
 	else if (postContent.is_gallery)
 		return (
 			<span className="galleryContent">
@@ -81,14 +80,24 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 						return (
 							<img
 								key={index}
-								src={unescape(postContent?.media_meta[media_id].p.slice(-1)[0].u)}
+								src={decodeURIComponent(
+									new DOMParser().parseFromString(
+										postContent?.media_meta[media_id].p.slice(-1)[0].u,
+										'text/html'
+									).documentElement.textContent || ''
+								)}
 								alt={`img${index} of collage`}
 							/>
 						);
-					else return <p>json returned from reddit is not formed correctly</p>;
+					else return <p key={index}>json returned from reddit is not formed correctly</p>;
 				})}
 			</span>
 		);
+	else if (
+		postContent.post_hint === 'link' ||
+		(postContent.url == postContent.url_overridden_by_dest && postContent.domain !== 'i.redd.it')
+	)
+		return <a href={postContent.url_overridden_by_dest}>{postContent.url_overridden_by_dest}</a>;
 	else return <>post type unknown</>;
 };
 

@@ -47,8 +47,9 @@ const postReducer = createSlice({
 		// get post thunk actions
 		builder.addCase(GET_POST.fulfilled, (state, action) => {
 			state.isFetchingListing = true;
+			state.posts[action.meta.arg.id] = getValues(action.payload[0].data.children[0].data);
 		});
-		builder.addCase(GET_POST.pending, (state, action) => {
+		builder.addCase(GET_POST.pending, (state) => {
 			state.isFetchingListing = false;
 		});
 	}
