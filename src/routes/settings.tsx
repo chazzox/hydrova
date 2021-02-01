@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 
 import PillSelector from 'components/pillSelector';
 import Accounts from './settings/accounts';
@@ -20,11 +20,14 @@ const Settings = () => {
 			<PillSelector options={settingRoutes} />
 			<div className="contentContainer">
 				<Switch>
-					<Route exact path={`${path}/appearance`} render={(props) => <Appearance />} />
-					<Route exact path={`${path}/content`} render={(props) => <Content />} />
-					<Route exact path={`${path}/general`} render={(props) => <General />} />
-					<Route exact path={`${path}/keybinds`} render={(props) => <Keybinds />} />
-					<Route exact path={[`${path}/account`, path]} render={(props) => <Accounts />} />
+					<Route exact path={`${path}/appearance`} render={() => <Appearance />} />
+					<Route exact path={`${path}/content`} render={() => <Content />} />
+					<Route exact path={`${path}/general`} render={() => <General />} />
+					<Route exact path={`${path}/keybinds`} render={() => <Keybinds />} />
+					<Route exact path={`${path}/account`} render={() => <Accounts />} />
+					<Route exact path={path}>
+						<Redirect to={`${path}/account`} />
+					</Route>
 				</Switch>
 			</div>
 		</div>
