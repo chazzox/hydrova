@@ -1,6 +1,5 @@
 .post {
-	transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
-		min-height 0.3s ease;
+	transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease, min-height 0.3s ease;
 	-webkit-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
 		min-height 0.3s ease;
 	-moz-transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease,
@@ -75,6 +74,28 @@
 		}
 	}
 
+	// thumbnail for text/markdown posts
+	.data {
+		svg {
+			padding: var(--padding-size-primary);
+			width: 80px;
+			height: 80px;
+			border-radius: var(--border-radius-primary);
+			background: var(--accent-color-secondary);
+
+			* {
+				fill: none;
+				stroke-width: 24px;
+				stroke: var(--text-color-tertiary);
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			.noStroke {
+				stroke: none;
+			}
+		}
+	}
+
 	.postContent {
 		visibility: hidden;
 	}
@@ -95,11 +116,37 @@
 	}
 	.postContent {
 		visibility: visible;
+		margin: 0 auto;
+		width: fit-content;
+
+		.galleryContent {
+			overflow-y: hidden;
+			overflow-x: scroll;
+			-webkit-overflow-scrolling: touch;
+			max-height: 75vh;
+			white-space: nowrap;
+			scroll-snap-type: x mandatory;
+			.galleryInternalImage {
+				scroll-snap-align: start;
+				width: 100%;
+				display: inline-block;
+				text-align: center;
+				img {
+					max-height: calc(75vh - 16px);
+					margin: 0 var(--padding-size-primary);
+					border-radius: var(--border-radius-primary);
+				}
+			}
+		}
 	}
 	img,
 	video {
-		max-height: fit-content;
+		height: auto;
+		min-height: auto;
+		max-height: 75vh;
+		width: auto;
+		min-width: auto;
 		max-width: 100%;
-		width: 100%;
+		object-fit: contain;
 	}
 }

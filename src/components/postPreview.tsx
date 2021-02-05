@@ -74,24 +74,26 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 	else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
 	else if (postContent.is_gallery)
 		return (
-			<span className="galleryContent">
+			<div className="galleryContent">
 				{postContent.gallery_data?.items.map(({ media_id }: any, index: number) => {
 					if (postContent?.media_meta)
 						return (
-							<img
-								key={index}
-								src={decodeURIComponent(
-									new DOMParser().parseFromString(
-										postContent?.media_meta[media_id].p.slice(-1)[0].u,
-										'text/html'
-									).documentElement.textContent || ''
-								)}
-								alt={`img${index} of collage`}
-							/>
+							<div className="galleryInternalImage">
+								<img
+									key={index}
+									src={decodeURIComponent(
+										new DOMParser().parseFromString(
+											postContent?.media_meta[media_id].p.slice(-1)[0].u,
+											'text/html'
+										).documentElement.textContent || ''
+									)}
+									alt={`img${index} of collage`}
+								/>
+							</div>
 						);
 					else return <p key={index}>json returned from reddit is not formed correctly</p>;
 				})}
-			</span>
+			</div>
 		);
 	else if (
 		postContent.post_hint === 'link' ||

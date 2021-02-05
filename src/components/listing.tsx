@@ -4,6 +4,8 @@ import { FixedSizeList } from 'react-window';
 import InfiniteLoader from 'react-window-infinite-loader';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
+import SVGS from 'assets/exportSVG';
+
 import Sorter from './sorter';
 import { ReduxStateType } from 'reduxStore/reduxWrapper';
 import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
@@ -96,8 +98,10 @@ const Item: React.FC<RowProps> = ({ data, index, style }) => {
 								</h1>
 							</div>
 							<div className="data">
-								{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null && (
+								{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null ? (
 									<img src={content.thumbnail} alt={`thumbnail for ${id}`} />
+								) : (
+									SVGS['text_post']
 								)}
 							</div>
 						</div>

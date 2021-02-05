@@ -38,7 +38,8 @@ const SVGs = {
 	collapse_up: <CollapseUp />,
 	collapse_down: <CollapseDown />,
 	collapse_left: <CollapseLeft />,
-	collapse_right: <CollapseRight />
+	collapse_right: <CollapseRight />,
+	text_post: <Placeholder />
 };
 
 export default SVGs;
