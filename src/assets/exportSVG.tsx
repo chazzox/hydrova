@@ -15,6 +15,7 @@ import CollapseDown from './icons/collapseDown.svg';
 import CollapseLeft from './icons/collapseLeft.svg';
 import CollapseRight from './icons/collapseRight.svg';
 import Settings from './icons/settings.svg';
+import Markdown from './icons/markdown.svg';
 import Logo from './icons/logo.svg';
 
 const SVGs = {
@@ -39,7 +40,7 @@ const SVGs = {
 	collapse_down: <CollapseDown />,
 	collapse_left: <CollapseLeft />,
 	collapse_right: <CollapseRight />,
-	text_post: <Placeholder />
+	text_post: <Markdown />
 };
 
 export default SVGs;
