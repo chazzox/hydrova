@@ -10,19 +10,9 @@ const voteControls = ({ postContent: { likes, permalink, num_comments, ups, save
 		<>
 			<div className="voteControls">
 				<div className="votesContainer">
-					<GenericButton
-						svgPath="upvote"
-						isSelected={likes === true}
-						isCompact={true}
-						clickEvent={() => {}}
-					/>
+					<GenericButton svgPath="upvote" isSelected={likes === true} isCompact={true} clickEvent={() => {}} />
 					<span>{ups + (likes === true ? 1 : likes === false ? -1 : 0)}</span>
-					<GenericButton
-						clickEvent={() => {}}
-						svgPath="downvote"
-						isSelected={likes === false}
-						isCompact={true}
-					/>
+					<GenericButton clickEvent={() => {}} svgPath="downvote" isSelected={likes === false} isCompact={true} />
 				</div>
 				<GenericButton
 					clickEvent={() => {}}

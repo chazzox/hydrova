@@ -45,9 +45,7 @@ const Home = () => {
 				/>
 			</Helmet>
 			{!isSSR && (
-				<Suspense fallback={<></>}>
-					{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}
-				</Suspense>
+				<Suspense fallback={<></>}>{authenticationResultReturned && (isLoggedIn ? <App /> : <Login />)}</Suspense>
 			)}
 		</>
 	);

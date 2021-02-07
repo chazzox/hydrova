@@ -16,7 +16,7 @@ const Login = () => {
 
 	return (
 		<div id="loginBox">
-			<HydrovaSVG id={"logo"} height={150}/>
+			<HydrovaSVG id={'logo'} height={150} />
 
 			<div id="loginInfo">
 				<h1>Hydrova</h1>

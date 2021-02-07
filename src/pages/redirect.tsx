@@ -31,8 +31,7 @@ const Redirect: React.FC = () => {
 				method: 'POST',
 				headers: {
 					// encoding the auth info into a base64 string
-					Authorization:
-						'Basic ' + btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
+					Authorization: 'Basic ' + btoa(process.env.GATSBY_REDDIT_ID + ':' + process.env.GATSBY_REDDIT_SECRET),
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
 				body: urlencoded,
