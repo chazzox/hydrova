@@ -22,10 +22,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 		postKey &&
 			dispatch(GET_POST({ id: postKey }))
 				.then(unwrapResult)
-				.then((returned) => {
-					console.log(returned[0].data.children[0].data);
-					setComments(returned[1].data.children);
-				});
+				.then((returned) => setComments(returned[1].data.children));
 	}, [postKey]);
 
 	return (
@@ -54,7 +51,6 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 };
 
 const RenderPostType = ({ postContent }: { postContent: Post }) => {
-	console.log(postContent);
 	if (postContent.is_self && postContent.selftext_html)
 		return (
 			<span

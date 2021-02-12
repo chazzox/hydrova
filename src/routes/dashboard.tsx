@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
 						dispatch(
 							GET_LISTING({
 								listingEndpointName: endpointName,
-								listingQueryParams: listingAfterId ? { afterId: listingAfterId } : undefined
+								listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
 							})
 						)
 					}
