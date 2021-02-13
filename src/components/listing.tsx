@@ -26,14 +26,13 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 					<Sorter isCommentSort={false} />
 				</div>
 				<Virtuoso
-					style={{ display: 'flex' }}
-					totalCount={idKeys.length}
 					fixedItemHeight={102}
+					// maybe replace with map function? performance testing would need to be done
 					data={idKeys}
-					itemContent={(_, postId) => {
-						const content = postStore[postId];
-						return <>{content && <Item content={content} />}</>;
-					}}
+					// need to find way to fix this error in a clean mannor
+					itemContent={(_, postId) => (
+						<>{typeof postStore[postId] != 'undefined' && <Item content={postStore[postId]} />}</>
+					)}
 					endReached={fetchMore}
 					overscan={1530}
 				/>
@@ -53,37 +52,35 @@ const Item: React.FC<{ content: Post }> = ({ content }) => {
 	const { path } = useRouteMatch();
 
 	return (
-		<>
-			<Link
-				to={generatePath(path, {
-					listingType: listingType ?? 'r',
-					listingName: listingName ?? content.subreddit,
-					postId: content.id
-				})}
-			>
-				<object>
-					<div id={content.id} className="post">
-						<div className="postInfo roundedLinks">
-							<p>
-								<Link to={'/u/' + content.author}>{content.author}</Link>
-								<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
-								<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
-							</p>
-							<h1 className="postTitle">
-								{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
-							</h1>
-						</div>
-						<div className="data">
-							{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null ? (
-								<img src={content.thumbnail} alt={`thumbnail for ${content.id}`} />
-							) : (
-								SVGS['text_post']
-							)}
-						</div>
+		<Link
+			to={generatePath(path, {
+				listingType: listingType ?? 'r',
+				listingName: listingName ?? content.subreddit,
+				postId: content.id
+			})}
+		>
+			<object>
+				<div id={content.id} className="post">
+					<div className="postInfo roundedLinks">
+						<p>
+							<Link to={'/u/' + content.author}>{content.author}</Link>
+							<span>{formatTimeSince(timeSinceCurrent(content.created_utc))}</span>
+							<Link to={'/' + content.subreddit_name_prefixed}>{content.subreddit_name_prefixed}</Link>
+						</p>
+						<h1 className="postTitle">
+							{new DOMParser().parseFromString(content.title, 'text/html').documentElement.textContent}
+						</h1>
 					</div>
-				</object>
-			</Link>
-		</>
+					<div className="data">
+						{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null ? (
+							<img src={content.thumbnail} alt={`thumbnail for ${content.id}`} />
+						) : (
+							SVGS['text_post']
+						)}
+					</div>
+				</div>
+			</object>
+		</Link>
 	);
 };
 
