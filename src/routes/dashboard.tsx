@@ -39,14 +39,14 @@ const Dashboard: React.FC = () => {
 			{listingPointerArray && (
 				<Listing
 					idKeys={listingPointerArray}
-					fetchMore={(_, __) =>
+					fetchMore={(_) => {
 						dispatch(
 							GET_LISTING({
 								listingEndpointName: endpointName,
 								listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
 							})
-						)
-					}
+						);
+					}}
 				/>
 			)}
 			{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}

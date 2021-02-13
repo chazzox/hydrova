@@ -17,6 +17,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.post.posts[postKey]);
 	const [comments, setComments] = useState<PurpleChild[]>([]);
 	const refTop = useRef<HTMLDivElement>(null);
+
 	useEffect(() => {
 		refTop?.current?.scrollIntoView();
 		postKey &&
