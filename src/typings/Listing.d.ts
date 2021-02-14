@@ -109,7 +109,7 @@ interface ChildData {
 	num_crossposts: number;
 	media: Media | null;
 	is_video: boolean;
-	crosspost_parent_list?: CrosspostParentList[];
+	crosspost_parent_list?: ChildData[];
 	crosspost_parent?: string;
 	is_gallery?: boolean;
 	media_metadata?: boolean;
@@ -186,132 +186,12 @@ enum AuthorFlairType {
 	Text = 'text'
 }
 
-interface CrosspostParentList {
-	approved_at_utc: null;
-	subreddit: string;
-	selftext: string;
-	author_fullname: string;
-	saved: boolean;
-	mod_reason_title: null;
-	gilded: number;
-	clicked: boolean;
-	title: string;
-	link_flair_richtext: any[];
-	subreddit_name_prefixed: string;
-	hidden: boolean;
-	pwls: number;
-	link_flair_css_class: string;
-	downs: number;
-	thumbnail_height: number;
-	top_awarded_type: null;
-	hide_score: boolean;
-	name: string;
-	quarantine: boolean;
-	link_flair_text_color: FlairTextColor;
-	upvote_ratio: number;
-	author_flair_background_color: null;
-	subreddit_type: SubredditType;
-	ups: number;
-	total_awards_received: number;
-	media_embed: VariantsClass;
-	thumbnail_width: number;
-	author_flair_template_id: null;
-	is_original_content: boolean;
-	user_reports: any[];
-	secure_media: null;
-	is_reddit_media_domain: boolean;
-	is_meta: boolean;
-	category: null;
-	secure_media_embed: VariantsClass;
-	link_flair_text: string;
-	can_mod_post: boolean;
-	score: number;
-	approved_by: null;
-	author_premium: boolean;
-	thumbnail: string;
-	edited: boolean;
-	author_flair_css_class: null;
-	author_flair_richtext: any[];
-	gildings: CrosspostParentListGildings;
-	post_hint: string;
-	content_categories: null;
-	is_self: boolean;
-	mod_note: null;
-	created: number;
-	link_flair_type: AuthorFlairType;
-	wls: number;
-	removed_by_category: null;
-	banned_by: null;
-	author_flair_type: AuthorFlairType;
-	domain: string;
-	allow_live_comments: boolean;
-	selftext_html: null;
-	likes: null;
-	suggested_sort: null;
-	banned_at_utc: null;
-	url_overridden_by_dest: string;
-	view_count: null;
-	archived: boolean;
-	no_follow: boolean;
-	is_crosspostable: boolean;
-	pinned: boolean;
-	over_18: boolean;
-	preview: CrosspostParentListPreview;
-	all_awardings: AllAwarding[];
-	awarders: any[];
-	media_only: boolean;
-	can_gild: boolean;
-	spoiler: boolean;
-	locked: boolean;
-	author_flair_text: null;
-	treatment_tags: any[];
-	visited: boolean;
-	removed_by: null;
-	num_reports: null;
-	distinguished: null;
-	subreddit_id: string;
-	mod_reason_by: null;
-	removal_reason: null;
-	link_flair_background_color: string;
-	id: string;
-	is_robot_indexable: boolean;
-	report_reasons: null;
-	author: string;
-	discussion_type: null;
-	num_comments: number;
-	send_replies: boolean;
-	whitelist_status: WhitelistStatus;
-	contest_mode: boolean;
-	mod_reports: any[];
-	author_patreon_flair: boolean;
-	author_flair_text_color: null;
-	permalink: string;
-	parent_whitelist_status: WhitelistStatus;
-	stickied: boolean;
-	url: string;
-	subreddit_subscribers: number;
-	created_utc: number;
-	num_crossposts: number;
-	media: null;
-	is_video: boolean;
-}
-
-interface CrosspostParentListGildings {
-	gid_1: number;
-	gid_2: number;
-}
-
 interface VariantsClass {}
 
 enum WhitelistStatus {
 	AllAds = 'all_ads',
 	NoAds = 'no_ads',
 	SomeAds = 'some_ads'
-}
-
-interface CrosspostParentListPreview {
-	images: Image[];
-	enabled: boolean;
 }
 
 interface Image {
