@@ -29,12 +29,10 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 					fixedItemHeight={102}
 					// maybe replace with map function? performance testing would need to be done
 					data={idKeys}
-					// need to find way to fix this error in a clean mannor
-					itemContent={(_, postId) => (
-						<>{typeof postStore[postId] != 'undefined' && <Item content={postStore[postId]} />}</>
-					)}
+					// need to find way to fix this error in a clean manner
+					itemContent={(_, postId) => <>{postStore[postId] && <Item content={postStore[postId]} />}</>}
 					endReached={fetchMore}
-					overscan={1530}
+					overscan={1000}
 				/>
 			</div>
 		</>
