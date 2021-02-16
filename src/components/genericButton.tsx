@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { match, NavLink } from 'react-router-dom';
 import ClassNames from 'classnames';
 
 import SVGS from 'assets/exportSVG';
@@ -13,6 +13,7 @@ interface propTypes {
 	href?: string;
 	id?: string;
 	clickEvent?: () => void;
+	isActive?: (match: match, location: Location) => boolean;
 	isSelected?: boolean;
 	isCompact?: boolean;
 	isRound?: boolean;
@@ -32,7 +33,8 @@ const GenericButton = ({
 	isSelected,
 	children,
 	additionalStyles = {},
-	isExact
+	isExact,
+	isActive
 }: propTypes) => {
 	const Content = () => (
 		<button
@@ -54,7 +56,7 @@ const GenericButton = ({
 	);
 	if (!href) return <Content />;
 	return (
-		<NavLink exact={!!isExact ? undefined : true} to={href} activeClassName="selected">
+		<NavLink exact={!!isExact ? undefined : true} to={href} activeClassName="selected" isActive={isActive}>
 			<Content />
 		</NavLink>
 	);
