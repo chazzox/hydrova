@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
@@ -7,8 +7,6 @@ import queryStringToJSON from 'utils/queryString';
 
 import 'styles/index.scss';
 import 'styles/variables.scss';
-import 'styles/themes/defaultDark.scss';
-import 'styles/route/login.scss';
 import 'styles/redirect.scss';
 
 interface reAuthenticationResponse {
@@ -21,16 +19,22 @@ interface reAuthenticationResponse {
 }
 
 const Redirect: React.FC = () => {
+	const [errorMessage, setErrorMessage] = useState<string>('');
 	useEffect(() => {
-		if (!window.opener && process.env.GATSBY_CALLBACK_URL)
-			window.location.href = process.env.GATSBY_CALLBACK_URL.slice(0, process.env.GATSBY_CALLBACK_URL.length - 9);
-		if (/^state=([\w-]*)&code=([\w-]*)$/.test(document.location.href.split('?')[1])) {
+		if (!window.opener) window.location.href = document.location.origin;
+
+		const searchParams = new URLSearchParams(window.location.search);
+		const code = searchParams.get('code');
+		const state = searchParams.get('state');
+
+		if (code && state) {
 			const urlencoded = new URLSearchParams();
 			// constructing the query string
 			urlencoded.append('grant_type', 'authorization_code');
-			urlencoded.append('code', queryStringToJSON(document.location.href.split('?')[1]).code);
-			urlencoded.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ? process.env.GATSBY_CALLBACK_URL : '');
+			urlencoded.append('code', code);
+			urlencoded.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ?? '');
 
+			setErrorMessage('fetching access token');
 			fetch('https://www.reddit.com/api/v1/access_token', {
 				method: 'POST',
 				headers: {
@@ -42,18 +46,22 @@ const Redirect: React.FC = () => {
 				redirect: 'manual'
 			})
 				// parsing the promise information
-				.then((response) => response.text())
-				.then((text) => JSON.parse(text) as reAuthenticationResponse)
-				.then((json) => {
-					if (json.error === undefined) {
+				.then((response) => response.json())
+				.then((json: reAuthenticationResponse) => {
+					if (!json.error) {
 						const refresh_token: string = json.refresh_token;
 						Cookies.set('refresh_token', refresh_token, { sameSite: 'lax', expires: 365 });
 						window.close();
+					} else {
+						setErrorMessage(`error: ${json.error}`);
 					}
 				})
-				.catch((error) => alert(`error ${error}`));
+				.catch((error) => setErrorMessage(`error: ${error}`));
+		} else {
+			setErrorMessage('regex not found');
 		}
 	}, []);
+
 	return (
 		<>
 			<Helmet
@@ -78,6 +86,7 @@ const Redirect: React.FC = () => {
 						<div></div>
 						<div></div>
 					</div>
+					<h2>{errorMessage}</h2>
 				</div>
 			</div>
 		</>
