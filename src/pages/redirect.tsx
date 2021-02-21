@@ -5,6 +5,10 @@ import Cookies from 'js-cookie';
 import Hydrova from 'assets/icons/logo.svg';
 import queryStringToJSON from 'utils/queryString';
 
+import 'styles/index.scss';
+import 'styles/variables.scss';
+import 'styles/themes/defaultDark.scss';
+import 'styles/route/login.scss';
 import 'styles/redirect.scss';
 
 interface reAuthenticationResponse {
@@ -54,7 +58,7 @@ const Redirect: React.FC = () => {
 		<>
 			<Helmet
 				htmlAttributes={{
-					class: 'darkMode'
+					id: 'defaultDarkTheme'
 				}}
 			>
 				<meta charSet="utf-8" />
@@ -64,7 +68,7 @@ const Redirect: React.FC = () => {
 			</Helmet>
 
 			<div id="loginBox">
-				<Hydrova />
+				<Hydrova id="logo" height={150} />
 				<div id="loginInfo">
 					<h1>Hydrova</h1>
 					<h2>This window should close soon</h2>
