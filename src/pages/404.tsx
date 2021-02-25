@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import Hydrova from 'assets/icons/logo.svg';
 
 import 'styles/index.scss';
+import 'styles/variables.scss';
 import 'styles/route/login.scss';
 import 'styles/redirect.scss';
 
@@ -22,7 +23,7 @@ const Redirect: React.FC = () => {
 			</Helmet>
 
 			<div id="loginBox">
-				<Hydrova height={150} />
+				<Hydrova id={'logo'} height={150} />
 				<div id="loginInfo">
 					<h1>Hydrova - 404 Site</h1>
 					<h2>Tempororary 404 Page</h2>
