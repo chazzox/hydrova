@@ -22,7 +22,7 @@ const Redirect: React.FC = () => {
 			</Helmet>
 
 			<div id="loginBox">
-				<Hydrova />
+				<Hydrova height={150} />
 				<div id="loginInfo">
 					<h1>Hydrova - 404 Site</h1>
 					<h2>Tempororary 404 Page</h2>
