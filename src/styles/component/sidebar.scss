@@ -153,6 +153,13 @@
 	&.compact {
 		padding: 16px var(--padding-size-primary);
 		max-width: calc(2 * var(--padding-size-primary) + 52px);
+		#navTitleContainer {
+			width: 100%;
+			svg {
+				margin-left: var(--padding-size-primary);
+				margin-right: var(--padding-size-primary);
+			}
+		}
 		* {
 			color: transparent !important;
 		}
