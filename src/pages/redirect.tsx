@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import Cookies from 'js-cookie';
 
 import Hydrova from 'assets/icons/logo.svg';
-import queryStringToJSON from 'utils/queryString';
 
 import 'styles/index.scss';
 import 'styles/variables.scss';

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkInterface } from './reduxWrapper';
 
 export const refreshAccessToken = createAsyncThunk<AuthenticationSuccess, { refresh_token: string }, ThunkInterface>(
 	'users/refreshAccessToken',
