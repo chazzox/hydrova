@@ -1,0 +1,31 @@
+{
+	"name": "hydrova",
+	"private": true,
+	"description": "A lightweight reddit client built using Gatsby, redux and typescript",
+	"homepage": "https://chazzox.github.io/Hydrova/",
+	"version": "3.0.0",
+	"scripts": {
+		"start": "gatsby develop",
+		"clean": "gatsby clean",
+		"build": "gatsby build",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+	},
+	"sideEffects": false,
+	"dependencies": {
+		"gatsby": "^3.0.4",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1"
+	},
+	"devDependencies": {
+		"@types/node": "^12.12.11",
+		"@types/react": "^17.0.3",
+		"@types/react-dom": "^17.0.2",
+		"@typescript-eslint/eslint-plugin": "^2.8.0",
+		"@typescript-eslint/parser": "^2.8.0",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"prettier": "2.1.1",
+		"typescript": "^3.9.7"
+	}
+}
