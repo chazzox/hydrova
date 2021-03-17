@@ -33,7 +33,7 @@ const SmallBox = styled.div`
 
 	h2 {
 		color: ${(props) => props.theme.colors.secondaryText};
-		font-weight: 600;
+		font-weight: 500;
 		font-size: 12pt;
 		margin: 10px 0;
 	}
