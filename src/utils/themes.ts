@@ -1,6 +1,6 @@
-import { DefaultTheme } from 'styled-components';
+import { BasicValues, ColorTheme } from 'typings/declarations';
 
-export const themes: { [key: string]: DefaultTheme } = {
+export const themes: { [key: string]: ColorTheme } = {
 	defaultLight: {
 		name: 'Default Light',
 
@@ -168,22 +168,11 @@ export const themes: { [key: string]: DefaultTheme } = {
 	}
 };
 
-// 	-background-color-primary: rgb(30, 32, 44);
-// 	--background-color-secondary: rgb(46, 51, 65);
-// 	--background-color-tertiary: rgb(40, 42, 54);
+export const baseTheme: BasicValues = {
+	borderRadiusPrimary: 8,
+	borderRadiusSecondary: 11,
 
-// 	--text-color-button: white;
-
-// 	--border-color: rgb(52, 54, 84);
-
-// 	--accent-color-primary: rgb(179, 137, 239);
-// 	--accent-color-secondary: rgb(56, 58, 89);
-// 	--accent-color-tertiary: rgb(104, 67, 155);
-
-// 	--text-color-primary: rgba(255, 255, 255, 1);
-// 	--text-color-secondary: rgba(255, 255, 255, 0.66);
-// 	--text-color-tertiary: rgba(100, 107, 132, 1);
-
-// 	#sidebar {
-// 		--text-color-primary: rgb(182, 193, 226);
-// 	}
+	paddingPrimary: 8,
+	paddingSecondary: 11,
+	paddingTertiary: 24
+};

@@ -11,6 +11,7 @@ module.exports = {
 				utils: path.join(__dirname, 'src/utils'),
 				redux: path.join(__dirname, 'src/redux')
 			}
-		}
+		},
+		`gatsby-plugin-react-helmet`
 	]
 };
