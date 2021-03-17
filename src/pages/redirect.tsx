@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { navigate } from 'gatsby';
 import styled, { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import { navigate } from 'gatsby';
 import Cookies from 'js-cookie';
 
 import WelcomeBox from 'components/WelcomeBox';
@@ -83,7 +83,7 @@ const Loader = styled.div`
 const Redirect: React.FC = () => {
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	useEffect(() => {
-		// if (!window.opener) navigate('/');
+		if (!window.opener) navigate('/');
 
 		const searchParams = new URLSearchParams(window.location.search);
 		const code = searchParams.get('code');
