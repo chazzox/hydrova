@@ -2,10 +2,9 @@
   <a href="https://chazzox.github.io/Hydrova/#/">
     <img alt="Hydrova" src="https://raw.githubusercontent.com/chazzox/Hydrova/v3/static/icon-144x144.png" height="144px" />
   </a>
-</div>
-<div align="center">
   <h1>Hydrova - High Performance Reddit Client</h1>
 </div>
+[![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
 ## About
 
