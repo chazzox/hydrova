@@ -1,6 +1,12 @@
-# Hydrova
-
-High Performance Reddit Client
+<div align="center">
+  <a href="https://chazzox.github.io/Hydrova/#/">
+    <img alt="Hydrova" src="https://raw.githubusercontent.com/chazzox/Hydrova/v3/static/icon-144x144.png" height="144px" />
+  </a>
+</div>
+<div align="center">
+  <strong>Hydrova - High Performance Reddit Client</strong>
+</div>
+<br />
 
 ## About
 
