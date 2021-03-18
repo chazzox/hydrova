@@ -6,7 +6,6 @@
 <div align="center">
   <h1>Hydrova - High Performance Reddit Client</h1>
 </div>
-<br />
 
 ## About
 
