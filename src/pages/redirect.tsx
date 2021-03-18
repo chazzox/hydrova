@@ -96,7 +96,7 @@ const Redirect: React.FC = () => {
 			urlencoded.append('code', code);
 			urlencoded.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ?? '');
 
-			setErrorMessage('fetching access token');
+			setErrorMessage('Fetching access token');
 			fetch('https://www.reddit.com/api/v1/access_token', {
 				method: 'POST',
 				headers: {
