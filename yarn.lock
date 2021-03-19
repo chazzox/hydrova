@@ -2072,7 +2072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-cookie@npm:^2":
+"@types/js-cookie@npm:^2.2.6":
   version: 2.2.6
   resolution: "@types/js-cookie@npm:2.2.6"
   checksum: 08d3a2a014d2b7fd97070b5e5039f2ca387f07b9ecc13cfa85040479e7adbd62087901bd8adf94b2afad96457652996d1f051282ad3d4677a7ae1b6bf87a640f
@@ -2135,17 +2135,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^14.14.10":
+"@types/node@npm:*, @types/node@npm:^14.14.10, @types/node@npm:^14.14.35":
   version: 14.14.35
   resolution: "@types/node@npm:14.14.35"
   checksum: 0f6320bf5370d1ff82105fb7f26aa0658499c97d3ec78561e65b65724280244f281602541182b63470d2c8a98db22fbb4f91409c5c7c97da8c3bb8f97fbc5dbc
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^12.12.11":
-  version: 12.20.6
-  resolution: "@types/node@npm:12.20.6"
-  checksum: 2a652aa94521bc237fddfcbf769363ea172386bfa804e5fd409b179d8a6583d26098744500d30c23dc1de5452519a19e3836280b52cf0314d0d80e4b5be3df44
   languageName: node
   linkType: hard
 
@@ -2195,7 +2188,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-helmet@npm:^6":
+"@types/react-helmet@npm:^6.1.0":
   version: 6.1.0
   resolution: "@types/react-helmet@npm:6.1.0"
   dependencies:
@@ -2204,7 +2197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-redux@npm:^7":
+"@types/react-redux@npm:^7.1.16":
   version: 7.1.16
   resolution: "@types/react-redux@npm:7.1.16"
   dependencies:
@@ -2263,7 +2256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-components@npm:^5":
+"@types/styled-components@npm:^5.1.9":
   version: 5.1.9
   resolution: "@types/styled-components@npm:5.1.9"
   dependencies:
@@ -7852,25 +7845,26 @@ fsevents@~2.3.1:
   resolution: "hydrova@workspace:."
   dependencies:
     "@reduxjs/toolkit": ^1.5.0
-    "@types/js-cookie": ^2
-    "@types/node": ^12.12.11
+    "@types/js-cookie": ^2.2.6
+    "@types/node": ^14.14.35
     "@types/react": ^17.0.3
     "@types/react-dom": ^17.0.2
-    "@types/react-helmet": ^6
-    "@types/react-redux": ^7
-    "@types/styled-components": ^5
+    "@types/react-helmet": ^6.1.0
+    "@types/react-redux": ^7.1.16
+    "@types/styled-components": ^5.1.9
     gatsby: ^3.0.4
     gatsby-plugin-react-helmet: ^4.1.0
     gatsby-plugin-react-svg: ^3.0.0
     gatsby-plugin-root-import: ^2.0.6
     js-cookie: ^2.2.1
-    prettier: 2.1.1
+    prettier: 2.2.1
     react: ^17.0.1
     react-dom: ^17.0.1
     react-helmet: ^6.1.0
     react-redux: ^7.2.2
+    redux: ^4.0.5
     styled-components: ^5.2.1
-    typescript: ^3.9.7
+    typescript: ^4.2.3
   languageName: unknown
   linkType: soft
 
@@ -11445,16 +11439,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.1.1":
-  version: 2.1.1
-  resolution: "prettier@npm:2.1.1"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 420a807cda2d482388daa42379a7aaa1be629cb71f5792362a971a5ed1c6ff377d2e311818d24e9390a4a8a6eac3fda9ebe6975f2168efec893790c0497d8a93
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.0.5":
+"prettier@npm:2.2.1, prettier@npm:^2.0.5":
   version: 2.2.1
   resolution: "prettier@npm:2.2.1"
   bin:
@@ -14031,23 +14016,23 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-typescript@^3.9.7:
-  version: 3.9.9
-  resolution: "typescript@npm:3.9.9"
+typescript@^4.2.3:
+  version: 4.2.3
+  resolution: "typescript@npm:4.2.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 22bbe953faa34903587f3bd8fb6c343d754745d4177e49da523a2a3b814fe5eaf60d9b23c2d401d038a08a5ac2d8094b268ba75adee840cc2358fb5a866624ab
+  checksum: 06e8470f317db6f5e2fce809b20eb84a67a7d8179057abff36e5427bd1b891bd08e54581ff81f0fa36aef9b6d1eb0f54eaf6e2643c6dbd4e37a0adcc41eed256
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.9.7#builtin<compat/typescript>":
-  version: 3.9.9
-  resolution: "typescript@patch:typescript@npm%3A3.9.9#builtin<compat/typescript>::version=3.9.9&hash=a45b0e"
+"typescript@patch:typescript@^4.2.3#builtin<compat/typescript>":
+  version: 4.2.3
+  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=a45b0e"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 05a113f2ec0d0fc3263335c230d2eb7b94d851e51b5766f63b88b611127d08782ce41132eb32b9d3d434de8340f698f7ec2f72ebb4d33c3b2976b27de1f47ace
+  checksum: a8956044aabf730699bcc3c2475efdd3f35e509329325cf60b4989761d4c2188e2c474183e2cf92b8c201fcf976814a5a16f144508b2a832643c4f972d0ab803
   languageName: node
   linkType: hard
 
