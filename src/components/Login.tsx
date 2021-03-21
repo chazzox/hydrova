@@ -2,7 +2,7 @@ import { getJSON } from 'js-cookie';
 import React from 'react';
 import styled from 'styled-components';
 
-import { generateAuthUrl } from '../utils/generateAuthURL';
+import { generateAuthUrl } from 'utils/generateAuthURL';
 import { Button } from './Button';
 import WelcomeBox from './WelcomeBox';
 

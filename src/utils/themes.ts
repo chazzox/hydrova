@@ -1,4 +1,4 @@
-import { BasicValues, ColorTheme } from '../typings/declarations';
+import { BasicValues, ColorTheme } from 'typings/declarations';
 
 export const themes: { [key: string]: ColorTheme } = {
 	defaultLight: {

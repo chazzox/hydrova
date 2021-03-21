@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import styled, { ThemeProvider } from 'styled-components';
 
-import { baseTheme, themes } from '../utils/themes';
-import WelcomeBox from '../components/WelcomeBox';
-import Global from '../utils/Global';
+import { baseTheme, themes } from 'utils/themes';
+import WelcomeBox from 'components/WelcomeBox';
+import Global from 'utils/Global';
 
 const ThirdText = styled.p`
 	color: ${(props) => props.theme.colors.tertiaryText};

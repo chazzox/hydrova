@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet';
 import { navigate } from 'gatsby';
 import Cookies from 'js-cookie';
 
-import WelcomeBox from '../components/WelcomeBox';
-import { baseTheme, themes } from '../utils/themes';
-import Global from '../utils/Global';
+import WelcomeBox from 'components/WelcomeBox';
+import { baseTheme, themes } from 'utils/themes';
+import Global from 'utils/Global';
 
 interface reAuthenticationResponse {
 	scope: string;
