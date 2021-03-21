@@ -7,6 +7,7 @@ import { AppDispatch, ReduxStateType } from 'redux/store';
 import Login from 'components/Login';
 import Layout from 'components/Layout';
 import Dashboard from 'components/DashBoard';
+import { HashRouter, Route } from 'react-router-dom';
 
 const Index = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +27,18 @@ const Index = () => {
 			title="Hydrova | Reddit Client"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			{authenticationResultReturned && (isLoggedIn ? <Dashboard /> : <Login />)}
+			{authenticationResultReturned &&
+				(isLoggedIn ? (
+					<HashRouter>
+						<Route
+							exact
+							path={['/:postId?', '/:listingType(u|r|m)/:listingName/:postId?/']}
+							component={Dashboard}
+						/>
+					</HashRouter>
+				) : (
+					<Login />
+				))}
 		</Layout>
 	);
 };

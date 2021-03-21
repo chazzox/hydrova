@@ -1,6 +1,17 @@
 import { BasicValues, ColorTheme } from 'typings/declarations';
 
-export const themes: { [key: string]: ColorTheme } = {
+type themeKeys =
+	| 'defaultLight'
+	| 'defaultDark'
+	| 'gruvboxLight'
+	| 'gruvboxDark'
+	| 'horizonLight'
+	| 'horizonDark'
+	| 'dracula'
+	| 'bestOfBoth'
+	| 'greenFlair';
+
+export const themes: Record<themeKeys, ColorTheme> = {
 	defaultLight: {
 		name: 'Default Light',
 
