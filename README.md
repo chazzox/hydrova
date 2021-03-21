@@ -22,6 +22,7 @@
 ## About
 
 -   This repo is currently in active development, expect things to not work, features to be changed and settings to be rewritten.
--   I'm currently taking a break from this project to write a library for rendering tree data structures (i wonder what it could be useful for...)
 -   If anyone wants to get involved in this project feel free to shoot me a dm on discord or twitter!
 -   For the feature roadmap, [click here](https://trello.com/b/iyn74cJK/hydrova)
+
+### At the moment my time is being shared with writing this, and also my library [virtuoso-tree](https://github.com/chazzox/virtuoso-tree), a react library that aims to provide a better way to render tree data structures. This is being made for rendering the comments of posts for the site.
