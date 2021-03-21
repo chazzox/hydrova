@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterSlice from './AuthSlice';
+import AuthSlice from './AuthSlice';
 
 const store = configureStore({
-	reducer: { counter: counterSlice.reducer }
+	reducer: { auth: AuthSlice.reducer }
 });
 
 export type ReduxStateType = ReturnType<typeof store.getState>;
