@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJSON } from 'js-cookie';
 
+import { refreshAccessToken, setNoAuthCookies } from 'redux/AuthSlice';
+import { AppDispatch, ReduxStateType } from 'redux/store';
 import Login from 'components/Login';
 import Layout from 'components/Layout';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, ReduxStateType } from 'redux/store';
-import { refreshAccessToken, setNoAuthCookies } from 'redux/AuthSlice';
-import { getJSON } from 'js-cookie';
 import Dashboard from 'components/DashBoard';
 
 const Index = () => {

@@ -1,10 +1,10 @@
-import { getJSON } from 'js-cookie';
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { refreshAccessToken } from 'redux/AuthSlice';
-import { AppDispatch } from 'redux/store';
 import styled from 'styled-components';
+import { getJSON } from 'js-cookie';
 
+import { refreshAccessToken } from 'redux/AuthSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'redux/store';
 import { generateAuthUrl } from 'utils/generateAuthURL';
 import { Button } from './Button';
 import WelcomeBox from './WelcomeBox';
