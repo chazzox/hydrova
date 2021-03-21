@@ -1,5 +1,8 @@
 import { getJSON } from 'js-cookie';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshAccessToken } from 'redux/AuthSlice';
+import { AppDispatch } from 'redux/store';
 import styled from 'styled-components';
 
 import { generateAuthUrl } from 'utils/generateAuthURL';
@@ -20,15 +23,17 @@ const SignIn = styled(LoginButton)`
 	background-color: ${(props) => props.theme.colors.secondaryAccentBackground};
 `;
 
-const Login = () => (
-	<WelcomeBox topText="Hydrova" bottomText="High Performance Reddit Client">
-		<div>
+const Login = () => {
+	const dispatch = useDispatch<AppDispatch>();
+
+	return (
+		<WelcomeBox topText="Hydrova" bottomText="High Performance Reddit Client">
 			<SignIn
 				onClick={() => {
 					let loginModal = window.open(generateAuthUrl(), '_blank', 'resizable,scrollbars,status');
 					let checkLoginModalClosed = setInterval(() => {
 						if (loginModal?.closed) {
-							console.log(getJSON('refresh_token'));
+							dispatch(refreshAccessToken({ refresh_token: getJSON('refresh_token') }));
 							clearInterval(checkLoginModalClosed);
 						}
 					}, 50);
@@ -39,8 +44,8 @@ const Login = () => (
 			<LoginButton as="a" href="https://www.reddit.com/register">
 				Sign Up
 			</LoginButton>
-		</div>
-	</WelcomeBox>
-);
+		</WelcomeBox>
+	);
+};
 
 export default Login;

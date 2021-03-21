@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import counterSlice from './counterSlice';
+import counterSlice from './AuthSlice';
 
 const store = configureStore({
 	reducer: { counter: counterSlice.reducer }
@@ -11,8 +11,8 @@ const store = configureStore({
 export type ReduxStateType = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-const Wrapper: React.FC = ({ children }) => {
-	return <Provider store={store}>{children}</Provider>;
+const Wrapper = ({ element }: any) => {
+	return <Provider store={store}>{element}</Provider>;
 };
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
