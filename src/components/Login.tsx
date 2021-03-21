@@ -1,5 +1,5 @@
 import { getJSON } from 'js-cookie';
-import React from 'react';
+import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { refreshAccessToken } from 'redux/AuthSlice';
 import { AppDispatch } from 'redux/store';

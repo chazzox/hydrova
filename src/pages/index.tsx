@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, ReduxStateType } from 'redux/store';
 import { refreshAccessToken, setNoAuthCookies } from 'redux/AuthSlice';
 import { getJSON } from 'js-cookie';
+import Dashboard from 'components/DashBoard';
 
 const Index = () => {
 	const dispatch = useDispatch<AppDispatch>();
@@ -25,7 +26,7 @@ const Index = () => {
 			title="Hydrova | Reddit Client"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			{authenticationResultReturned && (isLoggedIn ? <>Logged in</> : <Login />)}
+			{authenticationResultReturned && (isLoggedIn ? <Dashboard /> : <Login />)}
 		</Layout>
 	);
 };
