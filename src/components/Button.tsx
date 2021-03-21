@@ -1,14 +1,7 @@
 import React from 'react';
-
-import SVGS from 'assets/exportSVG';
 import styled from 'styled-components';
 
-interface propTypes {
-	svgPath?: keyof typeof SVGS;
-	text?: string | number;
-	clickEvent?: () => void;
-	children?: React.ReactNode;
-}
+import SVGS from '../assets/exportSVG';
 
 export const Button = styled.button`
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;

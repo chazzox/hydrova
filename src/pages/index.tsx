@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Login from 'components/Login';
-import Layout from 'components/Layout';
+import Login from '../components/Login';
+import Layout from '../components/Layout';
 
 const Index = () => {
 	return (

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import Wrapper from 'redux/store';
 import { ThemeProvider } from 'styled-components';
 
-import Global from 'utils/Global';
-import { baseTheme, themes } from 'utils/themes';
+import Wrapper from '../redux/store';
+import Global from '../utils/Global';
+import { baseTheme, themes } from '../utils/themes';
 
 interface LayoutProps {
 	title: string;
