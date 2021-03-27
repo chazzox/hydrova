@@ -1916,7 +1916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/classnames@npm:^2":
+"@types/classnames@npm:^2.2.11":
   version: 2.2.11
   resolution: "@types/classnames@npm:2.2.11"
   checksum: 5bbd4fd0f803a46424152ecc89cfb88464af4d655634de8a98ec54977b0b6d9da107e799c24a2b66f0133438e84bac51b2275134cf028edea749fb018f731e89
@@ -2193,12 +2193,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "@types/react-dom@npm:17.0.2"
+"@types/react-dom@npm:^17.0.3":
+  version: 17.0.3
+  resolution: "@types/react-dom@npm:17.0.3"
   dependencies:
     "@types/react": "*"
-  checksum: abaadaa2629640870f4b982e3f32cf8f719773cfa97f02931baebef1993c0e2d70fd17f94b29bcf00d45ea099d5f04a042cf55ecb5e2bf8804c4e4cabdb4adc0
+  checksum: 9314c91a985f153591e1e74aef3d63d8b22e098069773f32745bf0733740a49802731761a46da8788a7d3dd2c21346036f12c2c24627630e5a6210b120a650e6
   languageName: node
   linkType: hard
 
@@ -6916,9 +6916,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "gatsby@npm:3.1.1"
+"gatsby@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "gatsby@npm:3.1.2"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/core": ^7.12.3
@@ -7076,7 +7076,7 @@ fsevents@~2.3.1:
     react-dom: ^16.9.0 || ^17.0.0
   bin:
     gatsby: ./cli.js
-  checksum: b11b68e93400ff4fde74babc695bbb2b95e297288cb26df6d70202d946e0f5c199d9c92762dedeb84bbd539f429a9a161d7c0f7f37112e01b964ef61fce7a754
+  checksum: a4b1f1f187fec7359cb535d1c71213d478823bc0ae9421a8e580a4ef42a5c2eb986527d60fe7e7a70090b11142218fed54180a0d03ef42fdf756bad41c9b750e
   languageName: node
   linkType: hard
 
@@ -7901,17 +7901,17 @@ fsevents@~2.3.1:
   resolution: "hydrova@workspace:."
   dependencies:
     "@reduxjs/toolkit": ^1.5.0
-    "@types/classnames": ^2
+    "@types/classnames": ^2.2.11
     "@types/js-cookie": ^2.2.6
     "@types/node": ^14.14.35
     "@types/react": ^17.0.3
-    "@types/react-dom": ^17.0.2
+    "@types/react-dom": ^17.0.3
     "@types/react-helmet": ^6.1.0
     "@types/react-redux": ^7.1.16
     "@types/react-router-dom": ^5
     "@types/styled-components": ^5.1.9
     classnames: ^2.2.6
-    gatsby: ^3.1.1
+    gatsby: ^3.1.2
     gatsby-plugin-react-helmet: ^4.1.0
     gatsby-plugin-react-svg: ^3.0.0
     js-cookie: ^2.2.1
