@@ -37,7 +37,7 @@ const sidebarReducer = createSlice({
 					...action.payload.map((multi) => ({
 						display_name: multi.data.display_name,
 						icon_img: multi.data.icon_url,
-						icon_color: getColor(multi.data.display_name)
+						icon_color: colorHash(multi.data.display_name)
 					}))
 				),
 				(multi: Multireddit) => multi.display_name
@@ -54,7 +54,7 @@ const sidebarReducer = createSlice({
 							display_name: data.display_name,
 							icon_img: getProfileURL(data.icon_img ? data.icon_img : data.community_icon || ''),
 							subreddit_type: data.subreddit_type,
-							icon_color: getColor(data.display_name)
+							icon_color: colorHash(data.display_name)
 						}))
 					)
 					.sort((a, b) => a.display_name.localeCompare(b.display_name)),

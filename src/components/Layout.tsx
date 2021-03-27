@@ -12,7 +12,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 	return (
-		<ThemeProvider theme={{ colors: themes.dracula, base: baseTheme }}>
+		<ThemeProvider theme={{ colors: themes.defaultDark, base: baseTheme }}>
 			<Helmet>
 				<title>{title}</title>
 				<meta name="description" content={description} />

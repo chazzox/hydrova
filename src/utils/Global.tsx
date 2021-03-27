@@ -9,6 +9,13 @@ const Global = createGlobalStyle`
 
 	body {
 		background-color: ${(props) => props.theme.colors.primaryBackground};
+		padding: 0;
+		margin: 0;
+	}
+
+	#gatsby-focus-wrapper {
+		display: flex;
+		padding-right: ${(props) => props.theme.base.paddingSecondary}px;
 	}
 
 	::-webkit-scrollbar {
@@ -19,10 +26,9 @@ const Global = createGlobalStyle`
 		background-color: ${(props) => props.theme.colors.tertiaryBackground};
 	}
 	::-webkit-scrollbar-track:hover {
-		background-color:  ${(props) => props.theme.colors.secondaryBackground}
+		background-color: ${(props) => props.theme.colors.secondaryBackground};
 	}
 	::-webkit-scrollbar-thumb {
-		
 		background-color: ${(props) => props.theme.colors.tertiaryText};
 		border-radius: 16px;
 		border: 6px solid ${(props) => props.theme.colors.tertiaryBackground};

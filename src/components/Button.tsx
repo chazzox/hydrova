@@ -1,7 +1,4 @@
-import * as React from 'react';
 import styled from 'styled-components';
-
-import SVGS from 'assets/exportSVG';
 
 export const Button = styled.button`
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
@@ -19,8 +16,23 @@ export const Button = styled.button`
 	outline: none;
 	font-size: 11pt;
 	line-height: 20px;
+	text-align: left;
 
 	&:hover {
 		background-color: ${(props) => props.theme.colors.secondaryAccentBackground};
+	}
+
+	& > svg {
+		width: 20px;
+		float: left;
+		margin-right: ${(props) => props.theme.base.paddingSecondary}px;
+	}
+
+	& > svg * {
+		fill: none;
+		stroke-width: 42px;
+		stroke: ${(props) => props.theme.colors.primaryText};
+		stroke-linecap: round;
+		stroke-linejoin: round;
 	}
 `;
