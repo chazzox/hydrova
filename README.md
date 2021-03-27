@@ -6,4 +6,4 @@ High Performance Reddit Client
 - If anyone wants to get involved in this project feel free to shoot me a dm on discord or twitter!
 - For the feature roadmap, [click here](https://trello.com/b/iyn74cJK/hydrova)
 
-### For the active branch, checkout the branch v3
+### For the active branch, checkout the [V3 branch](https://github.com/chazzox/Hydrova/tree/v3)
