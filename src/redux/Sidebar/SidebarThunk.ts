@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkInterface } from 'typings/Thunk';
+import { ThunkInterface } from '@typings/Thunk';
 
 export const GET_USER_INFO = createAsyncThunk<userInfoSuccess, undefined, ThunkInterface>(
 	'sidebar/getUserInfo',

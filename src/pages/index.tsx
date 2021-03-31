@@ -1,26 +1,17 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
-import { getJSON } from 'js-cookie';
 
-import { refreshAccessToken, setNoAuthCookies } from '@redux/AuthSlice';
-import { AppDispatch, ReduxStateType } from '@redux/store';
+import { ReduxStateType } from '@redux/store';
 import Login from '@components/Login';
 import Layout from '@components/Layout';
 import Dashboard from '@components/DashBoard';
 
 const Index = () => {
-	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
 	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
 		(state) => state.auth.authenticationResultReturned
 	);
-
-	React.useEffect(() => {
-		const oauthCookieData = getJSON('refresh_token') as string;
-		if (oauthCookieData) dispatch(refreshAccessToken({ refresh_token: oauthCookieData }));
-		else dispatch(setNoAuthCookies());
-	}, []);
 
 	return (
 		<Layout

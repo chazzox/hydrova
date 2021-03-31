@@ -7,6 +7,7 @@ import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
 import { Button } from './Button';
+import { Link } from 'gatsby';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -138,22 +139,33 @@ const Sidebar = () => {
 				<SearchBar type="text" placeholder="Search" autoComplete="off" />
 			</SidebarSearchWrapper>
 
-			<Button>
-				<Home />
-				Timeline
-			</Button>
-			<Button>
-				<New />
-				Post
-			</Button>
-			<Button>
-				<Mail />
-				Mail
-			</Button>
-			<Button>
-				<Settings />
-				Settings
-			</Button>
+			<Link to="/">
+				<Button>
+					<Home />
+					Timeline
+				</Button>
+			</Link>
+
+			<Link to="/post">
+				<Button>
+					<New />
+					Post
+				</Button>
+			</Link>
+
+			<Link to="/mail">
+				<Button>
+					<Mail />
+					Mail
+				</Button>
+			</Link>
+
+			<Link to="/settings/Appearance/">
+				<Button>
+					<Settings />
+					Settings
+				</Button>
+			</Link>
 
 			<ScrollSection>
 				<Section>Feeds</Section>

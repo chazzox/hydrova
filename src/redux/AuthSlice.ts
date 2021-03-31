@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkInterface } from 'typings/Thunk';
+import { ThunkInterface } from '@typings/Thunk';
 
 export const refreshAccessToken = createAsyncThunk<AuthenticationSuccess, { refresh_token: string }, ThunkInterface>(
 	'users/refreshAccessToken',
@@ -45,9 +45,7 @@ const authSlice = createSlice({
 		});
 		builder.addCase(refreshAccessToken.rejected, (state, action) => {
 			state.authenticationResultReturned = true;
-			if (action.payload?.message) {
-				state.authenticationErrors.push(action.payload.message);
-			}
+			action.payload?.message && state.authenticationErrors.push(action.payload.message);
 		});
 	}
 });

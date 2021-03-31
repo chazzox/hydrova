@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkInterface } from 'typings/Thunk';
+import { ThunkInterface } from '@typings/Thunk';
 
 export const GET_LISTING = createAsyncThunk<
 	Listing,
