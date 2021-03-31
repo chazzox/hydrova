@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { getJSON } from 'js-cookie';
 
-import { refreshAccessToken } from 'redux/AuthSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'redux/store';
-import { generateAuthUrl } from 'utils/generateAuthURL';
+import { refreshAccessToken } from '@redux/AuthSlice';
+import { AppDispatch } from '@redux/store';
+import { generateAuthUrl } from '@utils/generateAuthURL';
 import { Button } from './Button';
 import WelcomeBox from './WelcomeBox';
 

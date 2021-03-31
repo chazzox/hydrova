@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import getValues from 'utils/getPostValues';
+import getValues from '@utils/getPostValues';
 
 import { GET_LISTING, GET_POST } from './ListingThunks';
 

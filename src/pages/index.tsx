@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { HashRouter, Route } from 'react-router-dom';
 import { getJSON } from 'js-cookie';
 
-import { refreshAccessToken, setNoAuthCookies } from 'redux/AuthSlice';
-import { AppDispatch, ReduxStateType } from 'redux/store';
-import Login from 'components/Login';
-import Layout from 'components/Layout';
-import Dashboard from 'components/DashBoard';
-import { HashRouter, Route } from 'react-router-dom';
+import { refreshAccessToken, setNoAuthCookies } from '@redux/AuthSlice';
+import { AppDispatch, ReduxStateType } from '@redux/store';
+import Login from '@components/Login';
+import Layout from '@components/Layout';
+import Dashboard from '@components/DashBoard';
 
 const Index = () => {
 	const dispatch = useDispatch<AppDispatch>();

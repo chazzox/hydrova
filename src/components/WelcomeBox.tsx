@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { Hydrova } from 'assets/Icons';
+import { Hydrova } from '@assets/Icons';
 
 const Box = styled.div`
 	background: ${(props) => props.theme.colors.tertiaryBackground};

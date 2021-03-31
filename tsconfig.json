@@ -6,9 +6,9 @@
 		"lib": ["dom", "es2017"],
 		"moduleResolution": "node",
 		"jsx": "preserve",
-		"baseUrl": "src",
+		"baseUrl": ".",
 		"paths": {
-			"*": ["*", "src/components/*", "src/assets/*", "src/redux/*", "/src/utils/*", "/src/pages/*"]
+			"@*": ["src/*"]
 		},
 		"strict": true,
 		"esModuleInterop": true,

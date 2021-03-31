@@ -3,9 +3,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO } from './SidebarThunk';
 export { GET_MULTIREDDITS, GET_SUBREDDITS, GET_USER_INFO };
 
-import getProfileURL from 'utils/imgQuerySplit';
-import colorHash from 'utils/colorHash';
-import unique from 'utils/unique';
+import getProfileURL from '@utils/imgQuerySplit';
+import colorHash from '@utils/colorHash';
+import unique from '@utils/unique';
 
 const sidebarReducer = createSlice({
 	name: 'sidebarReducer',

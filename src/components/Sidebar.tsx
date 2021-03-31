@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-
-import { ReduxStateType, AppDispatch } from 'redux/store';
-import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from 'redux/Sidebar/SidebarSlice';
-import { Home, Hydrova, Mail, New, Search, Settings } from 'assets/Icons';
 import styled from 'styled-components';
+
+import { ReduxStateType, AppDispatch } from '@redux/store';
+import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
+import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
 import { Button } from './Button';
 
 const NavHydrova = styled(Hydrova)`
@@ -38,7 +38,7 @@ const SidebarContainer = styled.div`
 	justify-self: left;
 	position: relative;
 	max-width: 300px;
-	flex-shrink: 3; // will be the first to compress to save space
+	flex-shrink: 3;
 	height: 100vh;
 	width: 300px;
 `;
@@ -71,7 +71,6 @@ const SearchBar = styled.input`
 	font-size: 11pt;
 	width: calc(100% - 20px - ${(props) => props.theme.base.paddingSecondary}px);
 	color: ${(props) => props.theme.colors.primaryText};
-
 	&::placeholder {
 		color: ${(props) => props.theme.colors.secondaryText};
 	}
@@ -90,22 +89,16 @@ const Section = styled.h3`
 `;
 
 const ScrollSection = styled.div`
+	border-radius: ${(props) => props.theme.base.paddingPrimary}px;
+	margin-top: ${(props) => props.theme.base.paddingTertiary}px;
 	display: block;
 	position: relative;
-
 	overflow-y: auto;
 	overflow-x: hidden;
-
-	margin-top: ${(props) => props.theme.base.paddingTertiary}px;
-
 	padding-bottom: 40px;
-
 	width: 100%;
 	max-height: 53%;
-
-	border-radius: ${(props) => props.theme.base.paddingPrimary}px;
 	cursor: pointer;
-
 	&::-webkit-scrollbar {
 		width: 0 !important;
 	}
@@ -116,10 +109,10 @@ const Sidebar = () => {
 
 	const multiReddits = useSelector<ReduxStateType, Multireddit[]>((state) => state.sidebar.multiReddits);
 	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>((state) => state.sidebar.subReddits);
-	const userInfo = useSelector<ReduxStateType>((state) => state.sidebar);
+	const userInfo = useSelector<ReduxStateType, UserAbout>((state) => state.sidebar.userInfo);
 
 	// fetching all user subs in batches of 25
-	const getUserSubscribedSubreddits = (afterId: string | undefined = '') => {
+	const getUserSubscribedSubreddits = (afterId: string = '') => {
 		dispatch(GET_SUBREDDITS(afterId))
 			.then(unwrapResult)
 			.then((originalPromiseResult) => {
@@ -139,10 +132,12 @@ const Sidebar = () => {
 				<NavHydrova />
 				<NavTitle>Hydrova</NavTitle>
 			</TitleContainer>
+
 			<SidebarSearchWrapper>
 				<Search />
 				<SearchBar type="text" placeholder="Search" autoComplete="off" />
 			</SidebarSearchWrapper>
+
 			<Button>
 				<Home />
 				Timeline
@@ -159,43 +154,26 @@ const Sidebar = () => {
 				<Settings />
 				Settings
 			</Button>
+
 			<ScrollSection>
 				<Section>Feeds</Section>
 				{multiReddits.map((multiReddit, index) => (
 					<Button as="a" key={index} href={'/m/' + multiReddit.display_name}>
-						<div
-							className="icon"
-							style={
-								!multiReddit.icon_img
-									? { backgroundColor: multiReddit.icon_color }
-									: { backgroundImage: `url(${multiReddit.icon_img})` }
-							}
-						>
-							{!multiReddit.icon_img && multiReddit.display_name[0].toUpperCase()}
-						</div>
-						{multiReddit.display_name}
+						<div>{multiReddit.display_name}</div>
 					</Button>
 				))}
+
 				<Section>My Subreddits</Section>
 				{subReddits.map((subreddit, index) => {
 					if (subreddit.subreddit_type !== 'user')
 						return (
 							<Button as="a" key={index} href={'/r/' + subreddit.display_name}>
-								<div
-									className="icon"
-									style={
-										subreddit.icon_img == ''
-											? { backgroundColor: subreddit.icon_color }
-											: { backgroundImage: `url(${subreddit.icon_img})` }
-									}
-								>
-									{subreddit.icon_img == '' ? subreddit.display_name[0].toUpperCase() : ''}
-								</div>
-								{subreddit.display_name}
+								<div>{subreddit.display_name}</div>
 							</Button>
 						);
 				})}
 			</ScrollSection>
+
 			<div id="userDetails">
 				<div id="profileImage" style={{ backgroundImage: `url(${userInfo.icon_img})` }} />
 				<div id="userText">
