@@ -160,7 +160,7 @@ const Sidebar = () => {
 				</Button>
 			</Link>
 
-			<Link to="/settings/Appearance/">
+			<Link to="/settings/appearance/">
 				<Button>
 					<Settings />
 					Settings
