@@ -6,7 +6,7 @@ export const GET_USER_INFO = createAsyncThunk<userInfoSuccess, undefined, ThunkI
 	async (_, { getState, rejectWithValue }) => {
 		const response = await fetch('https://oauth.reddit.com/api/v1/me', {
 			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` },
+			headers: { Authorization: `Bearer ${getState().settings.access_token}` },
 			redirect: 'manual'
 		});
 		const responseJSON = await response.json();
@@ -20,7 +20,7 @@ export const GET_MULTIREDDITS = createAsyncThunk<UserMultiSuccess, undefined, Th
 	async (_, { getState, rejectWithValue }) => {
 		const response = await fetch('https://oauth.reddit.com/api/multi/mine', {
 			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` },
+			headers: { Authorization: `Bearer ${getState().settings.access_token}` },
 			redirect: 'manual'
 		});
 		const responseJSON = await response.json();
@@ -34,7 +34,7 @@ export const GET_SUBREDDITS = createAsyncThunk<userSubSuccess, string | undefine
 	async (afterId, { getState, rejectWithValue }) => {
 		const response = await fetch('https://oauth.reddit.com/subreddits/mine/subscriber?limit=50&after=' + afterId, {
 			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` },
+			headers: { Authorization: `Bearer ${getState().settings.access_token}` },
 			redirect: 'manual'
 		});
 		const responseJSON = await response.json();

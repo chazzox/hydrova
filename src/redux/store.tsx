@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import AuthSlice from './AuthSlice';
+import SettingSlice from './SettingSlice';
 import sidebarReducer from './Sidebar/SidebarSlice';
 import ListingSlice from './Listing/ListingReducer';
 
 const store = configureStore({
-	reducer: { auth: AuthSlice.reducer, sidebar: sidebarReducer.reducer, listing: ListingSlice.reducer }
+	reducer: { settings: SettingSlice.reducer, sidebar: sidebarReducer.reducer, listing: ListingSlice.reducer }
 });
 
 export type ReduxStateType = ReturnType<typeof store.getState>;

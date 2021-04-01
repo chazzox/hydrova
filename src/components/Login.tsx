@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { getJSON } from 'js-cookie';
 
-import { refreshAccessToken } from '@redux/AuthSlice';
+import { refreshAccessToken } from '@redux/SettingSlice';
 import { AppDispatch } from '@redux/store';
 import { generateAuthUrl } from '@utils/generateAuthURL';
 import { Button } from './Button';

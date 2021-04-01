@@ -8,7 +8,7 @@ import Layout from '@components/Layout';
 import Dashboard from '@components/DashBoard';
 
 const Index = () => {
-	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
+	const isLoggedIn = useSelector((state: ReduxStateType) => state.settings.isLoggedIn);
 
 	return (
 		<Layout

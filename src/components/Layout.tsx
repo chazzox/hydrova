@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { getJSON } from 'js-cookie';
 
-import { refreshAccessToken, setNoAuthCookies } from '@redux/AuthSlice';
+import { refreshAccessToken, setNoAuthCookies } from '@redux/SettingSlice';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 import { baseTheme, themes } from '@utils/themes';
 import Global from '@utils/Global';
@@ -17,7 +17,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 	const dispatch = useDispatch<AppDispatch>();
 
-	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.auth.authenticationResultReturned);
+	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.settings.authenticationResultReturned);
 
 	React.useEffect(() => {
 		const oauthCookieData = getJSON('refresh_token') as string;

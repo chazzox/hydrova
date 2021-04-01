@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkInterface } from '@typings/Thunk';
 
 export const refreshAccessToken = createAsyncThunk<AuthenticationSuccess, { refresh_token: string }, ThunkInterface>(
-	'users/refreshAccessToken',
+	'settingsSlice/refreshAccessToken',
 	async ({ refresh_token }, thunkApi) => {
 		const urlencoded = new URLSearchParams();
 		urlencoded.append('grant_type', 'refresh_token');
@@ -22,8 +22,8 @@ export const refreshAccessToken = createAsyncThunk<AuthenticationSuccess, { refr
 	}
 );
 
-const authSlice = createSlice({
-	name: 'authReducer',
+const SettingsSlice = createSlice({
+	name: 'settingsSlice',
 	initialState: {
 		isLoggedIn: false,
 		authenticationResultReturned: false,
@@ -50,6 +50,6 @@ const authSlice = createSlice({
 	}
 });
 
-export const { setNoAuthCookies } = authSlice.actions;
+export const { setNoAuthCookies } = SettingsSlice.actions;
 
-export default authSlice;
+export default SettingsSlice;

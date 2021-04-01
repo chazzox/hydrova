@@ -21,7 +21,7 @@ export const GET_LISTING = createAsyncThunk<
 		}`,
 		{
 			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` }
+			headers: { Authorization: `Bearer ${getState().settings.access_token}` }
 		}
 	);
 	const responseJSON = await response.json();
@@ -34,7 +34,7 @@ export const GET_POST = createAsyncThunk<GeneralPostResponse, { id: string }, Th
 	async ({ id }, { getState, rejectWithValue }) => {
 		const response = await fetch(`https://oauth.reddit.com/comments/${id}`, {
 			method: 'GET',
-			headers: { Authorization: `Bearer ${getState().auth.access_token}` }
+			headers: { Authorization: `Bearer ${getState().settings.access_token}` }
 		});
 		const responseJSON = await response.json();
 		if (response.status === 400 || response.status === 404) return rejectWithValue(responseJSON);

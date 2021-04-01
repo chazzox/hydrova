@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import styled from 'styled-components';
@@ -88,6 +88,7 @@ const Section = styled.h3`
 	font-weight: 600;
 	font-size: 10pt;
 `;
+
 const Icon = styled.div`
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -172,9 +173,9 @@ const UserText = styled.div`
 const Sidebar = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
-	const multiReddits = useSelector<ReduxStateType, Multireddit[]>((state) => state.sidebar.multiReddits);
-	const subReddits = useSelector<ReduxStateType, SidebarStoredSub[]>((state) => state.sidebar.subReddits);
-	const userInfo = useSelector<ReduxStateType, UserAbout>((state) => state.sidebar.userInfo);
+	const multiReddits = useSelector((state: ReduxStateType) => state.sidebar.multiReddits);
+	const subReddits = useSelector((state: ReduxStateType) => state.sidebar.subReddits);
+	const userInfo = useSelector((state: ReduxStateType) => state.sidebar.userInfo);
 
 	// fetching all user subs in batches of 25
 	const getUserSubscribedSubreddits = (afterId: string = '') => {
@@ -185,7 +186,7 @@ const Sidebar = () => {
 			});
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		dispatch(GET_USER_INFO());
 		dispatch(GET_MULTIREDDITS());
 		getUserSubscribedSubreddits();
