@@ -5,6 +5,7 @@ import { Main } from '@components/DashBoard';
 import Layout from '@components/Layout';
 import Sidebar from '@components/Sidebar';
 import { baseTheme, themes } from '@utils/themes';
+import PillSelector from '@components/PillSelector';
 
 const ThemePreview = styled.div`
 	padding: ${(props) => props.theme.base.paddingPrimary}px;
@@ -47,6 +48,7 @@ const Appearance = () => {
 		>
 			<Sidebar />
 			<Main>
+				<PillSelector />
 				<SettingsContainer>
 					<h1>Color Theme</h1>
 					<p>The colors used to style the user interface</p>

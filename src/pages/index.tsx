@@ -9,27 +9,19 @@ import Dashboard from '@components/DashBoard';
 
 const Index = () => {
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.auth.isLoggedIn);
-	const authenticationResultReturned = useSelector<ReduxStateType, boolean>(
-		(state) => state.auth.authenticationResultReturned
-	);
 
 	return (
 		<Layout
 			title="Hydrova | Reddit Client"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			{authenticationResultReturned &&
-				(isLoggedIn ? (
-					<HashRouter>
-						<Route
-							exact
-							path={['/:postId?', '/:listingType(u|r|m)/:listingName/:postId?/']}
-							component={Dashboard}
-						/>
-					</HashRouter>
-				) : (
-					<Login />
-				))}
+			{isLoggedIn ? (
+				<HashRouter>
+					<Route exact path={['/:postId?', '/:listingType(u|r|m)/:listingName/:postId?/']} component={Dashboard} />
+				</HashRouter>
+			) : (
+				<Login />
+			)}
 		</Layout>
 	);
 };
