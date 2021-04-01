@@ -8,6 +8,7 @@ import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
 import { Button } from './Button';
+import { Link as HashLink } from 'react-router-dom';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -130,7 +131,9 @@ const Sidebar = () => {
 	return (
 		<SidebarContainer>
 			<TitleContainer>
-				<NavHydrova />
+				<Link to="/">
+					<NavHydrova />
+				</Link>
 				<NavTitle>Hydrova</NavTitle>
 			</TitleContainer>
 
@@ -169,21 +172,21 @@ const Sidebar = () => {
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				{multiReddits.map((multiReddit, index) => (
-					<Button as="a" key={index} href={'/m/' + multiReddit.display_name}>
-						<div>{multiReddit.display_name}</div>
-					</Button>
+				{multiReddits.map(({ display_name }, index) => (
+					<Link to={`/#/m/${display_name}`}>
+						<Button key={index}>{display_name}</Button>
+					</Link>
 				))}
 
 				<Section>My Subreddits</Section>
-				{subReddits.map((subreddit, index) => {
-					if (subreddit.subreddit_type !== 'user')
-						return (
-							<Button as="a" key={index} href={'/r/' + subreddit.display_name}>
-								<div>{subreddit.display_name}</div>
-							</Button>
-						);
-				})}
+				{subReddits.map(
+					(subreddit, index) =>
+						subreddit.subreddit_type !== 'user' && (
+							<Link to={`/#/r/${subreddit.display_name}`}>
+								<Button key={index}>{subreddit.display_name}</Button>
+							</Link>
+						)
+				)}
 			</ScrollSection>
 
 			<div id="userDetails">
