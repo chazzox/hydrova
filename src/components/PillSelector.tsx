@@ -41,19 +41,19 @@ const Pill = styled(Link)`
 const PillSelector = () => {
 	return (
 		<PillSelectorWrapper>
-			<Pill activeClassName="active" to="/settings/account">
+			<Pill activeClassName="active" to="/settings/account/">
 				Account
 			</Pill>
-			<Pill activeClassName="active" to="/settings/appearance">
+			<Pill activeClassName="active" to="/settings/appearance/">
 				Appearance
 			</Pill>
-			<Pill activeClassName="active" to="/settings/content">
+			<Pill activeClassName="active" to="/settings/content/">
 				Content
 			</Pill>
-			<Pill activeClassName="active" to="/settings/general">
+			<Pill activeClassName="active" to="/settings/general/">
 				General
 			</Pill>
-			<Pill activeClassName="active" to="/settings/keybinds">
+			<Pill activeClassName="active" to="/settings/keybinds/">
 				Keybinds
 			</Pill>
 		</PillSelectorWrapper>
