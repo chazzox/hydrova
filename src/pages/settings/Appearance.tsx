@@ -38,8 +38,8 @@ const Appearance = () => {
 					<h1>Color Theme</h1>
 					<p>The colors used to style the user interface</p>
 					{Object.entries(themes).map(([themeKey, theme]) => (
-						<ThemeProvider theme={{ colors: theme, base: baseTheme }}>
-							<ThemePreview key={themeKey}>{theme.name}</ThemePreview>
+						<ThemeProvider key={themeKey} theme={{ colors: theme, base: baseTheme }}>
+							<ThemePreview>{theme.name}</ThemePreview>
 						</ThemeProvider>
 					))}
 				</SettingsContainer>

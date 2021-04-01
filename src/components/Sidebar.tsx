@@ -8,7 +8,6 @@ import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
 import { Button } from './Button';
-import { Link as HashLink } from 'react-router-dom';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -42,7 +41,7 @@ const SidebarContainer = styled.div`
 	max-width: 300px;
 	flex-shrink: 3;
 	height: 100vh;
-	width: 300px;
+	width: 250px;
 `;
 
 const SidebarSearchWrapper = styled.div`
@@ -103,6 +102,56 @@ const ScrollSection = styled.div`
 	cursor: pointer;
 	&::-webkit-scrollbar {
 		width: 0 !important;
+	}
+`;
+
+const UserDetails = styled.div`
+	padding: ${(props) => props.theme.base.paddingSecondary}px ${(props) => props.theme.base.paddingTertiary}px;
+	box-shadow: 0 -40px 40px 0 ${(props) => props.theme.colors.secondaryBackground};
+	background-color: ${(props) => props.theme.colors.secondaryBackground};
+	transition: background-color 1s ease, box-shadow 1s ease, padding 0.4s ease;
+	white-space: nowrap;
+	position: absolute;
+	overflow: hidden;
+	font-size: 11pt;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+`;
+
+const ProfileImage = styled.div`
+	border: 2px solid ${(props) => props.theme.colors.borderColor};
+	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
+	background-position: 50%;
+	background-size: cover;
+	vertical-align: middle;
+	float: left;
+	width: 50px;
+	height: 50px;
+`;
+
+const UserText = styled.div`
+	width: calc(100% - ${(props) => props.theme.base.paddingPrimary}px - 50px);
+	margin-left: ${(props) => props.theme.base.paddingPrimary}px;
+	position: relative;
+	height: 50px;
+	display: inline-block;
+	overflow: hidden;
+	& * {
+		position: absolute;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		margin: 0;
+		left: 0;
+	}
+	& > #userName {
+		color: ${(props) => props.theme.colors.primaryText};
+		top: 5px;
+	}
+	& > #userKarma {
+		color: ${(props) => props.theme.colors.secondaryText};
+		bottom: 5px;
 	}
 `;
 
@@ -172,9 +221,12 @@ const Sidebar = () => {
 
 			<ScrollSection>
 				<Section>Feeds</Section>
+				<Link to="/#/r/all">
+					<Button>All</Button>
+				</Link>
 				{multiReddits.map(({ display_name }, index) => (
-					<Link to={`/#/m/${display_name}`}>
-						<Button key={index}>{display_name}</Button>
+					<Link key={index} to={`/#/m/${display_name}`}>
+						<Button>{display_name}</Button>
 					</Link>
 				))}
 
@@ -182,20 +234,20 @@ const Sidebar = () => {
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<Link to={`/#/r/${subreddit.display_name}`}>
-								<Button key={index}>{subreddit.display_name}</Button>
+							<Link key={index} to={`/#/r/${subreddit.display_name}`}>
+								<Button>{subreddit.display_name}</Button>
 							</Link>
 						)
 				)}
 			</ScrollSection>
 
-			<div id="userDetails">
-				<div id="profileImage" style={{ backgroundImage: `url(${userInfo.icon_img})` }} />
-				<div id="userText">
+			<UserDetails>
+				<ProfileImage style={{ backgroundImage: `url(${userInfo.icon_img})` }} />
+				<UserText>
 					<p id="userName">{userInfo.name}</p>
-					<p id="userKarma">{userInfo.total_karma}</p>
-				</div>
-			</div>
+					<p id="userKarma">{userInfo.total_karma} Karma</p>
+				</UserText>
+			</UserDetails>
 		</SidebarContainer>
 	);
 };
