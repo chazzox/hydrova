@@ -12,6 +12,24 @@ export type themeKeys =
 	| 'greenFlair';
 
 export const themes: Record<themeKeys, ColorTheme> = {
+	defaultDark: {
+		name: 'Default Dark',
+
+		primaryBackground: 'rgb(32, 34, 37)',
+		secondaryBackground: 'rgb(20, 20, 26)',
+		tertiaryBackground: 'rgb(39, 41, 44)',
+
+		primaryAccentBackground: 'rgb(88, 94, 254)',
+		secondaryAccentBackground: 'rgb(52, 58, 64)',
+		tertiaryAccentBackground: 'rgb(46, 50, 94)',
+
+		primaryText: 'rgb(255, 255, 255)',
+		secondaryText: 'rgba(255, 255, 255, 0.66)',
+		tertiaryText: 'rgba(255, 255, 255, 0.4)',
+
+		buttonTextColor: 'rgb(255, 255, 255)',
+		borderColor: 'rgb(59, 59, 59)'
+	},
 	defaultLight: {
 		name: 'Default Light',
 
@@ -30,23 +48,42 @@ export const themes: Record<themeKeys, ColorTheme> = {
 		buttonTextColor: 'rgb(255, 255, 255)',
 		borderColor: 'rgb(234, 240, 245)'
 	},
-	defaultDark: {
-		name: 'Default Dark',
 
-		primaryBackground: 'rgb(32, 34, 37)',
-		secondaryBackground: 'rgb(20, 20, 26)',
-		tertiaryBackground: 'rgb(39, 41, 44)',
+	dracula: {
+		name: 'Dracula',
 
-		primaryAccentBackground: 'rgb(88, 94, 254)',
-		secondaryAccentBackground: 'rgb(52, 58, 64)',
-		tertiaryAccentBackground: 'rgb(46, 50, 94)',
+		primaryBackground: 'rgb(30, 32, 44)',
+		secondaryBackground: 'rgb(46, 51, 65)',
+		tertiaryBackground: 'rgb(40, 42, 54)',
+
+		primaryAccentBackground: 'rgb(179, 137, 239)',
+		secondaryAccentBackground: 'rgb(56, 58, 89)',
+		tertiaryAccentBackground: 'rgb(104, 67, 155)',
 
 		primaryText: 'rgb(255, 255, 255)',
 		secondaryText: 'rgba(255, 255, 255, 0.66)',
-		tertiaryText: 'rgba(255, 255, 255, 0.4)',
+		tertiaryText: 'rgb(100, 107, 132)',
 
 		buttonTextColor: 'rgb(255, 255, 255)',
-		borderColor: 'rgb(59, 59, 59)'
+		borderColor: 'rgb(52, 54, 84)'
+	},
+	bestOfBoth: {
+		name: 'Best Of Both',
+
+		primaryBackground: 'rgb(220, 210, 231)',
+		secondaryBackground: 'rgb(14, 23, 38)',
+		tertiaryBackground: 'rgb(255, 255, 255)',
+
+		primaryAccentBackground: 'rgb(88, 94, 254)',
+		secondaryAccentBackground: 'rgb(225, 210, 255)',
+		tertiaryAccentBackground: 'rgb(46, 50, 94)',
+
+		primaryText: 'rgb(0, 0, 0)',
+		secondaryText: 'rgba(0, 0, 0, 0.75)',
+		tertiaryText: 'rgba(0, 0, 0, 0.6)',
+
+		buttonTextColor: 'rgb(255, 255, 255)',
+		borderColor: 'rgb(234, 240, 245)'
 	},
 
 	gruvboxLight: {
@@ -123,42 +160,6 @@ export const themes: Record<themeKeys, ColorTheme> = {
 		borderColor: 'rgb(59, 59, 59)'
 	},
 
-	dracula: {
-		name: 'Dracula',
-
-		primaryBackground: 'rgb(30, 32, 44)',
-		secondaryBackground: 'rgb(46, 51, 65)',
-		tertiaryBackground: 'rgb(40, 42, 54)',
-
-		primaryAccentBackground: 'rgb(179, 137, 239)',
-		secondaryAccentBackground: 'rgb(56, 58, 89)',
-		tertiaryAccentBackground: 'rgb(104, 67, 155)',
-
-		primaryText: 'rgb(255, 255, 255)',
-		secondaryText: 'rgba(255, 255, 255, 0.66)',
-		tertiaryText: 'rgb(100, 107, 132)',
-
-		buttonTextColor: 'rgb(255, 255, 255)',
-		borderColor: 'rgb(52, 54, 84)'
-	},
-	bestOfBoth: {
-		name: 'Best Of Both',
-
-		primaryBackground: 'rgb(220, 210, 231)',
-		secondaryBackground: 'rgb(14, 23, 38)',
-		tertiaryBackground: 'rgb(255, 255, 255)',
-
-		primaryAccentBackground: 'rgb(88, 94, 254)',
-		secondaryAccentBackground: 'rgb(225, 210, 255)',
-		tertiaryAccentBackground: 'rgb(46, 50, 94)',
-
-		primaryText: 'rgb(0, 0, 0)',
-		secondaryText: 'rgba(0, 0, 0, 0.75)',
-		tertiaryText: 'rgba(0, 0, 0, 0.6)',
-
-		buttonTextColor: 'rgb(255, 255, 255)',
-		borderColor: 'rgb(234, 240, 245)'
-	},
 	greenFlair: {
 		name: 'Green Flair',
 
