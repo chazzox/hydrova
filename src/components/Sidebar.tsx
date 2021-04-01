@@ -88,6 +88,20 @@ const Section = styled.h3`
 	font-weight: 600;
 	font-size: 10pt;
 `;
+const Icon = styled.div`
+	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
+	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
+	line-height: ${(props) => props.theme.base.paddingTertiary}px;
+	width: ${(props) => props.theme.base.paddingTertiary}px;
+	height: ${(props) => props.theme.base.paddingTertiary}px;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: cover;
+	text-align: center;
+	font-weight: 600;
+	font-size: 10pt;
+	float: left;
+`;
 
 const ScrollSection = styled.div`
 	border-radius: ${(props) => props.theme.base.paddingPrimary}px;
@@ -224,9 +238,16 @@ const Sidebar = () => {
 				<Link to="/#/r/all">
 					<Button>All</Button>
 				</Link>
-				{multiReddits.map(({ display_name }, index) => (
+				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
 					<Link key={index} to={`/#/m/${display_name}`}>
-						<Button>{display_name}</Button>
+						<Button>
+							<Icon
+								style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}
+							>
+								{!icon_img && display_name[0].toUpperCase()}
+							</Icon>
+							{display_name}
+						</Button>
 					</Link>
 				))}
 
@@ -235,7 +256,18 @@ const Sidebar = () => {
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
 							<Link key={index} to={`/#/r/${subreddit.display_name}`}>
-								<Button>{subreddit.display_name}</Button>
+								<Button>
+									<Icon
+										style={
+											!subreddit.icon_img
+												? { backgroundColor: subreddit.icon_color }
+												: { backgroundImage: `url(${subreddit.icon_img})` }
+										}
+									>
+										{!subreddit.icon_img && subreddit.display_name[0].toUpperCase()}
+									</Icon>
+									{subreddit.display_name}
+								</Button>
 							</Link>
 						)
 				)}
