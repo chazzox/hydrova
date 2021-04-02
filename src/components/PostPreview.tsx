@@ -1,0 +1,96 @@
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+
+import { GET_POST } from '@redux/Listing/ListingThunks';
+import { AppDispatch, ReduxStateType } from '@redux/store';
+import timeSinceCurrent, { formatTimeSince } from '@utils/timeSinceCurrent';
+
+import { Main } from './DashBoard';
+
+const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
+	const dispatch = useDispatch<AppDispatch>();
+	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.listing.posts[postKey]);
+	const [comments, setComments] = useState<Child[]>([]);
+	const refTop = useRef<HTMLDivElement>(null);
+
+	React.useEffect(() => {
+		refTop?.current?.scrollIntoView();
+		postKey &&
+			dispatch(GET_POST({ id: postKey }))
+				.then(unwrapResult)
+				.then((returned) => setComments(returned[1].data.children));
+	}, [postKey]);
+
+	return (
+		<Main>
+			<div className="contentContainer" style={{ height: '100%' }}>
+				<div id={content?.id} ref={refTop} className="post expanded">
+					<div className="postInfo roundedLinks">
+						<p>
+							<Link to={'/u/' + content?.author}>{content?.author}</Link>
+							<span>{formatTimeSince(timeSinceCurrent(content?.created_utc ?? 0))}</span>
+							<Link to={'/' + content?.subreddit_name_prefixed}>{content?.subreddit_name_prefixed}</Link>
+						</p>
+						<h1 className="postTitle">
+							{new DOMParser().parseFromString(content?.title ?? '', 'text/html').documentElement.textContent}
+						</h1>
+					</div>
+					<div className="postContent">{content && <RenderPostType postContent={content} />}</div>
+				</div>
+			</div>
+		</Main>
+	);
+};
+
+const RenderPostType = ({ postContent }: { postContent: Post }) => {
+	if (postContent.is_self && postContent.selftext_html)
+		return (
+			<span
+				dangerouslySetInnerHTML={{
+					__html:
+						new DOMParser().parseFromString(postContent.selftext_html, 'text/html').documentElement
+							.textContent || ''
+				}}
+			/>
+		);
+	else if (postContent.is_video && postContent.media?.reddit_video)
+		return (
+			<video controls={true}>
+				<source src={postContent.media.reddit_video.fallback_url} type="video/mp4" />
+			</video>
+		);
+	else if (postContent.post_hint === 'image') return <img src={postContent.url} alt="" />;
+	else if (postContent.is_gallery)
+		return (
+			<div className="galleryContent">
+				{postContent.gallery_data?.items.map(({ media_id }: any, index: number) => {
+					if (postContent?.media_meta)
+						return (
+							<div className="galleryInternalImage">
+								<img
+									key={index}
+									src={decodeURIComponent(
+										new DOMParser().parseFromString(
+											postContent?.media_meta[media_id].p.slice(-1)[0].u,
+											'text/html'
+										).documentElement.textContent || ''
+									)}
+									alt={`img${index} of collage`}
+								/>
+							</div>
+						);
+					else return <p key={index}>json returned from reddit is not formed correctly</p>;
+				})}
+			</div>
+		);
+	else if (
+		postContent.post_hint === 'link' ||
+		(postContent.url == postContent.url_overridden_by_dest && postContent.domain !== 'i.redd.it')
+	)
+		return <a href={postContent.url_overridden_by_dest}>{postContent.url_overridden_by_dest}</a>;
+	else return <>post type unknown</>;
+};
+
+export default PostPreview;
