@@ -2448,6 +2448,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@virtuoso.dev/react-urx@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@virtuoso.dev/react-urx@npm:0.2.5"
+  dependencies:
+    "@virtuoso.dev/urx": ^0.2.5
+  peerDependencies:
+    react: ">=16"
+  checksum: 813f1c2e90a7ddc33a91ff73e9f56ca53d5cf0a7d807ba28c55effe3af6ade02d9c69e5e32af9575152c39a3cbce4252647f16824e8f14378fac265ba4b127d3
+  languageName: node
+  linkType: hard
+
+"@virtuoso.dev/urx@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@virtuoso.dev/urx@npm:0.2.5"
+  checksum: 722a0b0010e8533f5f1ec86908e0f915afce32917ef5d0610ae6f9f32be289e4f763cb6de8128d51944917765a14d88a54a8f09535a743244e2b2308093ed5df
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.11.0":
   version: 1.11.0
   resolution: "@webassemblyjs/ast@npm:1.11.0"
@@ -3006,6 +3024,13 @@ __metadata:
   version: 2.0.1
   resolution: "arrify@npm:2.0.1"
   checksum: 2a19726815590d829e07998aefa2c352bd9061e58bf4391ffffa227129995841a710bef2d8b4c9408a6b0679d96c96bd23764bdbcc29bb21666c976816093972
+  languageName: node
+  linkType: hard
+
+"asap@npm:~2.0.6":
+  version: 2.0.6
+  resolution: "asap@npm:2.0.6"
+  checksum: 3d314f8c598b625a98347bacdba609d4c889c616ca5d8ea65acaae8050ab8b7aa6630df2cfe9856c20b260b432adf2ee7a65a1021f268ef70408c70f809e3a39
   languageName: node
   linkType: hard
 
@@ -4436,6 +4461,13 @@ __metadata:
   version: 3.9.1
   resolution: "core-js-pure@npm:3.9.1"
   checksum: 9cbb38523f6360c068991af52bb91a55cfdc3dd3cda0964b8e232caa795b95c08523d2fb1c80b76ffd2a8446e4822a6ba960f3bd762353ad0f8470f2fd3c652e
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.5.0":
+  version: 3.10.0
+  resolution: "core-js@npm:3.10.0"
+  checksum: d8bb20f7da9fdd944057cb41938153a7c4e471fb7d529e37958e32c7a20ab9506abbd03932750c27c8fd02de03a8e4775ba68252506a0dd42dda5404901ae9f1
   languageName: node
   linkType: hard
 
@@ -7921,6 +7953,7 @@ fsevents@~2.3.1:
     react-helmet: ^6.1.0
     react-redux: ^7.2.2
     react-router-dom: ^5.2.0
+    react-virtuoso: ^1.5.14
     styled-components: ^5.2.1
     typescript: ^4.2.3
   languageName: unknown
@@ -11571,6 +11604,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"promise@npm:^8.0.3":
+  version: 8.1.0
+  resolution: "promise@npm:8.1.0"
+  dependencies:
+    asap: ~2.0.6
+  checksum: ec94008d8a673c276dbc7722c215f583026b8d2588fb83f40e69908c553801eac7fbe3034c9bca853d5c422af20826abdfb9391b982a888868d9c88281dc59fb
+  languageName: node
+  linkType: hard
+
 "prompts@npm:2.4.0, prompts@npm:^2.3.2":
   version: 2.4.0
   resolution: "prompts@npm:2.4.0"
@@ -11753,6 +11795,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"raf@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "raf@npm:3.4.1"
+  dependencies:
+    performance-now: ^2.1.0
+  checksum: 567b0160be46ed20b124a05ace6e653f4ad3c047c48d02ac76161e9ac624488c0fdf622b2f4fb9c35c0c828a13dfa549044ad1db89c7af075cb0f99403b88c4b
+  languageName: node
+  linkType: hard
+
 "ramda@npm:0.21.0":
   version: 0.21.0
   resolution: "ramda@npm:0.21.0"
@@ -11823,6 +11874,20 @@ fsevents@~2.3.1:
   bin:
     rc: ./cli.js
   checksum: ea2b7f7cee201a67923a2240de594a5d9b59bd312b814b06536d3d609a416dfd6fb9b85ea2abfd3b8a4eb5ed33eaff946ee75a8f2b7fb10941073c5cfee6b7a5
+  languageName: node
+  linkType: hard
+
+"react-app-polyfill@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "react-app-polyfill@npm:1.0.6"
+  dependencies:
+    core-js: ^3.5.0
+    object-assign: ^4.1.1
+    promise: ^8.0.3
+    raf: ^3.4.1
+    regenerator-runtime: ^0.13.3
+    whatwg-fetch: ^3.0.0
+  checksum: 94d24bf1d69a0cbb26d8adbb14ba600b29c7c5adc06c9f9c8337d0f8ee7358ee2c443d806f8ca96fdf002d7f37c1a5fae6a796f63164df44a4fc3996aeb2d71f
   languageName: node
   linkType: hard
 
@@ -11987,6 +12052,20 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"react-virtuoso@npm:^1.5.14":
+  version: 1.5.14
+  resolution: "react-virtuoso@npm:1.5.14"
+  dependencies:
+    "@virtuoso.dev/react-urx": ^0.2.5
+    "@virtuoso.dev/urx": ^0.2.5
+    react-app-polyfill: ^1.0.6
+    resize-observer-polyfill: ^1.5.1
+  peerDependencies:
+    react: ">=16"
+  checksum: 50ae9d5e9f8e904a62dd6406c931a87dfdd37f6306fc5507ec26224f34d1156d11daeea1842cb1c14dd09f211d2b5a1670fca02eadf4e4229528b26c65cd2e1f
+  languageName: node
+  linkType: hard
+
 "react@npm:^17.0.1":
   version: 17.0.1
   resolution: "react@npm:17.0.1"
@@ -12134,6 +12213,13 @@ fsevents@~2.3.1:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: 54275a99effd8a439bcdd88942b61f68a769133df841e90d94df9ae7c250cb6537c0a28dd913116539772b3415edbcb3c8d81c22275595d3755cf0353976dfa4
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.3":
+  version: 0.13.8
+  resolution: "regenerator-runtime@npm:0.13.8"
+  checksum: 20178f5753f181d59691e5c3b4c59a2769987f75c7ccf325777673b5478acca61a553b10e895585086c222f72f5ee428090acf50320264de4b79f630f7388653
   languageName: node
   linkType: hard
 
@@ -12402,6 +12488,13 @@ fsevents@~2.3.1:
   version: 4.0.0
   resolution: "reselect@npm:4.0.0"
   checksum: 3480930929f673f12962cdde140dce48ea8ba171cd428bb2c7639672e41770bd6b64e935bc0400f47cfa960f617c7ac068c4309527373825d11e27262f08c0a3
+  languageName: node
+  linkType: hard
+
+"resize-observer-polyfill@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "resize-observer-polyfill@npm:1.5.1"
+  checksum: ba14bfaf584eda299eafd6a06233a65c76586bc2bab3cdfdd1edd25fc6479f4270788ddd082e65390049b3ed542558f02bdf1f123bd912624de5b11d48857ac8
   languageName: node
   linkType: hard
 
@@ -14877,6 +14970,13 @@ typescript@^4.2.3:
   version: 0.1.4
   resolution: "websocket-extensions@npm:0.1.4"
   checksum: bbafc0ffa1c6f54606aac88ce366c6a0d72c7827291f40c15a1c325f9f4abe7f7176ab844dd43eab4f07276d9e748dd241d671874c4a0df5cbb0fbed133908dc
+  languageName: node
+  linkType: hard
+
+"whatwg-fetch@npm:^3.0.0":
+  version: 3.6.2
+  resolution: "whatwg-fetch@npm:3.6.2"
+  checksum: eaa370015f81fbf7fc69d5410a13c2200d3342fa783397e9a7e64215498276459993c05e826ed736d28a8abe4e7cc3f97e9b2ffadbc58129a55f443abdfea494
   languageName: node
   linkType: hard
 

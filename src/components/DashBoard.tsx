@@ -1,5 +1,10 @@
+import { GET_LISTING } from '@redux/Listing/ListingThunks';
+import { AppDispatch, ReduxStateType } from '@redux/store';
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Listing from './Listing';
 
 import Sidebar from './Sidebar';
 
@@ -21,10 +26,48 @@ export const Main = styled.div`
 `;
 
 const Dashboard = () => {
+	const dispatch = useDispatch<AppDispatch>();
+	const { listingType, listingName, postId } = useParams<UrlParameters>();
+	const routeMap = {
+		u: ['user', listingName, 'submitted'],
+		m: ['me', 'm', listingName],
+		r: ['r', listingName],
+		'': []
+	};
+
+	const [endpointName, setEndPointName] = React.useState('');
+	const listingPointerArray =
+		useSelector<ReduxStateType, string[] | undefined>((state) => state.listing.listingKey[endpointName]?.postKeys) ?? [];
+
+	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
+		(state) => state.listing.listingKey[endpointName]?.afterId
+	);
+
+	React.useEffect(() => {
+		setEndPointName('/' + routeMap[listingType ?? ''].join('/'));
+	}, [listingType, listingName]);
+
+	React.useEffect(() => {
+		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
+	}, [endpointName]);
+
 	return (
 		<>
 			<Sidebar />
-			<Main>Poggers</Main>
+
+			{listingPointerArray.length > 0 && (
+				<Listing
+					idKeys={listingPointerArray}
+					fetchMore={(_) => {
+						dispatch(
+							GET_LISTING({
+								listingEndpointName: endpointName,
+								listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
+							})
+						);
+					}}
+				/>
+			)}
 		</>
 	);
 };
