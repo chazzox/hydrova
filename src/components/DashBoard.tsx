@@ -56,7 +56,7 @@ const Dashboard = () => {
 		<>
 			<Sidebar />
 
-			{listingPointerArray.length > 0 && (
+			<Main>
 				<Listing
 					idKeys={listingPointerArray}
 					fetchMore={(_) => {
@@ -68,8 +68,8 @@ const Dashboard = () => {
 						);
 					}}
 				/>
-			)}
-			{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}
+			</Main>
+			<Main>{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}</Main>
 		</>
 	);
 };
