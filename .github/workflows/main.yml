@@ -13,7 +13,7 @@ jobs:
 
             - name: Install Dependencies and Build
               run: |
-                  yarn install --frozen-lockfile
+                  yarn install
                   yarn build
               env:
                   GATSBY_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
