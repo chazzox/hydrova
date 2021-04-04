@@ -12,7 +12,7 @@ jobs:
             - uses: actions/setup-node@v2
 
             - name: Install Dependencies and Build
-            - run: |
+              run: |
                   yarn install --frozen-lockfile
                   yarn build
               env:
