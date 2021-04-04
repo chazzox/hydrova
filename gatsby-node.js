@@ -1,6 +1,11 @@
 const path = require('path');
 
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
+exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
+	if (getConfig().mode === 'production') {
+		actions.setWebpackConfig({
+			devtool: false
+		});
+	}
 	actions.setWebpackConfig({
 		resolve: {
 			alias: {
