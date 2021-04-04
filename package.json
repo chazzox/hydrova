@@ -11,7 +11,7 @@
 	"scripts": {
 		"start": "gatsby develop",
 		"clean": "gatsby clean",
-		"build": "gatsby build",
+		"build": "gatsby build --prefix-paths",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
 	},
 	"sideEffects": false,
