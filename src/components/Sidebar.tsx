@@ -8,6 +8,7 @@ import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
 import { Button } from './Button';
+import { NavLink } from 'react-router-dom';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -195,9 +196,9 @@ const Sidebar = () => {
 	return (
 		<SidebarContainer>
 			<TitleContainer>
-				<Link to="/">
+				<NavLink to="/">
 					<NavHydrova />
-				</Link>
+				</NavLink>
 				<NavTitle>Hydrova</NavTitle>
 			</TitleContainer>
 
@@ -206,12 +207,12 @@ const Sidebar = () => {
 				<SearchBar type="text" placeholder="Search" autoComplete="off" />
 			</SidebarSearchWrapper>
 
-			<Link to="/">
+			<NavLink to="/">
 				<Button>
 					<Home />
 					Timeline
 				</Button>
-			</Link>
+			</NavLink>
 
 			<Link to="/post">
 				<Button>
@@ -236,11 +237,12 @@ const Sidebar = () => {
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				<Link to="/#/r/all">
+				<NavLink to="/r/all">
 					<Button>All</Button>
-				</Link>
+				</NavLink>
+
 				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
-					<Link key={index} to={`/#/m/${display_name}`}>
+					<NavLink key={index} to={`/m/${display_name}`}>
 						<Button>
 							<Icon
 								style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}
@@ -249,14 +251,14 @@ const Sidebar = () => {
 							</Icon>
 							{display_name}
 						</Button>
-					</Link>
+					</NavLink>
 				))}
 
 				<Section>My Subreddits</Section>
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<Link key={index} to={`/#/r/${subreddit.display_name}`}>
+							<NavLink key={index} to={`/r/${subreddit.display_name}`}>
 								<Button>
 									<Icon
 										style={
@@ -269,7 +271,7 @@ const Sidebar = () => {
 									</Icon>
 									{subreddit.display_name}
 								</Button>
-							</Link>
+							</NavLink>
 						)
 				)}
 			</ScrollSection>

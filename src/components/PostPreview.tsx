@@ -6,9 +6,10 @@ import { AppDispatch, ReduxStateType } from '@redux/store';
 
 import PostInformation from './PostInfo';
 import styled from 'styled-components';
-import { Post } from '@components/Listing';
+import { PostStyles } from '@components/Listing';
 
-const ExpandedPost = styled(Post)`
+const ExpandedPost = styled.div`
+	${PostStyles}
 	display: block;
 	max-height: fit-content;
 `;

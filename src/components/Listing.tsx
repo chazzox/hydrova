@@ -1,22 +1,14 @@
 import React from 'react';
-import { navigate } from 'gatsby-link';
-import { generatePath, useParams, useRouteMatch } from 'react-router-dom';
+import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ReduxStateType } from '@redux/store';
-import timeSinceCurrent, { formatTimeSince } from '@utils/timeSinceCurrent';
 import { Markdown } from '@assets/Icons';
-import { Main } from './DashBoard';
 import PostInformation from './PostInfo';
 
-interface ListingProps {
-	idKeys: string[];
-	fetchMore: (num1: number) => void;
-}
-
-export const Post = styled.div`
+export const PostStyles = css`
 	max-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
 	min-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
 	border-bottom: solid ${(props) => props.theme.colors.borderColor};
@@ -35,6 +27,11 @@ export const Post = styled.div`
 	cursor: pointer;
 `;
 
+const Post = styled(Link)`
+	${PostStyles}
+	text-decoration: none;
+`;
+
 const Thumbnail = styled.img`
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	justify-self: right;
@@ -45,6 +42,11 @@ const Thumbnail = styled.img`
 	object-fit: cover;
 	visibility: visible;
 `;
+
+interface ListingProps {
+	idKeys: string[];
+	fetchMore: (num1: number) => void;
+}
 
 const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 	const postStore = useSelector((state: ReduxStateType) => state.listing.posts);
@@ -68,25 +70,20 @@ const Item: React.FC<{ content: Post }> = ({ content }) => {
 
 	return (
 		<Post
-			id={content.id}
-			onClick={() => {
-				navigate(
-					'#' +
-						generatePath(path, {
-							listingType: listingType ?? 'r',
-							listingName: listingName ?? content.subreddit,
-							postId: content.id
-						})
-				);
-			}}
+			to={generatePath(path, {
+				listingType: listingType ?? 'r',
+				listingName: listingName ?? content.subreddit,
+				postId: content.id
+			})}
 		>
-			<PostInformation
-				title={content.title}
-				author={content.author}
-				created_utc={content.created_utc}
-				subreddit_name_prefixed={content.subreddit_name_prefixed}
-			/>
-
+			<object>
+				<PostInformation
+					title={content.title}
+					author={content.author}
+					created_utc={content.created_utc}
+					subreddit_name_prefixed={content.subreddit_name_prefixed}
+				/>
+			</object>
 			{content.thumbnail && content.thumbnail.match(/(default)|(self)|(unknown)/) === null ? (
 				<Thumbnail src={content.thumbnail} alt={`thumbnail for ${content.id}`} />
 			) : (
