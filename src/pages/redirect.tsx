@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import { Helmet } from 'react-helmet';
+import { navigate } from 'gatsby';
 import Cookies from 'js-cookie';
 
-import Hydrova from 'assets/icons/logo.svg';
-
-import 'styles/index.scss';
-import 'styles/variables.scss';
-import 'styles/redirect.scss';
+import WelcomeBox from '@components/WelcomeBox';
+import { baseTheme, themes } from '@utils/themes';
+import Global from '@utils/Global';
 
 interface reAuthenticationResponse {
 	scope: string;
@@ -17,10 +17,73 @@ interface reAuthenticationResponse {
 	error: string | undefined | null;
 }
 
+const Loader = styled.div`
+	display: block;
+	position: relative;
+	width: 80px;
+	height: 80px;
+	margin: auto;
+
+	& > div {
+		position: absolute;
+		top: 33px;
+		width: ${(props) => props.theme.base.paddingSecondary}px;
+		height: ${(props) => props.theme.base.paddingSecondary}px;
+		border-radius: 50%;
+		background: #fff;
+		animation-timing-function: cubic-bezier(0, 1, 1, 0);
+	}
+
+	& div:nth-child(1) {
+		left: var(--padding-size-primary);
+		animation: lds-ellipsis1 0.6s infinite;
+	}
+
+	& div:nth-child(2) {
+		left: ${(props) => props.theme.base.paddingPrimary}px;
+		animation: lds-ellipsis2 0.6s infinite;
+	}
+	& div:nth-child(3) {
+		left: 32px;
+		animation: lds-ellipsis2 0.6s infinite;
+	}
+	& div:nth-child(4) {
+		left: 56px;
+		animation: lds-ellipsis3 0.6s infinite;
+	}
+
+	@keyframes lds-ellipsis1 {
+		0% {
+			transform: scale(0);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	@keyframes lds-ellipsis3 {
+		0% {
+			transform: scale(1);
+		}
+		100% {
+			transform: scale(0);
+		}
+	}
+
+	@keyframes lds-ellipsis2 {
+		0% {
+			transform: translate(0, 0);
+		}
+		100% {
+			transform: translate(${(props) => props.theme.base.paddingTertiary}px, 0);
+		}
+	}
+`;
+
 const Redirect: React.FC = () => {
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	useEffect(() => {
-		if (!window.opener) window.location.href = document.location.origin;
+		if (!window.opener) navigate('/');
 
 		const searchParams = new URLSearchParams(window.location.search);
 		const code = searchParams.get('code');
@@ -33,7 +96,7 @@ const Redirect: React.FC = () => {
 			urlencoded.append('code', code);
 			urlencoded.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ?? '');
 
-			setErrorMessage('fetching access token');
+			setErrorMessage('Fetching access token');
 			fetch('https://www.reddit.com/api/v1/access_token', {
 				method: 'POST',
 				headers: {
@@ -52,43 +115,39 @@ const Redirect: React.FC = () => {
 						Cookies.set('refresh_token', refresh_token, { sameSite: 'lax', expires: 365 });
 						window.close();
 					} else {
-						setErrorMessage(`error: ${json.error}`);
+						setErrorMessage(`Error: ${json.error}`);
 					}
 				})
-				.catch((error) => setErrorMessage(`error: ${error}`));
+				.catch((error) => setErrorMessage(`Error: ${error}`));
 		} else {
-			setErrorMessage('regex not found');
+			setErrorMessage('Unable to parse redirect string');
 		}
 	}, []);
 
 	return (
-		<>
-			<Helmet
-				htmlAttributes={{
-					id: 'defaultDarkTheme'
-				}}
-			>
-				<meta charSet="utf-8" />
+		<ThemeProvider theme={{ colors: themes.defaultDark, base: baseTheme }}>
+			<Global />
+			<Helmet>
 				<title>Hydrova | Redirect from login</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="description" content="this is the hydrova login redirect page" />
 			</Helmet>
 
-			<div id="loginBox">
-				<Hydrova id="logo" height={150} />
-				<div id="loginInfo">
-					<h1>Hydrova</h1>
-					<h2>This window should close soon</h2>
-					<div className="lds-ellipsis">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-					<h2>{errorMessage}</h2>
-				</div>
-			</div>
-		</>
+			<WelcomeBox
+				topText="Hydrova"
+				bottomText="This window should close soon"
+				innerBoxChild={
+					<>
+						<Loader>
+							<div></div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</Loader>
+						<h2>{errorMessage}</h2>
+					</>
+				}
+			/>
+		</ThemeProvider>
 	);
 };
 

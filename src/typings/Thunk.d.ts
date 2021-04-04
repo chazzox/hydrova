@@ -1,4 +1,5 @@
-import { ReduxStateType } from 'reduxStore/reduxWrapper';
+import { ReduxStateType } from 'redux/reduxWrapper';
+
 interface ThunkInterface {
 	state: ReduxStateType;
 	rejectValue: Failure;

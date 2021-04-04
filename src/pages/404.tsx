@@ -1,37 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import styled, { ThemeProvider } from 'styled-components';
 
-import Hydrova from 'assets/icons/logo.svg';
+import { baseTheme, themes } from '@utils/themes';
+import WelcomeBox from '@components/WelcomeBox';
+import Global from '@utils/Global';
 
-import 'styles/index.scss';
-import 'styles/variables.scss';
-import 'styles/route/login.scss';
-import 'styles/redirect.scss';
+const ThirdText = styled.p`
+	color: ${(props) => props.theme.colors.tertiaryText};
+`;
 
-const Redirect: React.FC = () => {
-	return (
-		<>
-			<Helmet
-				htmlAttributes={{
-					class: 'defaultDark'
-				}}
-			>
-				<meta charSet="utf-8" />
-				<title>Hydrova | Redirect from login</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="description" content="this is the hydrova login redirect page" />
-			</Helmet>
+const Error404Page: React.FC = () => (
+	<ThemeProvider theme={{ colors: themes.defaultDark, base: baseTheme }}>
+		<Global />
+		<Helmet>
+			<title>Hydrova | Redirect from login</title>
+			<meta name="description" content="this is the hydrova login redirect page" />
+		</Helmet>
+		<WelcomeBox
+			topText="Hydrova - 404 site"
+			bottomText="Site does not exist"
+			innerBoxChild={<ThirdText>Please find your way back to the previous page</ThirdText>}
+		/>
+	</ThemeProvider>
+);
 
-			<div id="loginBox">
-				<Hydrova id={'logo'} height={150} />
-				<div id="loginInfo">
-					<h1>Hydrova - 404 Site</h1>
-					<h2>Tempororary 404 Page</h2>
-					<p>This will be refined in a future update</p>
-				</div>
-			</div>
-		</>
-	);
-};
-
-export default Redirect;
+export default Error404Page;
