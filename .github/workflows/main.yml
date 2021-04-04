@@ -9,12 +9,17 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - uses: bahmutov/npm-install@v1
-            - run: yarn build
+            - uses: actions/setup-node@v2
+
+            - name: Install Dependencies and Build
+            - run: |
+                  yarn install --frozen-lockfile
+                  yarn build
               env:
                   GATSBY_REDDIT_ID: ${{ secrets.REACT_APP_REDDIT_ID }}
                   GATSBY_REDDIT_SECRET: ${{ secrets.REACT_APP_REDDIT_SECRET }}
                   GATSBY_CALLBACK_URL: ${{ secrets.REACT_APP_CALLBACK_URL }}
+
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
