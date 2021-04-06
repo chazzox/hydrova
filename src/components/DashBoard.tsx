@@ -1,12 +1,12 @@
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+
 import { GET_LISTING } from '@redux/Listing/ListingThunks';
 import { AppDispatch, ReduxStateType } from '@redux/store';
-import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import Listing from './Listing';
 import PostPreview from './PostPreview';
-
 import Sidebar from './Sidebar';
 
 export const Main = styled.div`

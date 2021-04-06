@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { ThemeContext, ThemeProvider, useTheme } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import { Main } from '@components/DashBoard';
 import Layout from '@components/Layout';
