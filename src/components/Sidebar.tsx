@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
@@ -196,9 +195,9 @@ const Sidebar = () => {
 	return (
 		<SidebarContainer>
 			<TitleContainer>
-				<NavLink to="/">
+				<Link to="/">
 					<NavHydrova />
-				</NavLink>
+				</Link>
 				<NavTitle>Hydrova</NavTitle>
 			</TitleContainer>
 
@@ -207,12 +206,12 @@ const Sidebar = () => {
 				<SearchBar type="text" placeholder="Search" autoComplete="off" />
 			</SidebarSearchWrapper>
 
-			<NavLink to="/">
+			<Link to="/">
 				<Button>
 					<Home />
 					Timeline
 				</Button>
-			</NavLink>
+			</Link>
 
 			<Link to="/post">
 				<Button>
@@ -237,12 +236,12 @@ const Sidebar = () => {
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				<NavLink to="/r/all">
+				<Link to="/#/r/all">
 					<Button>All</Button>
-				</NavLink>
+				</Link>
 
 				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
-					<NavLink key={index} to={`/m/${display_name}`}>
+					<Link key={index} to={`/#/m/${display_name}`}>
 						<Button>
 							<Icon
 								style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}
@@ -251,14 +250,14 @@ const Sidebar = () => {
 							</Icon>
 							{display_name}
 						</Button>
-					</NavLink>
+					</Link>
 				))}
 
 				<Section>My Subreddits</Section>
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<NavLink key={index} to={`/r/${subreddit.display_name}`}>
+							<Link key={index} to={`/#/r/${subreddit.display_name}`}>
 								<Button>
 									<Icon
 										style={
@@ -271,7 +270,7 @@ const Sidebar = () => {
 									</Icon>
 									{subreddit.display_name}
 								</Button>
-							</NavLink>
+							</Link>
 						)
 				)}
 			</ScrollSection>
