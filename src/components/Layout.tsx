@@ -18,6 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 	const dispatch = useDispatch<AppDispatch>();
 
 	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.settings.authenticationResultReturned);
+	const themeName = useSelector((state: ReduxStateType) => state.settings.themeKey);
 
 	React.useEffect(() => {
 		const oauthCookieData = getJSON('refresh_token') as string;
@@ -26,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 	}, []);
 
 	return (
-		<ThemeProvider theme={{ colors: themes.defaultDark, base: baseTheme }}>
+		<ThemeProvider theme={{ colors: themes[themeName], base: baseTheme }}>
 			<Helmet>
 				<title>{title}</title>
 				<meta name="description" content={description} />

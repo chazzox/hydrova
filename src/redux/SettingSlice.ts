@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkInterface } from '@typings/Thunk';
+import { themeKeys } from '@utils/themes';
 
 export const refreshAccessToken = createAsyncThunk<AuthenticationSuccess, { refresh_token: string }, ThunkInterface>(
 	'settingsSlice/refreshAccessToken',
@@ -29,11 +30,15 @@ const SettingsSlice = createSlice({
 		authenticationResultReturned: false,
 		access_token: '',
 		expires_in: 0,
-		authenticationErrors: [] as string[]
+		authenticationErrors: [] as string[],
+		themeKey: 'defaultDark' as themeKeys
 	},
 	reducers: {
 		setNoAuthCookies: (state) => {
 			state.authenticationResultReturned = true;
+		},
+		setTheme: (state, action) => {
+			state.themeKey = action.payload;
 		}
 	},
 	extraReducers: (builder) => {
@@ -50,6 +55,6 @@ const SettingsSlice = createSlice({
 	}
 });
 
-export const { setNoAuthCookies } = SettingsSlice.actions;
+export const { setNoAuthCookies, setTheme } = SettingsSlice.actions;
 
 export default SettingsSlice;

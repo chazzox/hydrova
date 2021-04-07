@@ -7,6 +7,9 @@ import Sidebar from '@components/Sidebar';
 import { baseTheme, themes } from '@utils/themes';
 import PillSelector from '@components/PillSelector';
 import SettingsContainer from '@components/SettingsContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, ReduxStateType } from '@redux/store';
+import { setTheme } from '@redux/SettingSlice';
 
 const ThemePreview = styled.div`
 	padding: ${(props) => props.theme.base.paddingPrimary}px;
@@ -26,6 +29,8 @@ const ThemePreview = styled.div`
 `;
 
 const Appearance = () => {
+	const dispatch = useDispatch<AppDispatch>();
+	const themeName = useSelector((state:ReduxStateType)=>state.);
 	return (
 		<Layout
 			title="Hydrova | Theming"
@@ -39,7 +44,9 @@ const Appearance = () => {
 					<p>The colors used to style the user interface</p>
 					{Object.entries(themes).map(([themeKey, theme]) => (
 						<ThemeProvider key={themeKey} theme={{ colors: theme, base: baseTheme }}>
-							<ThemePreview>{theme.name}</ThemePreview>
+							<ThemePreview selected={themeName===themeKey} onClick={() => dispatch(setTheme(themeKey))}>
+								{theme.name}
+							</ThemePreview>
 						</ThemeProvider>
 					))}
 				</SettingsContainer>
