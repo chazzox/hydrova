@@ -1,13 +1,10 @@
 import React from 'react';
+import { useLocation } from '@reach/router';
 
 const Page = () => {
-	let test;
+	const location = useLocation();
 
-	React.useEffect(() => {
-		test = JSON.stringify(document.location);
-	}, []);
-
-	return <>test: {test}</>;
+	return <>test: {JSON.stringify(location)}</>;
 };
 
 export default Page;
