@@ -241,7 +241,7 @@ const Sidebar = () => {
 				</Link>
 
 				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
-					<Link key={index} to={`/#/m/${display_name}`}>
+					<Link key={index} to={`/m/${display_name}`}>
 						<Button>
 							<Icon
 								style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}
@@ -257,7 +257,7 @@ const Sidebar = () => {
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<Link key={index} to={`/#/r/${subreddit.display_name}`}>
+							<Link key={index} to={`/r/${subreddit.display_name}`}>
 								<Button>
 									<Icon
 										style={

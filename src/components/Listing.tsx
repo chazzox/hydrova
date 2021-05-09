@@ -65,11 +65,8 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 };
 
 const Item: React.FC<{ content: Post }> = ({ content }) => {
-	const { listingType, listingName }: UrlParameters = useParams();
-	const { pathname } = useLocation();
-
 	return (
-		<Post to="">
+		<Post to={`r/${[content.subreddit, content.id].join('/')}`}>
 			<object>
 				<PostInformation
 					title={content.title}
