@@ -1,7 +1,7 @@
 module.exports = {
-	pathPrefix: `/Hydrova`,
 	plugins: [
 		`gatsby-plugin-react-helmet`,
+		`gatsby-plugin-netlify`,
 		{
 			resolve: `gatsby-plugin-manifest`,
 			options: {
