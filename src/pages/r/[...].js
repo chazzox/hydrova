@@ -5,7 +5,7 @@ const Page = () => {
 	React.useEffect(() => {
 		test = JSON.stringify(document.location);
 	}, []);
-	return <>{test}</>;
+	return <>test: {test}</>;
 };
 
 export default Page;
