@@ -8,6 +8,7 @@ import { refreshAccessToken, setNoAuthCookies } from '@redux/SettingSlice';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 import { baseTheme, themes } from '@utils/themes';
 import Global from '@utils/Global';
+import Sidebar from './Sidebar';
 
 interface LayoutProps {
 	title: string;
@@ -42,7 +43,12 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 				/>
 			</Helmet>
 			<Global />
-			{authenticationResultReturned && children}
+			{authenticationResultReturned && (
+				<>
+					<Sidebar />
+					{children}
+				</>
+			)}
 		</ThemeProvider>
 	);
 };

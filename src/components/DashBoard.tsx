@@ -54,8 +54,6 @@ const Dashboard = () => {
 
 	return (
 		<>
-			<Sidebar />
-
 			<Main>
 				<Listing
 					idKeys={listingPointerArray}
