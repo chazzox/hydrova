@@ -3,7 +3,6 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { Main } from '@components/DashBoard';
 import Layout from '@components/Layout';
-import Sidebar from '@components/Sidebar';
 import { baseTheme, themes } from '@utils/themes';
 import PillSelector from '@components/PillSelector';
 import SettingsContainer from '@components/SettingsContainer';
@@ -37,7 +36,6 @@ const Appearance = () => {
 			title="Hydrova | Theming"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			<Sidebar />
 			<Main>
 				<PillSelector />
 				<SettingsContainer>

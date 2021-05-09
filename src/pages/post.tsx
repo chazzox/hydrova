@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import Layout from '@components/Layout';
-import Sidebar from '@components/Sidebar';
 import { Main } from '@components/DashBoard';
 
 const Post = () => {
@@ -10,7 +9,6 @@ const Post = () => {
 			title="Hydrova | Create a Post"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			<Sidebar />
 			<Main>Post</Main>
 		</Layout>
 	);

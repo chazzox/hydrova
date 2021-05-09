@@ -3,7 +3,6 @@ import * as React from 'react';
 import SettingsContainer from '@components/SettingsContainer';
 import PillSelector from '@components/PillSelector';
 import { Main } from '@components/DashBoard';
-import Sidebar from '@components/Sidebar';
 import Layout from '@components/Layout';
 
 const Accounts = () => {
@@ -12,7 +11,6 @@ const Accounts = () => {
 			title="Hydrova | Account"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			<Sidebar />
 			<Main>
 				<PillSelector />
 				<SettingsContainer>
