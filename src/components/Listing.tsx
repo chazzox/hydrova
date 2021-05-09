@@ -1,5 +1,5 @@
 import React from 'react';
-import { generatePath, Link, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useParams, useLocation } from '@reach/router';
 import { useSelector } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso';
 import styled, { css } from 'styled-components';
@@ -65,17 +65,11 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 };
 
 const Item: React.FC<{ content: Post }> = ({ content }) => {
-	const { listingType, listingName } = useParams<UrlParameters>();
-	const { path } = useRouteMatch();
+	const { listingType, listingName }: UrlParameters = useParams();
+	const { pathname } = useLocation();
 
 	return (
-		<Post
-			to={generatePath(path, {
-				listingType: listingType ?? 'r',
-				listingName: listingName ?? content.subreddit,
-				postId: content.id
-			})}
-		>
+		<Post to="">
 			<object>
 				<PostInformation
 					title={content.title}

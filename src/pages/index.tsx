@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { HashRouter, Route } from 'react-router-dom';
 
 import { ReduxStateType } from '@redux/store';
 import Login from '@components/Login';
@@ -15,13 +14,7 @@ const Index = () => {
 			title="Hydrova | Reddit Client"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
-			{isLoggedIn ? (
-				<HashRouter>
-					<Route exact path={['/:postId?', '/:listingType(u|r|m)/:listingName/:postId?/']} component={Dashboard} />
-				</HashRouter>
-			) : (
-				<Login />
-			)}
+			{isLoggedIn ? <Dashboard /> : <Login />}
 		</Layout>
 	);
 };

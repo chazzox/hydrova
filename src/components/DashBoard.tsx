@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -28,7 +28,7 @@ export const Main = styled.div`
 
 const Dashboard = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { listingType, listingName, postId } = useParams<UrlParameters>();
+	const { listingType, listingName, postId }: UrlParameters = useParams();
 	const routeMap = {
 		u: ['user', listingName, 'submitted'],
 		m: ['me', 'm', listingName],
