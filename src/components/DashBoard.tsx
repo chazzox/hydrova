@@ -8,6 +8,9 @@ import { AppDispatch, ReduxStateType } from '@redux/store';
 import Listing from './Listing';
 import PostPreview from './PostPreview';
 import Sidebar from './Sidebar';
+import Layout from './Layout';
+import Login from './Login';
+import { PageProps } from 'gatsby';
 
 export const Main = styled.div`
 	max-height: calc(100vh - 2 * (${(props) => props.theme.base.paddingSecondary}px));
@@ -26,13 +29,21 @@ export const Main = styled.div`
 	flex: 1;
 `;
 
-const Dashboard = () => {
+interface Params extends PageProps {
+	params: {
+		type?: 'r' | 'm' | 'u' | '';
+		name?: string;
+		id?: string;
+	};
+}
+
+const Dashboard: React.FC<Params> = ({ params: { type = '', name = '', id = '' } }) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { listingType, listingName, postId }: UrlParameters = useParams();
+	const isLoggedIn = useSelector((state: ReduxStateType) => state.settings.isLoggedIn);
 	const routeMap = {
-		u: ['user', listingName, 'submitted'],
-		m: ['me', 'm', listingName],
-		r: ['r', listingName],
+		u: ['user', name, 'submitted'],
+		m: ['me', 'm', name],
+		r: ['r', name],
 		'': []
 	};
 
@@ -45,30 +56,40 @@ const Dashboard = () => {
 	);
 
 	React.useEffect(() => {
-		setEndPointName('/' + routeMap[listingType ?? ''].join('/'));
-	}, [listingType, listingName]);
+		setEndPointName('/' + routeMap[type].join('/'));
+	}, [type, name]);
 
 	React.useEffect(() => {
 		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
 	}, [endpointName]);
 
 	return (
-		<>
-			<Main>
-				<Listing
-					idKeys={listingPointerArray}
-					fetchMore={(_) => {
-						dispatch(
-							GET_LISTING({
-								listingEndpointName: endpointName,
-								listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
-							})
-						);
-					}}
-				/>
-			</Main>
-			<Main>{listingPointerArray && <PostPreview postKey={postId ?? listingPointerArray[0]} />}</Main>
-		</>
+		<Layout
+			title="Hydrova | Reddit Client"
+			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
+		>
+			{isLoggedIn ? (
+				<>
+					<Sidebar />
+					<Main>
+						<Listing
+							idKeys={listingPointerArray}
+							fetchMore={(_) => {
+								dispatch(
+									GET_LISTING({
+										listingEndpointName: endpointName,
+										listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
+									})
+								);
+							}}
+						/>
+					</Main>
+					<Main>{listingPointerArray && <PostPreview postKey={id ?? listingPointerArray[0]} />}</Main>
+				</>
+			) : (
+				<Login />
+			)}
+		</Layout>
 	);
 };
 

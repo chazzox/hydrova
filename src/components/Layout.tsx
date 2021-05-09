@@ -20,7 +20,6 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 
 	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.settings.authenticationResultReturned);
 
-	const isLoggedIn = useSelector((state: ReduxStateType) => state.settings.isLoggedIn);
 	const themeName = useSelector((state: ReduxStateType) => state.settings.themeKey);
 
 	React.useEffect(() => {
@@ -45,12 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 				/>
 			</Helmet>
 			<Global />
-			{authenticationResultReturned && (
-				<>
-					{isLoggedIn && <Sidebar />}
-					{children}
-				</>
-			)}
+			{authenticationResultReturned && children}
 		</ThemeProvider>
 	);
 };
