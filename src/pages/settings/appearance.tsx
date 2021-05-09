@@ -11,10 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 import { setTheme } from '@redux/SettingSlice';
 
-const ThemePreview = styled.div`
+const ThemePreview = styled.div<{ selected: boolean }>`
 	padding: ${(props) => props.theme.base.paddingPrimary}px;
 	max-width: calc(300px - ${(props) => props.theme.base.paddingPrimary}px);
-	background: ${(props) => props.theme.colors.primaryBackground};
+	background: ${(props) =>
+		props.selected ? props.theme.colors.primaryAccentBackground : props.theme.colors.primaryBackground};
 	color: ${(props) => props.theme.colors.primaryText};
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	margin: 3px;
@@ -30,7 +31,7 @@ const ThemePreview = styled.div`
 
 const Appearance = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const themeName = useSelector((state:ReduxStateType)=>state.);
+	const themeName = useSelector((state: ReduxStateType) => state.settings.themeKey);
 	return (
 		<Layout
 			title="Hydrova | Theming"
@@ -44,7 +45,7 @@ const Appearance = () => {
 					<p>The colors used to style the user interface</p>
 					{Object.entries(themes).map(([themeKey, theme]) => (
 						<ThemeProvider key={themeKey} theme={{ colors: theme, base: baseTheme }}>
-							<ThemePreview selected={themeName===themeKey} onClick={() => dispatch(setTheme(themeKey))}>
+							<ThemePreview selected={themeName === themeKey} onClick={() => dispatch(setTheme(themeKey))}>
 								{theme.name}
 							</ThemePreview>
 						</ThemeProvider>

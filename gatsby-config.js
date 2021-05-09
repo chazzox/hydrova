@@ -11,7 +11,7 @@ module.exports = {
 				background_color: `rgb(32, 34, 37)`,
 				theme_color: `rgb(20, 20, 26)`,
 				display: `standalone`,
-				icon: `src/assets/favicon.ico`
+				icon: `static/icon-144x144.png`
 			}
 		}
 	]
