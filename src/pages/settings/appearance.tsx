@@ -9,6 +9,7 @@ import SettingsContainer from '@components/SettingsContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 import { setTheme } from '@redux/SettingSlice';
+import Sidebar from '@components/Sidebar';
 
 const ThemePreview = styled.div<{ selected: boolean }>`
 	padding: ${(props) => props.theme.base.paddingPrimary}px;
@@ -36,6 +37,7 @@ const Appearance = () => {
 			title="Hydrova | Theming"
 			description="Hydrova is a react based reddit client that offers a different way of browsing reddit content"
 		>
+			<Sidebar />
 			<Main>
 				<PillSelector />
 				<SettingsContainer>

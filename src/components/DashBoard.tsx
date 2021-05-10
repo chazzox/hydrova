@@ -33,31 +33,31 @@ interface Params extends PageProps {
 	params: {
 		type?: 'r' | 'm' | 'u' | '';
 		name?: string;
-		id?: string;
+		'*'?: string;
 	};
 }
 
-const Dashboard: React.FC<Params> = ({ params: { type = '', name = '', id = '' } }) => {
+const Dashboard: React.FC<Params> = ({ params }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.settings.isLoggedIn);
 	const routeMap = {
-		u: ['user', name, 'submitted'],
-		m: ['me', 'm', name],
-		r: ['r', name],
+		u: ['user', params.name, 'submitted'],
+		m: ['me', 'm', params.name],
+		r: ['r', params.name],
 		'': []
 	};
 
-	const [endpointName, setEndPointName] = React.useState('');
+	const [endpointName, setEndPointName] = React.useState('/' + routeMap[params.type || ''].join('/'));
 	const listingPointerArray =
-		useSelector<ReduxStateType, string[] | undefined>((state) => state.listing.listingKey[endpointName]?.postKeys) ?? [];
+		useSelector<ReduxStateType, string[] | undefined>((state) => state.listing.listingKey[endpointName]?.postKeys) || [];
 
 	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
 		(state) => state.listing.listingKey[endpointName]?.afterId
 	);
 
 	React.useEffect(() => {
-		setEndPointName('/' + routeMap[type].join('/'));
-	}, [type, name]);
+		setEndPointName('/' + routeMap[params.type || ''].join('/'));
+	}, [params.type, params.name]);
 
 	React.useEffect(() => {
 		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
@@ -84,7 +84,7 @@ const Dashboard: React.FC<Params> = ({ params: { type = '', name = '', id = '' }
 							}}
 						/>
 					</Main>
-					<Main>{listingPointerArray && <PostPreview postKey={id ?? listingPointerArray[0]} />}</Main>
+					<Main>{listingPointerArray && <PostPreview postKey={params['*'] || listingPointerArray[0]} />}</Main>
 				</>
 			) : (
 				<Login />
