@@ -86,7 +86,7 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 				dangerouslySetInnerHTML={{
 					__html:
 						new DOMParser().parseFromString(postContent.selftext_html, 'text/html').documentElement
-							.textContent || ''
+							.textContent ?? ''
 				}}
 			/>
 		);
