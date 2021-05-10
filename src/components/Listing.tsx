@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams, useLocation } from '@reach/router';
+import { Link, useParams } from '@reach/router';
 import { useSelector } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso';
 import styled, { css } from 'styled-components';
@@ -12,9 +12,6 @@ export const PostStyles = css`
 	max-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
 	min-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
 	border-bottom: solid ${(props) => props.theme.colors.borderColor};
-	border-right-color: ${(props) => props.theme.colors.borderColor};
-	border-left-color: ${(props) => props.theme.colors.borderColor};
-	border-top-color: ${(props) => props.theme.colors.borderColor};
 	padding: ${(props) => props.theme.base.paddingSecondary}px;
 	color: ${(props) => props.theme.colors.primaryText};
 	transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease, min-height 0.3s ease;
@@ -50,6 +47,11 @@ interface ListingProps {
 
 const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 	const postStore = useSelector((state: ReduxStateType) => state.listing.posts);
+	const test = useParams();
+
+	React.useEffect(() => {
+		console.log(test);
+	}, [test]);
 
 	return (
 		<Virtuoso
@@ -57,6 +59,7 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 			// maybe replace with map function? performance testing would need to be done
 			data={idKeys}
 			// need to find way to fix this error in a clean manner
+			//@ts-ignore
 			itemContent={(_, postId) => <Item content={postStore[postId]} />}
 			endReached={fetchMore}
 			overscan={1000}
