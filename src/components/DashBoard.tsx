@@ -49,19 +49,24 @@ const Dashboard: React.FC<Params> = ({ params }) => {
 
 	const [endpointName, setEndPointName] = React.useState('/' + routeMap[params.type || ''].join('/'));
 	const listingPointerArray =
-		useSelector<ReduxStateType, string[] | undefined>((state) => state.listing.listingKey[endpointName]?.postKeys) || [];
+		useSelector((state: ReduxStateType) => state.listing.listingKey[endpointName]?.postKeys) || [];
 
-	const listingAfterId = useSelector<ReduxStateType, string | undefined>(
-		(state) => state.listing.listingKey[endpointName]?.afterId
-	);
+	const listingAfterId = useSelector((state: ReduxStateType) => state.listing.listingKey[endpointName]?.afterId);
 
 	React.useEffect(() => {
 		setEndPointName('/' + routeMap[params.type || ''].join('/'));
 	}, [params.type, params.name]);
 
 	React.useEffect(() => {
-		if (endpointName) dispatch(GET_LISTING({ listingEndpointName: endpointName }));
+		if (endpointName) {
+			console.log('dispatched: ', endpointName);
+			dispatch(GET_LISTING({ listingEndpointName: endpointName }));
+		} else console.log('not dispatched: ', endpointName);
 	}, [endpointName]);
+
+	React.useEffect(() => {
+		console.log(listingPointerArray);
+	}, [listingPointerArray]);
 
 	return (
 		<Layout

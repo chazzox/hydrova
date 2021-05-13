@@ -46,12 +46,9 @@ interface ListingProps {
 }
 
 const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
+	console.log(idKeys);
 	const postStore = useSelector((state: ReduxStateType) => state.listing.posts);
-	const test = useParams();
-
-	React.useEffect(() => {
-		console.log(test);
-	}, [test]);
+	const prefix = ``;
 
 	return (
 		<Virtuoso
@@ -60,16 +57,16 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 			data={idKeys}
 			// need to find way to fix this error in a clean manner
 			//@ts-ignore
-			itemContent={(_, postId) => <Item content={postStore[postId]} />}
+			itemContent={(_, postId) => <Item content={postStore[postId]} prefix={prefix} />}
 			endReached={fetchMore}
 			overscan={1000}
 		/>
 	);
 };
 
-const Item: React.FC<{ content: Post }> = ({ content }) => {
+const Item: React.FC<{ content: Post; prefix: string }> = ({ content, prefix }) => {
 	return (
-		<Post to={`r/${[content.subreddit, content.id].join('/')}`}>
+		<Post to={[prefix, content.id].join('/')}>
 			<object>
 				<PostInformation
 					title={content.title}
