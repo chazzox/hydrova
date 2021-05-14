@@ -236,7 +236,7 @@ const Sidebar = () => {
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				<Link to="/#/r/all">
+				<Link to="/r/all">
 					<Button>All</Button>
 				</Link>
 
