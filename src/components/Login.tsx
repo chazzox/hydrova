@@ -5,7 +5,6 @@ import { getJSON } from 'js-cookie';
 
 import { refreshAccessToken } from '@redux/SettingSlice';
 import { AppDispatch } from '@redux/store';
-import { generateAuthUrl } from '@utils/generateAuthURL';
 import { Button } from './Button';
 import WelcomeBox from './WelcomeBox';
 
@@ -22,6 +21,22 @@ const LoginButton = styled(Button)`
 const SignIn = styled(LoginButton)`
 	background-color: ${(props) => props.theme.colors.secondaryAccentBackground};
 `;
+
+function generateAuthUrl(): string {
+	const authURl = new URL('https://www.reddit.com/api/v1/authorize');
+
+	authURl.searchParams.append('client_id', process.env.GATSBY_REDDIT_ID ?? '');
+	authURl.searchParams.append('response_type', 'code');
+	authURl.searchParams.append('state', 'hgfjhgdf');
+	authURl.searchParams.append('redirect_uri', process.env.GATSBY_CALLBACK_URL ?? '');
+	authURl.searchParams.append('duration', 'permanent');
+	authURl.searchParams.append(
+		'scope',
+		['read', 'identity', 'save', 'account', 'mysubreddits', 'vote', 'privatemessages', 'history'].join(',')
+	);
+
+	return authURl.toString();
+}
 
 const Login = () => {
 	const dispatch = useDispatch<AppDispatch>();

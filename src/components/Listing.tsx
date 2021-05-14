@@ -48,7 +48,6 @@ interface ListingProps {
 
 const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore, prefix }) => {
 	const postStore = useSelector((state: ReduxStateType) => state.listing.posts);
-
 	return (
 		<Virtuoso
 			fixedItemHeight={102}
