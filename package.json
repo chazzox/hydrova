@@ -2,7 +2,7 @@
 	"name": "hydrova",
 	"private": true,
 	"description": "A lightweight Reddit client built using Gatsby, Redux and Typescript",
-	"homepage": "https://chazzox.github.io/Hydrova/",
+	"homepage": "https://hydrova.netlify.app/",
 	"version": "3.0.0",
 	"repository": {
 		"type": "github",
