@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { useParams } from '@reach/router';
+import { PageProps } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { GET_LISTING } from '@redux/Listing/ListingThunks';
+import { GET_LISTING } from '@redux/ListingSlice';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 import Listing from './Listing';
 import PostPreview from './PostPreview';
 import Sidebar from './Sidebar';
 import Layout from './Layout';
 import Login from './Login';
-import { PageProps } from 'gatsby';
 
 export const Main = styled.div`
 	max-height: calc(100vh - 2 * (${(props) => props.theme.base.paddingSecondary}px));
@@ -34,12 +33,16 @@ interface Params extends PageProps {
 		type?: 'r' | 'm' | 'u' | '';
 		name?: string;
 		'*'?: string;
+		id?: string;
 	};
 }
 
 const Dashboard: React.FC<Params> = ({ params }) => {
 	const dispatch = useDispatch<AppDispatch>();
 	const isLoggedIn = useSelector((state: ReduxStateType) => state.settings.isLoggedIn);
+
+	const authenticationResultReturned = useSelector((state: ReduxStateType) => state.settings.authenticationResultReturned);
+
 	const routeMap = {
 		u: ['user', params.name, 'submitted'],
 		m: ['me', 'm', params.name],
@@ -47,26 +50,19 @@ const Dashboard: React.FC<Params> = ({ params }) => {
 		'': []
 	};
 
-	const [endpointName, setEndPointName] = React.useState('/' + routeMap[params.type || ''].join('/'));
+	const [endpointName, setEndPointName] = React.useState(routeMap[params.type || ''].join('/'));
 	const listingPointerArray =
 		useSelector((state: ReduxStateType) => state.listing.listingKey[endpointName]?.postKeys) || [];
 
 	const listingAfterId = useSelector((state: ReduxStateType) => state.listing.listingKey[endpointName]?.afterId);
 
 	React.useEffect(() => {
-		setEndPointName('/' + routeMap[params.type || ''].join('/'));
+		setEndPointName(routeMap[params.type || ''].join('/'));
 	}, [params.type, params.name]);
 
 	React.useEffect(() => {
-		if (endpointName) {
-			console.log('dispatched: ', endpointName);
-			dispatch(GET_LISTING({ listingEndpointName: endpointName }));
-		} else console.log('not dispatched: ', endpointName);
-	}, [endpointName]);
-
-	React.useEffect(() => {
-		console.log(listingPointerArray);
-	}, [listingPointerArray]);
+		dispatch(GET_LISTING({ listingEndpointName: endpointName }));
+	}, [endpointName, authenticationResultReturned]);
 
 	return (
 		<Layout
@@ -83,13 +79,16 @@ const Dashboard: React.FC<Params> = ({ params }) => {
 								dispatch(
 									GET_LISTING({
 										listingEndpointName: endpointName,
-										listingQueryParams: !!listingAfterId ? { after: listingAfterId } : undefined
+										params: { after: listingAfterId }
 									})
 								);
 							}}
+							prefix={[params.type, params.name].filter((x) => x !== undefined)}
 						/>
 					</Main>
-					<Main>{listingPointerArray && <PostPreview postKey={params['*'] || listingPointerArray[0]} />}</Main>
+					<Main>
+						{listingPointerArray && <PostPreview postKey={params['*'] || params.id || listingPointerArray[0]} />}
+					</Main>
 				</>
 			) : (
 				<Login />

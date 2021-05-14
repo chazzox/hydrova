@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import { GET_POST } from '@redux/Listing/ListingThunks';
+import { GET_POST } from '@redux/ListingSlice';
 import { AppDispatch, ReduxStateType } from '@redux/store';
 
 import PostInformation from './PostInfo';
-import styled from 'styled-components';
 import { PostStyles } from '@components/Listing';
 
 const ExpandedPost = styled.div`

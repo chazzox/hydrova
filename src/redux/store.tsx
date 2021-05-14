@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import SettingSlice from './SettingSlice';
 import sidebarReducer from './Sidebar/SidebarSlice';
-import ListingSlice from './Listing/ListingReducer';
+import ListingSlice from './ListingSlice';
 
 const store = configureStore({
 	reducer: { settings: SettingSlice.reducer, sidebar: sidebarReducer.reducer, listing: ListingSlice.reducer }

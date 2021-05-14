@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from '@reach/router';
+import { Link } from '@reach/router';
 import { useSelector } from 'react-redux';
 import { Virtuoso } from 'react-virtuoso';
 import styled, { css } from 'styled-components';
@@ -43,12 +43,11 @@ const Thumbnail = styled.img`
 interface ListingProps {
 	idKeys: string[];
 	fetchMore: (num1: number) => void;
+	prefix: Array<string | undefined>;
 }
 
-const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
-	console.log(idKeys);
+const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore, prefix }) => {
 	const postStore = useSelector((state: ReduxStateType) => state.listing.posts);
-	const prefix = ``;
 
 	return (
 		<Virtuoso
@@ -66,7 +65,7 @@ const Listing: React.FC<ListingProps> = ({ idKeys, fetchMore }) => {
 
 const Item: React.FC<{ content: Post; prefix: string }> = ({ content, prefix }) => {
 	return (
-		<Post to={[prefix, content.id].join('/')}>
+		<Post to={'/' + [...prefix, content.id].join('/')}>
 			<object>
 				<PostInformation
 					title={content.title}
