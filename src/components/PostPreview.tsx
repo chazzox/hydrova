@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 
 import { GET_POST } from '@redux/ListingSlice';
-import { AppDispatch, ReduxStateType } from '@redux/store';
+import { AppDispatch } from '@redux/store';
 
 import PostInformation from './PostInfo';
 import { PostStyles } from '@components/Listing';
+import getPostValues from '@utils/getPostValues';
 
 const ExpandedPost = styled.div`
 	${PostStyles}
@@ -51,13 +53,21 @@ const GalleryImage = styled.img`
 
 const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 	const dispatch = useDispatch<AppDispatch>();
-	const content = useSelector<ReduxStateType, Post | undefined>((state) => state.listing.posts[postKey]);
 	const refTop = useRef<HTMLDivElement>(null);
+
+	const [content, setContent] = React.useState<Post | null>(null);
 
 	React.useEffect(() => {
 		refTop?.current?.scrollIntoView();
-		postKey && dispatch(GET_POST({ id: postKey }));
+		postKey &&
+			dispatch(GET_POST({ id: postKey }))
+				.then(unwrapResult)
+				.then((originalPromiseResult) => {
+					setContent(getPostValues(originalPromiseResult[0].data.children[0].data));
+				});
 	}, [postKey]);
+
+	console.log(content?.is_gallery);
 
 	return (
 		<ExpandedPost id={content?.id} ref={refTop} style={{ height: '100%' }}>
@@ -100,7 +110,7 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 	else if (postContent.is_gallery)
 		return (
 			<GalleryContent>
-				{postContent.gallery_data?.items.map(({ media_id }: any, index: number) => {
+				{postContent.gallery_data?.items.map(({ media_id }: any, index: number) => (
 					<GalleryImage
 						key={index}
 						src={decodeURIComponent(
@@ -108,8 +118,8 @@ const RenderPostType = ({ postContent }: { postContent: Post }) => {
 								.documentElement.textContent ?? ''
 						)}
 						alt={`img ${index} of collage`}
-					/>;
-				})}
+					/>
+				))}
 			</GalleryContent>
 		);
 	else if (
