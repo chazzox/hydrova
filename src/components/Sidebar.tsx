@@ -174,6 +174,10 @@ const StyledLink = styled(Link)`
 	${ButtonStyles}
 	display:inline-block;
 	text-decoration: none;
+
+	&.active {
+		background-color: ${(props) => props.theme.colors.primaryAccentBackground};
+	}
 `;
 
 const Sidebar = () => {
@@ -217,27 +221,29 @@ const Sidebar = () => {
 				Timeline
 			</StyledLink>
 
-			<StyledLink to="/post">
+			<StyledLink to="/post" activeClassName="active">
 				<New />
 				Post
 			</StyledLink>
 
-			<StyledLink to="/mail">
+			<StyledLink to="/mail" activeClassName="active">
 				<Mail />
 				Mail
 			</StyledLink>
 
-			<StyledLink to="/settings/appearance/">
+			<StyledLink to="/settings/appearance/" partiallyActive activeClassName="active">
 				<Settings />
 				Settings
 			</StyledLink>
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				<StyledLink to="/r/all">All</StyledLink>
+				<StyledLink to="/r/all" partiallyActive activeClassName="active">
+					All
+				</StyledLink>
 
 				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
-					<StyledLink key={index} to={`/m/${display_name}`}>
+					<StyledLink key={index} to={`/m/${display_name}`} partiallyActive activeClassName="active">
 						<Icon style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}>
 							{!icon_img && display_name[0].toUpperCase()}
 						</Icon>
@@ -249,7 +255,12 @@ const Sidebar = () => {
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<StyledLink key={index} to={`/r/${subreddit.display_name}`}>
+							<StyledLink
+								key={index}
+								to={`/r/${subreddit.display_name}`}
+								partiallyActive
+								activeClassName="active"
+							>
 								<Icon
 									style={
 										!subreddit.icon_img
