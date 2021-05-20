@@ -7,7 +7,7 @@ import { Link } from 'gatsby';
 import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
-import { Button } from './Button';
+import { ButtonStyles, Button } from './Button';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -170,6 +170,12 @@ const UserText = styled.div`
 	}
 `;
 
+const StyledLink = styled(Link)`
+	${ButtonStyles}
+	display:inline-block;
+	text-decoration: none;
+`;
+
 const Sidebar = () => {
 	const dispatch = useDispatch<AppDispatch>();
 
@@ -206,71 +212,55 @@ const Sidebar = () => {
 				<SearchBar type="text" placeholder="Search" autoComplete="off" />
 			</SidebarSearchWrapper>
 
-			<Link to="/">
-				<Button>
-					<Home />
-					Timeline
-				</Button>
-			</Link>
+			<StyledLink to="/">
+				<Home />
+				Timeline
+			</StyledLink>
 
-			<Link to="/post">
-				<Button>
-					<New />
-					Post
-				</Button>
-			</Link>
+			<StyledLink to="/post">
+				<New />
+				Post
+			</StyledLink>
 
-			<Link to="/mail">
-				<Button>
-					<Mail />
-					Mail
-				</Button>
-			</Link>
+			<StyledLink to="/mail">
+				<Mail />
+				Mail
+			</StyledLink>
 
-			<Link to="/settings/appearance/">
-				<Button>
-					<Settings />
-					Settings
-				</Button>
-			</Link>
+			<StyledLink to="/settings/appearance/">
+				<Settings />
+				Settings
+			</StyledLink>
 
 			<ScrollSection>
 				<Section>Feeds</Section>
-				<Link to="/r/all">
-					<Button>All</Button>
-				</Link>
+				<StyledLink to="/r/all">All</StyledLink>
 
 				{multiReddits.map(({ display_name, icon_color, icon_img }, index) => (
-					<Link key={index} to={`/m/${display_name}`}>
-						<Button>
-							<Icon
-								style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}
-							>
-								{!icon_img && display_name[0].toUpperCase()}
-							</Icon>
-							{display_name}
-						</Button>
-					</Link>
+					<StyledLink key={index} to={`/m/${display_name}`}>
+						<Icon style={!icon_img ? { backgroundColor: icon_color } : { backgroundImage: `url(${icon_img})` }}>
+							{!icon_img && display_name[0].toUpperCase()}
+						</Icon>
+						{display_name}
+					</StyledLink>
 				))}
 
 				<Section>My Subreddits</Section>
 				{subReddits.map(
 					(subreddit, index) =>
 						subreddit.subreddit_type !== 'user' && (
-							<Link key={index} to={`/r/${subreddit.display_name}`}>
-								<Button>
-									<Icon
-										style={
-											!subreddit.icon_img
-												? { backgroundColor: subreddit.icon_color }
-												: { backgroundImage: `url(${subreddit.icon_img})` }
-										}
-									>
-										{!subreddit.icon_img && subreddit.display_name[0].toUpperCase()}
-									</Icon>
-									{subreddit.display_name}
-								</Button>
-							</Link>
+							<StyledLink key={index} to={`/r/${subreddit.display_name}`}>
+								<Icon
+									style={
+										!subreddit.icon_img
+											? { backgroundColor: subreddit.icon_color }
+											: { backgroundImage: `url(${subreddit.icon_img})` }
+									}
+								>
+									{!subreddit.icon_img && subreddit.display_name[0].toUpperCase()}
+								</Icon>
+								{subreddit.display_name}
+							</StyledLink>
 						)
 				)}
 			</ScrollSection>

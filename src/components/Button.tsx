@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Button = styled.button`
+export const ButtonStyles = css`
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	padding: ${(props) => props.theme.base.paddingSecondary}px 16px;
 	color: ${(props) => props.theme.colors.primaryText};
@@ -35,4 +35,8 @@ export const Button = styled.button`
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
+`;
+
+export const Button = styled.button`
+	${ButtonStyles}
 `;

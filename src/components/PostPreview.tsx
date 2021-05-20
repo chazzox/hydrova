@@ -67,8 +67,6 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 				});
 	}, [postKey]);
 
-	console.log(content?.is_gallery);
-
 	return (
 		<ExpandedPost id={content?.id} ref={refTop} style={{ height: '100%' }}>
 			{content && (
