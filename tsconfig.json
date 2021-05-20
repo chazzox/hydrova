@@ -5,7 +5,7 @@
 		"module": "esnext",
 		"lib": ["dom", "es2017"],
 		"moduleResolution": "node",
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
 			"@assets/*": ["src/assets/*"],
@@ -19,6 +19,7 @@
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
+		"strictNullChecks": false,
 		"noEmit": true,
 		"skipLibCheck": true
 	}
