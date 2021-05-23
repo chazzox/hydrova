@@ -56,6 +56,7 @@ const Login = () => {
 			>
 				Sign In
 			</SignIn>
+			<SignIn onClick={() => {}}>Guest Mode</SignIn>
 			<LoginButton as="a" href="https://www.reddit.com/register">
 				Sign Up
 			</LoginButton>
