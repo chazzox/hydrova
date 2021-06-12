@@ -9,6 +9,7 @@ import { AppDispatch } from '@redux/store';
 import PostInformation from './PostInfo';
 import { PostStyles } from '@components/Listing';
 import getPostValues from '@utils/getPostValues';
+import VoteControls from './VoteControls';
 
 const ExpandedPost = styled.div`
 	${PostStyles}
@@ -81,6 +82,7 @@ const PostPreview: React.FC<{ postKey: string }> = ({ postKey }) => {
 					<PostContent>
 						<RenderPostType postContent={content} />
 					</PostContent>
+					<VoteControls postContent={content} />
 				</>
 			)}
 		</ExpandedPost>

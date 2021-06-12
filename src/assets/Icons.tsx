@@ -103,6 +103,73 @@ export function Settings() {
 	);
 }
 
+export function Upvote() {
+	return (
+		<svg x="0px" y="0px" viewBox="0 0 512 512">
+			<g>
+				<path
+					className="fill"
+					d="M326.5,490c13,0,23.6-10.6,23.6-23.6V325c0-13,10.6-23.6,23.6-23.6h107.5c13,0,16.6-8,8-17.7l-214.1-244
+		C266.5,29.9,258,22,256,22s-10.5,8-19.1,17.7l-214.1,244c-8.6,9.8-5,17.7,8,17.7h107.5c13,0,23.6,10.6,23.6,23.6v141.5
+		c0,13,10.6,23.6,23.6,23.6H326.5z"
+				/>
+			</g>
+		</svg>
+	);
+}
+
+export function Downvote() {
+	return (
+		<svg x="0px" y="0px" viewBox="0 0 512 512">
+			<g>
+				<path
+					className="fill"
+					d="M185.5,22c-13,0-23.6,10.6-23.6,23.6V187c0,13-10.6,23.6-23.6,23.6H30.9c-13,0-16.6,8-8,17.7l214.1,244
+		c8.6,9.8,17.1,17.7,19.1,17.7s10.5-8,19.1-17.7l214.1-244c8.6-9.8,5-17.7-8-17.7H373.6c-13,0-23.6-10.6-23.6-23.6V45.6
+		c0-13-10.6-23.6-23.6-23.6H185.5z"
+				/>
+			</g>
+		</svg>
+	);
+}
+
+export function Save() {
+	return (
+		<svg x="0px" y="0px" viewBox="0 0 512 512">
+			<g>
+				<path
+					className="fill"
+					d="M88.6,98.2v355.7c0,22,0.8,40,1.8,40c1,0,16.9-9.8,35.4-21.7c0,0,127.8-82.6,130.2-82.4
+		c1.9,0.2,128.5,82.4,128.5,82.4c18.5,12,34.7,21.8,36.2,21.8c1.5,0,2.6-18,2.6-40V98.2c0-44.2-30.2-80-67.4-80H156
+		C118.8,18.2,88.6,54,88.6,98.2z"
+				/>
+			</g>
+		</svg>
+	);
+}
+
+export function Placeholder() {
+	return (
+		<svg viewBox="0 0 512 512">
+			<rect className="fill" x="16.31" y="20.56" width="479.38" height="468.87" rx="150" />
+		</svg>
+	);
+}
+
+export function Comment() {
+	return (
+		<svg x="0px" y="0px" viewBox="0 0 512 512">
+			<g>
+				<path
+					className="fill"
+					d="M494.4,60.9c0-22-18-40-40-40H57.6c-22,0-40,18-40,40v258.6c0,22,18,40,40,40h64.9c11,0,20,9,20,20v111
+		c0,4.5,5.4,6.7,8.5,3.5L286,369c3.8-3.8,8.8-5.9,14.1-5.9l154.3-3c22-0.4,40-18.8,40-40.8V60.9z"
+				/>
+			</g>
+		</svg>
+	);
+}
+
 const MarkDownWrapper = styled.svg`
 	background: ${(props) => props.theme.colors.secondaryAccentBackground};
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
