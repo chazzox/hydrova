@@ -11,7 +11,6 @@ import PostInformation from './PostInfo';
 export const PostStyles = css`
 	max-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
 	min-height: calc(80px + ${(props) => props.theme.base.paddingSecondary}px * 2);
-	border-bottom: solid ${(props) => props.theme.colors.borderColor};
 	padding: ${(props) => props.theme.base.paddingSecondary}px;
 	color: ${(props) => props.theme.colors.primaryText};
 	transition: padding 0.25s ease, border-radius 0.25s ease, margin 0.25s ease, max-height 0.3s ease, min-height 0.3s ease;

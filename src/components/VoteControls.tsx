@@ -1,7 +1,7 @@
 import React from 'react';
 import copy from 'copy-to-clipboard';
 
-import { Button } from '@components/Button';
+import { CompactButton } from '@components/Button';
 import { Downvote, Upvote, Save, Placeholder, Comment } from '@assets/Icons';
 import styled from 'styled-components';
 
@@ -9,31 +9,30 @@ const voteControls = ({ postContent: { likes, permalink, num_comments, ups, save
 	return (
 		<VoteControlsCointainer>
 			<VoteCointainer>
-				<Button onClick={() => {}} isSelected={likes === true} isCompact={true}>
+				<CompactButton onClick={() => {}} isSelected={likes === true}>
 					<Upvote />
-				</Button>
+				</CompactButton>
 				<span>{ups + (likes === true ? 1 : likes === false ? -1 : 0)}</span>
 
-				<Button onClick={() => {}} isSelected={likes === false} isCompact={true}>
+				<CompactButton onClick={() => {}} isSelected={likes === false}>
 					<Downvote />
-				</Button>
+				</CompactButton>
 			</VoteCointainer>
-			<Button onClick={() => {}} isSelected={saved}>
+			<CompactButton onClick={() => {}} isSelected={saved}>
 				<Save />
 				{saved ? 'Unsave' : 'Save'}
-			</Button>
-			<Button onClick={() => copy(`https://www.reddit.com${permalink}`)} isSelected={saved} isCompact={true}>
+			</CompactButton>
+			<CompactButton onClick={() => copy(`https://www.reddit.com${permalink}`)} isSelected={saved}>
 				<Placeholder />
 				Share
-			</Button>
-			<Button
+			</CompactButton>
+			<CompactButton
 				onClick={() => document.getElementById('comments')?.scrollIntoView({ behavior: 'smooth' })}
 				isSelected={saved}
-				isCompact={true}
 			>
 				<Comment />
 				{num_comments}
-			</Button>
+			</CompactButton>
 		</VoteControlsCointainer>
 	);
 };
@@ -41,30 +40,28 @@ const voteControls = ({ postContent: { likes, permalink, num_comments, ups, save
 const VoteControlsCointainer = styled.div`
 	color: ${(props) => props.theme.colors.primaryText};
 	background-color: ${(props) => props.theme.colors.secondaryAccentBackground};
-	border-radius: ${(props) => props.theme.base.borderRadiusPrimary};
-	padding: ${(props) => props.theme.base.paddingPrimary};
-	margin: ${(props) => props.theme.base.paddingPrimary};
+	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
+	padding: ${(props) => props.theme.base.paddingPrimary}px;
+	margin: ${(props) => props.theme.base.paddingPrimary}px;
 	vertical-align: middle;
-	&::-webkit-scrollbar {
-		width: 0 !important;
-		height: 0 !important;
-	}
 `;
 
 const VoteCointainer = styled.div`
 	display: inline-flex;
-	margin-right: ${(props) => props.theme.base.paddingPrimary};
+	margin-right: ${(props) => props.theme.base.paddingPrimary}px;
 	height: 42px;
 	padding: calc(${(props) => props.theme.base.paddingPrimary} / 2);
-	border-radius: ${(props) => props.theme.base.borderRadiusPrimary};
+	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	background-color: ${(props) => props.theme.colors.secondaryBackground};
 	vertical-align: middle;
 	button {
-		padding: calc(${(props) => props.theme.base.paddingSecondary} - (${(props) => props.theme.base.paddingPrimary} / 2))
+		padding: calc(
+				${(props) => props.theme.base.paddingSecondary}px - (${(props) => props.theme.base.paddingPrimary}px / 2)
+			)
 			8px;
 	}
 	span {
-		margin: auto ${(props) => props.theme.base.paddingPrimary};
+		margin: auto ${(props) => props.theme.base.paddingPrimary}px;
 	}
 `;
 
