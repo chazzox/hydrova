@@ -33,6 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
 			<Helmet>
 				<title>{title}</title>
 				<meta name="description" content={description} />
+				<meta name="image" property="og:image" content="/screenshot.jpg" />
 				<meta
 					name="keywords"
 					content="reddit, Reddit, reddit client, reddit improved, chazzox, hydrova, hydrova reddit, Hydrova"
