@@ -175,6 +175,12 @@ const StyledLink = styled(Link)`
 	display:inline-block;
 	text-decoration: none;
 
+	& > svg {
+		width: 20px;
+		float: left;
+		margin-right: ${(props) => props.theme.base.paddingSecondary}px;
+	}
+
 	&.active {
 		background-color: ${(props) => props.theme.colors.primaryAccentBackground};
 	}

@@ -25,7 +25,6 @@ export const ButtonStyles = css`
 	& > svg {
 		width: 20px;
 		float: left;
-		margin-right: ${(props) => props.theme.base.paddingSecondary}px;
 	}
 
 	& > svg * {

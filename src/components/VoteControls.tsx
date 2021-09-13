@@ -7,8 +7,8 @@ import styled from 'styled-components';
 
 const voteControls = ({ postContent: { likes, permalink, num_comments, ups, saved } }: { postContent: Post }) => {
 	return (
-		<VoteControlsCointainer>
-			<VoteCointainer>
+		<VoteControlsContainer>
+			<VoteContainer>
 				<CompactButton onClick={() => {}} isSelected={likes === true}>
 					<Upvote />
 				</CompactButton>
@@ -17,7 +17,7 @@ const voteControls = ({ postContent: { likes, permalink, num_comments, ups, save
 				<CompactButton onClick={() => {}} isSelected={likes === false}>
 					<Downvote />
 				</CompactButton>
-			</VoteCointainer>
+			</VoteContainer>
 			<CompactButton onClick={() => {}} isSelected={saved}>
 				<Save />
 				{saved ? 'Unsave' : 'Save'}
@@ -33,24 +33,23 @@ const voteControls = ({ postContent: { likes, permalink, num_comments, ups, save
 				<Comment />
 				{num_comments}
 			</CompactButton>
-		</VoteControlsCointainer>
+		</VoteControlsContainer>
 	);
 };
 
-const VoteControlsCointainer = styled.div`
+const VoteControlsContainer = styled.div`
 	color: ${(props) => props.theme.colors.primaryText};
 	background-color: ${(props) => props.theme.colors.secondaryAccentBackground};
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	padding: ${(props) => props.theme.base.paddingPrimary}px;
 	margin: ${(props) => props.theme.base.paddingPrimary}px;
-	vertical-align: middle;
 `;
 
-const VoteCointainer = styled.div`
+const VoteContainer = styled.div`
 	display: inline-flex;
 	margin-right: ${(props) => props.theme.base.paddingPrimary}px;
 	height: 42px;
-	padding: calc(${(props) => props.theme.base.paddingPrimary} / 2);
+	padding: calc(${(props) => props.theme.base.paddingPrimary}px / 2);
 	border-radius: ${(props) => props.theme.base.borderRadiusPrimary}px;
 	background-color: ${(props) => props.theme.colors.secondaryBackground};
 	vertical-align: middle;
