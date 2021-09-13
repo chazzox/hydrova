@@ -17,6 +17,7 @@
 		src="https://camo.githubusercontent.com/ff817852f0d676a36eaa3108d380e0052e689d9e0bc3eb42818fb21008708420/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d616465253230576974682d4c6f76652d6f72616e67652e737667"
 		alt="Made With Love"
 	/>
+	<img src="https://api.netlify.com/api/v1/badges/07b56108-7dd0-47e6-b6b8-bcdb8cc5bad9/deploy-status"/>
 </div>
 
 ## About
@@ -24,5 +25,3 @@
 -   This repo is currently in active development, expect things to not work, features to be changed and settings to be rewritten.
 -   If anyone wants to get involved in this project feel free to shoot me a dm on discord or twitter!
 -   For the feature roadmap, [click here](https://trello.com/b/iyn74cJK/hydrova)
-
-### At the moment my time is being shared with writing this and a library [virtuoso-tree](https://github.com/chazzox/virtuoso-tree), a react library that aims to provide a better way to render tree data structures. This is being made for rendering the comments of posts for the site.
