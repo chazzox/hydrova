@@ -25,7 +25,6 @@ export const ButtonStyles = css`
 	& > svg {
 		width: 20px;
 		float: left;
-		margin-right: ${(props) => props.theme.base.paddingSecondary}px;
 	}
 
 	& > svg * {
@@ -37,6 +36,14 @@ export const ButtonStyles = css`
 	}
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{ isSelected?: boolean }>`
 	${ButtonStyles}
+	${(props) => (props.isSelected ? `` : ``)}
+`;
+
+export const CompactButton = styled(Button)`
+	width: fit-content;
+	margin: 0;
+	display: inline-block;
+	padding: ${(props) => props.theme.base.paddingPrimary}px 8px;
 `;

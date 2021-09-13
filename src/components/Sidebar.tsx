@@ -7,7 +7,7 @@ import { Link } from 'gatsby';
 import { ReduxStateType, AppDispatch } from '@redux/store';
 import { GET_USER_INFO, GET_MULTIREDDITS, GET_SUBREDDITS } from '@redux/Sidebar/SidebarSlice';
 import { Home, Hydrova, Mail, New, Search, Settings } from '@assets/Icons';
-import { ButtonStyles, Button } from './Button';
+import { ButtonStyles } from './Button';
 
 const NavHydrova = styled(Hydrova)`
 	margin-right: ${(props) => props.theme.base.paddingSecondary}px;
@@ -174,6 +174,12 @@ const StyledLink = styled(Link)`
 	${ButtonStyles}
 	display:inline-block;
 	text-decoration: none;
+
+	& > svg {
+		width: 20px;
+		float: left;
+		margin-right: ${(props) => props.theme.base.paddingSecondary}px;
+	}
 
 	&.active {
 		background-color: ${(props) => props.theme.colors.primaryAccentBackground};
