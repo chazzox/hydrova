@@ -1,12 +1,14 @@
 <div align="center">
-	<a href="https://chazzox.github.io/Hydrova/#/">
+	<a href="https://hyrova.chazzox.uk/#/">
 		<img
 			alt="Hydrova"
 			src="https://raw.githubusercontent.com/chazzox/Hydrova/master/static/icon-144x144.png"
 			height="144px"
 		/>
 	</a>
-	<h1>Hydrova - High Performance Reddit Client</h1>
+	<h1>
+		<a href="https://hyrova.chazzox.uk/#/">Hydrova - High Performance Reddit Client</a>
+	</h1>
 	<a href="https://github.com/styled-components/styled-components">
 		<img
 			src="https://camo.githubusercontent.com/5e6b5d9da90f61f872931b769d9bf65254c2fcfda569a972b9be45b4a921f8a3/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7374796c652d2546302539462539322538352532307374796c65642d2d636f6d706f6e656e74732d6f72616e67652e7376673f636f6c6f72423d64616133353726636f6c6f72413d646237343865"
