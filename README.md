@@ -1,5 +1,5 @@
 <div align="center">
-	<a href="https://hyrova.chazzox.uk/#/">
+	<a href="https://hydrova.chazzox.uk/#/">
 		<img
 			alt="Hydrova"
 			src="https://raw.githubusercontent.com/chazzox/Hydrova/master/static/icon-144x144.png"
@@ -7,7 +7,7 @@
 		/>
 	</a>
 	<h1>
-		<a href="https://hyrova.chazzox.uk/#/">Hydrova - High Performance Reddit Client</a>
+		<a href="https://hydrova.chazzox.uk/#/">Hydrova - High Performance Reddit Client</a>
 	</h1>
 	<a href="https://github.com/styled-components/styled-components">
 		<img
