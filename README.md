@@ -22,12 +22,11 @@
 	<img src="https://api.netlify.com/api/v1/badges/07b56108-7dd0-47e6-b6b8-bcdb8cc5bad9/deploy-status"/>
 </div>
 
-# ARCHIVED - i have learnt so much making this, but decided that its time to move on from web dev and focus on learning other things.
+# ARCHIVED
 
-# i will forever appriciate the amount this project has tought me
+-   No longer being developed, was fun while it lasted
 
 ## About
-
 
 -   If anyone wants to get involved in this project feel free to shoot me a dm on discord or twitter!
 -   For the feature roadmap, [click here](https://trello.com/b/iyn74cJK/hydrova)
