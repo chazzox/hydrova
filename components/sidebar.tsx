@@ -1,12 +1,14 @@
-import { Hydrova, Search } from '@assets/icons';
+import { Home, Hydrova, Mail, Post, Search, Settings } from '@assets/icons';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
+	const { data } = useSession();
 	return (
-		<div className="drawer-side">
+		<div className="drawer-side relative">
 			<label htmlFor={drawerId} className="drawer-overlay"></label>
-			<ul className="menu flex w-64 gap-3 overflow-y-auto bg-base-300 p-4 text-base-content">
-				<li>
+			<ul className="menu flex h-[calc(100%-88px)] w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 text-base-content">
+				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/">
 						<a className="font-bold">
 							<Hydrova className="inline-block h-8 w-8" />
@@ -22,22 +24,36 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 						className="input input-bordered w-full"
 					/>
 					<button className="btn btn-square">
-						<Search />
+						<Search className="h-5 w-5" />
 					</button>
 				</div>
 
 				<li>
-					<a>Home</a>
+					<Link href="/">
+						<a>
+							<Home className="h-5 w-5" />
+							Home
+						</a>
+					</Link>
 				</li>
 				<li>
-					<a>Post</a>
+					<a>
+						<Post className="h-5 w-5" />
+						Post
+					</a>
 				</li>
 				<li>
-					<a>Mail</a>
+					<a>
+						<Mail className="h-5 w-5" />
+						Mail
+					</a>
 				</li>
 				<li>
 					<Link href="/settings/appearance">
-						<a>Settings</a>
+						<a>
+							<Settings className="h-5 w-5" />
+							Settings
+						</a>
 					</Link>
 				</li>
 
@@ -49,6 +65,19 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					<span>My Subreddit's</span>
 				</li>
 			</ul>
+			{data?.user && data.user?.image && (
+				<div className="absolute bottom-0 z-10 flex w-full items-center gap-2 bg-base-300 p-4">
+					<div className="avatar">
+						<div className="h-14 w-14 rounded-xl ring ring-accent">
+							<img
+								src={data.user.image}
+								alt={`profile picture of ${data.user.name}`}
+							/>
+						</div>
+					</div>
+					<div>{data.user?.name}</div>
+				</div>
+			)}
 		</div>
 	);
 };
