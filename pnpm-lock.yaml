@@ -5,6 +5,7 @@ specifiers:
   '@types/node': ^17
   '@types/react': ^18.0.15
   autoprefixer: ^10.4.8
+  classnames: ^2.3.1
   daisyui: ^2.24.2
   next: ^12.2.5
   next-auth: ^4.10.3
@@ -29,6 +30,7 @@ devDependencies:
   '@types/node': 17.0.45
   '@types/react': 18.0.18
   autoprefixer: 10.4.8_postcss@8.4.16
+  classnames: 2.3.1
   postcss: 8.4.16
   prettier: 2.7.1
   prettier-plugin-organize-imports: 3.1.1_3izbkkkilozjwunt7rvlqzc6b4
@@ -307,6 +309,10 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: true
 
   /color-convert/2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}

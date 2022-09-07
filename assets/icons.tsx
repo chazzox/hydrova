@@ -1,6 +1,10 @@
-export const Hydrova: React.FC<React.HTMLAttributes<SVGAElement>> = ({ className }) => {
+import classNames from 'classnames';
+
+type SVGProps = React.FC<React.HTMLAttributes<SVGAElement>>;
+
+export const Hydrova: SVGProps = ({ className }) => {
 	return (
-		<svg {...{ className }} viewBox="0 0 512 512">
+		<svg className={className} viewBox="0 0 512 512">
 			<path
 				className="fill-secondary-content"
 				d="M270.2 422.4l-54.1-272c-.7-3.6-2.7-6.8-5.7-9-39.6-29.9-78.4-43.7-80-44.2-7.2-2.5-15.1.8-18.5 7.6-.7 1.6-18.4 38.7-25.3 87.9-.5 3.6.3 7.3 2.4 10.4l154.1 230.6c2.8 4.3 7.6 6.7 12.5 6.7 1.9 0 3.9-.4 5.7-1.1 6.5-2.8 10.3-9.9 8.9-16.9z"
@@ -28,3 +32,20 @@ export const Hydrova: React.FC<React.HTMLAttributes<SVGAElement>> = ({ className
 		</svg>
 	);
 };
+
+export const Search: SVGProps = ({ className }) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		className={classNames(className, 'h-6 w-6')}
+		fill="none"
+		viewBox="0 0 24 24"
+		stroke="currentColor"
+	>
+		<path
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			strokeWidth="2"
+			d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+		/>
+	</svg>
+);
