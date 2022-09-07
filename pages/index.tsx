@@ -17,13 +17,14 @@ const Index: NextPageWithLayout = () => {
 Index.getLayout = (page) => <Layout>{page}</Layout>;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+	// @ts-ignore
 	const { accessToken } = await unstable_getServerSession(context.req, context.res, authOptions);
 
 	// some fetch of basic listing
 	let listing = {};
 	if (accessToken) {
 		console.log(`Bearer ${accessToken}`);
-		fetch('https://api.reddit.com/', {
+		fetch('https://oauth.reddit.com/top', {
 			method: 'GET',
 			headers: { Authorization: `Bearer ${accessToken}` }
 		})
