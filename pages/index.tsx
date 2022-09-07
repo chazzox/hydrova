@@ -1,10 +1,15 @@
-import Layout from '../components/layout';
+import Layout from '@components/layouts';
+import { NextPageWithLayout } from './_app';
 
-export default function IndexPage() {
+const Index: NextPageWithLayout = () => {
 	return (
-		<Layout>
+		<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 			<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
 			<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
-		</Layout>
+		</div>
 	);
-}
+};
+
+Index.getLayout = (page) => <Layout>{page}</Layout>;
+
+export default Index;
