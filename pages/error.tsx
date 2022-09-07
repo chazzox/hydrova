@@ -1,4 +1,4 @@
-const Error = (props) => {
+const Error = (props: any) => {
 	return <>{JSON.stringify(props)}</>;
 };
 
