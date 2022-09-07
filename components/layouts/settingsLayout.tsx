@@ -15,7 +15,7 @@ const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =
 	return (
 		<Layout>
 			<div className="drawer-content flex flex-1 flex-col p-6">
-				<div className="tabs tabs-boxed mx-auto mb-4 gap-2 p-2 shadow-lg">
+				<div className="tabs tabs-boxed mx-auto mb-4 gap-2 p-2 shadow-xl">
 					{Object.entries(settings).map(([k, v], i) => (
 						<Link key={i} href={k} replace>
 							<a
