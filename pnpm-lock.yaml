@@ -16,6 +16,7 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   tailwindcss: ^3.1.8
+  theme-change: ^2.2.0
   typescript: ^4
 
 dependencies:
@@ -24,6 +25,7 @@ dependencies:
   next-auth: 4.10.3_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  theme-change: 2.2.0
 
 devDependencies:
   '@tailwindcss/typography': 0.5.7_tailwindcss@3.1.8
@@ -906,6 +908,10 @@ packages:
       resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
+
+  /theme-change/2.2.0:
+    resolution: {integrity: sha512-vvgZEEfmH3yZGq2bWHyzs2AOG1SRfNnCvWbEnPzGpdvvCmAWtOsEdg4H6k/OMapegG+LEQvQ76tQoN9B+FT7rg==}
+    dev: false
 
   /to-regex-range/5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}

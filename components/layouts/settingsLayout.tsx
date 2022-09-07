@@ -12,7 +12,6 @@ const settings = {
 
 const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const router = useRouter();
-	console.log(router);
 	return (
 		<Layout>
 			<div className="drawer-content flex flex-1 flex-col p-6">
@@ -21,7 +20,7 @@ const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =
 						<Link key={i} href={k} replace>
 							<a
 								className={classNames(
-									'tab rounded-lg capitalize transition-colors hover:bg-accent',
+									'tab rounded-lg capitalize transition-colors hover:bg-accent hover:text-accent-content',
 									{ 'tab-active': router.pathname == k }
 								)}
 							>
