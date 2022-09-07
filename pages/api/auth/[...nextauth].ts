@@ -22,9 +22,17 @@ export const authOptions: NextAuthOptions = {
 				token.accessToken = account.access_token;
 				token.refreshToken = account.refresh_token;
 			}
-
+			// refresh token here
 			return token;
 		},
+
+		async session({ session, token }) {
+			session.accessToken = token.accessToken;
+			session.refreshToken = token.refreshToken;
+
+			return session;
+		},
+
 		async signIn(params) {
 			// extracting reddit img url and adding to user object
 			const icon_url = params.profile.icon_img as string;
