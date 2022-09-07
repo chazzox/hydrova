@@ -1,11 +1,11 @@
-import { Hydrova } from '@assets/icons';
+import { Hydrova, Search } from '@assets/icons';
 import Link from 'next/link';
 
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 	return (
 		<div className="drawer-side">
 			<label htmlFor={drawerId} className="drawer-overlay"></label>
-			<ul className="menu w-64 overflow-y-auto bg-base-300 p-4 text-base-content">
+			<ul className="menu flex w-64 gap-3 overflow-y-auto bg-base-300 p-4 text-base-content">
 				<li>
 					<Link href="/">
 						<a className="font-bold">
@@ -14,11 +14,39 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 						</a>
 					</Link>
 				</li>
+
+				<div className="input-group">
+					<input
+						type="text"
+						placeholder="Search…"
+						className="input input-bordered w-full"
+					/>
+					<button className="btn btn-square">
+						<Search />
+					</button>
+				</div>
+
 				<li>
-					<a>Sidebar Item 1</a>
+					<a>Home</a>
 				</li>
 				<li>
-					<a>Sidebar Item 2</a>
+					<a>Post</a>
+				</li>
+				<li>
+					<a>Mail</a>
+				</li>
+				<li>
+					<Link href="/settings/appearance">
+						<a>Settings</a>
+					</Link>
+				</li>
+
+				<li className="menu-title">
+					<span>Feeds</span>
+				</li>
+
+				<li className="menu-title">
+					<span>My Subreddit's</span>
 				</li>
 			</ul>
 		</div>
