@@ -7,6 +7,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"@tanstack/react-query": "^4.2.3",
 		"daisyui": "^2.24.2",
 		"next": "^12.2.5",
 		"next-auth": "^4.10.3",
