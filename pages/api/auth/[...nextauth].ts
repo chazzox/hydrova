@@ -8,7 +8,17 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: process.env.REDDIT_CLIENT_SECRET,
 			authorization: {
 				params: {
-					duration: 'permanent'
+					duration: 'permanent',
+					scope: [
+						'read',
+						'identity',
+						'save',
+						'account',
+						'mysubreddits',
+						'vote',
+						'privatemessages',
+						'history'
+					].join(' ')
 				}
 			}
 		})
@@ -22,14 +32,12 @@ export const authOptions: NextAuthOptions = {
 				token.accessToken = account.access_token;
 				token.refreshToken = account.refresh_token;
 			}
-			// refresh token here
 			return token;
 		},
 
 		async session({ session, token }) {
 			session.accessToken = token.accessToken;
 			session.refreshToken = token.refreshToken;
-
 			return session;
 		},
 
@@ -38,12 +46,12 @@ export const authOptions: NextAuthOptions = {
 			const icon_url = params.profile.icon_img as string;
 			if (icon_url) {
 				const imgUrl = new URL(icon_url);
-
 				params.user.image = imgUrl.origin + imgUrl.pathname;
 			}
 
 			return true;
 		},
+
 		async redirect(params) {
 			const { url, baseUrl } = params;
 			// Allows relative callback URLs
