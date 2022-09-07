@@ -12,4 +12,4 @@ export default withAuth({
 /**
  * @todo update as pages increase
  */
-export const config = { matcher: ['/'] };
+export const config = { matcher: ['/', '/settings/:path*'] };
