@@ -4,11 +4,20 @@ import type { GetServerSidePropsContext } from 'next/types';
 import { authOptions } from './api/auth/[...nextauth]';
 import type { NextPageWithLayout } from './_app';
 
-const Index: NextPageWithLayout = () => {
+const Index: NextPageWithLayout = (props) => {
 	// react query or some shit
 	return (
 		<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
-			<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
+			<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
+				{props.children.map(({ data }) => (
+					<>
+						<div className="h-20 w-full" key={data.id}>
+							<h3 className="font-bold text-white/60">{data.title}</h3>
+						</div>
+						<div className="divider m-0"></div>
+					</>
+				))}
+			</div>
 			<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
 		</div>
 	);
@@ -21,21 +30,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const { accessToken } = await unstable_getServerSession(context.req, context.res, authOptions);
 
 	// some fetch of basic listing
-	let listing = {};
 	if (accessToken) {
-		console.log(`Bearer ${accessToken}`);
-		fetch('https://oauth.reddit.com/top', {
-			method: 'GET',
-			headers: { Authorization: `Bearer ${accessToken}` }
-		})
-			.then((v) => v.json())
-			.then((v1) => console.log(v1))
-			.catch((e) => console.log(e));
+		try {
+			return {
+				props: (
+					await (
+						await fetch('https://oauth.reddit.com/', {
+							method: 'GET',
+							headers: { Authorization: `Bearer ${accessToken}` }
+						})
+					).json()
+				).data
+			};
+		} catch (e) {
+			return { props: {} };
+		}
 	}
-
-	return {
-		// pass listing as prop
-		props: {}
-	};
 }
 export default Index;
