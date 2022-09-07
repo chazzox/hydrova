@@ -37,16 +37,20 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					</Link>
 				</li>
 				<li>
-					<a>
-						<Post className="h-5 w-5" />
-						Post
-					</a>
+					<Link href="/post">
+						<a>
+							<Post className="h-5 w-5" />
+							Post
+						</a>
+					</Link>
 				</li>
 				<li>
-					<a>
-						<Mail className="h-5 w-5" />
-						Mail
-					</a>
+					<Link href="/mail">
+						<a>
+							<Mail className="h-5 w-5" />
+							Mail
+						</a>
+					</Link>
 				</li>
 				<li>
 					<Link href="/settings/appearance">
