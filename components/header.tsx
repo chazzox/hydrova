@@ -1,4 +1,4 @@
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 // The approach used in this component shows how to build a sign in and sign out
@@ -6,84 +6,42 @@ import Link from 'next/link';
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
 	const { data: session, status } = useSession();
-	const loading = status === 'loading';
 
 	return (
-		<header>
-			<div>
-				<p>
-					{!session && (
-						<>
-							<span>You are not signed in</span>
-							<a
-								href={`/api/auth/signin`}
-								onClick={(e) => {
-									e.preventDefault();
-									signIn();
-								}}
-							>
-								Sign in
-							</a>
-						</>
-					)}
-					{session?.user && (
-						<>
-							{session.user.image && (
-								<span style={{ backgroundImage: `url('${session.user.image}')` }} />
-							)}
-							<span>
-								<small>Signed in as</small>
-								<br />
-								<strong>{session.user.email ?? session.user.name}</strong>
-							</span>
-							<a
-								href={`/api/auth/signout`}
-								onClick={(e) => {
-									e.preventDefault();
-									signOut();
-								}}
-							>
-								Sign out
-							</a>
-						</>
-					)}
-				</p>
-			</div>
-			<nav>
-				<ul>
-					<li>
-						<Link href="/">
-							<a>Home</a>
-						</Link>
-					</li>
-					<li>
-						<Link href="/client">
-							<a>Client</a>
-						</Link>
-					</li>
+		<header className="navbar mb-10 bg-base-200">
+			<p>
+				{session?.user && (
+					<>
+						{session.user.image && (
+							<img
+								src={session.user.image}
+								alt=""
+								className="h-14 w-14 rounded-2xl"
+							/>
+						)}
+						<span>
+							<small>Signed in as</small>
+							<br />
+							<strong>{session.user.email ?? session.user.name}</strong>
+						</span>
+					</>
+				)}
+			</p>
 
-					<li>
-						<Link href="/protected">
-							<a>Protected</a>
-						</Link>
-					</li>
-					<li>
-						<Link href="/api-example">
-							<a>API</a>
-						</Link>
-					</li>
-					<li>
-						<Link href="/admin">
-							<a>Admin</a>
-						</Link>
-					</li>
-					<li>
-						<Link href="/me">
-							<a>Me</a>
-						</Link>
-					</li>
-				</ul>
-			</nav>
+			<Link href="/">
+				<a className="btn btn-ghost">Home</a>
+			</Link>
+
+			<Link href="/login">
+				<button
+					onClick={(e) => {
+						signOut({ redirect: false });
+					}}
+					className="btn btn-ghost"
+				>
+					Sign out
+				</button>
+			</Link>
 		</header>
 	);
 }

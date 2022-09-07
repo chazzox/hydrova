@@ -14,13 +14,40 @@ export const authOptions: NextAuthOptions = {
 		})
 	],
 	theme: {
-		colorScheme: 'light'
+		colorScheme: 'dark'
 	},
 	callbacks: {
-		async jwt({ token }) {
-			token.userRole = 'admin';
+		async jwt({ token, account, user }) {
+			if (account && user) {
+				token.accessToken = account.access_token;
+				token.refreshToken = account.refresh_token;
+			}
+
 			return token;
+		},
+		async signIn(params) {
+			// extracting reddit img url and adding to user object
+			const icon_url = params.profile.icon_img as string;
+			if (icon_url) {
+				const imgUrl = new URL(icon_url);
+
+				params.user.image = imgUrl.origin + imgUrl.pathname;
+			}
+
+			return true;
+		},
+		async redirect(params) {
+			const { url, baseUrl } = params;
+			// Allows relative callback URLs
+			if (url.startsWith('/')) return `${baseUrl}${url}`;
+			// Allows callback URLs on the same origin
+			else if (new URL(url).origin === baseUrl) return url;
+			return baseUrl;
 		}
+	},
+	pages: {
+		signIn: '/login',
+		error: '/error'
 	}
 };
 
