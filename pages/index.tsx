@@ -1,10 +1,11 @@
 import Layout from '@components/layouts';
 import { unstable_getServerSession } from 'next-auth';
 import type { GetServerSidePropsContext } from 'next/types';
+import { listing } from 'utils/reddit';
 import { authOptions } from './api/auth/[...nextauth]';
 import type { NextPageWithLayout } from './_app';
 
-const Index: NextPageWithLayout = (props) => {
+const Index: NextPageWithLayout<Listing['data']> = (props) => {
 	// react query or some shit
 	return (
 		<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
@@ -31,20 +32,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 	// some fetch of basic listing
 	if (accessToken) {
-		try {
-			return {
-				props: (
-					await (
-						await fetch('https://oauth.reddit.com/', {
-							method: 'GET',
-							headers: { Authorization: `Bearer ${accessToken}` }
-						})
-					).json()
-				).data
-			};
-		} catch (e) {
-			return { props: {} };
-		}
+		const result = await listing(accessToken);
+		return {
+			props: result.data
+		};
 	}
 }
 export default Index;

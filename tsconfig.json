@@ -20,6 +20,13 @@
 			"@assets/*": ["assets/*"]
 		}
 	},
-	"include": ["process.d.ts", "next-env.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": [
+		"process.d.ts",
+		"next-env.d.ts",
+		"next-auth.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"reddit.d.ts"
+	],
 	"exclude": ["node_modules"]
 }
