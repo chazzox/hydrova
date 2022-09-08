@@ -108,3 +108,7 @@ dist
 .env.local
 
 .DS_Store
+
+
+public/sw*
+public/workbox*
