@@ -1,3 +1,5 @@
+import { Listing } from 'typings/reddit';
+
 enum METHODS {
 	GET = 'GET',
 	POST = 'POST'
