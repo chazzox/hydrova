@@ -5,7 +5,7 @@ import { listing } from 'utils/reddit';
 import { authOptions } from './api/auth/[...nextauth]';
 import type { NextPageWithLayout } from './_app';
 
-import type { Listing } from '../typings/reddit';
+import type { Listing } from '../typings/reddit.d';
 
 const Index: NextPageWithLayout<Listing['data']> = (props) => {
 	// react query or some shit
