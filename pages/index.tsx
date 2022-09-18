@@ -35,12 +35,14 @@ const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({ to
 Index.getLayout = (page) => <Layout>{page}</Layout>;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	// @ts-ignore
-	const { accessToken } = await unstable_getServerSession(context.req, context.res, authOptions);
+	const session = await unstable_getServerSession(context.req, context.res, authOptions);
+
 	const queryClient = new QueryClient();
 
 	// some fetch of basic listing
-	if (accessToken) {
+	if (session?.accessToken) {
+		const { accessToken } = session;
+
 		await queryClient.prefetchQuery(['listing'], () =>
 			getListing(accessToken, { limit: '10' })
 		);
