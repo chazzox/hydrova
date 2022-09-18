@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 	useEffect(() => {
 		themeChange(false);
-	}, []);
+	}, [pageProps]);
 
 	return (
 		<QueryClientProvider client={queryClient}>
