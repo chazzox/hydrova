@@ -69,6 +69,10 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					<span>My Subreddit's</span>
 				</li>
 			</ul>
+
+			{/**
+			 * @todo fix styles, its terrible
+			 */}
 			{data?.user && data.user?.image && (
 				<div className="absolute bottom-0 z-20 flex w-full items-center gap-2 bg-base-300 p-4">
 					<div className="avatar">

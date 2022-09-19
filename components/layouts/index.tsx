@@ -9,7 +9,7 @@ interface Props {
 export default function Layout({ children }: Props) {
 	const drawerId = useId();
 	return (
-		<div className="drawer-mobile drawer">
+		<div className="drawer drawer-mobile">
 			<input id={drawerId} type="checkbox" className="drawer-toggle" />
 			<label
 				htmlFor={drawerId}

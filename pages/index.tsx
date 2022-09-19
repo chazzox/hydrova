@@ -11,26 +11,35 @@ import { Listing } from '../typings/reddit.d';
 
 const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({ token }) => {
 	/**
-	 * @todo transform to using hook [useInfiniteQuery](some)
+	 * @todo transform to using hook useInfiniteQuery
 	 */
-	const { data, error, isSuccess } = useQuery(['listing'], () => getListing(token));
+	const { data, error, isSuccess } = useQuery(['listing'], () => getListing(token), {
+		keepPreviousData: true
+	});
 
 	return (
 		<>
 			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 				<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
 					{isSuccess &&
-						data.data.children.map(({ data }) => (
-							<Link href={`https://reddit.com/${data.permalink}`}>
-								<a target="_blank">
-									<div className="h-32 w-full" key={data.id}>
-										<h3 className="font-bold text-white/60">{data.title}</h3>
-										<p className="link">{data.url}</p>
-									</div>
-									<div className="divider m-0"></div>
-								</a>
-							</Link>
-						))}
+						data.data.children.map(({ data }) => {
+							const linkURL = new URL('https://www.reddit.com');
+							linkURL.pathname = data.permalink;
+
+							return (
+								<Link href={linkURL}>
+									<a target="_blank">
+										<div className="h-32 w-full" key={data.id}>
+											<h3 className="font-bold text-white/60">
+												{data.title}
+											</h3>
+											<p className="link">{data.url}</p>
+										</div>
+										<div className="divider m-0"></div>
+									</a>
+								</Link>
+							);
+						})}
 				</div>
 				<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
 			</div>
