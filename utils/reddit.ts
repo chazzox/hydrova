@@ -30,8 +30,12 @@ export const getListing: listing_call_sig = async (
 	return res;
 };
 
-export const refreshToken = async () => {
-	return;
+type fetch_refresh_token_call_sig = (
+	a: string,
+	b: string
+) => Promise<{ accessToken: string; refreshToken: string }>;
+export const fetchRefreshToken: fetch_refresh_token_call_sig = async (a, r) => {
+	return Promise.resolve({ accessToken: '', refreshToken: '' });
 };
 export const multi = async () => {
 	return;

@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import RedditProvider from 'next-auth/providers/reddit';
+import { fetchRefreshToken } from 'utils/reddit';
 
 export const authOptions: NextAuthOptions = {
 	providers: [
@@ -35,8 +36,18 @@ export const authOptions: NextAuthOptions = {
 			}
 
 			// @ts-ignore
-			if (token.expires_at * 1000 < new Date().getTime()) {
-				console.log('needs refresh');
+			if (
+				token.expires_at * 1000 < new Date().getTime() &&
+				token.accessToken &&
+				token.refreshToken
+			) {
+				const { accessToken, refreshToken } = await fetchRefreshToken(
+					token.accessToken,
+					token.refreshToken
+				);
+
+				token.accessToken = accessToken;
+				token.refreshToken = refreshToken;
 			}
 
 			return token;
