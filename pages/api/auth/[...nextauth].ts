@@ -32,6 +32,12 @@ export const authOptions: NextAuthOptions = {
 				token.accessToken = account.access_token;
 				token.refreshToken = account.refresh_token;
 			}
+
+			// @ts-ignore
+			if (token.expires_at * 1000 < new Date().getTime()) {
+				console.log('needs refresh');
+			}
+
 			return token;
 		},
 
