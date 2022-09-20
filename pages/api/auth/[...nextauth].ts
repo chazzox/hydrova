@@ -35,19 +35,9 @@ export const authOptions: NextAuthOptions = {
 				token.expires_at = account.expires_at;
 			}
 
-			// @ts-ignore
-			if (
-				token.expires_at * 1000 < new Date().getTime() &&
-				token.accessToken &&
-				token.refreshToken
-			) {
-				const { accessToken, refreshToken } = await fetchRefreshToken(
-					token.accessToken,
-					token.refreshToken
-				);
-
-				token.accessToken = accessToken;
-				token.refreshToken = refreshToken;
+			if (token.expires_at * 1000 < new Date().getTime() && token.refreshToken) {
+				const { access_token } = await fetchRefreshToken(token.refreshToken);
+				token.accessToken = access_token;
 			}
 
 			return token;

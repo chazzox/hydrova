@@ -30,19 +30,39 @@ export const getListing: listing_call_sig = async (
 	return res;
 };
 
-type fetch_refresh_token_call_sig = (
-	a: string,
-	b: string
-) => Promise<{ accessToken: string; refreshToken: string }>;
-export const fetchRefreshToken: fetch_refresh_token_call_sig = async (a, r) => {
-	return Promise.resolve({ accessToken: '', refreshToken: '' });
+type fetch_refresh_token_call_sig = (b: string) => Promise<{
+	access_token: string;
+	expires_in: number;
+	scope: string;
+	token_type: string;
+}>;
+export const fetchRefreshToken: fetch_refresh_token_call_sig = async (refreshToken) => {
+	const req_url = new URL('https://www.reddit.com/api/v1/access_token');
+	req_url.searchParams.append('grant_type', 'refresh_token');
+	req_url.searchParams.append('refresh_token', refreshToken);
+	req_url.searchParams.append('raw_json', '1');
+
+	const req = await fetch(req_url, {
+		method: METHODS.POST,
+		headers: {
+			Authorization:
+				'Basic ' +
+				btoa(process.env.REDDIT_CLIENT_ID + ':' + process.env.REDDIT_CLIENT_SECRET)
+		}
+	});
+
+	const res = await req.json();
+	return res;
 };
+
 export const multi = async () => {
 	return;
 };
+
 export const post = async () => {
 	return;
 };
+
 export const comments = async () => {
 	return;
 };
