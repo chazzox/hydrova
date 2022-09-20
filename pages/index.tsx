@@ -1,33 +1,40 @@
 import Layout from '@components/layouts';
-import { unstable_getServerSession } from 'next-auth';
-import type { GetServerSidePropsContext } from 'next/types';
 import { getListing } from 'utils/reddit';
-import { authOptions } from './api/auth/[...nextauth]';
 import type { NextPageWithLayout } from './_app';
 
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { GetServerSidePropsContext } from 'next';
+import { unstable_getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { Listing } from '../typings/reddit.d';
+import { authOptions } from './api/auth/[...nextauth]';
 
-const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({ token }) => {
+const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({
+	initialData,
+	token
+}) => {
 	/**
 	 * @todo transform to using hook useInfiniteQuery
 	 */
-	const { data, error, isSuccess } = useQuery(['listing'], () => getListing(token), {
-		keepPreviousData: true
-	});
+	const { data, error, isSuccess } = useQuery(
+		['listing'],
+		() => getListing(token, { limit: '10' }),
+		{
+			initialData
+		}
+	);
 
 	return (
 		<>
 			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 				<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
 					{isSuccess &&
-						data.data.children.map(({ data }) => {
+						data.data.children.map(({ data }, i) => {
 							const linkURL = new URL('https://www.reddit.com');
 							linkURL.pathname = data.permalink;
 
 							return (
-								<Link href={linkURL}>
+								<Link href={linkURL} key={i}>
 									<a target="_blank">
 										<div className="h-32 w-full" key={data.id}>
 											<h3 className="font-bold text-white/60">
@@ -43,31 +50,26 @@ const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({ to
 				</div>
 				<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
 			</div>
-			{!isSuccess && <>{error}</>}
+			{!isSuccess && <div>{JSON.stringify(error)}</div>}
 		</>
 	);
 };
 
 Index.getLayout = (page) => <Layout>{page}</Layout>;
 
-/**
- * @todo test performance vs getInitialProps/getServerSideProps or explorer the downsides/upsides
- */
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-	const queryClient = new QueryClient();
-
-	// some fetch of basic listing
-	if (session?.accessToken) {
-		const { accessToken } = session;
-
-		await queryClient.prefetchQuery(['listing'], () =>
-			getListing(accessToken, { limit: '10' })
-		);
-		return {
-			props: { dehydratedState: dehydrate(queryClient), token: accessToken }
-		};
-	}
+	const emptyListing: Listing = {
+		kind: '',
+		data: { modhash: '', dist: 0, children: [], after: null, before: null }
+	};
+	return {
+		props: {
+			initialData: emptyListing,
+			token: session?.accessToken
+		}
+	};
 }
+
 export default Index;
