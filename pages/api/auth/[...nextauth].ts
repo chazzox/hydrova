@@ -44,12 +44,8 @@ export const authOptions: NextAuthOptions = {
 
 		async session({ session, token }) {
 			session.expires_at = token.expires_at;
-			if (session.expires_at * 1000 < new Date().getDate()) {
-				console.log('needs refresh');
-			}
 			session.accessToken = token.accessToken;
 			session.refreshToken = token.refreshToken;
-
 			return session;
 		},
 
