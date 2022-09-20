@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
 			if (account && user) {
 				token.accessToken = account.access_token;
 				token.refreshToken = account.refresh_token;
+				token.expires_at = account.expires_at;
 			}
 
 			// @ts-ignore
@@ -42,8 +43,13 @@ export const authOptions: NextAuthOptions = {
 		},
 
 		async session({ session, token }) {
+			session.expires_at = token.expires_at;
+			if (session.expires_at * 1000 < new Date().getDate()) {
+				console.log('needs refresh');
+			}
 			session.accessToken = token.accessToken;
 			session.refreshToken = token.refreshToken;
+
 			return session;
 		},
 

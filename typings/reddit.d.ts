@@ -7,7 +7,7 @@ export interface ListingData {
 	modhash: string;
 	dist: number;
 	children: Child[];
-	after: string;
+	after: null | string;
 	before: null | string;
 }
 
