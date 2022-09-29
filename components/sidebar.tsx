@@ -5,9 +5,9 @@ import Link from 'next/link';
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 	const { data } = useSession();
 	return (
-		<div className="drawer-side relative">
-			<label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-			<ul className="menu z-10 flex h-[calc(100%-88px)] w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 text-base-content">
+		<div className="drawer-side">
+			<label htmlFor={drawerId} className="drawer-overlay"></label>
+			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/">
 						<a className="font-bold">
@@ -68,24 +68,21 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 				<li className="menu-title">
 					<span>My Subreddit's</span>
 				</li>
-			</ul>
 
-			{/**
-			 * @todo fix styles, its terrible
-			 */}
-			{data?.user && data.user?.image && (
-				<div className="absolute bottom-0 z-20 flex w-full items-center gap-2 bg-base-300 p-4">
-					<div className="avatar">
-						<div className="h-14 w-14 rounded-xl ring ring-accent">
-							<img
-								src={data.user.image}
-								alt={`profile picture of ${data.user.name}`}
-							/>
+				{data?.user && data.user?.image && (
+					<div className="sticky bottom-0 mt-auto flex w-full items-center gap-10 bg-base-300 p-4">
+						<div className="avatar">
+							<div className="h-14 w-14 rounded-xl ring ring-accent">
+								<img
+									src={data.user.image}
+									alt={`profile picture of ${data.user.name}`}
+								/>
+							</div>
 						</div>
+						<div>{data.user?.name}</div>
 					</div>
-					<div>{data.user?.name}</div>
-				</div>
-			)}
+				)}
+			</ul>
 		</div>
 	);
 };
