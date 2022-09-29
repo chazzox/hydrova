@@ -6,7 +6,7 @@ const Account: NextPageWithLayout = () => {
 	return (
 		<>
 			<h2 className="text-lg font-bold text-white/80">Account</h2>
-			<button className="btn my-3 px-8" onClick={() => signOut()}>
+			<button className="btn btn-error my-3 px-8" onClick={() => signOut()}>
 				Logout
 			</button>
 		</>

@@ -16,15 +16,15 @@ const SettingsLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =
 		<Layout>
 			<div className="drawer-content flex flex-1 flex-col p-6">
 				<div className="tabs tabs-boxed mx-auto mb-4 gap-2 p-2 shadow-xl">
-					{Object.entries(settings).map(([k, v], i) => (
-						<Link key={i} href={k} replace>
+					{Object.entries(settings).map(([settingPillPath, settingPillTextValue], i) => (
+						<Link key={i} href={settingPillPath} replace>
 							<a
 								className={classNames(
 									'tab rounded-lg capitalize transition-colors hover:bg-accent hover:text-accent-content',
-									{ 'tab-active': router.pathname == k }
+									{ 'tab-active': router.pathname == settingPillPath }
 								)}
 							>
-								{v}
+								{settingPillTextValue}
 							</a>
 						</Link>
 					))}

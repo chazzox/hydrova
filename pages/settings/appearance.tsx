@@ -7,7 +7,7 @@ const Appearance: NextPageWithLayout = () => {
 	return (
 		<>
 			<h2 className="text-lg font-bold text-white/80">Colors</h2>
-			<div className="my-3 flex gap-8">
+			<div className="my-3 flex flex-wrap gap-8">
 				{SELECTED_THEMES.map((v, i) => (
 					<button
 						key={i}
