@@ -1,6 +1,8 @@
 import { Home, Hydrova, Mail, Post, Search, Settings } from '@assets/icons';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Feed from './feed';
+import Subreddit from './Subreddit';
 
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 	const { data } = useSession();
@@ -61,13 +63,8 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					</Link>
 				</li>
 
-				<li className="menu-title">
-					<span>Feeds</span>
-				</li>
-
-				<li className="menu-title">
-					<span>My Subreddit's</span>
-				</li>
+				<Feed />
+				<Subreddit />
 
 				{data?.user && data.user?.image && (
 					<div className="sticky bottom-0 mt-auto flex w-full items-center gap-10 bg-base-300 p-4">
