@@ -2,14 +2,15 @@ import { Home, Hydrova, Mail, Post, Search, Settings } from '@assets/icons';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Feed from './feed';
-import Subreddit from './Subreddit';
+import Subreddit from './subreddit';
 
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 	const { data } = useSession();
+
 	return (
 		<div className="drawer-side">
 			<label htmlFor={drawerId} className="drawer-overlay"></label>
-			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 text-base-content">
+			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 pb-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/">
 						<a className="font-bold">
@@ -63,8 +64,12 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					</Link>
 				</li>
 
-				<Feed />
-				<Subreddit />
+				{data?.accessToken && (
+					<>
+						<Feed token={data.accessToken} />
+						<Subreddit token={data.accessToken} />
+					</>
+				)}
 
 				{data?.user && data.user?.image && (
 					<div className="sticky bottom-0 mt-auto flex w-full items-center gap-10 bg-base-300 p-4">
@@ -83,4 +88,5 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 		</div>
 	);
 };
+
 export default Sidebar;
