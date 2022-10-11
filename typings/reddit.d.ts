@@ -1,5 +1,14 @@
+enum TYPE_PREFIX {
+	COMMENT = 't1',
+	ACCOUNT = 't2',
+	LINK = 't3',
+	MESSAGE = 't4',
+	SUBREDDIT = 't5',
+	AWARD = 't6'
+}
+
 export interface Listing {
-	kind: string;
+	kind: TYPE_PREFIX;
 	data: ListingData;
 }
 
@@ -12,7 +21,7 @@ export interface ListingData {
 }
 
 export interface Child {
-	kind: Kind;
+	kind: `${TYPE_PREFIX}_${string}`;
 	data: ChildData;
 }
 
