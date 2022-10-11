@@ -53,14 +53,11 @@ export const getListing: get_listing_call_sig = async (
 	Object.entries(searchParams).forEach(([k, v]) => {
 		req_url.searchParams.append(k, v);
 	});
-
 	const req = await fetch(req_url, {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json' }
 	});
-
 	const res = (await req.json()) as Listing;
-
 	return res;
 };
 
@@ -70,9 +67,7 @@ export const getSubreddit: get_subreddit_call_sig = async (token) => {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${token}` }
 	});
-
 	const res = await req.json();
-
 	return res;
 };
 
@@ -82,9 +77,7 @@ export const getMulti = async (token: any) => {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${token}` }
 	});
-
 	const res = await req.json();
-
 	return res;
 };
 
