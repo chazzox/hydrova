@@ -10,7 +10,7 @@ const Feed: React.FC<{ token: string }> = ({ token }) => {
 			<li className="menu-title">
 				<span>Feeds</span>
 			</li>
-			{data.map((v) => (
+			{data?.map((v) => (
 				<li>
 					<a>{v.data.display_name}</a>
 				</li>
