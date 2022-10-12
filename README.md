@@ -24,7 +24,7 @@
 
 # ARCHIVED
 
--   No longer being developed, was fun while it lasted
+-   [~~No longer being developed, was fun while it lasted~~](https://github.com/chazzox/Hydrova/tree/next/)
 
 ## About
 
