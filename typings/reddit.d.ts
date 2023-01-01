@@ -54,6 +54,10 @@ type SUBREDDIT_LISTING_DATA = ReturnType<
 				subscribers: number;
 				user_flair_richtext: string[];
 				videostream_links_count: number;
+				/**
+				 * @todo FIX, COPY FROM `display_name_prefixed`
+				 */
+				url: string;
 			},
 			PrefixObject<{ display_name: string }, 'display_name', 'display_name_prefixed', 'r/'>
 		]

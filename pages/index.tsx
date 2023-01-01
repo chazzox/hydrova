@@ -3,33 +3,31 @@ import { getListing } from 'utils/reddit';
 import type { NextPageWithLayout } from './_app';
 
 import { useQuery } from '@tanstack/react-query';
-import { GetServerSidePropsContext } from 'next';
-import { unstable_getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Post, REDDIT_THING_TYPES } from '../typings/reddit.d';
-import { authOptions } from './api/auth/[...nextauth]';
+import { Post } from '../typings/reddit.d';
 
-const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
-	initialData,
-	token
-}) => {
+const Index: NextPageWithLayout<{ initialData: Post }> = ({ initialData }) => {
 	/**
 	 * @todo transform to using hook useInfiniteQuery
 	 */
-	const { data, error, isSuccess } = useQuery(
-		['listing'],
-		() => getListing(token, { limit: '10' }),
-		{
-			initialData
-		}
-	);
+
+	const { data } = useSession();
+
+	const {
+		data: test,
+		error,
+		isSuccess
+	} = useQuery(['listing'], () => getListing(data?.accessToken || '', { limit: '10' }), {
+		enabled: !!data
+	});
 
 	return (
 		<>
 			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 				<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
 					{isSuccess &&
-						data.data.children.map(({ data }, i) => {
+						test.data.children.map(({ data }, i) => {
 							const linkURL = new URL('https://www.reddit.com');
 							linkURL.pathname = data.permalink;
 
@@ -52,20 +50,5 @@ const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
 };
 
 Index.getLayout = (page) => <Layout>{page}</Layout>;
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const session = await unstable_getServerSession(context.req, context.res, authOptions);
-
-	const emptyListing: Post = {
-		kind: REDDIT_THING_TYPES.LISTING,
-		data: { modhash: '', dist: 0, children: [], after: null, before: null }
-	};
-	return {
-		props: {
-			initialData: emptyListing,
-			token: session?.accessToken
-		}
-	};
-}
 
 export default Index;
