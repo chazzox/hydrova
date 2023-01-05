@@ -30,6 +30,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 		<QueryClientProvider client={queryClient}>
 			<Hydrate state={pageProps.dehydratedState}>
 				<SessionProvider session={pageProps.session} refetchInterval={6000}>
+					{/* @ts-ignore */}
 					{getLayout(<Component {...pageProps} />)}
 				</SessionProvider>
 			</Hydrate>
