@@ -5,4 +5,9 @@ const withPWA = require('next-pwa')({
 	runtimeCaching
 });
 
-module.exports = withPWA({ typescript: { ignoreBuildErrors: true } });
+module.exports = withPWA({
+	swcMinify: true,
+	experimental: {
+		forceSwcTransforms: true
+	}
+});

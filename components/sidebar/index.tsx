@@ -13,8 +13,10 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 pb-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/" className="font-bold">
-						<Hydrova className="inline-block h-8 w-8" />
-						Hydrova
+						<>
+							<Hydrova className="inline-block h-8 w-8" />
+							Hydrova
+						</>
 					</Link>
 				</li>
 
@@ -22,35 +24,43 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					<input
 						type="text"
 						placeholder="Search…"
-						className="input-bordered input w-full"
+						className="input input-bordered w-full"
 					/>
-					<button className="btn-square btn">
+					<button className="btn btn-square">
 						<Search className="h-5 w-5" />
 					</button>
 				</div>
 
 				<li>
 					<Link href="/">
-						<Home className="h-5 w-5" />
-						Home
+						<div>
+							<Home className="h-5 w-5" />
+							Home
+						</div>
 					</Link>
 				</li>
 				<li>
 					<Link href="/post">
-						<Post className="h-5 w-5" />
-						Post
+						<div>
+							<Post className="h-5 w-5" />
+							Post
+						</div>
 					</Link>
 				</li>
 				<li>
 					<Link href="/mail">
-						<Mail className="h-5 w-5" />
-						Mail
+						<div>
+							<Mail className="h-5 w-5" />
+							Mail
+						</div>
 					</Link>
 				</li>
 				<li>
 					<Link href="/settings/appearance">
-						<Settings className="h-5 w-5" />
-						Settings
+						<>
+							<Settings className="h-5 w-5" />
+							Settings
+						</>
 					</Link>
 				</li>
 
