@@ -6,10 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import { GetServerSidePropsContext } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { Listing } from '../typings/reddit.d';
+import { Post, REDDIT_THING_TYPES } from '../typings/reddit.d';
 import { authOptions } from './api/auth/[...nextauth]';
 
-const Index: NextPageWithLayout<{ initialData: Listing; token: string }> = ({
+const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
 	initialData,
 	token
 }) => {
@@ -60,8 +60,8 @@ Index.getLayout = (page) => <Layout>{page}</Layout>;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 	const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-	const emptyListing: Listing = {
-		kind: '',
+	const emptyListing: Post = {
+		kind: REDDIT_THING_TYPES.LISTING,
 		data: { modhash: '', dist: 0, children: [], after: null, before: null }
 	};
 	return {
