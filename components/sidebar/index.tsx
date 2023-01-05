@@ -67,7 +67,7 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 				{data?.accessToken && (
 					<>
 						<Feed token={data.accessToken} />
-						<Subreddit />
+						<Subreddit token={data.accessToken} />
 					</>
 				)}
 
