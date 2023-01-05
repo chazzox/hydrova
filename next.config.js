@@ -6,4 +6,9 @@ const withPWA = require('next-pwa')({
 	runtimeCaching
 });
 
-module.exports = withPWA({});
+module.exports = withPWA({
+	experimental: {
+		forceSwcTransforms: true,
+		swcMinify: true
+	}
+});

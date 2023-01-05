@@ -3,24 +3,24 @@ import { getListing } from 'utils/reddit';
 import type { NextPageWithLayout } from './_app';
 
 import { useQuery } from '@tanstack/react-query';
-import { GetServerSidePropsContext } from 'next';
-import { unstable_getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Post, REDDIT_THING_TYPES } from '../typings/reddit.d';
-import { authOptions } from './api/auth/[...nextauth]';
+import { REDDIT_THING_TYPES } from '../typings/reddit.d';
 
-const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
-	initialData,
-	token
-}) => {
+const Index: NextPageWithLayout = () => {
+	const token = useSession().data?.accessToken;
 	/**
 	 * @todo transform to using hook useInfiniteQuery
 	 */
 	const { data, error, isSuccess } = useQuery(
 		['listing'],
-		() => getListing(token, { limit: '10' }),
+		() => getListing(token || '', { limit: '10' }),
 		{
-			initialData
+			enabled: !!token,
+			initialData: {
+				kind: REDDIT_THING_TYPES.LISTING,
+				data: { modhash: '', dist: 0, children: [], after: null, before: null }
+			}
 		}
 	);
 
@@ -56,20 +56,5 @@ const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
 };
 
 Index.getLayout = (page) => <Layout>{page}</Layout>;
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const session = await unstable_getServerSession(context.req, context.res, authOptions);
-
-	const emptyListing: Post = {
-		kind: REDDIT_THING_TYPES.LISTING,
-		data: { modhash: '', dist: 0, children: [], after: null, before: null }
-	};
-	return {
-		props: {
-			initialData: emptyListing,
-			token: session?.accessToken
-		}
-	};
-}
 
 export default Index;
