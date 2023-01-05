@@ -52,6 +52,7 @@ export const authOptions: NextAuthOptions = {
 
 		async signIn(params) {
 			// extracting reddit img url and adding to user object
+			// @ts-ignore
 			const icon_url = params.profile.icon_img as string;
 			if (icon_url) {
 				const imgUrl = new URL(icon_url);
