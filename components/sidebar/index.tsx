@@ -13,10 +13,10 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 pb-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/" className="font-bold">
-						<>
-							<Hydrova className="inline-block h-8 w-8" />
+						<div className="flex">
+							<Hydrova className="h-8 w-8" />
 							Hydrova
-						</>
+						</div>
 					</Link>
 				</li>
 
@@ -57,19 +57,15 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 				</li>
 				<li>
 					<Link href="/settings/appearance">
-						<>
+						<div>
 							<Settings className="h-5 w-5" />
 							Settings
-						</>
+						</div>
 					</Link>
 				</li>
 
-				{data?.accessToken && (
-					<>
-						<Feed token={data.accessToken} />
-						<Subreddit token={data.accessToken} />
-					</>
-				)}
+				<Feed token={data?.accessToken} />
+				<Subreddit token={data?.accessToken} />
 
 				{data?.user && data.user?.image && (
 					<div className="sticky bottom-0 mt-auto flex w-full items-center gap-10 bg-base-300 p-4">

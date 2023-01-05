@@ -19,11 +19,11 @@ const Login: React.FC<{ providers: Awaited<typeof getProviders> }> = ({ provider
 					Sign In
 				</button>
 			))}
-			<button className="btn-disabled btn w-full !cursor-not-allowed">
-				Continue in guest mode (Coming soon...)
+			<button className="btn btn-disabled w-full !cursor-not-allowed">
+				Continue in guest mode (Coming at a later date...)
 			</button>
 			<Link href="https://www.reddit.com/register/">
-				<button className="btn-ghost btn w-full">Sign Up</button>
+				<button className="btn btn-ghost w-full">Sign Up</button>
 			</Link>
 		</GeneralHero>
 	);

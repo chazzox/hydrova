@@ -1,4 +1,4 @@
-const Feed: React.FC<{ token: string }> = ({ token }) => {
+const Feed: React.FC<{ token?: string }> = ({ token }) => {
 	// const { status, data } = useQuery(['multi_subreddit'], () => getMulti(token));
 
 	// console.log(status, data);

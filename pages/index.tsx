@@ -34,7 +34,7 @@ const Index: NextPageWithLayout = () => {
 							linkURL.pathname = data.permalink;
 
 							return (
-								<>
+								<span key={i}>
 									<Link href={linkURL} key={i} target="_blank">
 										<div className="h-32 w-full" key={data.id}>
 											<h3 className="font-bold text-white/60">
@@ -44,7 +44,7 @@ const Index: NextPageWithLayout = () => {
 										</div>
 									</Link>
 									<div className="divider m-0"></div>
-								</>
+								</span>
 							);
 						})}
 				</div>
