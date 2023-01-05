@@ -11,7 +11,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 	getLayout?: (page: React.ReactElement) => React.ReactNode;
 };
 
-type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = AppProps<{ dehydratedState: unknown }> & {
 	Component: NextPageWithLayout;
 };
 

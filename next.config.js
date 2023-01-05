@@ -6,8 +6,8 @@ const withPWA = require('next-pwa')({
 });
 
 module.exports = withPWA({
+	swcMinify: true,
 	experimental: {
-		forceSwcTransforms: true,
-		swcMinify: true
+		forceSwcTransforms: true
 	}
 });
