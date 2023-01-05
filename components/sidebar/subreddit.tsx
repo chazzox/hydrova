@@ -3,6 +3,7 @@ import React from 'react';
 import { getSubreddit } from 'utils/reddit';
 
 const Subreddit: React.FC<{ token?: string }> = ({ token }) => {
+	// @ts-ignore
 	const { isLoading, data: subreddits } = useQuery(['subreddit'], () => getSubreddit(token), {
 		enabled: !!token,
 		staleTime: 0,
