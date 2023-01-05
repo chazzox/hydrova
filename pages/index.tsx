@@ -34,13 +34,17 @@ const Index: NextPageWithLayout<{ initialData: Post; token: string }> = ({
 							linkURL.pathname = data.permalink;
 
 							return (
-								<Link href={linkURL} key={i} target="_blank">
-									<div className="h-32 w-full" key={data.id}>
-										<h3 className="font-bold text-white/60">{data.title}</h3>
-										<p className="link">{data.url}</p>
-									</div>
+								<>
+									<Link href={linkURL} key={i} target="_blank">
+										<div className="h-32 w-full" key={data.id}>
+											<h3 className="font-bold text-white/60">
+												{data.title}
+											</h3>
+											<p className="link">{data.url}</p>
+										</div>
+									</Link>
 									<div className="divider m-0"></div>
-								</Link>
+								</>
 							);
 						})}
 				</div>
