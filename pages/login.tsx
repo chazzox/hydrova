@@ -1,5 +1,4 @@
 import GeneralHero from '@components/general-hero';
-import { GetServerSidePropsContext } from 'next';
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -20,17 +19,17 @@ const Login: React.FC<{ providers: Awaited<typeof getProviders> }> = ({ provider
 					Sign In
 				</button>
 			))}
-			<button className="btn btn-disabled w-full !cursor-not-allowed">
+			<button className="btn-disabled btn w-full !cursor-not-allowed">
 				Continue in guest mode (Coming soon...)
 			</button>
 			<Link href="https://www.reddit.com/register/">
-				<button className="btn btn-ghost w-full">Sign Up</button>
+				<button className="btn-ghost btn w-full">Sign Up</button>
 			</Link>
 		</GeneralHero>
 	);
 };
 
-export async function getServerSideProps(_: GetServerSidePropsContext) {
+export async function getStaticProps() {
 	const providers = await getProviders();
 	return {
 		props: { providers }
