@@ -1,15 +1,18 @@
 import { Listing } from 'typings/reddit';
 
+const REDDIT_BASE = 'https://oauth.reddit.com/' as const;
+
 enum METHODS {
 	GET = 'GET',
 	POST = 'POST'
 }
 
-enum REDDIT_ENDPOINTS {
-	REFRESH_TOKEN = 'https://www.reddit.com/api/v1/access_token',
-	LISTING = 'https://oauth.reddit.com/',
-	SUBREDDIT = 'https://oauth.reddit.com/subreddits/mine/subscriber'
-}
+const REDDIT_ENDPOINTS = {
+	REFRESH_TOKEN: new URL('api/v1/access_token', REDDIT_BASE),
+	LISTING: new URL(REDDIT_BASE),
+	SUBREDDIT: new URL('/subreddits/mine/subscriber', REDDIT_BASE),
+	MULTI_SUBREDDIT: new URL('/api/multi/mine', REDDIT_BASE)
+} as const;
 
 type fetch_refresh_token_call_sig = (b: string) => Promise<{
 	access_token: string;
@@ -50,14 +53,11 @@ export const getListing: get_listing_call_sig = async (
 	Object.entries(searchParams).forEach(([k, v]) => {
 		req_url.searchParams.append(k, v);
 	});
-
 	const req = await fetch(req_url, {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json' }
 	});
-
 	const res = (await req.json()) as Listing;
-
 	return res;
 };
 
@@ -67,14 +67,18 @@ export const getSubreddit: get_subreddit_call_sig = async (token) => {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${token}` }
 	});
-
 	const res = await req.json();
-
 	return res;
 };
 
-export const multi = async () => {
-	return;
+type get_multi_subreddit_call_sig = (token: string) => Promise<any>;
+export const getMulti = async (token: any) => {
+	const req = await fetch(REDDIT_ENDPOINTS.MULTI_SUBREDDIT, {
+		method: METHODS.GET,
+		headers: { Authorization: `Bearer ${token}` }
+	});
+	const res = await req.json();
+	return res;
 };
 
 export const post = async () => {
