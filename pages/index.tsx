@@ -12,24 +12,24 @@ const Index: NextPageWithLayout = () => {
 	/**
 	 * @todo transform to using hook useInfiniteQuery
 	 */
-	const { data, error, isSuccess } = useQuery(
-		['listing'],
-		() => getListing(token || '', { limit: '10' }),
-		{
-			enabled: !!token,
-			initialData: {
-				kind: REDDIT_THING_TYPES.LISTING,
-				data: { modhash: '', dist: 0, children: [], after: null, before: null }
-			}
+	const {
+		data: { data },
+		error,
+		isSuccess
+	} = useQuery(['listing'], () => getListing(token || '', { limit: '10' }), {
+		enabled: !!token,
+		initialData: {
+			kind: REDDIT_THING_TYPES.LISTING,
+			data: { modhash: '', dist: 0, children: [], after: null, before: null }
 		}
-	);
+	});
 
 	return (
 		<>
 			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 				<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
 					{isSuccess &&
-						data.data.children.map(({ data }, i) => {
+						data.children.map(({ data }, i) => {
 							const linkURL = new URL('https://www.reddit.com');
 							linkURL.pathname = data.permalink;
 

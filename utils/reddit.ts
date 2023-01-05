@@ -2,10 +2,10 @@ import { Multi, Post, Subreddit } from 'typings/reddit';
 
 const REDDIT_BASE = 'https://oauth.reddit.com/' as const;
 
-enum METHODS {
-	GET = 'GET',
-	POST = 'POST'
-}
+const METHODS = {
+	GET: 'GET',
+	POST: 'POST'
+} as const;
 
 const REDDIT_ENDPOINTS = {
 	REFRESH_TOKEN: new URL('api/v1/access_token', REDDIT_BASE),
@@ -14,13 +14,7 @@ const REDDIT_ENDPOINTS = {
 	MULTI_SUBREDDIT: new URL('/api/multi/mine', REDDIT_BASE)
 } as const;
 
-type fetch_refresh_token_call_sig = (refreshToken: string) => Promise<{
-	access_token: string;
-	expires_in: number;
-	scope: string;
-	token_type: string;
-}>;
-export const fetchRefreshToken: fetch_refresh_token_call_sig = async (refreshToken) => {
+export const fetchRefreshToken = async (refreshToken: string) => {
 	const req_url = new URL(REDDIT_ENDPOINTS.REFRESH_TOKEN);
 	req_url.searchParams.append('grant_type', 'refresh_token');
 	req_url.searchParams.append('refresh_token', refreshToken);
@@ -34,17 +28,18 @@ export const fetchRefreshToken: fetch_refresh_token_call_sig = async (refreshTok
 				btoa(process.env.REDDIT_CLIENT_ID + ':' + process.env.REDDIT_CLIENT_SECRET)
 		}
 	});
-	const res = await req.json();
+	const res = (await req.json()) as {
+		access_token: string;
+		expires_in: number;
+		scope: string;
+		token_type: string;
+	};
 	return res;
 };
 
-type get_listing_call_sig = (
+export const getListing = async (
 	accessToken: string,
-	searchParams?: { [key: string]: string }
-) => Promise<Post>;
-export const getListing: get_listing_call_sig = async (
-	accessToken,
-	searchParams = { raw_json: '1' }
+	searchParams: { [key: string]: string } = { raw_json: '1' }
 ) => {
 	const req_url = new URL(REDDIT_ENDPOINTS.LISTING);
 	// adding any parameters to request url
@@ -55,27 +50,25 @@ export const getListing: get_listing_call_sig = async (
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${accessToken}`, Accept: 'application/json' }
 	});
-	const res = await req.json();
+	const res = (await req.json()) as Post;
 	return res;
 };
 
-type get_subreddit_call_sig = (token: string) => Promise<Subreddit>;
-export const getSubreddit: get_subreddit_call_sig = async (token) => {
+export const getSubreddit = async (token: string) => {
 	const req = await fetch(REDDIT_ENDPOINTS.SUBREDDIT, {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${token}` }
 	});
-	const res = await req.json();
+	const res = (await req.json()) as Subreddit;
 	return res;
 };
 
-type get_multi_subreddit_call_sig = (token: string) => Promise<Multi>;
-export const getMulti: get_multi_subreddit_call_sig = async (token) => {
+export const getMulti = async (token: string) => {
 	const req = await fetch(REDDIT_ENDPOINTS.MULTI_SUBREDDIT, {
 		method: METHODS.GET,
 		headers: { Authorization: `Bearer ${token}` }
 	});
-	const res = await req.json();
+	const res = (await req.json()) as Multi;
 	return res;
 };
 
