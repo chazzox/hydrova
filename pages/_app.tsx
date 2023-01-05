@@ -1,17 +1,20 @@
-import { SessionProvider } from 'next-auth/react';
-import './styles.css';
-
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NextPage } from 'next';
+import { Session } from 'next-auth/core/types';
+import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { themeChange } from 'theme-change';
+import './styles.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 	getLayout?: (page: React.ReactElement) => React.ReactNode;
 };
 
-type AppPropsWithLayout = AppProps<{ dehydratedState: unknown; session: unknown }> & {
+type AppPropsWithLayout = AppProps<{
+	dehydratedState: unknown;
+	session: Session | null | undefined;
+}> & {
 	Component: NextPageWithLayout;
 };
 
