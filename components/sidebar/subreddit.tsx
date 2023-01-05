@@ -8,7 +8,7 @@ const Subreddit: React.FC<{ token: string }> = ({ token }) => {
 	return (
 		<>
 			<li className="menu-title">
-				<span>My Subreddit's</span>
+				<span>My Subreddit&lsquo;s</span>
 			</li>
 
 			{subreddits?.data?.children.map(({ data }, i) => (
