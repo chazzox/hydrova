@@ -19,7 +19,16 @@ const Subreddit: React.FC<{ token?: string }> = ({ token }) => {
 			{subreddits?.data?.children.map(({ data }, i) => (
 				<li key={i}>
 					<div>
-						<img src={data.icon_img} className="h-7 w-7 rounded-2xl" />
+						{data.icon_img ? (
+							<img src={data.icon_img} className="h-7 w-7 rounded-2xl" />
+						) : (
+							<p
+								style={{ backgroundColor: data.primary_color }}
+								className="h-7 w-7 rounded-2xl text-center"
+							>
+								{data.display_name[0].toUpperCase()}
+							</p>
+						)}
 						<a>{data.url}</a>
 					</div>
 				</li>
