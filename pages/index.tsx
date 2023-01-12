@@ -1,41 +1,56 @@
 import Layout from '@components/layouts';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { getListing } from 'utils/reddit';
 import type { NextPageWithLayout } from './_app';
 
-import { useQuery } from '@tanstack/react-query';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { REDDIT_THING_TYPES } from '../typings/reddit.d';
-
 const Index: NextPageWithLayout = () => {
 	const token = useSession().data?.accessToken;
-	/**
-	 * @todo transform to using hook useInfiniteQuery
-	 */
-	const {
-		data: { data },
-		error,
-		isSuccess
-	} = useQuery(['listing'], () => getListing(token || '', { limit: '10' }), {
-		enabled: !!token,
-		initialData: {
-			kind: REDDIT_THING_TYPES.LISTING,
-			data: { modhash: '', dist: 0, children: [], after: null, before: null }
+
+	const { data, fetchNextPage } = useInfiniteQuery(
+		['listing'],
+		(p) => getListing(token || '', { limit: '15', after: p?.pageParam }),
+		{
+			enabled: !!token,
+			getNextPageParam: (lastPage, _) => {
+				console.log(lastPage, _);
+				return lastPage.data.after ?? undefined;
+			},
+			getPreviousPageParam: (firstPage, _) => firstPage.data.before ?? undefined
 		}
-	});
+	);
+
+	const isMounted = useRef(false);
+
+	useEffect(() => {
+		console.log(data);
+		if (!isMounted.current) {
+			isMounted.current = true;
+
+			setTimeout(fetchNextPage, 1000);
+			return;
+		}
+	}, [data]);
 
 	return (
 		<>
 			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
 				<div className="h-full flex-1 overflow-y-auto rounded-xl bg-base-300 p-3 shadow-lg">
-					{isSuccess &&
-						data.children.map(({ data }, i) => {
+					<Virtuoso
+						endReached={() => fetchNextPage()}
+						fixedItemHeight={128}
+						overscan={1000}
+						data={data?.pages.map((v) => v.data.children).flat()}
+						itemContent={(index, { data }) => {
 							const linkURL = new URL('https://www.reddit.com');
 							linkURL.pathname = data.permalink;
 
 							return (
-								<span key={i}>
-									<Link href={linkURL} key={i} target="_blank">
+								<span key={index}>
+									<Link href={linkURL} target="_blank">
 										<div className="h-32 w-full" key={data.id}>
 											<h3 className="font-bold text-white/60">
 												{data.title}
@@ -46,11 +61,11 @@ const Index: NextPageWithLayout = () => {
 									<div className="divider m-0"></div>
 								</span>
 							);
-						})}
+						}}
+					/>
 				</div>
 				<div className="h-full flex-1 rounded-xl bg-base-300 shadow-lg"></div>
 			</div>
-			{!isSuccess && <div>{JSON.stringify(error)}</div>}
 		</>
 	);
 };
