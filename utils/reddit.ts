@@ -28,6 +28,9 @@ export const fetchRefreshToken = async (refreshToken: string) => {
 				btoa(process.env.REDDIT_CLIENT_ID + ':' + process.env.REDDIT_CLIENT_SECRET)
 		}
 	});
+	/**
+	 * @todo: create better types for this response.
+	 */
 	const res = (await req.json()) as {
 		access_token: string;
 		expires_in: number;
@@ -39,7 +42,7 @@ export const fetchRefreshToken = async (refreshToken: string) => {
 
 export const getListing = async (
 	accessToken: string,
-	searchParams: { [key: string]: string } = { raw_json: '1' }
+	searchParams: { [key: string]: any } = { raw_json: 1 }
 ) => {
 	const req_url = new URL(REDDIT_ENDPOINTS.LISTING);
 	// adding any parameters to request url
