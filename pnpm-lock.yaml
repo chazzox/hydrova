@@ -27,6 +27,7 @@ specifiers:
 
 dependencies:
   '@tanstack/react-query': 4.2.3_biqbaboplfbrettd7655fr4n2y
+  classnames: 2.3.1
   daisyui: 2.25.0_25hquoklqeoqwmt7fwvvcyxm5e
   next: 12.2.5_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.18.8_3xcjr4wz26biff45sz3jtokgje
@@ -42,7 +43,6 @@ devDependencies:
   '@types/node': 17.0.45
   '@types/react': 18.0.18
   autoprefixer: 10.4.8_postcss@8.4.16
-  classnames: 2.3.1
   eslint: 8.31.0
   eslint-config-next: 13.1.1_xdoee2m3rk6cql2eld7jqbrwui
   postcss: 8.4.16
@@ -2038,7 +2038,7 @@ packages:
 
   /classnames/2.3.1:
     resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
-    dev: true
+    dev: false
 
   /clean-webpack-plugin/4.0.0:
     resolution: {integrity: sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w==}
