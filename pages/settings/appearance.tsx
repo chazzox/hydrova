@@ -1,7 +1,16 @@
 import SettingsLayout from '@components/layouts/settingsLayout';
 import { NextPageWithLayout } from 'pages/_app';
 
-const SELECTED_THEMES = ['retro', 'night', 'forest', 'dark', 'coffee', 'luxury', 'aqua'] as const;
+const SELECTED_THEMES = [
+	'retro',
+	'night',
+	'forest',
+	'dark',
+	'coffee',
+	'luxury',
+	'aqua',
+	'cyberpunk'
+] as const;
 
 const Appearance: NextPageWithLayout = () => {
 	return (
