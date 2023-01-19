@@ -3,12 +3,15 @@ import React from 'react';
 import { getSubreddit } from 'utils/reddit';
 
 const Subreddit: React.FC<{ token?: string }> = ({ token }) => {
-	// @ts-ignore
-	const { isLoading, data: subreddits } = useQuery(['subreddit'], () => getSubreddit(token), {
-		enabled: !!token,
-		staleTime: 0,
-		cacheTime: Infinity
-	});
+	const { isLoading, data: subreddits } = useQuery(
+		['subreddit'],
+		() => getSubreddit(token || ''),
+		{
+			enabled: !!token,
+			staleTime: 0,
+			cacheTime: Infinity
+		}
+	);
 
 	return (
 		<>
@@ -20,14 +23,22 @@ const Subreddit: React.FC<{ token?: string }> = ({ token }) => {
 				<li key={i}>
 					<div>
 						{data.icon_img ? (
-							<img src={data.icon_img} className="h-7 w-7 rounded-2xl" />
+							<div className="avatar">
+								<div className="w-7 rounded-full">
+									<img src={data.icon_img} />
+								</div>
+							</div>
 						) : (
-							<p
-								style={{ backgroundColor: data.primary_color }}
-								className="h-7 w-7 rounded-2xl text-center"
-							>
-								{data.display_name[0].toUpperCase()}
-							</p>
+							<div className="avatar placeholder">
+								<div
+									style={{ background: data.primary_color }}
+									className="w-7 rounded-full text-neutral-content"
+								>
+									<span className="text-lg">
+										{data.display_name[0].toUpperCase()}
+									</span>
+								</div>
+							</div>
 						)}
 						<a>{data.url}</a>
 					</div>
