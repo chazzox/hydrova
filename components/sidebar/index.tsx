@@ -4,13 +4,18 @@ import Link from 'next/link';
 import Feed from './feed';
 import Subreddit from './subreddit';
 
+/**
+ * the sidebar component of the application
+ * @param drawerId this is a react hook generated id, used for the daisyui toggle state
+ * @returns
+ */
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 	const { data } = useSession();
 
 	return (
 		<div className="drawer-side">
 			<label htmlFor={drawerId} className="drawer-overlay"></label>
-			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto bg-base-300 p-4 pt-0 pb-0 text-base-content">
+			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pt-0 pb-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/" className="font-bold">
 						<div className="flex">
