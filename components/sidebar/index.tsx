@@ -1,5 +1,4 @@
-import { Home, Hydrova, Mail, Post, Search, Settings } from '@assets/icons';
-import { useSession } from 'next-auth/react';
+import { Home, Hydrova, Mail, Post, Search, Settings } from 'assets/icons';
 import Link from 'next/link';
 import Feed from './feed';
 import Subreddit from './subreddit';
@@ -10,15 +9,15 @@ import Subreddit from './subreddit';
  * @returns
  */
 const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
-	const { data } = useSession();
+	const data: any = undefined;
 
 	return (
 		<div className="drawer-side">
 			<label htmlFor={drawerId} className="drawer-overlay"></label>
-			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pt-0 pb-0 text-base-content">
+			<ul className="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pb-0 pt-0 text-base-content">
 				<li className="sticky top-0 z-10 bg-base-300 py-4">
 					<Link href="/" className="font-bold">
-						<div className="flex">
+						<div className="flex items-center">
 							<Hydrova className="h-8 w-8" />
 							Hydrova
 						</div>
@@ -29,60 +28,52 @@ const Sidebar: React.FC<{ drawerId: string }> = ({ drawerId }) => {
 					<input
 						type="text"
 						placeholder="Search…"
-						className="input input-bordered w-full"
+						className="input-bordered input w-full"
 					/>
-					<button className="btn btn-square">
+					<button className="btn-square btn">
 						<Search className="h-5 w-5" />
 					</button>
 				</div>
 
 				<li>
 					<Link href="/">
-						<div>
-							<Home className="h-5 w-5" />
-							Home
-						</div>
+						<Home className="h-5 w-5" />
+						Home
 					</Link>
 				</li>
 				<li>
 					<Link href="/post">
-						<div>
-							<Post className="h-5 w-5" />
-							Post
-						</div>
+						<Post className="h-5 w-5" />
+						Post
 					</Link>
 				</li>
 				<li>
 					<Link href="/mail">
-						<div>
-							<Mail className="h-5 w-5" />
-							Mail
-						</div>
+						<Mail className="h-5 w-5" />
+						Mail
 					</Link>
 				</li>
 				<li>
 					<Link href="/settings/appearance">
-						<div>
-							<Settings className="h-5 w-5" />
-							Settings
-						</div>
+						<Settings className="h-5 w-5" />
+						Settings
 					</Link>
 				</li>
 
 				<Feed token={data?.accessToken} />
 				<Subreddit token={data?.accessToken} />
 
-				{data?.user && data.user?.image && (
+				{data?.user && data?.user?.image && (
 					<div className="sticky bottom-0 mt-auto flex w-full items-center gap-10 bg-base-300 p-4">
 						<div className="avatar">
 							<div className="h-14 w-14 rounded-xl ring ring-accent">
 								<img
-									src={data.user.image}
-									alt={`profile picture of ${data.user.name}`}
+									src={data?.user.image}
+									alt={`profile picture of ${data?.user.name}`}
 								/>
 							</div>
 						</div>
-						<div>{data.user?.name}</div>
+						<div>{data?.user?.name}</div>
 					</div>
 				)}
 			</ul>

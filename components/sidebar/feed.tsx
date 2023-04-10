@@ -1,3 +1,4 @@
+'use client';
 import { useQuery } from '@tanstack/react-query';
 import { getMulti } from 'utils/reddit';
 
@@ -15,10 +16,11 @@ const Feed: React.FC<{ token?: string }> = ({ token }) => {
 			<li className="menu-title">
 				<span>Feeds</span>
 			</li>
+			{/* @ts-ignore */}
 			{data?.map((v, i) => (
 				<li key={i}>
 					<a>
-						<div className="avatar placeholder">
+						<div className="placeholder avatar">
 							<div className="w-7 rounded-full bg-neutral-focus text-neutral-content">
 								<span className="text-lg">
 									{v.data.display_name[0].toUpperCase()}

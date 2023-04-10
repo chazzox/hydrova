@@ -1,18 +1,14 @@
+import Sidebar from 'components/sidebar';
 import { useId } from 'react';
-import Sidebar from '../sidebar';
 
-interface Props {
-	children: React.ReactNode;
-}
-
-export default function Layout({ children }: Props) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
 	const drawerId = useId();
 	return (
 		<div className="drawer-mobile drawer">
 			<input id={drawerId} type="checkbox" className="drawer-toggle" />
 			<label
 				htmlFor={drawerId}
-				className="swap-rotate btn swap btn-circle drawer-button fixed inset-2 z-40 shadow-2xl lg:hidden"
+				className="swap-rotate swap drawer-button btn-circle btn fixed inset-2 z-40 shadow-2xl lg:hidden"
 			>
 				<svg
 					className="swap-off fill-current"
@@ -34,7 +30,9 @@ export default function Layout({ children }: Props) {
 				</svg>
 			</label>
 
-			{children}
+			<div className="drawer-content flex flex-row items-center justify-center gap-3 p-3">
+				{children}
+			</div>
 
 			<Sidebar {...{ drawerId }} />
 		</div>
