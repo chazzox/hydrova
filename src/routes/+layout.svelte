@@ -1,15 +1,17 @@
 <script>
-	import './styles.css';
 	import { afterUpdate } from 'svelte';
 	import { themeChange } from 'theme-change';
+
+	import Header from '$lib/components/header.svelte';
+
+	import './styles.css';
 
 	afterUpdate(() => {
 		themeChange(false);
 	});
 </script>
 
-<div>
-	<main>
-		<slot />
-	</main>
-</div>
+<Header />
+<main>
+	<slot />
+</main>

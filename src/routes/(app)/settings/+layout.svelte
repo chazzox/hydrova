@@ -18,7 +18,7 @@
 			</a>
 		{/each}
 	</div>
-	<div class="flex-1 flex-col rounded-xl bg-base-300 p-10 shadow-lg">
+	<div class="flex-1 flex-col rounded-box bg-base-300 p-10 shadow-lg">
 		<slot />
 	</div>
 </div>

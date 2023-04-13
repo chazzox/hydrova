@@ -17,7 +17,7 @@
 	<ul
 		class="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pt-0 pb-0 text-base-content"
 	>
-		<li class="sticky top-0 z-10 bg-base-300 py-4">
+		<li class="sticky top-0 z-10 bg-base-300 pt-4">
 			<a href="/" class="font-bold">
 				<Hydrova class="h-8 w-8" />
 				Hydrova
@@ -31,12 +31,12 @@
 			</button>
 		</div>
 
-		<!-- <li>
+		<li>
 			<a href="/">
 				<Home class="h-5 w-5" />
 				Home
 			</a>
-		</li> -->
+		</li>
 		<li>
 			<a href="/post">
 				<Post class="h-5 w-5" />
