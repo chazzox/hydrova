@@ -1,10 +1,18 @@
-/** @type {import('@types/prettier').Options} */
+/**
+ * @type {import('@types/prettier').Options}
+ */
 module.exports = {
 	useTabs: true,
 	singleQuote: true,
 	trailingComma: 'none',
 	printWidth: 100,
-	plugins: ['prettier-plugin-svelte'],
-	pluginSearchDirs: ['.'],
-	overrides: [{ files: '*.svelte', options: { parser: 'svelte' } }]
+	plugins: [require('prettier-plugin-svelte'), require('prettier-plugin-tailwindcss')],
+	overrides: [
+		{
+			files: '*.svelte',
+			options: {
+				parser: 'svelte'
+			}
+		}
+	]
 };

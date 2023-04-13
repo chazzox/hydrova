@@ -1,5 +1,5 @@
 <script>
-	import Sidebar from './sidebar.svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
 
 	const drawerId = crypto.randomUUID();
 </script>
@@ -8,7 +8,7 @@
 	<input id={drawerId} type="checkbox" class="drawer-toggle" />
 	<label
 		for={drawerId}
-		class="swap-rotate btn swap btn-circle drawer-button fixed inset-2 z-40 shadow-2xl lg:hidden"
+		class="swap-rotate swap drawer-button btn-circle btn fixed inset-2 z-40 opacity-40 shadow-2xl lg:hidden"
 	>
 		<svg
 			class="swap-off fill-current"

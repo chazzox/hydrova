@@ -15,7 +15,7 @@
 <div class="drawer-side">
 	<label for={drawerId} class="drawer-overlay" />
 	<ul
-		class="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pt-0 pb-0 text-base-content"
+		class="menu z-10 flex h-full w-64 gap-3 overflow-y-auto overscroll-none bg-base-300 p-4 pb-0 pt-0 text-base-content"
 	>
 		<li class="sticky top-0 z-10 bg-base-300 pt-4">
 			<a href="/" class="font-bold">
@@ -25,8 +25,8 @@
 		</li>
 
 		<div class="input-group">
-			<input type="text" placeholder="Search…" class="input input-bordered w-full" />
-			<button class="btn btn-square">
+			<input type="text" placeholder="Search…" class="input-bordered input w-full" />
+			<button class="btn-square btn">
 				<Search class="h-5 w-5" />
 			</button>
 		</div>

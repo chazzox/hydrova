@@ -14,7 +14,7 @@
 
 <h2 class="text-lg font-bold text-white/80">Colors</h2>
 
-<div class="my-3 flex flex-wrap gap-8 mx-auto w-fit">
+<div class="my-3 flex flex-wrap gap-8 mx-auto w-fit justify-center">
 	{#each SELECTED_THEMES as theme}
 		<button
 			data-theme={theme}

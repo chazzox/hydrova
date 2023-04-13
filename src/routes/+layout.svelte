@@ -1,4 +1,5 @@
 <script>
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
 	import { afterUpdate } from 'svelte';
 	import { themeChange } from 'theme-change';
 
@@ -9,9 +10,13 @@
 	afterUpdate(() => {
 		themeChange(false);
 	});
+
+	const queryClient = new QueryClient();
 </script>
 
-<Header />
-<main>
-	<slot />
-</main>
+<QueryClientProvider client={queryClient}>
+	<Header />
+	<main>
+		<slot />
+	</main>
+</QueryClientProvider>

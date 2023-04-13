@@ -16,7 +16,7 @@
 </script>
 
 {#if !showHeader}
-	<div class="text-center bg-accent text-accent-content p-4 relative">
+	<div class="relative bg-accent p-4 text-center text-accent-content">
 		<span>
 			If you want to checkout the older version of hydrova (which is just as unfinished as this)
 			check it out <a class="link" href="https://hydrova.chazzox.uk">here</a>
