@@ -1,3 +1,8 @@
+/**
+ * Returns a nice string representing the difference between the current date and the given date
+ * @param date the utc number of the data to compare against
+ * @returns difference string 
+ */
 export const getDateDiffString = (date: number) => {
 	const current = new Date();
 	const diff = current.getTime() - new Date(date).getTime();
