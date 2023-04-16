@@ -1,29 +1,29 @@
 <script lang="ts">
 	import { createQuery } from '@tanstack/svelte-query';
-
 	import { getDateDiffString } from '$lib/utils';
 	import PostIcon from '$lib/assets/post-icon.svelte';
+	import { getListing } from '$lib/reddit';
 
-	export let listing_id: string = 'r/all';
+	export let listing_id: string;
 
-	let query: any;
-	$: query = createQuery({
+	$: listingQuery = createQuery({
 		queryKey: ['timeline', listing_id],
-		queryFn: () =>
-			fetch(new URL(listing_id, 'https://api.reddit.com/')).then((res) => res.json() as any)
+		queryFn: () => getListing(listing_id)
 	});
 </script>
 
-{#if query == undefined}yo{/if}
-
-{#if $query.isLoading}
+{#if $listingQuery.isLoading}
 	<p>loading</p>
-{:else if $query.isError}
+{:else if $listingQuery.isError}
 	<p>Error</p>
-{:else if $query.isSuccess}
-	{#each $query.data.data.children as postPreviewData}
-		<a href={`/${listing_id}/${postPreviewData.data.id}`} class="flex h-32 w-full flex-row px-3">
-			<div class="flex-1">
+{:else if $listingQuery.isSuccess}
+	{#each $listingQuery.data.data.children as postPreviewData}
+		<a
+			href={`/${listing_id}/${postPreviewData.data.id}`}
+			class="flex h-28 w-full flex-row items-center px-3"
+		>
+			<div class="flex flex-1 flex-col">
+				<!-- fucking horrible nested link hack 😍 -->
 				<!-- svelte-ignore a11y-missing-attribute -->
 				<object>
 					<p>
@@ -39,10 +39,11 @@
 						</a>
 					</p>
 				</object>
-				<p>{postPreviewData.data.title}</p>
+				<p class="flex-1 text-ellipsis">{postPreviewData.data.title}</p>
 			</div>
 
 			<PostIcon class="h-20 w-20 rounded-lg bg-white/10 p-2" />
 		</a>
+		<div class="divider m-0" />
 	{/each}
 {/if}

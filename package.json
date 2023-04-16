@@ -34,5 +34,8 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.2.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@tanstack/svelte-virtual": "3.0.0-beta.12"
+	}
 }
