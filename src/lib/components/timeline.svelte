@@ -2,13 +2,16 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import { getDateDiffString } from '$lib/utils';
 	import PostIcon from '$lib/assets/post-icon.svelte';
-	import { getListing } from '$lib/reddit';
+	import { getSubredditListing } from '$lib/reddit';
 
-	export let listing_id: string;
+	export let subreddit_id: string;
+	export let user_id: string;
+
+	$: listing_id = subreddit_id ? `r/${subreddit_id}` : user_id ? `user/${user_id}` : 'r/all';
 
 	$: listingQuery = createQuery({
 		queryKey: ['timeline', listing_id],
-		queryFn: () => getListing(listing_id)
+		queryFn: () => getSubredditListing(listing_id)
 	});
 </script>
 

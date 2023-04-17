@@ -26,11 +26,13 @@ type ReturnType<K extends REDDIT_THING_TYPES, D> = { kind: K; data: D };
  * @todo FIX ANY
  */
 type POST_LISTING_DATA = ReturnType<REDDIT_THING_TYPES.LINK, any>;
+
 type SUBREDDIT_LISTING_DATA = ReturnType<
 	REDDIT_THING_TYPES.SUBREDDIT,
 	Spread<
 		[
 			{
+				id: string;
 				user_flair_background_color: null | string;
 				submit_text_html: string;
 				restrict_posting: boolean;
@@ -54,12 +56,12 @@ type SUBREDDIT_LISTING_DATA = ReturnType<
 				subscribers: number;
 				user_flair_richtext: string[];
 				videostream_links_count: number;
-				/**
-				 * @todo FIX, COPY FROM `display_name_prefixed`
-				 */
 				url: string;
+				author: string;
+				created: number;
+				subreddit_name_prefixed: string;
 			},
-			PrefixObject<{ display_name: string }, 'display_name', 'display_name_prefixed', 'r/'>
+			PrefixObject<{ subreddit_name: string }, 'subreddit_name', 'subreddit_name_prefixed', 'r/'>
 		]
 	>
 >;
@@ -70,10 +72,7 @@ type MULTI_DATA = {
 	name: string;
 	description_html: string;
 	num_subscribers: number;
-	/**
-	 * @todo FIX ANY
-	 */
-	copied_from: null | any;
+	copied_from: null | string;
 	icon_url: string;
 	subreddits: { name: string }[];
 	created_utc: number;
@@ -82,10 +81,7 @@ type MULTI_DATA = {
 	over_18: boolean;
 	path: string;
 	owner: string;
-	/**
-	 * @todo FIX ANY
-	 */
-	key_color: null | any;
+	key_color: null | string;
 	is_subscriber: boolean;
 	owner_id: `${REDDIT_THING_TYPES.ACCOUNT}_${string}`;
 	description_md: string;
@@ -105,11 +101,16 @@ export type Subreddit = ReturnType<
 	REDDIT_THING_TYPES.LISTING,
 	Listing<REDDIT_THING_TYPES.SUBREDDIT, SUBREDDIT_LISTING_DATA>
 >;
+
+export type FullPost = [Post, Comments];
+
 export type Post = ReturnType<
 	REDDIT_THING_TYPES.LISTING,
 	Listing<REDDIT_THING_TYPES.LINK, POST_LISTING_DATA>
 >;
+
 export type Multi = ReturnType<REDDIT_THING_TYPES.MULTI, MULTI_DATA>[];
+
 export type Comments = ReturnType<
 	REDDIT_THING_TYPES.LISTING,
 	Listing<REDDIT_THING_TYPES.COMMENT, {}>

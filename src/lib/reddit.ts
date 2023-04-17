@@ -1,4 +1,4 @@
-import type { Multi, Post, Subreddit } from './types/reddit';
+import type { Multi, FullPost, Subreddit } from './types/reddit';
 
 const REDDIT_BASE = 'https://api.reddit.com/' as const;
 const METHODS = {
@@ -40,12 +40,12 @@ export const fetchRefreshToken = async (refreshToken: string) => {
 // improve getListing and getFullPost types
 
 /**
- * fetches a subreddit or user listing from reddit
+ * Fetches a subreddit or user listing from reddit
  * @param listing_string the url reddit sub listing
  * @param searchParams an object representing a search params
  * @returns listing object
  */
-export const getListing = async (listing_string: string, searchParams?: { [key: string]: any }) => {
+async function getListing<T>(listing_string: string, searchParams?: { [key: string]: any }) {
 	const req_url = new URL(listing_string, REDDIT_ENDPOINTS.LISTING);
 	req_url.searchParams.append('raw_json', '1');
 
@@ -57,13 +57,13 @@ export const getListing = async (listing_string: string, searchParams?: { [key: 
 	const req = await fetch(req_url, {
 		method: METHODS.GET
 	});
-	const res = (await req.json()) as Post;
+	const res = (await req.json()) as T;
 	return res;
-};
+}
 
-export const getFullPost = async (post_id: string) => {
-	return await getListing(post_id);
-};
+export const getFullPost = getListing<FullPost>;
+
+export const getSubredditListing = getListing<Subreddit>;
 
 export const getUserSubreddit = async (token: string) => {
 	const req = await fetch(REDDIT_ENDPOINTS.SUBREDDIT, {
